@@ -1,6 +1,6 @@
 # nim c -r --verbosity:0 test\xmathtest > test\xmathtest.test.txt; tools\dos2unix test\xmathtest.test.txt; git diff test\xmathtest.test.txt
 
-include xmath
+include vmath/xmath
 
 
 randomize(1234)

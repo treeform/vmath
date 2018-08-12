@@ -1,4 +1,4 @@
-# nim c -r --verbosity:0 test\vmathtest > test\vmathtest.test.txt; tools\dos2unix test\vmathtest.test.txt; git diff test\vmathtest.test.txt
+# nim c -r --verbosity:0 test\vmathtest > test\vmathtest.test.txt; dos2unix test\vmathtest.test.txt; git diff test\vmathtest.test.txt
 
 include vmath
 
