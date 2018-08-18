@@ -1393,22 +1393,39 @@ proc scaleMat*(scale: float): Mat4 =
 
 
 type Rect* = object
-  x*: int
-  y*: int
-  w*: int
-  h*: int
+  x*: float64
+  y*: float64
+  w*: float64
+  h*: float64
 
-
-proc rect*(x, y, w, h:int): Rect =
+proc rect*(x, y, w, h: float64): Rect =
   result.x = x
   result.y = y
   result.w = w
   result.h = h
 
+proc rect*(pos, size: Vec2): Rect =
+  result.x = pos.x
+  result.y = pos.y
+  result.w = size.x
+  result.h = size.y
 
-proc `$`*(a: Rect):string =
+proc xy*(rect: Rect): Vec2 =
+  ## Gets the xy as a vec2
+  vec2(rect.x, rect.y)
+
+proc wh*(rect: Rect): Vec2 =
+  ## Gets the wh as a vec2
+  vec2(rect.w, rect.h)
+
+proc intersects*(rect: Rect, pos: Vec2): bool =
+  ## Checks if point is inside the rectangle
+  (rect.x <= pos.x and pos.x <= rect.x + rect.w) and (
+   rect.y <= pos.y and pos.y <= rect.y + rect.h)
+
+proc `$`*(a: Rect): string =
   return "(" &
     $a.x & ", " &
-    $a.y & "x " &
-    $a.w & ", " &
+    $a.y & ": " &
+    $a.w & " x " &
     $a.h & ")"
