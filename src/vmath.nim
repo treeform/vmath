@@ -2,7 +2,6 @@ import math
 import strutils
 import random
 export math
-import print
 
 
 proc clamp*(n, min, max: float): float =
