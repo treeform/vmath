@@ -97,11 +97,11 @@ proc dot*(a: Vec2, b: Vec2): float32 =
 proc dir*(at: Vec2, to: Vec2): Vec2 =
   result = (at - to).normalize()
 
-proc dist*(at: Vec2, to: Vec2): float32 =
-  (at - to).length
-
 proc dir*(th: float32): Vec2 =
   vec2(sin(th), cos(th))
+
+proc dist*(at: Vec2, to: Vec2): float32 =
+  (at - to).length
 
 proc lerp*(a: Vec2, b: Vec2, v: float32): Vec2 =
   a * (1.0 - v) + b * v
