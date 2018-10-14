@@ -155,6 +155,11 @@ proc angleBetween*(a: Vec2, b: Vec2): float32 =
   ## Angle between 2 vec
   fixAngle(math.arctan2(a.y - b.y, a.x - b.x))
 
+
+proc angleBetween*(a, b: float32): float32 =
+  (b - a).fixAngle
+
+
 proc turnAngle*(a, b, speed: float32): float32 =
   ## Move from angle a to angle b with step of v
   var

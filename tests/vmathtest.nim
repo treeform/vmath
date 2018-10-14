@@ -1,10 +1,26 @@
-# nim c -r --verbosity:0 test\vmathtest > test\vmathtest.test.txt; dos2unix test\vmathtest.test.txt; git diff test\vmathtest.test.txt
+# nim c -r --verbosity:0 tests\vmathtest > tests\vmathtest.test.txt; dos2unix tests\vmathtest.test.txt; git diff tests\vmathtest.test.txt
 
 include vmath
 
 
 randomize(1234)
 
+
+block:
+  echo "--- angle stuff"
+  echo angleBetween(0.1, 0.2), " should be: ", 0.1
+
+  echo angleBetween(0.1, 0.2 + PI*2), " should be: ", 0.1
+  echo angleBetween(0.1, 0.2 - PI*2), " should be: ", 0.1
+  echo angleBetween(0.1 + PI*2, 0.2), " should be: ", 0.1
+  echo angleBetween(0.1 - PI*2, 0.2), " should be: ", 0.1
+
+  echo angleBetween(0.2, 0.1), " should be: ", -0.1
+
+  echo angleBetween(0.2, 0.1 - PI*2), " should be: ", -0.1
+  echo angleBetween(0.2, 0.1 + PI*2), " should be: ", -0.1
+  echo angleBetween(0.2 + PI*2, 0.1), " should be: ", -0.1
+  echo angleBetween(0.2 - PI*2, 0.1), " should be: ", -0.1
 
 block:
   echo "--- basic vector vec2"
