@@ -98,7 +98,7 @@ proc dir*(at: Vec2, to: Vec2): Vec2 =
   result = (at - to).normalize()
 
 proc dir*(th: float32): Vec2 =
-  vec2(sin(th), cos(th))
+  vec2(cos(th), sin(th))
 
 proc dist*(at: Vec2, to: Vec2): float32 =
   (at - to).length
