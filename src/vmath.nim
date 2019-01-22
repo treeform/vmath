@@ -916,7 +916,7 @@ proc translate*(v: Vec3): Mat4 =
 
 proc scale*(v: Vec3): Mat4 =
   result[0] = v.x
-  result[5] = v.x
+  result[5] = v.y
   result[10] = v.z
   result[15] = 1
 
