@@ -1302,6 +1302,7 @@ proc quat*(m: Mat4): Quat =
       q = quat(m12 - m21, m20 - m02, m01 - m10, t)
   q = q * (0.5 / sqrt(t))
 
+  echo abs(q.length - 1.0)
   assert abs(q.length - 1.0) < 0.001
   return q
 
