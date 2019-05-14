@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.2.1"
+version       = "0.2.2"
 author        = "treeform"
 description   = "Math vector library for graphical things."
 license       = "MIT"
@@ -8,4 +8,4 @@ srcDir        = "src"
 
 # Dependencies
 
-requires "nim >= 0.18.1"
+requires "nim >= 0.19.1"
