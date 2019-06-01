@@ -79,11 +79,11 @@ proc `-`*(a: Vec2): Vec2 =
   result.x = -a.x
   result.y = -a.y
 
-proc magSq*(a: Vec2): float32 =
+proc lengthSq*(a: Vec2): float32 =
   a.x * a.x + a.y * a.y
 
 proc length*(a: Vec2): float32 =
-  math.sqrt(a.magSq)
+  math.sqrt(a.lengthSq)
 
 proc `length=`*(a: var Vec2, b: float32) =
   a *= b / a.length
@@ -103,6 +103,9 @@ proc dir*(th: float32): Vec2 =
 proc dist*(at: Vec2, to: Vec2): float32 =
   (at - to).length
 
+proc distSq*(at: Vec2, to: Vec2): float32 =
+  (at - to).lengthSq
+
 proc lerp*(a: Vec2, b: Vec2, v: float32): Vec2 =
   a * (1.0 - v) + b * v
 
@@ -118,19 +121,24 @@ proc inRect*(v: Vec2, a: Vec2, b: Vec2): bool =
     max = vec2(max(a.x, b.x), max(a.y, b.y))
   return v.x > min.x and v.x < max.x and v.y > min.y and v.y < max.y
 
-template `[]`*(a: Vec2, i: int): float32 =
+proc `[]`*(a: Vec2, i: int): float32 =
   assert(i == 0 or i == 1)
-  when i == 0:
-    a.x
+  if i == 0:
+    return a.x
   elif i == 1:
-    a.y
+    return a.y
 
-template `[]=`*(a: Vec2, i: int, b: float32) =
+proc `[]=`*(a: var Vec2, i: int, b: float32) =
   assert(i == 0 or i == 1)
-  when i == 0:
+  if i == 0:
     a.x = b
   elif i == 1:
     a.y = b
+
+proc randVec2*(): Vec2 =
+  let a = rand(PI*2)
+  let v = rand(1.0)
+  vec2(cos(a)*v, sin(a)*v)
 
 proc `$`*(a: Vec2): string =
   return "(" &
@@ -255,11 +263,11 @@ proc `-`*(a: var Vec3): Vec3 =
   result.y = -a.y
   result.z = -a.z
 
-proc lengthSqrd*(a: Vec3): float32 =
+proc lengthSq*(a: Vec3): float32 =
   a.x * a.x + a.y * a.y + a.z * a.z
 
 proc length*(a: Vec3): float32 =
-  math.sqrt(a.lengthSqrd)
+  math.sqrt(a.lengthSq)
 
 proc `length=`*(a: var Vec3, b: float32) =
   a *= b / a.length
@@ -284,6 +292,9 @@ proc dir*(at: Vec3, to: Vec3): Vec3 =
 proc dist*(at: Vec3, to: Vec3): float32 =
   (at - to).length
 
+proc distSq*(at: Vec3, to: Vec3): float32 =
+  (at - to).lengthSq
+
 proc lerp*(a: Vec3, b: Vec3, v: float32): Vec3 =
   a * (1.0 - v) + b * v
 
@@ -292,18 +303,18 @@ proc angleBetween*(a, b: Vec3): float32 =
   dot = dot / (a.length * b.length)
   return arccos(dot)
 
-template `[]`*(a: Vec3, i: int): float32 =
+proc `[]`*(a: Vec3, i: int): float32 =
   assert(i == 0 or i == 1 or i == 2)
-  when i == 0:
-    a.x
+  if i == 0:
+    return a.x
   elif i == 1:
-    a.y
+    return a.y
   elif i == 2:
-    a.z
+    return a.z
 
-template `[]=`*(a: Vec3, i: int, b: float32) =
+proc `[]=`*(a: var Vec3, i: int, b: float32) =
   assert(i == 0 or i == 1 or i == 2)
-  when i == 0:
+  if i == 0:
     a.x = b
   elif i == 1:
     a.y = b
@@ -331,6 +342,19 @@ proc zy*(a: Vec3): Vec2 =
 proc almostEquals*(a, b: Vec3, precision = 1e-6): bool =
   let c = a - b
   return abs(c.x) < precision and abs(c.y) < precision and abs(c.z) < precision
+
+proc randVec3*(): Vec3 =
+  ## http://mathworld.wolfram.com/SpherePointPicking.html
+  let
+    u = rand(0.0 .. 1.0)
+    v = rand(0.0 .. 1.0)
+    th = 2 * PI * u
+    ph = arccos(2 * v - 1)
+  vec3(
+    sin(th) * cos(ph),
+    sin(th) * sin(th),
+    cos(th)
+  )
 
 proc `$`*(a: Vec3): string =
   return "(" &
@@ -1419,9 +1443,27 @@ proc xy*(rect: Rect): Vec2 =
   ## Gets the xy as a vec2
   vec2(rect.x, rect.y)
 
+proc `xy=`*(rect: var Rect, v: Vec2) =
+  ## Sets the xy from vec2
+  rect.x = v.x
+  rect.y = v.y
+
 proc wh*(rect: Rect): Vec2 =
   ## Gets the wh as a vec2
   vec2(rect.w, rect.h)
+
+proc `wh=`*(rect: var Rect, v: Vec2) =
+  ## Sets the wh from vec2
+  rect.w = v.x
+  rect.h = v.y
+
+proc `*`*(r: Rect, v: float): Rect =
+  ## * all elements of a rect
+  rect(r.x * v, r.y * v, r.w * v, r.h * v)
+
+proc `/`*(r: Rect, v: float): Rect =
+  ## / all elements of a rect
+  rect(r.x / v, r.y / v, r.w / v, r.h / v)
 
 proc intersects*(rect: Rect, pos: Vec2): bool =
   ## Checks if point is inside the rectangle
