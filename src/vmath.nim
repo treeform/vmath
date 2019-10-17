@@ -5,6 +5,7 @@ export math
 
 
 proc clamp*(n, min, max: float32): float32 =
+  ## Clamps n to min or max if its over.
   if n < min:
     return min
   if n > max:
@@ -18,13 +19,18 @@ proc sign*(v: float32): float32 =
   return -1.0
 
 proc quantize*(v: float32, n: float32): float32 =
+  ## Makes v be multipe of n. Rounding to intger quantize by 1.0.
   result = sign(v) * floor(abs(v) / n) * n
 
 proc lerp*(a: float32, b: float32, v: float32): float32 =
+  ## Interpolates value between a and b.
+  ## * 0 -> a
+  ## * 1 -> b
+  ## * 0.5 -> between a and b
   a * (1.0 - v) + b * v
 
-
 type Vec2* = object
+  ## 2D vector
   x*: float32
   y*: float32
 
@@ -114,8 +120,8 @@ proc quantize*(v: Vec2, n: float32): Vec2 =
   result.y = sign(v.y) * floor(abs(v.y) / n) * n
 
 proc inRect*(v: Vec2, a: Vec2, b: Vec2): bool =
-  ## Check to see if v is inside a rectange formed by a and b
-  ## It does not matter how a and b are arranged
+  ## Check to see if v is inside a rectange formed by a and b.
+  ## It does not matter how a and b are arranged.
   let
     min = vec2(min(a.x, b.x), min(a.y, b.y))
     max = vec2(max(a.x, b.x), max(a.y, b.y))
@@ -146,7 +152,7 @@ proc `$`*(a: Vec2): string =
     a.y.formatfloat(ffDecimal,4) & ")"
 
 proc fixAngle*(angle: float32): float32 =
-  ## Make angle be from -PI to PI radians
+  ## Make angle be from -PI to PI radians.
   var angle = angle
   while angle > PI:
     angle -= PI*2
@@ -155,18 +161,16 @@ proc fixAngle*(angle: float32): float32 =
   return angle
 
 proc angle*(a: Vec2): float32 =
-  ## Angle of a vec2
-  #echo "math.arctan2(" & $a.y & "," & $a.x & ") = " & $math.arctan2(a.y, a.x)
+  ## Angle of a vec2.
   math.arctan2(a.y, a.x)
 
 proc angleBetween*(a: Vec2, b: Vec2): float32 =
   ## Angle between 2 vec
   fixAngle(math.arctan2(a.y - b.y, a.x - b.x))
 
-
 proc angleBetween*(a, b: float32): float32 =
+  ## Angle between angle a and angle b
   (b - a).fixAngle
-
 
 proc turnAngle*(a, b, speed: float32): float32 =
   ## Move from angle a to angle b with step of v
@@ -182,6 +186,7 @@ proc turnAngle*(a, b, speed: float32): float32 =
 
 
 type Vec3* = object
+  ## 3D vector
   x*: float32
   y*: float32
   z*: float32
@@ -344,7 +349,7 @@ proc almostEquals*(a, b: Vec3, precision = 1e-6): bool =
   return abs(c.x) < precision and abs(c.y) < precision and abs(c.z) < precision
 
 proc randVec3*(): Vec3 =
-  ## http://mathworld.wolfram.com/SpherePointPicking.html
+  ## Generates a random vector based on: http://mathworld.wolfram.com/SpherePointPicking.html .
   let
     u = rand(0.0 .. 1.0)
     v = rand(0.0 .. 1.0)
@@ -364,6 +369,7 @@ proc `$`*(a: Vec3): string =
 
 
 type Vec4* = object
+  ## 4D Vector.
   x*: float32
   y*: float32
   z*: float32
@@ -466,7 +472,7 @@ proc vec4*(a: Vec2, z=0.0, w=0.0): Vec4 =
   vec4(a.x, a.y, z, w)
 
 
-type Mat3* = array[9, float32]
+type Mat3* = array[9, float32] ## 3x3 Matrix
 
 proc mat3*(a, b, c, d, e, f, g, h, i: float32): Mat3 =
   result[0] = a
@@ -617,7 +623,7 @@ proc `*`*(a: Mat3, b: Vec2): Vec2 =
   result.y = a[3]*b.x + a[4]*b.y + a[7]
 
 
-type Mat4* = array[16, float32]
+type Mat4* = array[16, float32] ## 4x4 Matrix - OpenGL row order
 
 
 proc mat4*(v0, v1, Vec2, Vec3, Vec4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15: float32): Mat4 =
