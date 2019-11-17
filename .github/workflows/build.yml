@@ -32,6 +32,6 @@ jobs:
       run: |
         export PATH=$HOME/.nimble/bin:$PATH
         echo $PATH
-        nimble build -y
+        nimble install -y
         nim c src/vmath.nim
 
