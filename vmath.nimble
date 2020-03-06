@@ -9,3 +9,4 @@ srcDir        = "src"
 # Dependencies
 
 requires "nim >= 0.19.1"
+requires "mddoc >= 0.0.2"
