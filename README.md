@@ -1,8 +1,9 @@
 # VMath
 
-Collection of math rutines that for 2d and 3d graphics.
+Collection of math routines for 2d and 3d graphics.
 
-Has functinos for Vec2, Vec3, Vec4, Mat3, Mat4 and Quat.
+Has functions for Vec2, Vec3, Vec4, Mat3, Mat4 and Quat.
+
 # API: vmath
 
 ```nim
@@ -11,7 +12,7 @@ import vmath
 
 ## **proc** clamp
 
-Clamps n to min or max if its over.
+Clamps n to min, else returns max if n is higher.
 
 ```nim
 proc clamp(n, min, max: float32): float32
@@ -27,7 +28,7 @@ proc sign(v: float32): float32
 
 ## **proc** quantize
 
-Makes v be multipe of n. Rounding to intger quantize by 1.0.
+Makes v be multipe of n. Rounding to integer quantize by 1.0.
 
 ```nim
 proc quantize(v: float32; n: float32): float32
@@ -271,7 +272,7 @@ proc fixAngle(angle: float32): float32
 
 ## **proc** angle
 
-Angle of a vec2.
+Angle of a Vec2.
 
 ```nim
 proc angle(a: Vec2): float32
@@ -279,7 +280,7 @@ proc angle(a: Vec2): float32
 
 ## **proc** angleBetween
 
-Angle between 2 vec
+Angle between 2 Vec2.
 
 ```nim
 proc angleBetween(a: Vec2; b: Vec2): float32
@@ -287,7 +288,7 @@ proc angleBetween(a: Vec2; b: Vec2): float32
 
 ## **proc** angleBetween
 
-Angle between angle a and angle b
+Angle between angle a and angle b.
 
 ```nim
 proc angleBetween(a, b: float32): float32
@@ -295,7 +296,7 @@ proc angleBetween(a, b: float32): float32
 
 ## **proc** turnAngle
 
-Move from angle a to angle b with step of v
+Move from angle a to angle b with step of v.
 
 ```nim
 proc turnAngle(a, b, speed: float32): float32
@@ -588,7 +589,7 @@ proc almostEquals(a, b: Vec3; precision = 1e-006): bool
 
 ## **proc** randVec3
 
-Generates a random vector based on: <a class="reference external" href="http://mathworld.wolfram.com/SpherePointPicking.html">http://mathworld.wolfram.com/SpherePointPicking.html</a> .
+Generates a random vector based on <a class="reference external" href="http://mathworld.wolfram.com/SpherePointPicking.html">http://mathworld.wolfram.com/SpherePointPicking.html</a>
 
 ```nim
 proc randVec3(): Vec3
@@ -1106,7 +1107,7 @@ proc xyz=(q: var Quat; v: Vec3)
 
 ## **proc** `*`
 
-Multiply the quaternion by a quaternion
+Multiply the quaternion by a quaternion.
 
 ```nim
 proc `*`(a, b: Quat): Quat
@@ -1114,7 +1115,7 @@ proc `*`(a, b: Quat): Quat
 
 ## **proc** `*`
 
-Multiply the quaternion by a float32
+Multiply the quaternion by a float32.
 
 ```nim
 proc `*`(q: Quat; v: float32): Quat
@@ -1122,7 +1123,7 @@ proc `*`(q: Quat; v: float32): Quat
 
 ## **proc** `*`
 
-Multiply the quaternion by a vector
+Multiply the quaternion by a vector.
 
 ```nim
 proc `*`(q: Quat; v: Vec3): Vec3
@@ -1261,7 +1262,7 @@ proc rect(pos, size: Vec2): Rect
 
 ## **proc** xy
 
-Gets the xy as a vec2
+Gets the xy as a Vec2.
 
 ```nim
 proc xy(rect: Rect): Vec2
@@ -1269,7 +1270,7 @@ proc xy(rect: Rect): Vec2
 
 ## **proc** xy=
 
-Sets the xy from vec2
+Sets the xy from Vec2.
 
 ```nim
 proc xy=(rect: var Rect; v: Vec2)
@@ -1277,7 +1278,7 @@ proc xy=(rect: var Rect; v: Vec2)
 
 ## **proc** wh
 
-Gets the wh as a vec2
+Gets the wh as a Vec2.
 
 ```nim
 proc wh(rect: Rect): Vec2
@@ -1285,7 +1286,7 @@ proc wh(rect: Rect): Vec2
 
 ## **proc** wh=
 
-Sets the wh from vec2
+Sets the wh from Vec2.
 
 ```nim
 proc wh=(rect: var Rect; v: Vec2)
@@ -1294,7 +1295,7 @@ proc wh=(rect: var Rect; v: Vec2)
 ## **proc** `*`
 
 
- * all elements of a rect
+ * all elements of a Rect.
 
 
 
@@ -1304,7 +1305,7 @@ proc `*`(r: Rect; v: float): Rect
 
 ## **proc** `/`
 
-/ all elements of a rect
+/ all elements of a Rect.
 
 ```nim
 proc `/`(r: Rect; v: float): Rect
@@ -1312,7 +1313,7 @@ proc `/`(r: Rect; v: float): Rect
 
 ## **proc** intersects
 
-Checks if point is inside the rectangle
+Checks if pos is inside rect.
 
 ```nim
 proc intersects(rect: Rect; pos: Vec2): bool

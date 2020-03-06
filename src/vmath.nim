@@ -5,7 +5,7 @@ export math
 
 
 proc clamp*(n, min, max: float32): float32 =
-  ## Clamps n to min or max if its over.
+  ## Clamps n to min, else returns max if n is higher.
   if n < min:
     return min
   if n > max:
@@ -19,7 +19,7 @@ proc sign*(v: float32): float32 =
   return -1.0
 
 proc quantize*(v: float32, n: float32): float32 =
-  ## Makes v be multipe of n. Rounding to intger quantize by 1.0.
+  ## Makes v be multipe of n. Rounding to integer quantize by 1.0.
   result = sign(v) * floor(abs(v) / n) * n
 
 proc lerp*(a: float32, b: float32, v: float32): float32 =
@@ -161,19 +161,19 @@ proc fixAngle*(angle: float32): float32 =
   return angle
 
 proc angle*(a: Vec2): float32 =
-  ## Angle of a vec2.
+  ## Angle of a Vec2.
   math.arctan2(a.y, a.x)
 
 proc angleBetween*(a: Vec2, b: Vec2): float32 =
-  ## Angle between 2 vec
+  ## Angle between 2 Vec2.
   fixAngle(math.arctan2(a.y - b.y, a.x - b.x))
 
 proc angleBetween*(a, b: float32): float32 =
-  ## Angle between angle a and angle b
+  ## Angle between angle a and angle b.
   (b - a).fixAngle
 
 proc turnAngle*(a, b, speed: float32): float32 =
-  ## Move from angle a to angle b with step of v
+  ## Move from angle a to angle b with step of v.
   var
     turn = fixAngle(b - a)
   if abs(turn) < speed:
@@ -349,7 +349,7 @@ proc almostEquals*(a, b: Vec3, precision = 1e-6): bool =
   return abs(c.x) < precision and abs(c.y) < precision and abs(c.z) < precision
 
 proc randVec3*(): Vec3 =
-  ## Generates a random vector based on: http://mathworld.wolfram.com/SpherePointPicking.html .
+  ## Generates a random vector based on http://mathworld.wolfram.com/SpherePointPicking.html
   let
     u = rand(0.0 .. 1.0)
     v = rand(0.0 .. 1.0)
@@ -596,7 +596,7 @@ proc scale*(a: Mat3, v: Vec3): Mat3 =
 
 
 proc rotationMat3*(angle: float32): Mat3 =
-  # create a matrix from an angle
+  # Create a matrix from an angle.
   let
     sin = sin(angle)
     cos = cos(angle)
@@ -614,7 +614,7 @@ proc rotationMat3*(angle: float32): Mat3 =
 
 
 proc rotate*(a: Mat3, angle: float32): Mat3 =
-  # rotates a matrix by an angle
+  # Rotates a matrix by an angle.
   a * rotationMat3(angle)
 
 
@@ -964,7 +964,7 @@ proc hrp*(m: Mat4): Vec3 =
     heading = arctan2(m[2], m[10])
     pitch = PI / 2
     roll = 0
-  elif m[1] < -0.998:  # singularity at sresulth pole
+  elif m[1] < -0.998:  # singularity at south pole
     heading = arctan2(m[2], m[10])
     pitch = -PI / 2
     roll = 0
@@ -1187,7 +1187,7 @@ proc `xyz=`*(q: var Quat, v: Vec3) =
 
 
 proc `*`*(a, b: Quat): Quat =
-  ## Multiply the quaternion by a quaternion
+  ## Multiply the quaternion by a quaternion.
   #[
   var q = quat(0,0,0,0)
   q.w = dot(a.xyz, b.xyz)
@@ -1205,7 +1205,7 @@ proc `*`*(a, b: Quat): Quat =
   result.w = a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z
 
 proc `*`*(q: Quat, v: float32): Quat =
-  ## Multiply the quaternion by a float32
+  ## Multiply the quaternion by a float32.
   result.x = q.x * v
   result.y = q.y * v
   result.z = q.z * v
@@ -1213,7 +1213,7 @@ proc `*`*(q: Quat, v: float32): Quat =
 
 
 proc `*`*(q: Quat, v: Vec3): Vec3 =
-  ## Multiply the quaternion by a vector
+  ## Multiply the quaternion by a vector.
   var
     x = v.x
     y = v.y
@@ -1446,33 +1446,33 @@ proc rect*(pos, size: Vec2): Rect =
   result.h = size.y
 
 proc xy*(rect: Rect): Vec2 =
-  ## Gets the xy as a vec2
+  ## Gets the xy as a Vec2.
   vec2(rect.x, rect.y)
 
 proc `xy=`*(rect: var Rect, v: Vec2) =
-  ## Sets the xy from vec2
+  ## Sets the xy from Vec2.
   rect.x = v.x
   rect.y = v.y
 
 proc wh*(rect: Rect): Vec2 =
-  ## Gets the wh as a vec2
+  ## Gets the wh as a Vec2.
   vec2(rect.w, rect.h)
 
 proc `wh=`*(rect: var Rect, v: Vec2) =
-  ## Sets the wh from vec2
+  ## Sets the wh from Vec2.
   rect.w = v.x
   rect.h = v.y
 
 proc `*`*(r: Rect, v: float): Rect =
-  ## * all elements of a rect
+  ## * all elements of a Rect.
   rect(r.x * v, r.y * v, r.w * v, r.h * v)
 
 proc `/`*(r: Rect, v: float): Rect =
-  ## / all elements of a rect
+  ## / all elements of a Rect.
   rect(r.x / v, r.y / v, r.w / v, r.h / v)
 
 proc intersects*(rect: Rect, pos: Vec2): bool =
-  ## Checks if point is inside the rectangle
+  ## Checks if pos is inside rect.
   (rect.x <= pos.x and pos.x <= rect.x + rect.w) and (
    rect.y <= pos.y and pos.y <= rect.y + rect.h)
 
