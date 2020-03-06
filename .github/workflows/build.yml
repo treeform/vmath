@@ -34,4 +34,3 @@ jobs:
         echo $PATH
         nimble install -y
         nim c src/vmath.nim
-
