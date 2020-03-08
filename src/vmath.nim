@@ -11,6 +11,10 @@ proc clamp*(n, min, max: float32): float32 =
     return max
   return n
 
+proc between*(value, min, max: float32): bool =
+  ## Returns true if value is between min and max or equal to them.
+  (value >= min) and (value <= max)
+
 proc sign*(v: float32): float32 =
   ## Returns the sign of a number, -1 or 1.
   if v >= 0:
@@ -1398,10 +1402,12 @@ proc `/`*(r: Rect, v: float): Rect =
   ## / all elements of a Rect.
   rect(r.x / v, r.y / v, r.w / v, r.h / v)
 
-proc intersects*(rect: Rect, pos: Vec2): bool =
-  ## Checks if pos is inside rect.
-  (rect.x <= pos.x and pos.x <= rect.x + rect.w) and (
-   rect.y <= pos.y and pos.y <= rect.y + rect.h)
+proc `+`*(a, b: Rect): Rect =
+  ## Add two boxes together.
+  result.x = a.x + b.x
+  result.y = a.y + b.y
+  result.w = a.w
+  result.h = a.h
 
 proc `$`*(a: Rect): string =
   return "(" &
@@ -1409,3 +1415,15 @@ proc `$`*(a: Rect): string =
     $a.y & ": " &
     $a.w & " x " &
     $a.h & ")"
+
+proc inside*(pos: Vec2, rect: Rect): bool =
+  ## Checks if pos is inside rect.
+  (rect.x <= pos.x and pos.x <= rect.x + rect.w) and (
+    rect.y <= pos.y and pos.y <= rect.y + rect.h)
+
+proc overlap*(a, b: Rect): bool =
+  ## Returns true if box a overlaps box b.
+  let
+    xOverlap = between(a.x, b.x, b.x + b.w) or between(b.x, a.x, a.x + a.w)
+    yOverlap = between(a.y, b.y, b.y + b.h) or between(b.y, a.y, a.y + a.h)
+  return xOverlap and yOverlap
