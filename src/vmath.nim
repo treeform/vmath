@@ -3,7 +3,6 @@ import strutils
 import random
 export math
 
-
 proc clamp*(n, min, max: float32): float32 =
   ## Clamps n to min, else returns max if n is higher.
   if n < min:
@@ -183,7 +182,6 @@ proc turnAngle*(a, b, speed: float32): float32 =
   elif turn < -speed:
     turn = -speed
   return a + turn
-
 
 type Vec3* = object
   ## 3D vector
@@ -367,7 +365,6 @@ proc `$`*(a: Vec3): string =
     a.y.formatfloat(ffDecimal,8) & ", " &
     a.z.formatfloat(ffDecimal,8) & ")"
 
-
 type Vec4* = object
   ## 4D Vector.
   x*: float32
@@ -461,7 +458,6 @@ proc `$`*(a: Vec4): string =
     a.z.formatfloat(ffDecimal,8) & ", " &
     a.w.formatfloat(ffDecimal,8) & ")"
 
-
 proc vec3*(a: Vec2, z=0.0): Vec3 =
   vec3(a.x, a.y, z)
 
@@ -470,7 +466,6 @@ proc vec4*(a: Vec3, w=0.0): Vec4 =
 
 proc vec4*(a: Vec2, z=0.0, w=0.0): Vec4 =
   vec4(a.x, a.y, z, w)
-
 
 type Mat3* = array[9, float32] ## 3x3 Matrix
 
@@ -485,10 +480,8 @@ proc mat3*(a, b, c, d, e, f, g, h, i: float32): Mat3 =
   result[7] = h
   result[8] = i
 
-
 proc mat3*(a: Mat3): Mat3 =
   result = a
-
 
 proc identity*(a: var Mat3) =
   a[0] = 1
@@ -501,10 +494,8 @@ proc identity*(a: var Mat3) =
   a[7] = 0
   a[8] = 1
 
-
 proc mat3*(): Mat3 =
   result.identity()
-
 
 proc transpose*(a: Mat3): Mat3 =
   result[0] = a[0]
@@ -516,7 +507,6 @@ proc transpose*(a: Mat3): Mat3 =
   result[6] = a[2]
   result[7] = a[5]
   result[8] = a[8]
-
 
 proc `$`*(a: Mat3): string =
   return "[" &
@@ -564,12 +554,10 @@ proc `*`*(a: Mat3, b: Mat3): Mat3 =
   result[7] = b20 * a01 + b21 * a11 + b22 * a21
   result[8] = b20 * a02 + b21 * a12 + b22 * a22
 
-
 proc `*`*(m: Mat3, v: Vec3): Vec3 =
   result.x = m[0]*v.x + m[1]*v.y + m[2]*v.z
   result.y = m[3]*v.x + m[4]*v.y + m[5]*v.z
   result.z = m[6]*v.x + m[7]*v.y + m[8]*v.z
-
 
 proc scale*(a: Mat3, v: Vec2): Mat3 =
   result[0] = v.x * a[0]
@@ -582,7 +570,6 @@ proc scale*(a: Mat3, v: Vec2): Mat3 =
   result[7] = a[7]
   result[8] = a[8]
 
-
 proc scale*(a: Mat3, v: Vec3): Mat3 =
   result[0] = v.x * a[0]
   result[1] = v.x * a[1]
@@ -593,7 +580,6 @@ proc scale*(a: Mat3, v: Vec3): Mat3 =
   result[6] = v.z * a[6]
   result[7] = v.z * a[7]
   result[8] = v.z * a[8]
-
 
 proc rotationMat3*(angle: float32): Mat3 =
   # Create a matrix from an angle.
@@ -612,19 +598,15 @@ proc rotationMat3*(angle: float32): Mat3 =
   result[7] = 0
   result[8] = 1
 
-
 proc rotate*(a: Mat3, angle: float32): Mat3 =
   # Rotates a matrix by an angle.
   a * rotationMat3(angle)
-
 
 proc `*`*(a: Mat3, b: Vec2): Vec2 =
   result.x = a[0]*b.x + a[1]*b.y + a[6]
   result.y = a[3]*b.x + a[4]*b.y + a[7]
 
-
 type Mat4* = array[16, float32] ## 4x4 Matrix - OpenGL row order
-
 
 proc mat4*(v0, v1, Vec2, Vec3, Vec4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15: float32): Mat4 =
   result[0] = v0
@@ -644,10 +626,8 @@ proc mat4*(v0, v1, Vec2, Vec3, Vec4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14
   result[14] = v14
   result[15] = v15
 
-
 proc mat4*(a: Mat4): Mat4 =
   result = a
-
 
 proc identity*(): Mat4 =
   result[0] = 1
@@ -667,10 +647,8 @@ proc identity*(): Mat4 =
   result[14] = 0
   result[15] = 1
 
-
 proc mat4*(): Mat4 =
   return identity()
-
 
 proc transpose*(a: Mat4): Mat4 =
   result[0] = a[0]
@@ -692,7 +670,6 @@ proc transpose*(a: Mat4): Mat4 =
   result[13] = a[7]
   result[14] = a[11]
   result[15] = a[15]
-
 
 proc determinant*(a: Mat4): float32 =
   var
@@ -721,7 +698,6 @@ proc determinant*(a: Mat4): float32 =
     a10*a01*a32*a23 - a00*a11*a32*a23 - a20*a11*a02*a33 + a10*a21*a02*a33 +
     a20*a01*a12*a33 - a00*a21*a12*a33 - a10*a01*a22*a33 + a00*a11*a22*a33
   )
-
 
 proc inverse*(a: Mat4): Mat4 =
   var
@@ -775,7 +751,6 @@ proc inverse*(a: Mat4): Mat4 =
   result[13] = ( a00*b09 - a01*b07 + a02*b06)*invDet
   result[14] = (-a30*b03 + a31*b01 - a32*b00)*invDet
   result[15] = ( a20*b03 - a21*b01 + a22*b00)*invDet
-
 
 proc `*`*(a, b: Mat4): Mat4 =
   var
@@ -831,65 +806,54 @@ proc `*`*(a, b: Mat4): Mat4 =
   result[14] = b30*a02 + b31*a12 + b32*a22 + b33*a32
   result[15] = b30*a03 + b31*a13 + b32*a23 + b33*a33
 
-
 proc `*`*(a: Mat4, b: Vec3): Vec3 =
   result.x = a[0]*b.x + a[4]*b.y + a[8]*b.z + a[12]
   result.y = a[1]*b.x + a[5]*b.y + a[9]*b.z + a[13]
   result.z = a[2]*b.x + a[6]*b.y + a[10]*b.z + a[14]
-
 
 proc right*(a: Mat4): Vec3 =
   result.x = a[0]
   result.y = a[1]
   result.z = a[2]
 
-
 proc `right=`*(a: var Mat4, b: Vec3) =
   a[0] = b.x
   a[1] = b.y
   a[2] = b.z
-
 
 proc up*(a: Mat4): Vec3 =
   result.x = a[4]
   result.y = a[5]
   result.z = a[6]
 
-
 proc `up=`*(a: var Mat4, b: Vec3) =
   a[4] = b.x
   a[5] = b.y
   a[6] = b.z
-
 
 proc fov*(a: Mat4): Vec3 =
   result.x = a[8]
   result.y = a[9]
   result.z = a[10]
 
-
 proc `fov=`*(a: var Mat4, b: Vec3) =
   a[8] = b.x
   a[9] = b.y
   a[10] = b.z
-
 
 proc pos*(a: Mat4): Vec3 =
   result.x = a[12]
   result.y = a[13]
   result.z = a[14]
 
-
 proc `pos=`*(a: var Mat4, b: Vec3) =
   a[12] = b.x
   a[13] = b.y
   a[14] = b.z
 
-
 proc rotationOnly*(a: Mat4): Mat4 =
   result = a
   result.pos = vec3(0,0,0)
-
 
 proc dist*(a, b: Mat4): float32 =
     var
@@ -933,7 +897,6 @@ proc translate*(a: Mat4, v: Vec3): Mat4 =
   result[15] = a03*v.x + a13*v.y + a23*v.z + a[15]
 ]#
 
-
 proc translate*(v: Vec3): Mat4 =
   result[0] = 1
   result[5] = 1
@@ -943,20 +906,17 @@ proc translate*(v: Vec3): Mat4 =
   result[13] = v.y
   result[14] = v.z
 
-
 proc scale*(v: Vec3): Mat4 =
   result[0] = v.x
   result[5] = v.y
   result[10] = v.z
   result[15] = 1
 
-
 proc close*(a: Mat4, b: Mat4): bool =
   for i in 0..15:
     if abs(a[i] - b[i]) > 0.001:
       return false
   return true
-
 
 proc hrp*(m: Mat4): Vec3 =
   var heading, pitch, roll: float32
@@ -975,7 +935,6 @@ proc hrp*(m: Mat4): Vec3 =
   result.x = heading
   result.y = pitch
   result.z = roll
-
 
 proc frustum*(left, right, bottom, top, near, far: float32): Mat4 =
   var
@@ -999,13 +958,11 @@ proc frustum*(left, right, bottom, top, near, far: float32): Mat4 =
   result[14] = -(far*near*2) / fn
   result[15] = 0
 
-
 proc perspective*(fovy, aspect, near, far: float32): Mat4 =
   var
     top = near * tan(fovy*PI / 360.0)
     right = top * aspect
   return frustum(-right, right, -top, top, near, far)
-
 
 proc ortho*(left, right, bottom, top, near, far: float32): Mat4 =
     var
@@ -1028,7 +985,6 @@ proc ortho*(left, right, bottom, top, near, far: float32): Mat4 =
     result[13] = -(top + bottom) / tb
     result[14] = -(far + near) / fn
     result[15] = 1
-
 
 proc lookAt*(eye, center, up: Vec3): Mat4 =
     var
@@ -1107,7 +1063,6 @@ proc lookAt*(eye, center, up: Vec3): Mat4 =
     result[14] = -(z0*eyex + z1*eyey + z2*eyez)
     result[15] = 1
 
-
 proc tofloat32*(m: Mat4): array[16, float32] =
    return [
       float32 m[0],  float32 m[1],  float32 m[2],  float32 m[3],
@@ -1115,7 +1070,6 @@ proc tofloat32*(m: Mat4): array[16, float32] =
       float32 m[8],  float32 m[9],  float32 m[10], float32 m[11],
       float32 m[12], float32 m[13], float32 m[14], float32 m[15]
    ]
-
 
 proc `$`*(a: Mat4): string =
   return "[" &
@@ -1136,13 +1090,11 @@ proc `$`*(a: Mat4): string =
     a[14].formatfloat(ffDecimal, 5) & ", " &
     a[15].formatfloat(ffDecimal, 5) & "]"
 
-
 type Quat* = object
   x*: float32
   y*: float32
   z*: float32
   w*: float32
-
 
 proc quat*(x, y, z, w: float32): Quat =
   result.x = x
@@ -1150,13 +1102,11 @@ proc quat*(x, y, z, w: float32): Quat =
   result.z = z
   result.w = w
 
-
 proc conjugate*(q: Quat): Quat =
   result.w =  q.w
   result.x = -q.x
   result.y = -q.y
   result.z = -q.z
-
 
 proc length*(q: Quat): float32 =
   return sqrt(
@@ -1165,7 +1115,6 @@ proc length*(q: Quat): float32 =
     q.y * q.y +
     q.z * q.z)
 
-
 proc normalize*(q: Quat): Quat =
   var m = q.length
   result.x = q.x / m
@@ -1173,18 +1122,15 @@ proc normalize*(q: Quat): Quat =
   result.z = q.z / m
   result.w = q.w / m
 
-
 proc xyz*(q: Quat): Vec3 =
   result.x = q.x
   result.y = q.y
   result.z = q.z
 
-
 proc `xyz=`*(q: var Quat, v: Vec3) =
   q.x = v.x
   q.y = v.y
   q.z = v.z
-
 
 proc `*`*(a, b: Quat): Quat =
   ## Multiply the quaternion by a quaternion.
@@ -1211,7 +1157,6 @@ proc `*`*(q: Quat, v: float32): Quat =
   result.z = q.z * v
   result.w = q.w * v
 
-
 proc `*`*(q: Quat, v: Vec3): Vec3 =
   ## Multiply the quaternion by a vector.
   var
@@ -1232,7 +1177,6 @@ proc `*`*(q: Quat, v: Vec3): Vec3 =
   result.x = ix * qw + iw * -qx + iy * -qz - iz * -qy
   result.y = iy * qw + iw * -qy + iz * -qx - ix * -qz
   result.z = iz * qw + iw * -qz + ix * -qy - iy * -qx
-
 
 proc mat3*(q: Quat): Mat3 =
   var xx     = q.x * q.x
@@ -1258,8 +1202,6 @@ proc mat3*(q: Quat): Mat3 =
   result[6]  =     2 * ( xz - yw )
   result[7]  =     2 * ( yz + xw )
   result[8]  = 1 - 2 * ( xx + yy )
-
-
 
 proc mat4*(q: Quat): Mat4 =
   var xx     = q.x * q.x
@@ -1294,10 +1236,8 @@ proc mat4*(q: Quat): Mat4 =
   result[14] = 0
   result[15] = 1.0
 
-
 proc reciprocalSqrt*(x: float32): float32 =
  return 1.0/sqrt(x)
-
 
 proc quat*(m: Mat4): Quat =
   var
@@ -1336,7 +1276,6 @@ proc quat*(m: Mat4): Quat =
   assert abs(q.length - 1.0) < 0.001
   return q
 
-
 proc fromAxisAngle*(axis: Vec3, angle: float32): Quat =
   var a = axis.normalize()
   var s = sin(angle / 2)
@@ -1344,7 +1283,6 @@ proc fromAxisAngle*(axis: Vec3, angle: float32): Quat =
   result.y = a.y * s
   result.z = a.z * s
   result.w = cos(angle / 2)
-
 
 proc toAxisAngle*(q: Quat, axis: var Vec3, angle: var float32) =
   var cosAngle = q.w
@@ -1358,7 +1296,6 @@ proc toAxisAngle*(q: Quat, axis: var Vec3, angle: var float32) =
   axis.y = q.y / sinAngle
   axis.z = q.z / sinAngle
 
-
 proc quat*(heading, pitch, roll: float32): Quat =
   var t0 = cos(heading * 0.5)
   var t1 = sin(heading * 0.5)
@@ -1370,7 +1307,6 @@ proc quat*(heading, pitch, roll: float32): Quat =
   result.x = t0 * t3 * t4 - t1 * t2 * t5
   result.y = t0 * t2 * t5 + t1 * t3 * t4
   result.z = t1 * t2 * t4 - t0 * t3 * t5
-
 
 proc hrp*(q: Quat): Vec3 =
   var ysqr = q.y * q.y
@@ -1390,7 +1326,6 @@ proc hrp*(q: Quat): Vec3 =
   var t4 = +1.0 - 2.0 * (ysqr + q.z * q.z)
   result.x = arctan2(t3, t4)
 
-
 proc `$`*(a: Quat): string =
   return "q(" &
     a.x.formatfloat(ffDecimal,8) & ", " &
@@ -1398,23 +1333,17 @@ proc `$`*(a: Quat): string =
     a.z.formatfloat(ffDecimal,8) & ", " &
     a.w.formatfloat(ffDecimal,8) & ")"
 
-
-
 proc rotate*(angle: float32, axis: Vec3): Mat4 =
   fromAxisAngle(axis, angle).mat4()
-
 
 proc rotateX*(angle: float32): Mat4 =
   return rotate(angle, vec3(1, 0, 0))
 
-
 proc rotateY*(angle: float32): Mat4 =
   return rotate(angle, vec3(0, 1, 0))
 
-
 proc rotateZ*(angle: float32): Mat4 =
   return rotate(angle, vec3(0, 0, 1))
-
 
 proc scaleMat*(scale: Vec3): Mat4 =
   result[0] = scale.x
@@ -1422,10 +1351,8 @@ proc scaleMat*(scale: Vec3): Mat4 =
   result[10] = scale.z
   result[15] = 1.0
 
-
 proc scaleMat*(scale: float32): Mat4 =
   return scaleMat(vec3(scale, scale, scale))
-
 
 type Rect* = object
   x*: float32
