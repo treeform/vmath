@@ -1,6 +1,4 @@
-import math
-import strutils
-import random
+import math, random, strutils
 export math
 
 proc clamp*(n, min, max: float32): float32 =
@@ -151,8 +149,8 @@ proc randVec2*(): Vec2 =
 
 proc `$`*(a: Vec2): string =
   return "(" &
-    a.x.formatfloat(ffDecimal,4) & ", " &
-    a.y.formatfloat(ffDecimal,4) & ")"
+    a.x.formatfloat(ffDecimal, 4) & ", " &
+    a.y.formatfloat(ffDecimal, 4) & ")"
 
 proc fixAngle*(angle: float32): float32 =
   ## Make angle be from -PI to PI radians.
@@ -365,9 +363,9 @@ proc randVec3*(): Vec3 =
 
 proc `$`*(a: Vec3): string =
   return "(" &
-    a.x.formatfloat(ffDecimal,8) & ", " &
-    a.y.formatfloat(ffDecimal,8) & ", " &
-    a.z.formatfloat(ffDecimal,8) & ")"
+    a.x.formatfloat(ffDecimal, 8) & ", " &
+    a.y.formatfloat(ffDecimal, 8) & ", " &
+    a.z.formatfloat(ffDecimal, 8) & ")"
 
 type Vec4* = object
   ## 4D Vector.
@@ -457,18 +455,18 @@ proc xyz*(a: Vec4): Vec3 =
 
 proc `$`*(a: Vec4): string =
   return "(" &
-    a.x.formatfloat(ffDecimal,8) & ", " &
-    a.y.formatfloat(ffDecimal,8) & ", " &
-    a.z.formatfloat(ffDecimal,8) & ", " &
-    a.w.formatfloat(ffDecimal,8) & ")"
+    a.x.formatfloat(ffDecimal, 8) & ", " &
+    a.y.formatfloat(ffDecimal, 8) & ", " &
+    a.z.formatfloat(ffDecimal, 8) & ", " &
+    a.w.formatfloat(ffDecimal, 8) & ")"
 
-proc vec3*(a: Vec2, z=0.0): Vec3 =
+proc vec3*(a: Vec2, z = 0.0): Vec3 =
   vec3(a.x, a.y, z)
 
-proc vec4*(a: Vec3, w=0.0): Vec4 =
+proc vec4*(a: Vec3, w = 0.0): Vec4 =
   vec4(a.x, a.y, a.z, w)
 
-proc vec4*(a: Vec2, z=0.0, w=0.0): Vec4 =
+proc vec4*(a: Vec2, z = 0.0, w = 0.0): Vec4 =
   vec4(a.x, a.y, z, w)
 
 type Mat3* = array[9, float32] ## 3x3 Matrix
@@ -514,15 +512,15 @@ proc transpose*(a: Mat3): Mat3 =
 
 proc `$`*(a: Mat3): string =
   return "[" &
-    a[0].formatfloat(ffDecimal,4) & ", " &
-    a[1].formatfloat(ffDecimal,4) & ", " &
-    a[2].formatfloat(ffDecimal,4) & ", " &
-    a[3].formatfloat(ffDecimal,4) & ", " &
-    a[4].formatfloat(ffDecimal,4) & ", " &
-    a[5].formatfloat(ffDecimal,4) & ", " &
-    a[6].formatfloat(ffDecimal,4) & ", " &
-    a[7].formatfloat(ffDecimal,4) & ", " &
-    a[8].formatfloat(ffDecimal,4) & "]"
+    a[0].formatfloat(ffDecimal, 4) & ", " &
+    a[1].formatfloat(ffDecimal, 4) & ", " &
+    a[2].formatfloat(ffDecimal, 4) & ", " &
+    a[3].formatfloat(ffDecimal, 4) & ", " &
+    a[4].formatfloat(ffDecimal, 4) & ", " &
+    a[5].formatfloat(ffDecimal, 4) & ", " &
+    a[6].formatfloat(ffDecimal, 4) & ", " &
+    a[7].formatfloat(ffDecimal, 4) & ", " &
+    a[8].formatfloat(ffDecimal, 4) & "]"
 
 proc `*`*(a: Mat3, b: Mat3): Mat3 =
   let
@@ -612,7 +610,8 @@ proc `*`*(a: Mat3, b: Vec2): Vec2 =
 
 type Mat4* = array[16, float32] ## 4x4 Matrix - OpenGL row order
 
-proc mat4*(v0, v1, Vec2, Vec3, Vec4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15: float32): Mat4 =
+proc mat4*(v0, v1, Vec2, Vec3, Vec4, v5, v6, v7, v8, v9, v10, v11, v12, v13,
+    v14, v15: float32): Mat4 =
   result[0] = v0
   result[1] = v1
   result[2] = Vec2
@@ -677,22 +676,22 @@ proc transpose*(a: Mat4): Mat4 =
 
 proc determinant*(a: Mat4): float32 =
   var
-     a00 = a[0]
-     a01 = a[1]
-     a02 = a[2]
-     a03 = a[3]
-     a10 = a[4]
-     a11 = a[5]
-     a12 = a[6]
-     a13 = a[7]
-     a20 = a[8]
-     a21 = a[9]
-     a22 = a[10]
-     a23 = a[11]
-     a30 = a[12]
-     a31 = a[13]
-     a32 = a[14]
-     a33 = a[15]
+    a00 = a[0]
+    a01 = a[1]
+    a02 = a[2]
+    a03 = a[3]
+    a10 = a[4]
+    a11 = a[5]
+    a12 = a[6]
+    a13 = a[7]
+    a20 = a[8]
+    a21 = a[9]
+    a22 = a[10]
+    a23 = a[11]
+    a30 = a[12]
+    a31 = a[13]
+    a32 = a[14]
+    a33 = a[15]
 
   return (
     a30*a21*a12*a03 - a20*a31*a12*a03 - a30*a11*a22*a03 + a10*a31*a22*a03 +
@@ -705,22 +704,22 @@ proc determinant*(a: Mat4): float32 =
 
 proc inverse*(a: Mat4): Mat4 =
   var
-     a00 = a[0]
-     a01 = a[1]
-     a02 = a[2]
-     a03 = a[3]
-     a10 = a[4]
-     a11 = a[5]
-     a12 = a[6]
-     a13 = a[7]
-     a20 = a[8]
-     a21 = a[9]
-     a22 = a[10]
-     a23 = a[11]
-     a30 = a[12]
-     a31 = a[13]
-     a32 = a[14]
-     a33 = a[15]
+    a00 = a[0]
+    a01 = a[1]
+    a02 = a[2]
+    a03 = a[3]
+    a10 = a[4]
+    a11 = a[5]
+    a12 = a[6]
+    a13 = a[7]
+    a20 = a[8]
+    a21 = a[9]
+    a22 = a[10]
+    a23 = a[11]
+    a30 = a[12]
+    a31 = a[13]
+    a32 = a[14]
+    a33 = a[15]
 
   var
     b00 = a00*a11 - a01*a10
@@ -739,22 +738,22 @@ proc inverse*(a: Mat4): Mat4 =
   # Calculate the invese determinant
   var invDet = 1.0/(b00*b11 - b01*b10 + b02*b09 + b03*b08 - b04*b07 + b05*b06)
 
-  result[ 0] = ( a11*b11 - a12*b10 + a13*b09)*invDet
-  result[ 1] = (-a01*b11 + a02*b10 - a03*b09)*invDet
-  result[ 2] = ( a31*b05 - a32*b04 + a33*b03)*invDet
-  result[ 3] = (-a21*b05 + a22*b04 - a23*b03)*invDet
-  result[ 4] = (-a10*b11 + a12*b08 - a13*b07)*invDet
-  result[ 5] = ( a00*b11 - a02*b08 + a03*b07)*invDet
-  result[ 6] = (-a30*b05 + a32*b02 - a33*b01)*invDet
-  result[ 7] = ( a20*b05 - a22*b02 + a23*b01)*invDet
-  result[ 8] = ( a10*b10 - a11*b08 + a13*b06)*invDet
-  result[ 9] = (-a00*b10 + a01*b08 - a03*b06)*invDet
-  result[10] = ( a30*b04 - a31*b02 + a33*b00)*invDet
+  result[00] = (+a11*b11 - a12*b10 + a13*b09)*invDet
+  result[01] = (-a01*b11 + a02*b10 - a03*b09)*invDet
+  result[02] = (+a31*b05 - a32*b04 + a33*b03)*invDet
+  result[03] = (-a21*b05 + a22*b04 - a23*b03)*invDet
+  result[04] = (-a10*b11 + a12*b08 - a13*b07)*invDet
+  result[05] = (+a00*b11 - a02*b08 + a03*b07)*invDet
+  result[06] = (-a30*b05 + a32*b02 - a33*b01)*invDet
+  result[07] = (+a20*b05 - a22*b02 + a23*b01)*invDet
+  result[08] = (+a10*b10 - a11*b08 + a13*b06)*invDet
+  result[09] = (-a00*b10 + a01*b08 - a03*b06)*invDet
+  result[10] = (+a30*b04 - a31*b02 + a33*b00)*invDet
   result[11] = (-a20*b04 + a21*b02 - a23*b00)*invDet
   result[12] = (-a10*b09 + a11*b07 - a12*b06)*invDet
-  result[13] = ( a00*b09 - a01*b07 + a02*b06)*invDet
+  result[13] = (+a00*b09 - a01*b07 + a02*b06)*invDet
   result[14] = (-a30*b03 + a31*b01 - a32*b00)*invDet
-  result[15] = ( a20*b03 - a21*b01 + a22*b00)*invDet
+  result[15] = (+a20*b03 - a21*b01 + a22*b00)*invDet
 
 proc `*`*(a, b: Mat4): Mat4 =
   var
@@ -793,16 +792,16 @@ proc `*`*(a, b: Mat4): Mat4 =
     b32 = b[14]
     b33 = b[15]
 
-  result[ 0] = b00*a00 + b01*a10 + b02*a20 + b03*a30
-  result[ 1] = b00*a01 + b01*a11 + b02*a21 + b03*a31
-  result[ 2] = b00*a02 + b01*a12 + b02*a22 + b03*a32
-  result[ 3] = b00*a03 + b01*a13 + b02*a23 + b03*a33
-  result[ 4] = b10*a00 + b11*a10 + b12*a20 + b13*a30
-  result[ 5] = b10*a01 + b11*a11 + b12*a21 + b13*a31
-  result[ 6] = b10*a02 + b11*a12 + b12*a22 + b13*a32
-  result[ 7] = b10*a03 + b11*a13 + b12*a23 + b13*a33
-  result[ 8] = b20*a00 + b21*a10 + b22*a20 + b23*a30
-  result[ 9] = b20*a01 + b21*a11 + b22*a21 + b23*a31
+  result[00] = b00*a00 + b01*a10 + b02*a20 + b03*a30
+  result[01] = b00*a01 + b01*a11 + b02*a21 + b03*a31
+  result[02] = b00*a02 + b01*a12 + b02*a22 + b03*a32
+  result[03] = b00*a03 + b01*a13 + b02*a23 + b03*a33
+  result[04] = b10*a00 + b11*a10 + b12*a20 + b13*a30
+  result[05] = b10*a01 + b11*a11 + b12*a21 + b13*a31
+  result[06] = b10*a02 + b11*a12 + b12*a22 + b13*a32
+  result[07] = b10*a03 + b11*a13 + b12*a23 + b13*a33
+  result[08] = b20*a00 + b21*a10 + b22*a20 + b23*a30
+  result[09] = b20*a01 + b21*a11 + b22*a21 + b23*a31
   result[10] = b20*a02 + b21*a12 + b22*a22 + b23*a32
   result[11] = b20*a03 + b21*a13 + b22*a23 + b23*a33
   result[12] = b30*a00 + b31*a10 + b32*a20 + b33*a30
@@ -857,14 +856,14 @@ proc `pos=`*(a: var Mat4, b: Vec3) =
 
 proc rotationOnly*(a: Mat4): Mat4 =
   result = a
-  result.pos = vec3(0,0,0)
+  result.pos = vec3(0, 0, 0)
 
 proc dist*(a, b: Mat4): float32 =
-    var
-      x = a[12] - b[12]
-      y = a[13] - b[13]
-      z = a[14] - b[14]
-    return sqrt(x*x + y*y + z*z)
+  var
+    x = a[12] - b[12]
+    y = a[13] - b[13]
+    z = a[14] - b[14]
+  return sqrt(x*x + y*y + z*z)
 
 #[
 proc translate*(a: Mat4, v: Vec3): Mat4 =
@@ -928,12 +927,12 @@ proc hrp*(m: Mat4): Vec3 =
     heading = arctan2(m[2], m[10])
     pitch = PI / 2
     roll = 0
-  elif m[1] < -0.998:  # singularity at south pole
+  elif m[1] < -0.998: # singularity at south pole
     heading = arctan2(m[2], m[10])
     pitch = -PI / 2
     roll = 0
   else:
-    heading =arctan2(-m[8], m[0])
+    heading = arctan2(-m[8], m[0])
     pitch = arctan2(-m[6], m[5])
     roll = arcsin(m[4])
   result.x = heading
@@ -969,111 +968,111 @@ proc perspective*(fovy, aspect, near, far: float32): Mat4 =
   return frustum(-right, right, -top, top, near, far)
 
 proc ortho*(left, right, bottom, top, near, far: float32): Mat4 =
-    var
-      rl = (right - left)
-      tb = (top - bottom)
-      fn = (far - near)
-    result[0] = 2 / rl
-    result[1] = 0
-    result[2] = 0
-    result[3] = 0
-    result[4] = 0
-    result[5] = 2 / tb
-    result[6] = 0
-    result[7] = 0
-    result[8] = 0
-    result[9] = 0
-    result[10] = -2 / fn
-    result[11] = 0
-    result[12] = -(left + right) / rl
-    result[13] = -(top + bottom) / tb
-    result[14] = -(far + near) / fn
-    result[15] = 1
+  var
+    rl = (right - left)
+    tb = (top - bottom)
+    fn = (far - near)
+  result[0] = 2 / rl
+  result[1] = 0
+  result[2] = 0
+  result[3] = 0
+  result[4] = 0
+  result[5] = 2 / tb
+  result[6] = 0
+  result[7] = 0
+  result[8] = 0
+  result[9] = 0
+  result[10] = -2 / fn
+  result[11] = 0
+  result[12] = -(left + right) / rl
+  result[13] = -(top + bottom) / tb
+  result[14] = -(far + near) / fn
+  result[15] = 1
 
 proc lookAt*(eye, center, up: Vec3): Mat4 =
-    var
-      eyex = eye[0]
-      eyey = eye[1]
-      eyez = eye[2]
-      upx = up[0]
-      upy = up[1]
-      upz = up[2]
-      centerx = center[0]
-      centery = center[1]
-      centerz = center[2]
+  var
+    eyex = eye[0]
+    eyey = eye[1]
+    eyez = eye[2]
+    upx = up[0]
+    upy = up[1]
+    upz = up[2]
+    centerx = center[0]
+    centery = center[1]
+    centerz = center[2]
 
-    if eyex == centerx and eyey == centery and eyez == centerz:
-        return identity()
+  if eyex == centerx and eyey == centery and eyez == centerz:
+    return identity()
 
-    var
-      # vec3.direction(eye, center, z)
-      z0 = eyex - center[0]
-      z1 = eyey - center[1]
-      z2 = eyez - center[2]
+  var
+    # vec3.direction(eye, center, z)
+    z0 = eyex - center[0]
+    z1 = eyey - center[1]
+    z2 = eyez - center[2]
 
-    # normalize (no check needed for 0 because of early return)
-    var len = 1/sqrt(z0*z0 + z1*z1 + z2*z2)
-    z0 *= len
-    z1 *= len
-    z2 *= len
+  # normalize (no check needed for 0 because of early return)
+  var len = 1/sqrt(z0*z0 + z1*z1 + z2*z2)
+  z0 *= len
+  z1 *= len
+  z2 *= len
 
-    var
-      # vec3.normalize(vec3.cross(up, z, x))
-      x0 = upy*z2 - upz*z1
-      x1 = upz*z0 - upx*z2
-      x2 = upx*z1 - upy*z0
-    len = sqrt(x0*x0 + x1*x1 + x2*x2)
-    if len == 0:
-        x0 = 0
-        x1 = 0
-        x2 = 0
-    else:
-        len = 1/len
-        x0 *= len
-        x1 *= len
-        x2 *= len
+  var
+    # vec3.normalize(vec3.cross(up, z, x))
+    x0 = upy*z2 - upz*z1
+    x1 = upz*z0 - upx*z2
+    x2 = upx*z1 - upy*z0
+  len = sqrt(x0*x0 + x1*x1 + x2*x2)
+  if len == 0:
+    x0 = 0
+    x1 = 0
+    x2 = 0
+  else:
+    len = 1/len
+    x0 *= len
+    x1 *= len
+    x2 *= len
 
-    var
-      # vec3.normalize(vec3.cross(z, x, y))
-      y0 = z1*x2 - z2*x1
-      y1 = z2*x0 - z0*x2
-      y2 = z0*x1 - z1*x0
+  var
+    # vec3.normalize(vec3.cross(z, x, y))
+    y0 = z1*x2 - z2*x1
+    y1 = z2*x0 - z0*x2
+    y2 = z0*x1 - z1*x0
 
-    len = sqrt(y0*y0 + y1*y1 + y2*y2)
-    if len == 0:
-        y0 = 0
-        y1 = 0
-        y2 = 0
-    else:
-        len = 1/len
-        y0 *= len
-        y1 *= len
-        y2 *= len
+  len = sqrt(y0*y0 + y1*y1 + y2*y2)
+  if len == 0:
+    y0 = 0
+    y1 = 0
+    y2 = 0
+  else:
+    len = 1/len
+    y0 *= len
+    y1 *= len
+    y2 *= len
 
-    result[0] = x0
-    result[1] = y0
-    result[2] = z0
-    result[3] = 0
-    result[4] = x1
-    result[5] = y1
-    result[6] = z1
-    result[7] = 0
-    result[8] = x2
-    result[9] = y2
-    result[10] = z2
-    result[11] = 0
-    result[12] = -(x0*eyex + x1*eyey + x2*eyez)
-    result[13] = -(y0*eyex + y1*eyey + y2*eyez)
-    result[14] = -(z0*eyex + z1*eyey + z2*eyez)
-    result[15] = 1
+  result[0] = x0
+  result[1] = y0
+  result[2] = z0
+  result[3] = 0
+  result[4] = x1
+  result[5] = y1
+  result[6] = z1
+  result[7] = 0
+  result[8] = x2
+  result[9] = y2
+  result[10] = z2
+  result[11] = 0
+  result[12] = -(x0*eyex + x1*eyey + x2*eyez)
+  result[13] = -(y0*eyex + y1*eyey + y2*eyez)
+  result[14] = -(z0*eyex + z1*eyey + z2*eyez)
+  result[15] = 1
 
 proc tofloat32*(m: Mat4): array[16, float32] =
-   return [
-      float32 m[0],  float32 m[1],  float32 m[2],  float32 m[3],
-      float32 m[4],  float32 m[5],  float32 m[6],  float32 m[7],
-      float32 m[8],  float32 m[9],  float32 m[10], float32 m[11],
-      float32 m[12], float32 m[13], float32 m[14], float32 m[15]
-   ]
+  return [
+     float32 m[00], float32 m[01], float32 m[02], float32 m[03],
+     float32 m[04], float32 m[05], float32 m[06], float32 m[07],
+     float32 m[08], float32 m[09], float32 m[10], float32 m[11],
+     float32 m[12], float32 m[13], float32 m[14], float32 m[15]
+  ]
 
 proc `$`*(a: Mat4): string =
   return "[" &
@@ -1107,7 +1106,7 @@ proc quat*(x, y, z, w: float32): Quat =
   result.w = w
 
 proc conjugate*(q: Quat): Quat =
-  result.w =  q.w
+  result.w = +q.w
   result.x = -q.x
   result.y = -q.y
   result.z = -q.z
@@ -1173,9 +1172,9 @@ proc `*`*(q: Quat, v: Vec3): Vec3 =
     qz = q.z
     qw = q.w
 
-    ix =  qw * x + qy * z - qz * y
-    iy =  qw * y + qz * x - qx * z
-    iz =  qw * z + qx * y - qy * x
+    ix = +qw * x + qy * z - qz * y
+    iy = +qw * y + qz * x - qx * z
+    iz = +qw * z + qx * y - qy * x
     iw = -qx * x - qy * y - qz * z
 
   result.x = ix * qw + iw * -qx + iy * -qz - iz * -qy
@@ -1183,57 +1182,53 @@ proc `*`*(q: Quat, v: Vec3): Vec3 =
   result.z = iz * qw + iw * -qz + ix * -qy - iy * -qx
 
 proc mat3*(q: Quat): Mat3 =
-  var xx     = q.x * q.x
-  var xy     = q.x * q.y
-  var xz     = q.x * q.z
-  var xw     = q.x * q.w
+  var xx = q.x * q.x
+  var xy = q.x * q.y
+  var xz = q.x * q.z
+  var xw = q.x * q.w
 
-  var yy     = q.y * q.y
-  var yz     = q.y * q.z
-  var yw     = q.y * q.w
+  var yy = q.y * q.y
+  var yz = q.y * q.z
+  var yw = q.y * q.w
 
-  var zz     = q.z * q.z
-  var zw     = q.z * q.w
+  var zz = q.z * q.z
+  var zw = q.z * q.w
 
-  result[0]  = 1 - 2 * ( yy + zz )
-  result[1]  =     2 * ( xy - zw )
-  result[2]  =     2 * ( xz + yw )
-
-  result[3]  =     2 * ( xy + zw )
-  result[4]  = 1 - 2 * ( xx + zz )
-  result[5]  =     2 * ( yz - xw )
-
-  result[6]  =     2 * ( xz - yw )
-  result[7]  =     2 * ( yz + xw )
-  result[8]  = 1 - 2 * ( xx + yy )
+  result[0] = 1 - 2 * (yy + zz)
+  result[1] = 0 + 2 * (xy - zw)
+  result[2] = 0 + 2 * (xz + yw)
+  result[3] = 0 + 2 * (xy + zw)
+  result[4] = 1 - 2 * (xx + zz)
+  result[5] = 0 + 2 * (yz - xw)
+  result[6] = 0 + 2 * (xz - yw)
+  result[7] = 0 + 2 * (yz + xw)
+  result[8] = 1 - 2 * (xx + yy)
 
 proc mat4*(q: Quat): Mat4 =
-  var xx     = q.x * q.x
-  var xy     = q.x * q.y
-  var xz     = q.x * q.z
-  var xw     = q.x * q.w
+  var xx = q.x * q.x
+  var xy = q.x * q.y
+  var xz = q.x * q.z
+  var xw = q.x * q.w
 
-  var yy     = q.y * q.y
-  var yz     = q.y * q.z
-  var yw     = q.y * q.w
+  var yy = q.y * q.y
+  var yz = q.y * q.z
+  var yw = q.y * q.w
 
-  var zz     = q.z * q.z
-  var zw     = q.z * q.w
+  var zz = q.z * q.z
+  var zw = q.z * q.w
 
-  result[0]  = 1 - 2 * ( yy + zz )
-  result[1]  =     2 * ( xy - zw )
-  result[2]  =     2 * ( xz + yw )
+  result[00] = 1 - 2 * (yy + zz)
+  result[01] = 0 + 2 * (xy - zw)
+  result[02] = 0 + 2 * (xz + yw)
+  result[04] = 0 + 2 * (xy + zw)
+  result[05] = 1 - 2 * (xx + zz)
+  result[06] = 0 + 2 * (yz - xw)
+  result[08] = 0 + 2 * (xz - yw)
+  result[09] = 0 + 2 * (yz + xw)
+  result[10] = 1 - 2 * (xx + yy)
 
-  result[4]  =     2 * ( xy + zw )
-  result[5]  = 1 - 2 * ( xx + zz )
-  result[6]  =     2 * ( yz - xw )
-
-  result[8]  =     2 * ( xz - yw )
-  result[9]  =     2 * ( yz + xw )
-  result[10] = 1 - 2 * ( xx + yy )
-
-  result[3]  = 0
-  result[7]  = 0
+  result[3] = 0
+  result[7] = 0
   result[11] = 0
   result[12] = 0
   result[13] = 0
@@ -1241,7 +1236,7 @@ proc mat4*(q: Quat): Mat4 =
   result[15] = 1.0
 
 proc reciprocalSqrt*(x: float32): float32 =
- return 1.0/sqrt(x)
+  return 1.0/sqrt(x)
 
 proc quat*(m: Mat4): Quat =
   var
@@ -1257,8 +1252,8 @@ proc quat*(m: Mat4): Quat =
     m21 = m[6]
     m22 = m[10]
 
-  var q : Quat
-  var t : float32
+  var q: Quat
+  var t: float32
 
   if m22 < 0:
     if m00 > m11:
@@ -1332,10 +1327,10 @@ proc hrp*(q: Quat): Vec3 =
 
 proc `$`*(a: Quat): string =
   return "q(" &
-    a.x.formatfloat(ffDecimal,8) & ", " &
-    a.y.formatfloat(ffDecimal,8) & ", " &
-    a.z.formatfloat(ffDecimal,8) & ", " &
-    a.w.formatfloat(ffDecimal,8) & ")"
+    a.x.formatfloat(ffDecimal, 8) & ", " &
+    a.y.formatfloat(ffDecimal, 8) & ", " &
+    a.z.formatfloat(ffDecimal, 8) & ", " &
+    a.w.formatfloat(ffDecimal, 8) & ")"
 
 proc rotate*(angle: float32, axis: Vec3): Mat4 =
   fromAxisAngle(axis, angle).mat4()

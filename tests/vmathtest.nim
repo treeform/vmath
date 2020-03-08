@@ -2,9 +2,7 @@
 
 include ../src/vmath
 
-
 randomize(1234)
-
 
 block:
   echo "# angle stuff"
@@ -164,7 +162,6 @@ block:
   echo m2
   assert m1.close(m2)
 
-
 block:
   echo "# 1,1,1 1.11rad"
   var m1 = rotate(PI*1.11, vec3(-1, 0.34, 1.123).normalize())
@@ -178,7 +175,10 @@ block:
 block:
   echo "# super random"
   for i in 0..100:
-    var m1 = rotate(PI*rand(2.0), vec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize())
+    var m1 = rotate(
+      PI*rand(2.0),
+      vec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
+    )
     echo m1
     var q1 = m1.quat()
     echo q1
