@@ -18,6 +18,14 @@ Clamps n to min, else returns max if n is higher.
 proc clamp(n, min, max: float32): float32
 ```
 
+## **proc** between
+
+Returns true if value is between min and max or equal to them.
+
+```nim
+proc between(value, min, max: float32): bool
+```
+
 ## **proc** sign
 
 Returns the sign of a number, -1 or 1.
@@ -41,8 +49,6 @@ Interpolates value between a and b.
  * 1 -> b
  * 0.5 -> between a and b
 
-
-
 ```nim
 proc lerp(a: float32; b: float32; v: float32): float32
 ```
@@ -53,9 +59,8 @@ proc lerp(a: float32; b: float32; v: float32): float32
 
 ```nim
 Vec2 = object
-  x*: float32
-  y*: float32
-
+ x*: float32
+ y*: float32
 ```
 
 ## **proc** vec2
@@ -308,10 +313,9 @@ proc turnAngle(a, b, speed: float32): float32
 
 ```nim
 Vec3 = object
-  x*: float32
-  y*: float32
-  z*: float32
-
+ x*: float32
+ y*: float32
+ z*: float32
 ```
 
 ## **proc** vec3
@@ -608,11 +612,10 @@ proc `$`(a: Vec3): string
 
 ```nim
 Vec4 = object
-  x*: float32
-  y*: float32
-  z*: float32
-  w*: float32
-
+ x*: float32
+ y*: float32
+ z*: float32
+ w*: float32
 ```
 
 ## **proc** vec4
@@ -1056,11 +1059,10 @@ proc `$`(a: Mat4): string
 
 ```nim
 Quat = object
-  x*: float32
-  y*: float32
-  z*: float32
-  w*: float32
-
+ x*: float32
+ y*: float32
+ z*: float32
+ w*: float32
 ```
 
 ## **proc** quat
@@ -1239,11 +1241,10 @@ proc scaleMat(scale: float32): Mat4
 
 ```nim
 Rect = object
-  x*: float32
-  y*: float32
-  w*: float32
-  h*: float32
-
+ x*: float32
+ y*: float32
+ w*: float32
+ h*: float32
 ```
 
 ## **proc** rect
@@ -1294,10 +1295,7 @@ proc wh=(rect: var Rect; v: Vec2)
 
 ## **proc** `*`
 
-
- * all elements of a Rect.
-
-
+* all elements of a Rect.
 
 ```nim
 proc `*`(r: Rect; v: float): Rect
@@ -1311,12 +1309,12 @@ proc `*`(r: Rect; v: float): Rect
 proc `/`(r: Rect; v: float): Rect
 ```
 
-## **proc** intersects
+## **proc** `+`
 
-Checks if pos is inside rect.
+Add two boxes together.
 
 ```nim
-proc intersects(rect: Rect; pos: Vec2): bool
+proc `+`(a, b: Rect): Rect
 ```
 
 ## **proc** `$`
@@ -1324,4 +1322,20 @@ proc intersects(rect: Rect; pos: Vec2): bool
 
 ```nim
 proc `$`(a: Rect): string
+```
+
+## **proc** inside
+
+Checks if pos is inside rect.
+
+```nim
+proc inside(pos: Vec2; rect: Rect): bool
+```
+
+## **proc** overlap
+
+Returns true if box a overlaps box b.
+
+```nim
+proc overlap(a, b: Rect): bool
 ```
