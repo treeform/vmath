@@ -303,6 +303,11 @@ proc distSq*(at: Vec3, to: Vec3): float32 =
 proc lerp*(a: Vec3, b: Vec3, v: float32): Vec3 =
   a * (1.0 - v) + b * v
 
+proc quantize*(v: Vec3, n: float32): Vec3 =
+  result.x = sign(v.x) * floor(abs(v.x) / n) * n
+  result.y = sign(v.y) * floor(abs(v.y) / n) * n
+  result.z = sign(v.z) * floor(abs(v.z) / n) * n
+
 proc angleBetween*(a, b: Vec3): float32 =
   var dot = dot(a, b)
   dot = dot / (a.length * b.length)
