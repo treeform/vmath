@@ -1,4 +1,5 @@
 import math, random, strutils
+
 export math
 
 proc clamp*(n, min, max: float32): float32 =
