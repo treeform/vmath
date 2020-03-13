@@ -1072,7 +1072,7 @@ proc lookAt*(eye, center, up: Vec3): Mat4 =
   result[14] = -(z0*eyex + z1*eyey + z2*eyez)
   result[15] = 1
 
-proc tofloat32*(m: Mat4): array[16, float32] =
+proc toFloat32*(m: Mat4): array[16, float32] =
   return [
      float32 m[00], float32 m[01], float32 m[02], float32 m[03],
      float32 m[04], float32 m[05], float32 m[06], float32 m[07],
