@@ -616,13 +616,13 @@ proc `*`*(a: Mat3, b: Vec2): Vec2 =
 
 type Mat4* = array[16, float32] ## 4x4 Matrix - OpenGL row order
 
-proc mat4*(v0, v1, Vec2, Vec3, Vec4, v5, v6, v7, v8, v9, v10, v11, v12, v13,
+proc mat4*(v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13,
     v14, v15: float32): Mat4 =
   result[0] = v0
   result[1] = v1
-  result[2] = Vec2
-  result[3] = Vec3
-  result[4] = Vec4
+  result[2] = v2
+  result[3] = v3
+  result[4] = v4
   result[5] = v5
   result[6] = v6
   result[7] = v7
