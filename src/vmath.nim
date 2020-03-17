@@ -1141,6 +1141,18 @@ proc `xyz=`*(q: var Quat, v: Vec3) =
   q.y = v.y
   q.z = v.z
 
+proc `-`*(a: var Quat): Quat =
+  result.x = -a.x
+  result.y = -a.y
+  result.z = -a.z
+  result.w = -a.w
+
+proc `+`*(a: Quat, b: Quat): Quat =
+  result.x = a.x + b.x
+  result.y = a.y + b.y
+  result.z = a.z + b.z
+  result.w = a.w + b.w
+
 proc `*`*(a, b: Quat): Quat =
   ## Multiply the quaternion by a quaternion.
   #[
@@ -1330,6 +1342,16 @@ proc hrp*(q: Quat): Vec3 =
   var t3 = +2.0 * (q.w * q.z + q.x * q.y)
   var t4 = +1.0 - 2.0 * (ysqr + q.z * q.z)
   result.x = arctan2(t3, t4)
+
+proc dot*(a: Quat, b: Quat): float32 =
+  a.x*b.x + a.y*b.y + a.z*b.z + a.w*b.w
+
+proc nlerp*(a: Quat, b: Quat, v: float32): Quat =
+  if dot(a, b) < 0:
+    var c = a
+    (-c * (1.0 - v) + b * v).normalize()
+  else:
+    (a * (1.0 - v) + b * v).normalize()
 
 proc `$`*(a: Quat): string =
   return "q(" &
