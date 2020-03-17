@@ -1,4 +1,4 @@
-import math, random, strutils
+import math, random, strformat, strutils
 
 export math
 
@@ -141,9 +141,7 @@ proc randVec2*(): Vec2 =
   vec2(cos(a)*v, sin(a)*v)
 
 func `$`*(a: Vec2): string =
-  return "(" &
-    a.x.formatfloat(ffDecimal, 4) & ", " &
-    a.y.formatfloat(ffDecimal, 4) & ")"
+  &"({a.x:.4f}, {a.y:.4f})"
 
 func fixAngle*(angle: float32): float32 =
   ## Make angle be from -PI to PI radians.
@@ -360,10 +358,7 @@ proc randVec3*(): Vec3 =
   )
 
 func `$`*(a: Vec3): string =
-  return "(" &
-    a.x.formatfloat(ffDecimal, 8) & ", " &
-    a.y.formatfloat(ffDecimal, 8) & ", " &
-    a.z.formatfloat(ffDecimal, 8) & ")"
+  &"({a.x:.8f}, {a.y:.8f}, {a.z:.8f})"
 
 type Vec4* = object
   ## 4D Vector.
@@ -452,11 +447,7 @@ func xyz*(a: Vec4): Vec3 =
   vec3(a.x, a.y, a.z)
 
 func `$`*(a: Vec4): string =
-  return "(" &
-    a.x.formatfloat(ffDecimal, 8) & ", " &
-    a.y.formatfloat(ffDecimal, 8) & ", " &
-    a.z.formatfloat(ffDecimal, 8) & ", " &
-    a.w.formatfloat(ffDecimal, 8) & ")"
+  &"({a.x:.8f}, {a.y:.8f}, {a.z:.8f}, {a.w:.8f})"
 
 func vec3*(a: Vec2, z = 0.0): Vec3 =
   vec3(a.x, a.y, z)
@@ -509,16 +500,9 @@ func transpose*(a: Mat3): Mat3 =
   result[8] = a[8]
 
 func `$`*(a: Mat3): string =
-  return "[" &
-    a[0].formatfloat(ffDecimal, 4) & ", " &
-    a[1].formatfloat(ffDecimal, 4) & ", " &
-    a[2].formatfloat(ffDecimal, 4) & ", " &
-    a[3].formatfloat(ffDecimal, 4) & ", " &
-    a[4].formatfloat(ffDecimal, 4) & ", " &
-    a[5].formatfloat(ffDecimal, 4) & ", " &
-    a[6].formatfloat(ffDecimal, 4) & ", " &
-    a[7].formatfloat(ffDecimal, 4) & ", " &
-    a[8].formatfloat(ffDecimal, 4) & "]"
+  &"""[{a[0]:.4f}, {a[1]:.4f}, {a[2]:.4f},
+{a[3]:.4f}, {a[4]:.4f}, {a[5]:.4f},
+{a[6]:.4f}, {a[7]:.4f}, {a[8]:.4f}]"""
 
 func `*`*(a: Mat3, b: Mat3): Mat3 =
   let
@@ -1073,23 +1057,10 @@ func toFloat32*(m: Mat4): array[16, float32] =
   ]
 
 func `$`*(a: Mat4): string =
-  return "[" &
-    a[0].formatfloat(ffDecimal, 5) & ", " &
-    a[1].formatfloat(ffDecimal, 5) & ", " &
-    a[2].formatfloat(ffDecimal, 5) & ", " &
-    a[3].formatfloat(ffDecimal, 5) & ",\n" &
-    a[4].formatfloat(ffDecimal, 5) & ", " &
-    a[5].formatfloat(ffDecimal, 5) & ", " &
-    a[6].formatfloat(ffDecimal, 5) & ", " &
-    a[7].formatfloat(ffDecimal, 5) & ",\n " &
-    a[8].formatfloat(ffDecimal, 5) & ", " &
-    a[9].formatfloat(ffDecimal, 5) & ", " &
-    a[10].formatfloat(ffDecimal, 5) & ", " &
-    a[11].formatfloat(ffDecimal, 5) & ",\n" &
-    a[12].formatfloat(ffDecimal, 5) & ", " &
-    a[13].formatfloat(ffDecimal, 5) & ", " &
-    a[14].formatfloat(ffDecimal, 5) & ", " &
-    a[15].formatfloat(ffDecimal, 5) & "]"
+  &"""[{a[0]:.5f}, {a[1]:.5f}, {a[2]:.5f}, {a[3]:.5f},
+{a[4]:.5f}, {a[5]:.5f}, {a[6]:.5f}, {a[7]:.5f},
+{a[8]:.5f}, {a[9]:.5f}, {a[10]:.5f}, {a[11]:.5f},
+{a[12]:.5f}, {a[13]:.5f}, {a[14]:.5f}, {a[15]:.5f},]"""
 
 type Quat* = object
   x*: float32
@@ -1357,11 +1328,7 @@ func nlerp*(a: Quat, b: Quat, v: float32): Quat =
     (a * (1.0 - v) + b * v).normalize()
 
 func `$`*(a: Quat): string =
-  return "q(" &
-    a.x.formatfloat(ffDecimal, 8) & ", " &
-    a.y.formatfloat(ffDecimal, 8) & ", " &
-    a.z.formatfloat(ffDecimal, 8) & ", " &
-    a.w.formatfloat(ffDecimal, 8) & ")"
+  &"q({a.x:.8f}, {a.y:.8f}, {a.z:.8f}, {a.w:.8f})"
 
 func rotate*(angle: float32, axis: Vec3): Mat4 =
   fromAxisAngle(axis, angle).mat4()
@@ -1436,11 +1403,7 @@ func `+`*(a, b: Rect): Rect =
   result.h = a.h
 
 func `$`*(a: Rect): string =
-  return "(" &
-    $a.x & ", " &
-    $a.y & ": " &
-    $a.w & " x " &
-    $a.h & ")"
+  &"({a.x}, {a.y}: {a.w} x {a.h})"
 
 func inside*(pos: Vec2, rect: Rect): bool =
   ## Checks if pos is inside rect.
