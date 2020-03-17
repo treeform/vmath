@@ -2,14 +2,6 @@ import math, random, strutils
 
 export math
 
-proc clamp*(n, min, max: float32): float32 =
-  ## Clamps n to min, else returns max if n is higher.
-  if n < min:
-    return min
-  if n > max:
-    return max
-  return n
-
 proc between*(value, min, max: float32): bool =
   ## Returns true if value is between min and max or equal to them.
   (value >= min) and (value <= max)
