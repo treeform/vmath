@@ -1191,6 +1191,17 @@ proc `*`*(q: Quat, v: Vec3): Vec3 =
   result.y = iy * qw + iw * -qy + iz * -qx - ix * -qz
   result.z = iz * qw + iw * -qz + ix * -qy - iy * -qx
 
+proc `[]=`*(a: var Quat, i: int, b: float32) =
+  assert(i == 0 or i == 1 or i == 2 or i == 3)
+  if i == 0:
+    a.x = b
+  elif i == 1:
+    a.y = b
+  elif i == 2:
+    a.z = b
+  elif i == 3:
+    a.w = b
+
 proc mat3*(q: Quat): Mat3 =
   var xx = q.x * q.x
   var xy = q.x * q.y
