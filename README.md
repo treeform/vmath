@@ -10,39 +10,31 @@ Has functions for Vec2, Vec3, Vec4, Mat3, Mat4 and Quat.
 import vmath
 ```
 
-## **proc** clamp
-
-Clamps n to min, else returns max if n is higher.
-
-```nim
-proc clamp(n, min, max: float32): float32
-```
-
-## **proc** between
+## **func** between
 
 Returns true if value is between min and max or equal to them.
 
 ```nim
-proc between(value, min, max: float32): bool
+func between(value, min, max: float32): bool
 ```
 
-## **proc** sign
+## **func** sign
 
 Returns the sign of a number, -1 or 1.
 
 ```nim
-proc sign(v: float32): float32
+func sign(v: float32): float32
 ```
 
-## **proc** quantize
+## **func** quantize
 
 Makes v be multipe of n. Rounding to integer quantize by 1.0.
 
 ```nim
-proc quantize(v: float32; n: float32): float32
+func quantize(v: float32; n: float32): float32
 ```
 
-## **proc** lerp
+## **func** lerp
 
 Interpolates value between a and b.
  * 0 -> a
@@ -50,7 +42,7 @@ Interpolates value between a and b.
  * 0.5 -> between a and b
 
 ```nim
-proc lerp(a: float32; b: float32; v: float32): float32
+func lerp(a: float32; b: float32; v: float32): float32
 ```
 
 ## **type** Vec2
@@ -63,194 +55,194 @@ Vec2 = object
  y*: float32
 ```
 
-## **proc** vec2
+## **func** vec2
 
 
 ```nim
-proc vec2(x, y: float32): Vec2
+func vec2(x, y: float32): Vec2
 ```
 
-## **proc** vec2
+## **func** vec2
 
 
 ```nim
-proc vec2(a: Vec2): Vec2
+func vec2(a: Vec2): Vec2
 ```
 
-## **proc** `+`
+## **func** `+`
 
 
 ```nim
-proc `+`(a: Vec2; b: Vec2): Vec2
+func `+`(a: Vec2; b: Vec2): Vec2
 ```
 
-## **proc** `-`
+## **func** `-`
 
 
 ```nim
-proc `-`(a: Vec2; b: Vec2): Vec2
+func `-`(a: Vec2; b: Vec2): Vec2
 ```
 
-## **proc** `*`
+## **func** `*`
 
 
 ```nim
-proc `*`(a: Vec2; b: float32): Vec2
+func `*`(a: Vec2; b: float32): Vec2
 ```
 
-## **proc** `*`
+## **func** `*`
 
 
 ```nim
-proc `*`(a: float32; b: Vec2): Vec2
+func `*`(a: float32; b: Vec2): Vec2
 ```
 
-## **proc** `/`
+## **func** `/`
 
 
 ```nim
-proc `/`(a: Vec2; b: float32): Vec2
+func `/`(a: Vec2; b: float32): Vec2
 ```
 
-## **proc** `+=`
+## **func** `+=`
 
 
 ```nim
-proc `+=`(a: var Vec2; b: Vec2)
+func `+=`(a: var Vec2; b: Vec2)
 ```
 
-## **proc** `-=`
+## **func** `-=`
 
 
 ```nim
-proc `-=`(a: var Vec2; b: Vec2)
+func `-=`(a: var Vec2; b: Vec2)
 ```
 
-## **proc** `*=`
+## **func** `*=`
 
 
 ```nim
-proc `*=`(a: var Vec2; b: float32)
+func `*=`(a: var Vec2; b: float32)
 ```
 
-## **proc** `/=`
+## **func** `/=`
 
 
 ```nim
-proc `/=`(a: var Vec2; b: float32)
+func `/=`(a: var Vec2; b: float32)
 ```
 
-## **proc** zero
+## **func** zero
 
 
 ```nim
-proc zero(a: var Vec2)
+func zero(a: var Vec2)
 ```
 
-## **proc** `-`
+## **func** `-`
 
 
 ```nim
-proc `-`(a: Vec2): Vec2
+func `-`(a: Vec2): Vec2
 ```
 
-## **proc** lengthSq
+## **func** lengthSq
 
 
 ```nim
-proc lengthSq(a: Vec2): float32
+func lengthSq(a: Vec2): float32
 ```
 
-## **proc** length
+## **func** length
 
 
 ```nim
-proc length(a: Vec2): float32
+func length(a: Vec2): float32
 ```
 
-## **proc** length=
+## **func** length=
 
 
 ```nim
-proc length=(a: var Vec2; b: float32)
+func length=(a: var Vec2; b: float32)
 ```
 
-## **proc** normalize
+## **func** normalize
 
 
 ```nim
-proc normalize(a: Vec2): Vec2
+func normalize(a: Vec2): Vec2
 ```
 
-## **proc** dot
+## **func** dot
 
 
 ```nim
-proc dot(a: Vec2; b: Vec2): float32
+func dot(a: Vec2; b: Vec2): float32
 ```
 
-## **proc** dir
+## **func** dir
 
 
 ```nim
-proc dir(at: Vec2; to: Vec2): Vec2
+func dir(at: Vec2; to: Vec2): Vec2
 ```
 
-## **proc** dir
+## **func** dir
 
 
 ```nim
-proc dir(th: float32): Vec2
+func dir(th: float32): Vec2
 ```
 
-## **proc** dist
+## **func** dist
 
 
 ```nim
-proc dist(at: Vec2; to: Vec2): float32
+func dist(at: Vec2; to: Vec2): float32
 ```
 
-## **proc** distSq
+## **func** distSq
 
 
 ```nim
-proc distSq(at: Vec2; to: Vec2): float32
+func distSq(at: Vec2; to: Vec2): float32
 ```
 
-## **proc** lerp
+## **func** lerp
 
 
 ```nim
-proc lerp(a: Vec2; b: Vec2; v: float32): Vec2
+func lerp(a: Vec2; b: Vec2; v: float32): Vec2
 ```
 
-## **proc** quantize
+## **func** quantize
 
 
 ```nim
-proc quantize(v: Vec2; n: float32): Vec2
+func quantize(v: Vec2; n: float32): Vec2
 ```
 
-## **proc** inRect
+## **func** inRect
 
 Check to see if v is inside a rectange formed by a and b. It does not matter how a and b are arranged.
 
 ```nim
-proc inRect(v: Vec2; a: Vec2; b: Vec2): bool
+func inRect(v: Vec2; a: Vec2; b: Vec2): bool
 ```
 
-## **proc** `[]`
+## **func** `[]`
 
 
 ```nim
-proc `[]`(a: Vec2; i: int): float32
+func `[]`(a: Vec2; i: int): float32
 ```
 
-## **proc** `[]=`
+## **func** `[]=`
 
 
 ```nim
-proc `[]=`(a: var Vec2; i: int; b: float32)
+func `[]=`(a: var Vec2; i: int; b: float32)
 ```
 
 ## **proc** randVec2
@@ -260,51 +252,51 @@ proc `[]=`(a: var Vec2; i: int; b: float32)
 proc randVec2(): Vec2
 ```
 
-## **proc** `$`
+## **func** `$`
 
 
 ```nim
-proc `$`(a: Vec2): string
+func `$`(a: Vec2): string {.raises: [ValueError].}
 ```
 
-## **proc** fixAngle
+## **func** fixAngle
 
 Make angle be from -PI to PI radians.
 
 ```nim
-proc fixAngle(angle: float32): float32
+func fixAngle(angle: float32): float32
 ```
 
-## **proc** angle
+## **func** angle
 
 Angle of a Vec2.
 
 ```nim
-proc angle(a: Vec2): float32
+func angle(a: Vec2): float32
 ```
 
-## **proc** angleBetween
+## **func** angleBetween
 
 Angle between 2 Vec2.
 
 ```nim
-proc angleBetween(a: Vec2; b: Vec2): float32
+func angleBetween(a: Vec2; b: Vec2): float32
 ```
 
-## **proc** angleBetween
+## **func** angleBetween
 
 Angle between angle a and angle b.
 
 ```nim
-proc angleBetween(a, b: float32): float32
+func angleBetween(a, b: float32): float32
 ```
 
-## **proc** turnAngle
+## **func** turnAngle
 
 Move from angle a to angle b with step of v.
 
 ```nim
-proc turnAngle(a, b, speed: float32): float32
+func turnAngle(a, b, speed: float32): float32
 ```
 
 ## **type** Vec3
@@ -318,18 +310,18 @@ Vec3 = object
  z*: float32
 ```
 
-## **proc** vec3
+## **func** vec3
 
 
 ```nim
-proc vec3(x, y, z: float32): Vec3
+func vec3(x, y, z: float32): Vec3
 ```
 
-## **proc** vec3
+## **func** vec3
 
 
 ```nim
-proc vec3(a: Vec3): Vec3
+func vec3(a: Vec3): Vec3
 ```
 
 ## **const** X_DIR
@@ -353,242 +345,249 @@ Y_DIR = (x: 0.0, y: 1.0, z: 0.0)
 Z_DIR = (x: 0.0, y: 0.0, z: 1.0)
 ```
 
-## **proc** `+`
+## **func** `+`
 
 
 ```nim
-proc `+`(a: Vec3; b: Vec3): Vec3
+func `+`(a: Vec3; b: Vec3): Vec3
 ```
 
-## **proc** `-`
+## **func** `-`
 
 
 ```nim
-proc `-`(a: Vec3; b: Vec3): Vec3
+func `-`(a: Vec3; b: Vec3): Vec3
 ```
 
-## **proc** `-`
+## **func** `-`
 
 
 ```nim
-proc `-`(a: Vec3): Vec3
+func `-`(a: Vec3): Vec3
 ```
 
-## **proc** `*`
+## **func** `*`
 
 
 ```nim
-proc `*`(a: Vec3; b: float32): Vec3
+func `*`(a: Vec3; b: float32): Vec3
 ```
 
-## **proc** `*`
+## **func** `*`
 
 
 ```nim
-proc `*`(a: float32; b: Vec3): Vec3
+func `*`(a: float32; b: Vec3): Vec3
 ```
 
-## **proc** `/`
+## **func** `/`
 
 
 ```nim
-proc `/`(a: Vec3; b: float32): Vec3
+func `/`(a: Vec3; b: float32): Vec3
 ```
 
-## **proc** `/`
+## **func** `/`
 
 
 ```nim
-proc `/`(a: float32; b: Vec3): Vec3
+func `/`(a: float32; b: Vec3): Vec3
 ```
 
-## **proc** `+=`
+## **func** `+=`
 
 
 ```nim
-proc `+=`(a: var Vec3; b: Vec3)
+func `+=`(a: var Vec3; b: Vec3)
 ```
 
-## **proc** `-=`
+## **func** `-=`
 
 
 ```nim
-proc `-=`(a: var Vec3; b: Vec3)
+func `-=`(a: var Vec3; b: Vec3)
 ```
 
-## **proc** `*=`
+## **func** `*=`
 
 
 ```nim
-proc `*=`(a: var Vec3; b: float32)
+func `*=`(a: var Vec3; b: float32)
 ```
 
-## **proc** `/=`
+## **func** `/=`
 
 
 ```nim
-proc `/=`(a: var Vec3; b: float32)
+func `/=`(a: var Vec3; b: float32)
 ```
 
-## **proc** zero
+## **func** zero
 
 
 ```nim
-proc zero(a: var Vec3)
+func zero(a: var Vec3)
 ```
 
-## **proc** `-`
+## **func** `-`
 
 
 ```nim
-proc `-`(a: var Vec3): Vec3
+func `-`(a: var Vec3): Vec3
 ```
 
-## **proc** lengthSq
+## **func** lengthSq
 
 
 ```nim
-proc lengthSq(a: Vec3): float32
+func lengthSq(a: Vec3): float32
 ```
 
-## **proc** length
+## **func** length
 
 
 ```nim
-proc length(a: Vec3): float32
+func length(a: Vec3): float32
 ```
 
-## **proc** length=
+## **func** length=
 
 
 ```nim
-proc length=(a: var Vec3; b: float32)
+func length=(a: var Vec3; b: float32)
 ```
 
-## **proc** normalize
+## **func** normalize
 
 
 ```nim
-proc normalize(a: Vec3): Vec3
+func normalize(a: Vec3): Vec3
 ```
 
-## **proc** cross
+## **func** cross
 
 
 ```nim
-proc cross(a: Vec3; b: Vec3): Vec3
+func cross(a: Vec3; b: Vec3): Vec3
 ```
 
-## **proc** computeNormal
+## **func** computeNormal
 
 
 ```nim
-proc computeNormal(a, b, c: Vec3): Vec3
+func computeNormal(a, b, c: Vec3): Vec3
 ```
 
-## **proc** dot
+## **func** dot
 
 
 ```nim
-proc dot(a: Vec3; b: Vec3): float32
+func dot(a: Vec3; b: Vec3): float32
 ```
 
-## **proc** dir
+## **func** dir
 
 
 ```nim
-proc dir(at: Vec3; to: Vec3): Vec3
+func dir(at: Vec3; to: Vec3): Vec3
 ```
 
-## **proc** dist
+## **func** dist
 
 
 ```nim
-proc dist(at: Vec3; to: Vec3): float32
+func dist(at: Vec3; to: Vec3): float32
 ```
 
-## **proc** distSq
+## **func** distSq
 
 
 ```nim
-proc distSq(at: Vec3; to: Vec3): float32
+func distSq(at: Vec3; to: Vec3): float32
 ```
 
-## **proc** lerp
+## **func** lerp
 
 
 ```nim
-proc lerp(a: Vec3; b: Vec3; v: float32): Vec3
+func lerp(a: Vec3; b: Vec3; v: float32): Vec3
 ```
 
-## **proc** angleBetween
+## **func** quantize
 
 
 ```nim
-proc angleBetween(a, b: Vec3): float32
+func quantize(v: Vec3; n: float32): Vec3
 ```
 
-## **proc** `[]`
+## **func** angleBetween
 
 
 ```nim
-proc `[]`(a: Vec3; i: int): float32
+func angleBetween(a, b: Vec3): float32
 ```
 
-## **proc** `[]=`
+## **func** `[]`
 
 
 ```nim
-proc `[]=`(a: var Vec3; i: int; b: float32)
+func `[]`(a: Vec3; i: int): float32
 ```
 
-## **proc** xy
+## **func** `[]=`
 
 
 ```nim
-proc xy(a: Vec3): Vec2
+func `[]=`(a: var Vec3; i: int; b: float32)
 ```
 
-## **proc** xz
+## **func** xy
 
 
 ```nim
-proc xz(a: Vec3): Vec2
+func xy(a: Vec3): Vec2
 ```
 
-## **proc** yx
+## **func** xz
 
 
 ```nim
-proc yx(a: Vec3): Vec2
+func xz(a: Vec3): Vec2
 ```
 
-## **proc** yz
+## **func** yx
 
 
 ```nim
-proc yz(a: Vec3): Vec2
+func yx(a: Vec3): Vec2
 ```
 
-## **proc** zx
+## **func** yz
 
 
 ```nim
-proc zx(a: Vec3): Vec2
+func yz(a: Vec3): Vec2
 ```
 
-## **proc** zy
+## **func** zx
 
 
 ```nim
-proc zy(a: Vec3): Vec2
+func zx(a: Vec3): Vec2
 ```
 
-## **proc** almostEquals
+## **func** zy
 
 
 ```nim
-proc almostEquals(a, b: Vec3; precision = 1e-006): bool
+func zy(a: Vec3): Vec2
+```
+
+## **func** almostEquals
+
+
+```nim
+func almostEquals(a, b: Vec3; precision = 1e-006): bool
 ```
 
 ## **proc** randVec3
@@ -599,11 +598,11 @@ Generates a random vector based on <a class="reference external" href="http://ma
 proc randVec3(): Vec3
 ```
 
-## **proc** `$`
+## **func** `$`
 
 
 ```nim
-proc `$`(a: Vec3): string
+func `$`(a: Vec3): string {.raises: [ValueError].}
 ```
 
 ## **type** Vec4
@@ -618,130 +617,130 @@ Vec4 = object
  w*: float32
 ```
 
-## **proc** vec4
+## **func** vec4
 
 
 ```nim
-proc vec4(x, y, z, w: float32): Vec4
+func vec4(x, y, z, w: float32): Vec4
 ```
 
-## **proc** `+`
+## **func** `+`
 
 
 ```nim
-proc `+`(a: Vec4; b: Vec4): Vec4
+func `+`(a: Vec4; b: Vec4): Vec4
 ```
 
-## **proc** `-`
+## **func** `-`
 
 
 ```nim
-proc `-`(a: Vec4; b: Vec4): Vec4
+func `-`(a: Vec4; b: Vec4): Vec4
 ```
 
-## **proc** `-`
+## **func** `-`
 
 
 ```nim
-proc `-`(a: Vec4): Vec4
+func `-`(a: Vec4): Vec4
 ```
 
-## **proc** `*`
+## **func** `*`
 
 
 ```nim
-proc `*`(a: Vec4; b: float32): Vec4
+func `*`(a: Vec4; b: float32): Vec4
 ```
 
-## **proc** `*`
+## **func** `*`
 
 
 ```nim
-proc `*`(a: float32; b: Vec4): Vec4
+func `*`(a: float32; b: Vec4): Vec4
 ```
 
-## **proc** `/`
+## **func** `/`
 
 
 ```nim
-proc `/`(a: Vec4; b: float32): Vec4
+func `/`(a: Vec4; b: float32): Vec4
 ```
 
-## **proc** `/`
+## **func** `/`
 
 
 ```nim
-proc `/`(a: float32; b: Vec4): Vec4
+func `/`(a: float32; b: Vec4): Vec4
 ```
 
-## **proc** `+=`
+## **func** `+=`
 
 
 ```nim
-proc `+=`(a: var Vec4; b: Vec4)
+func `+=`(a: var Vec4; b: Vec4)
 ```
 
-## **proc** `-=`
+## **func** `-=`
 
 
 ```nim
-proc `-=`(a: var Vec4; b: Vec4)
+func `-=`(a: var Vec4; b: Vec4)
 ```
 
-## **proc** `*=`
+## **func** `*=`
 
 
 ```nim
-proc `*=`(a: var Vec4; b: float32)
+func `*=`(a: var Vec4; b: float32)
 ```
 
-## **proc** `/=`
+## **func** `/=`
 
 
 ```nim
-proc `/=`(a: var Vec4; b: float32)
+func `/=`(a: var Vec4; b: float32)
 ```
 
-## **proc** zero
+## **func** zero
 
 
 ```nim
-proc zero(a: var Vec4)
+func zero(a: var Vec4)
 ```
 
-## **proc** xyz
+## **func** xyz
 
 
 ```nim
-proc xyz(a: Vec4): Vec3
+func xyz(a: Vec4): Vec3
 ```
 
-## **proc** `$`
+## **func** `$`
 
 
 ```nim
-proc `$`(a: Vec4): string
+func `$`(a: Vec4): string {.raises: [ValueError].}
 ```
 
-## **proc** vec3
+## **func** vec3
 
 
 ```nim
-proc vec3(a: Vec2; z = 0.0): Vec3
+func vec3(a: Vec2; z = 0.0): Vec3
 ```
 
-## **proc** vec4
+## **func** vec4
 
 
 ```nim
-proc vec4(a: Vec3; w = 0.0): Vec4
+func vec4(a: Vec3; w = 0.0): Vec4
 ```
 
-## **proc** vec4
+## **func** vec4
 
 
 ```nim
-proc vec4(a: Vec2; z = 0.0; w = 0.0): Vec4
+func vec4(a: Vec2; z = 0.0; w = 0.0): Vec4
 ```
 
 ## **type** Mat3
@@ -752,95 +751,95 @@ proc vec4(a: Vec2; z = 0.0; w = 0.0): Vec4
 Mat3 = array[9, float32]
 ```
 
-## **proc** mat3
+## **func** mat3
 
 
 ```nim
-proc mat3(a, b, c, d, e, f, g, h, i: float32): Mat3
+func mat3(a, b, c, d, e, f, g, h, i: float32): Mat3
 ```
 
-## **proc** mat3
+## **func** mat3
 
 
 ```nim
-proc mat3(a: Mat3): Mat3
+func mat3(a: Mat3): Mat3
 ```
 
-## **proc** identity
+## **func** identity
 
 
 ```nim
-proc identity(a: var Mat3)
+func identity(a: var Mat3)
 ```
 
-## **proc** mat3
+## **func** mat3
 
 
 ```nim
-proc mat3(): Mat3
+func mat3(): Mat3
 ```
 
-## **proc** transpose
+## **func** transpose
 
 
 ```nim
-proc transpose(a: Mat3): Mat3
+func transpose(a: Mat3): Mat3
 ```
 
-## **proc** `$`
+## **func** `$`
 
 
 ```nim
-proc `$`(a: Mat3): string
+func `$`(a: Mat3): string {.raises: [ValueError].}
 ```
 
-## **proc** `*`
+## **func** `*`
 
 
 ```nim
-proc `*`(a: Mat3; b: Mat3): Mat3
+func `*`(a: Mat3; b: Mat3): Mat3
 ```
 
-## **proc** `*`
+## **func** `*`
 
 
 ```nim
-proc `*`(m: Mat3; v: Vec3): Vec3
+func `*`(m: Mat3; v: Vec3): Vec3
 ```
 
-## **proc** scale
+## **func** scale
 
 
 ```nim
-proc scale(a: Mat3; v: Vec2): Mat3
+func scale(a: Mat3; v: Vec2): Mat3
 ```
 
-## **proc** scale
+## **func** scale
 
 
 ```nim
-proc scale(a: Mat3; v: Vec3): Mat3
+func scale(a: Mat3; v: Vec3): Mat3
 ```
 
-## **proc** rotationMat3
+## **func** rotationMat3
 
 
 ```nim
-proc rotationMat3(angle: float32): Mat3
+func rotationMat3(angle: float32): Mat3
 ```
 
-## **proc** rotate
+## **func** rotate
 
 
 ```nim
-proc rotate(a: Mat3; angle: float32): Mat3
+func rotate(a: Mat3; angle: float32): Mat3
 ```
 
-## **proc** `*`
+## **func** `*`
 
 
 ```nim
-proc `*`(a: Mat3; b: Vec2): Vec2
+func `*`(a: Mat3; b: Vec2): Vec2
 ```
 
 ## **type** Mat4
@@ -851,207 +850,207 @@ proc `*`(a: Mat3; b: Vec2): Vec2
 Mat4 = array[16, float32]
 ```
 
-## **proc** mat4
+## **func** mat4
 
 
 ```nim
-proc mat4(v0, v1, Vec2, Vec3, Vec4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15: float32): Mat4
+func mat4(v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15: float32): Mat4
 ```
 
-## **proc** mat4
+## **func** mat4
 
 
 ```nim
-proc mat4(a: Mat4): Mat4
+func mat4(a: Mat4): Mat4
 ```
 
-## **proc** identity
+## **func** identity
 
 
 ```nim
-proc identity(): Mat4
+func identity(): Mat4
 ```
 
-## **proc** mat4
+## **func** mat4
 
 
 ```nim
-proc mat4(): Mat4
+func mat4(): Mat4
 ```
 
-## **proc** transpose
+## **func** transpose
 
 
 ```nim
-proc transpose(a: Mat4): Mat4
+func transpose(a: Mat4): Mat4
 ```
 
-## **proc** determinant
+## **func** determinant
 
 
 ```nim
-proc determinant(a: Mat4): float32
+func determinant(a: Mat4): float32
 ```
 
-## **proc** inverse
+## **func** inverse
 
 
 ```nim
-proc inverse(a: Mat4): Mat4
+func inverse(a: Mat4): Mat4
 ```
 
-## **proc** `*`
+## **func** `*`
 
 
 ```nim
-proc `*`(a, b: Mat4): Mat4
+func `*`(a, b: Mat4): Mat4
 ```
 
-## **proc** `*`
+## **func** `*`
 
 
 ```nim
-proc `*`(a: Mat4; b: Vec3): Vec3
+func `*`(a: Mat4; b: Vec3): Vec3
 ```
 
-## **proc** right
+## **func** right
 
 
 ```nim
-proc right(a: Mat4): Vec3
+func right(a: Mat4): Vec3
 ```
 
-## **proc** right=
+## **func** right=
 
 
 ```nim
-proc right=(a: var Mat4; b: Vec3)
+func right=(a: var Mat4; b: Vec3)
 ```
 
-## **proc** up
+## **func** up
 
 
 ```nim
-proc up(a: Mat4): Vec3
+func up(a: Mat4): Vec3
 ```
 
-## **proc** up=
+## **func** up=
 
 
 ```nim
-proc up=(a: var Mat4; b: Vec3)
+func up=(a: var Mat4; b: Vec3)
 ```
 
-## **proc** fov
+## **func** fov
 
 
 ```nim
-proc fov(a: Mat4): Vec3
+func fov(a: Mat4): Vec3
 ```
 
-## **proc** fov=
+## **func** fov=
 
 
 ```nim
-proc fov=(a: var Mat4; b: Vec3)
+func fov=(a: var Mat4; b: Vec3)
 ```
 
-## **proc** pos
+## **func** pos
 
 
 ```nim
-proc pos(a: Mat4): Vec3
+func pos(a: Mat4): Vec3
 ```
 
-## **proc** pos=
+## **func** pos=
 
 
 ```nim
-proc pos=(a: var Mat4; b: Vec3)
+func pos=(a: var Mat4; b: Vec3)
 ```
 
-## **proc** rotationOnly
+## **func** rotationOnly
 
 
 ```nim
-proc rotationOnly(a: Mat4): Mat4
+func rotationOnly(a: Mat4): Mat4
 ```
 
-## **proc** dist
+## **func** dist
 
 
 ```nim
-proc dist(a, b: Mat4): float32
+func dist(a, b: Mat4): float32
 ```
 
-## **proc** translate
+## **func** translate
 
 
 ```nim
-proc translate(v: Vec3): Mat4
+func translate(v: Vec3): Mat4
 ```
 
-## **proc** scale
+## **func** scale
 
 
 ```nim
-proc scale(v: Vec3): Mat4
+func scale(v: Vec3): Mat4
 ```
 
-## **proc** close
+## **func** close
 
 
 ```nim
-proc close(a: Mat4; b: Mat4): bool
+func close(a: Mat4; b: Mat4): bool
 ```
 
-## **proc** hrp
+## **func** hrp
 
 
 ```nim
-proc hrp(m: Mat4): Vec3
+func hrp(m: Mat4): Vec3
 ```
 
-## **proc** frustum
+## **func** frustum
 
 
 ```nim
-proc frustum(left, right, bottom, top, near, far: float32): Mat4
+func frustum(left, right, bottom, top, near, far: float32): Mat4
 ```
 
-## **proc** perspective
+## **func** perspective
 
 
 ```nim
-proc perspective(fovy, aspect, near, far: float32): Mat4
+func perspective(fovy, aspect, near, far: float32): Mat4
 ```
 
-## **proc** ortho
+## **func** ortho
 
 
 ```nim
-proc ortho(left, right, bottom, top, near, far: float32): Mat4
+func ortho(left, right, bottom, top, near, far: float32): Mat4
 ```
 
-## **proc** lookAt
+## **func** lookAt
 
 
 ```nim
-proc lookAt(eye, center, up: Vec3): Mat4
+func lookAt(eye, center, up: Vec3): Mat4
 ```
 
-## **proc** tofloat32
+## **func** toFloat32
 
 
 ```nim
-proc tofloat32(m: Mat4): array[16, float32]
+func toFloat32(m: Mat4): array[16, float32]
 ```
 
-## **proc** `$`
+## **func** `$`
 
 
 ```nim
-proc `$`(a: Mat4): string
+func `$`(a: Mat4): string {.raises: [ValueError].}
 ```
 
 ## **type** Quat
@@ -1065,91 +1064,112 @@ Quat = object
  w*: float32
 ```
 
-## **proc** quat
+## **func** quat
 
 
 ```nim
-proc quat(x, y, z, w: float32): Quat
+func quat(x, y, z, w: float32): Quat
 ```
 
-## **proc** conjugate
+## **func** conjugate
 
 
 ```nim
-proc conjugate(q: Quat): Quat
+func conjugate(q: Quat): Quat
 ```
 
-## **proc** length
+## **func** length
 
 
 ```nim
-proc length(q: Quat): float32
+func length(q: Quat): float32
 ```
 
-## **proc** normalize
+## **func** normalize
 
 
 ```nim
-proc normalize(q: Quat): Quat
+func normalize(q: Quat): Quat
 ```
 
-## **proc** xyz
+## **func** xyz
 
 
 ```nim
-proc xyz(q: Quat): Vec3
+func xyz(q: Quat): Vec3
 ```
 
-## **proc** xyz=
+## **func** xyz=
 
 
 ```nim
-proc xyz=(q: var Quat; v: Vec3)
+func xyz=(q: var Quat; v: Vec3)
 ```
 
-## **proc** `*`
+## **func** `-`
+
+
+```nim
+func `-`(a: var Quat): Quat
+```
+
+## **func** `+`
+
+
+```nim
+func `+`(a: Quat; b: Quat): Quat
+```
+
+## **func** `*`
 
 Multiply the quaternion by a quaternion.
 
 ```nim
-proc `*`(a, b: Quat): Quat
+func `*`(a, b: Quat): Quat
 ```
 
-## **proc** `*`
+## **func** `*`
 
 Multiply the quaternion by a float32.
 
 ```nim
-proc `*`(q: Quat; v: float32): Quat
+func `*`(q: Quat; v: float32): Quat
 ```
 
-## **proc** `*`
+## **func** `*`
 
 Multiply the quaternion by a vector.
 
 ```nim
-proc `*`(q: Quat; v: Vec3): Vec3
+func `*`(q: Quat; v: Vec3): Vec3
 ```
 
-## **proc** mat3
+## **func** `[]=`
 
 
 ```nim
-proc mat3(q: Quat): Mat3
+func `[]=`(a: var Quat; i: int; b: float32)
 ```
 
-## **proc** mat4
+## **func** mat3
 
 
 ```nim
-proc mat4(q: Quat): Mat4
+func mat3(q: Quat): Mat3
 ```
 
-## **proc** reciprocalSqrt
+## **func** mat4
 
 
 ```nim
-proc reciprocalSqrt(x: float32): float32
+func mat4(q: Quat): Mat4
+```
+
+## **func** recifuncalSqrt
+
+
+```nim
+func recifuncalSqrt(x: float32): float32
 ```
 
 ## **proc** quat
@@ -1159,81 +1179,95 @@ proc reciprocalSqrt(x: float32): float32
 proc quat(m: Mat4): Quat
 ```
 
-## **proc** fromAxisAngle
+## **func** fromAxisAngle
 
 
 ```nim
-proc fromAxisAngle(axis: Vec3; angle: float32): Quat
+func fromAxisAngle(axis: Vec3; angle: float32): Quat
 ```
 
-## **proc** toAxisAngle
+## **func** toAxisAngle
 
 
 ```nim
-proc toAxisAngle(q: Quat; axis: var Vec3; angle: var float32)
+func toAxisAngle(q: Quat; axis: var Vec3; angle: var float32)
 ```
 
-## **proc** quat
+## **func** quat
 
 
 ```nim
-proc quat(heading, pitch, roll: float32): Quat
+func quat(heading, pitch, roll: float32): Quat
 ```
 
-## **proc** hrp
+## **func** hrp
 
 
 ```nim
-proc hrp(q: Quat): Vec3
+func hrp(q: Quat): Vec3
 ```
 
-## **proc** `$`
+## **func** dot
 
 
 ```nim
-proc `$`(a: Quat): string
+func dot(a: Quat; b: Quat): float32
 ```
 
-## **proc** rotate
+## **func** nlerp
 
 
 ```nim
-proc rotate(angle: float32; axis: Vec3): Mat4
+func nlerp(a: Quat; b: Quat; v: float32): Quat
 ```
 
-## **proc** rotateX
+## **func** `$`
 
 
 ```nim
-proc rotateX(angle: float32): Mat4
+func `$`(a: Quat): string {.raises: [ValueError].}
 ```
 
-## **proc** rotateY
+## **func** rotate
 
 
 ```nim
-proc rotateY(angle: float32): Mat4
+func rotate(angle: float32; axis: Vec3): Mat4
 ```
 
-## **proc** rotateZ
+## **func** rotateX
 
 
 ```nim
-proc rotateZ(angle: float32): Mat4
+func rotateX(angle: float32): Mat4
 ```
 
-## **proc** scaleMat
+## **func** rotateY
 
 
 ```nim
-proc scaleMat(scale: Vec3): Mat4
+func rotateY(angle: float32): Mat4
 ```
 
-## **proc** scaleMat
+## **func** rotateZ
 
 
 ```nim
-proc scaleMat(scale: float32): Mat4
+func rotateZ(angle: float32): Mat4
+```
+
+## **func** scaleMat
+
+
+```nim
+func scaleMat(scale: Vec3): Mat4
+```
+
+## **func** scaleMat
+
+
+```nim
+func scaleMat(scale: float32): Mat4
 ```
 
 ## **type** Rect
@@ -1247,95 +1281,95 @@ Rect = object
  h*: float32
 ```
 
-## **proc** rect
+## **func** rect
 
 
 ```nim
-proc rect(x, y, w, h: float32): Rect
+func rect(x, y, w, h: float32): Rect
 ```
 
-## **proc** rect
+## **func** rect
 
 
 ```nim
-proc rect(pos, size: Vec2): Rect
+func rect(pos, size: Vec2): Rect
 ```
 
-## **proc** xy
+## **func** xy
 
 Gets the xy as a Vec2.
 
 ```nim
-proc xy(rect: Rect): Vec2
+func xy(rect: Rect): Vec2
 ```
 
-## **proc** xy=
+## **func** xy=
 
 Sets the xy from Vec2.
 
 ```nim
-proc xy=(rect: var Rect; v: Vec2)
+func xy=(rect: var Rect; v: Vec2)
 ```
 
-## **proc** wh
+## **func** wh
 
 Gets the wh as a Vec2.
 
 ```nim
-proc wh(rect: Rect): Vec2
+func wh(rect: Rect): Vec2
 ```
 
-## **proc** wh=
+## **func** wh=
 
 Sets the wh from Vec2.
 
 ```nim
-proc wh=(rect: var Rect; v: Vec2)
+func wh=(rect: var Rect; v: Vec2)
 ```
 
-## **proc** `*`
+## **func** `*`
 
 * all elements of a Rect.
 
 ```nim
-proc `*`(r: Rect; v: float): Rect
+func `*`(r: Rect; v: float): Rect
 ```
 
-## **proc** `/`
+## **func** `/`
 
 / all elements of a Rect.
 
 ```nim
-proc `/`(r: Rect; v: float): Rect
+func `/`(r: Rect; v: float): Rect
 ```
 
-## **proc** `+`
+## **func** `+`
 
 Add two boxes together.
 
 ```nim
-proc `+`(a, b: Rect): Rect
+func `+`(a, b: Rect): Rect
 ```
 
-## **proc** `$`
+## **func** `$`
 
 
 ```nim
-proc `$`(a: Rect): string
+func `$`(a: Rect): string {.raises: [ValueError].}
 ```
 
-## **proc** inside
+## **func** inside
 
 Checks if pos is inside rect.
 
 ```nim
-proc inside(pos: Vec2; rect: Rect): bool
+func inside(pos: Vec2; rect: Rect): bool
 ```
 
-## **proc** overlap
+## **func** overlap
 
 Returns true if box a overlaps box b.
 
 ```nim
-proc overlap(a, b: Rect): bool
+func overlap(a, b: Rect): bool
 ```

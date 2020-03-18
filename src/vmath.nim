@@ -1,22 +1,22 @@
-import math, random, strutils
+import math, random, strformat, strutils
 
 export math
 
-proc between*(value, min, max: float32): bool =
+func between*(value, min, max: float32): bool =
   ## Returns true if value is between min and max or equal to them.
   (value >= min) and (value <= max)
 
-proc sign*(v: float32): float32 =
+func sign*(v: float32): float32 =
   ## Returns the sign of a number, -1 or 1.
   if v >= 0:
     return 1.0
   return -1.0
 
-proc quantize*(v: float32, n: float32): float32 =
+func quantize*(v: float32, n: float32): float32 =
   ## Makes v be multipe of n. Rounding to integer quantize by 1.0.
-  result = sign(v) * floor(abs(v) / n) * n
+  sign(v) * floor(abs(v) / n) * n
 
-proc lerp*(a: float32, b: float32, v: float32): float32 =
+func lerp*(a: float32, b: float32, v: float32): float32 =
   ## Interpolates value between a and b.
   ## * 0 -> a
   ## * 1 -> b
@@ -28,92 +28,92 @@ type Vec2* = object
   x*: float32
   y*: float32
 
-proc vec2*(x, y: float32): Vec2 =
+func vec2*(x, y: float32): Vec2 =
   result.x = x
   result.y = y
 
-proc vec2*(a: Vec2): Vec2 =
+func vec2*(a: Vec2): Vec2 =
   result.x = a.x
   result.y = a.y
 
-proc `+`*(a: Vec2, b: Vec2): Vec2 =
+func `+`*(a: Vec2, b: Vec2): Vec2 =
   result.x = a.x + b.x
   result.y = a.y + b.y
 
-proc `-`*(a: Vec2, b: Vec2): Vec2 =
+func `-`*(a: Vec2, b: Vec2): Vec2 =
   result.x = a.x - b.x
   result.y = a.y - b.y
 
-proc `*`*(a: Vec2, b: float32): Vec2 =
+func `*`*(a: Vec2, b: float32): Vec2 =
   result.x = a.x * b
   result.y = a.y * b
 
-proc `*`*(a: float32, b: Vec2): Vec2 =
+func `*`*(a: float32, b: Vec2): Vec2 =
   b * a
 
-proc `/`*(a: Vec2, b: float32): Vec2 =
+func `/`*(a: Vec2, b: float32): Vec2 =
   result.x = a.x / b
   result.y = a.y / b
 
-proc `+=`*(a: var Vec2, b: Vec2) =
+func `+=`*(a: var Vec2, b: Vec2) =
   a.x += b.x
   a.y += b.y
 
-proc `-=`*(a: var Vec2, b: Vec2) =
+func `-=`*(a: var Vec2, b: Vec2) =
   a.x -= b.x
   a.y -= b.y
 
-proc `*=`*(a: var Vec2, b: float32) =
+func `*=`*(a: var Vec2, b: float32) =
   a.x *= b
   a.y *= b
 
-proc `/=`*(a: var Vec2, b: float32) =
+func `/=`*(a: var Vec2, b: float32) =
   a.x /= b
   a.y /= b
 
-proc zero*(a: var Vec2) =
+func zero*(a: var Vec2) =
   a.x = 0
   a.y = 0
 
-proc `-`*(a: Vec2): Vec2 =
+func `-`*(a: Vec2): Vec2 =
   result.x = -a.x
   result.y = -a.y
 
-proc lengthSq*(a: Vec2): float32 =
+func lengthSq*(a: Vec2): float32 =
   a.x * a.x + a.y * a.y
 
-proc length*(a: Vec2): float32 =
+func length*(a: Vec2): float32 =
   math.sqrt(a.lengthSq)
 
-proc `length=`*(a: var Vec2, b: float32) =
+func `length=`*(a: var Vec2, b: float32) =
   a *= b / a.length
 
-proc normalize*(a: Vec2): Vec2 =
+func normalize*(a: Vec2): Vec2 =
   a / a.length
 
-proc dot*(a: Vec2, b: Vec2): float32 =
+func dot*(a: Vec2, b: Vec2): float32 =
   a.x*b.x + a.y*b.y
 
-proc dir*(at: Vec2, to: Vec2): Vec2 =
+func dir*(at: Vec2, to: Vec2): Vec2 =
   result = (at - to).normalize()
 
-proc dir*(th: float32): Vec2 =
+func dir*(th: float32): Vec2 =
   vec2(cos(th), sin(th))
 
-proc dist*(at: Vec2, to: Vec2): float32 =
+func dist*(at: Vec2, to: Vec2): float32 =
   (at - to).length
 
-proc distSq*(at: Vec2, to: Vec2): float32 =
+func distSq*(at: Vec2, to: Vec2): float32 =
   (at - to).lengthSq
 
-proc lerp*(a: Vec2, b: Vec2, v: float32): Vec2 =
+func lerp*(a: Vec2, b: Vec2, v: float32): Vec2 =
   a * (1.0 - v) + b * v
 
-proc quantize*(v: Vec2, n: float32): Vec2 =
+func quantize*(v: Vec2, n: float32): Vec2 =
   result.x = sign(v.x) * floor(abs(v.x) / n) * n
   result.y = sign(v.y) * floor(abs(v.y) / n) * n
 
-proc inRect*(v: Vec2, a: Vec2, b: Vec2): bool =
+func inRect*(v: Vec2, a: Vec2, b: Vec2): bool =
   ## Check to see if v is inside a rectange formed by a and b.
   ## It does not matter how a and b are arranged.
   let
@@ -121,14 +121,14 @@ proc inRect*(v: Vec2, a: Vec2, b: Vec2): bool =
     max = vec2(max(a.x, b.x), max(a.y, b.y))
   return v.x > min.x and v.x < max.x and v.y > min.y and v.y < max.y
 
-proc `[]`*(a: Vec2, i: int): float32 =
+func `[]`*(a: Vec2, i: int): float32 =
   assert(i == 0 or i == 1)
   if i == 0:
     return a.x
   elif i == 1:
     return a.y
 
-proc `[]=`*(a: var Vec2, i: int, b: float32) =
+func `[]=`*(a: var Vec2, i: int, b: float32) =
   assert(i == 0 or i == 1)
   if i == 0:
     a.x = b
@@ -140,12 +140,10 @@ proc randVec2*(): Vec2 =
   let v = rand(1.0)
   vec2(cos(a)*v, sin(a)*v)
 
-proc `$`*(a: Vec2): string =
-  return "(" &
-    a.x.formatfloat(ffDecimal, 4) & ", " &
-    a.y.formatfloat(ffDecimal, 4) & ")"
+func `$`*(a: Vec2): string =
+  &"({a.x:.4f}, {a.y:.4f})"
 
-proc fixAngle*(angle: float32): float32 =
+func fixAngle*(angle: float32): float32 =
   ## Make angle be from -PI to PI radians.
   var angle = angle
   while angle > PI:
@@ -154,19 +152,19 @@ proc fixAngle*(angle: float32): float32 =
     angle += PI*2
   return angle
 
-proc angle*(a: Vec2): float32 =
+func angle*(a: Vec2): float32 =
   ## Angle of a Vec2.
   math.arctan2(a.y, a.x)
 
-proc angleBetween*(a: Vec2, b: Vec2): float32 =
+func angleBetween*(a: Vec2, b: Vec2): float32 =
   ## Angle between 2 Vec2.
   fixAngle(math.arctan2(a.y - b.y, a.x - b.x))
 
-proc angleBetween*(a, b: float32): float32 =
+func angleBetween*(a, b: float32): float32 =
   ## Angle between angle a and angle b.
   (b - a).fixAngle
 
-proc turnAngle*(a, b, speed: float32): float32 =
+func turnAngle*(a, b, speed: float32): float32 =
   ## Move from angle a to angle b with step of v.
   var
     turn = fixAngle(b - a)
@@ -184,12 +182,12 @@ type Vec3* = object
   y*: float32
   z*: float32
 
-proc vec3*(x, y, z: float32): Vec3 =
+func vec3*(x, y, z: float32): Vec3 =
   result.x = x
   result.y = y
   result.z = z
 
-proc vec3*(a: Vec3): Vec3 =
+func vec3*(a: Vec3): Vec3 =
   result.x = a.x
   result.y = a.y
   result.z = a.z
@@ -198,115 +196,115 @@ const X_DIR* = vec3(1.0, 0.0, 0.0)
 const Y_DIR* = vec3(0.0, 1.0, 0.0)
 const Z_DIR* = vec3(0.0, 0.0, 1.0)
 
-proc `+`*(a: Vec3, b: Vec3): Vec3 =
+func `+`*(a: Vec3, b: Vec3): Vec3 =
   result.x = a.x + b.x
   result.y = a.y + b.y
   result.z = a.z + b.z
 
-proc `-`*(a: Vec3, b: Vec3): Vec3 =
+func `-`*(a: Vec3, b: Vec3): Vec3 =
   result.x = a.x - b.x
   result.y = a.y - b.y
   result.z = a.z - b.z
 
-proc `-`*(a: Vec3): Vec3 =
+func `-`*(a: Vec3): Vec3 =
   result.x = -a.x
   result.y = -a.y
   result.z = -a.z
 
-proc `*`*(a: Vec3, b: float32): Vec3 =
+func `*`*(a: Vec3, b: float32): Vec3 =
   result.x = a.x * b
   result.y = a.y * b
   result.z = a.z * b
 
-proc `*`*(a: float32, b: Vec3): Vec3 =
+func `*`*(a: float32, b: Vec3): Vec3 =
   b * a
 
-proc `/`*(a: Vec3, b: float32): Vec3 =
+func `/`*(a: Vec3, b: float32): Vec3 =
   result.x = a.x / b
   result.y = a.y / b
   result.z = a.z / b
 
-proc `/`*(a: float32, b: Vec3): Vec3 =
+func `/`*(a: float32, b: Vec3): Vec3 =
   result.x = a / b.x
   result.y = a / b.y
   result.z = a / b.z
 
-proc `+=`*(a: var Vec3, b: Vec3) =
+func `+=`*(a: var Vec3, b: Vec3) =
   a.x += b.x
   a.y += b.y
   a.z += b.z
 
-proc `-=`*(a: var Vec3, b: Vec3) =
+func `-=`*(a: var Vec3, b: Vec3) =
   a.x -= b.x
   a.y -= b.y
   a.z -= b.z
 
-proc `*=`*(a: var Vec3, b: float32) =
+func `*=`*(a: var Vec3, b: float32) =
   a.x *= b
   a.y *= b
   a.z *= b
 
-proc `/=`*(a: var Vec3, b: float32) =
+func `/=`*(a: var Vec3, b: float32) =
   a.x /= b
   a.y /= b
   a.z /= b
 
-proc zero*(a: var Vec3) =
+func zero*(a: var Vec3) =
   a.x = 0
   a.y = 0
   a.z = 0
 
-proc `-`*(a: var Vec3): Vec3 =
+func `-`*(a: var Vec3): Vec3 =
   result.x = -a.x
   result.y = -a.y
   result.z = -a.z
 
-proc lengthSq*(a: Vec3): float32 =
+func lengthSq*(a: Vec3): float32 =
   a.x * a.x + a.y * a.y + a.z * a.z
 
-proc length*(a: Vec3): float32 =
+func length*(a: Vec3): float32 =
   math.sqrt(a.lengthSq)
 
-proc `length=`*(a: var Vec3, b: float32) =
+func `length=`*(a: var Vec3, b: float32) =
   a *= b / a.length
 
-proc normalize*(a: Vec3): Vec3 =
+func normalize*(a: Vec3): Vec3 =
   return a / math.sqrt(a.x*a.x + a.y*a.y + a.z*a.z)
 
-proc cross*(a: Vec3, b: Vec3): Vec3 =
+func cross*(a: Vec3, b: Vec3): Vec3 =
   result.x = a.y*b.z - a.z*b.y
   result.y = a.z*b.x - a.x*b.z
   result.z = a.x*b.y - a.y*b.x
 
-proc computeNormal*(a, b, c: Vec3): Vec3 =
+func computeNormal*(a, b, c: Vec3): Vec3 =
   result = cross(c - b, b - a).normalize()
 
-proc dot*(a: Vec3, b: Vec3): float32 =
+func dot*(a: Vec3, b: Vec3): float32 =
   a.x*b.x + a.y*b.y + a.z*b.z
 
-proc dir*(at: Vec3, to: Vec3): Vec3 =
+func dir*(at: Vec3, to: Vec3): Vec3 =
   result = (at - to).normalize()
 
-proc dist*(at: Vec3, to: Vec3): float32 =
+func dist*(at: Vec3, to: Vec3): float32 =
   (at - to).length
 
-proc distSq*(at: Vec3, to: Vec3): float32 =
+func distSq*(at: Vec3, to: Vec3): float32 =
   (at - to).lengthSq
 
-proc lerp*(a: Vec3, b: Vec3, v: float32): Vec3 =
+func lerp*(a: Vec3, b: Vec3, v: float32): Vec3 =
   a * (1.0 - v) + b * v
 
-proc quantize*(v: Vec3, n: float32): Vec3 =
+func quantize*(v: Vec3, n: float32): Vec3 =
   result.x = sign(v.x) * floor(abs(v.x) / n) * n
   result.y = sign(v.y) * floor(abs(v.y) / n) * n
   result.z = sign(v.z) * floor(abs(v.z) / n) * n
 
-proc angleBetween*(a, b: Vec3): float32 =
+func angleBetween*(a, b: Vec3): float32 =
   var dot = dot(a, b)
   dot = dot / (a.length * b.length)
   return arccos(dot)
 
-proc `[]`*(a: Vec3, i: int): float32 =
+func `[]`*(a: Vec3, i: int): float32 =
   assert(i == 0 or i == 1 or i == 2)
   if i == 0:
     return a.x
@@ -315,7 +313,7 @@ proc `[]`*(a: Vec3, i: int): float32 =
   elif i == 2:
     return a.z
 
-proc `[]=`*(a: var Vec3, i: int, b: float32) =
+func `[]=`*(a: var Vec3, i: int, b: float32) =
   assert(i == 0 or i == 1 or i == 2)
   if i == 0:
     a.x = b
@@ -324,25 +322,25 @@ proc `[]=`*(a: var Vec3, i: int, b: float32) =
   elif i == 2:
     a.z = b
 
-proc xy*(a: Vec3): Vec2 =
+func xy*(a: Vec3): Vec2 =
   vec2(a.x, a.y)
 
-proc xz*(a: Vec3): Vec2 =
+func xz*(a: Vec3): Vec2 =
   vec2(a.x, a.z)
 
-proc yx*(a: Vec3): Vec2 =
+func yx*(a: Vec3): Vec2 =
   vec2(a.y, a.x)
 
-proc yz*(a: Vec3): Vec2 =
+func yz*(a: Vec3): Vec2 =
   vec2(a.y, a.z)
 
-proc zx*(a: Vec3): Vec2 =
+func zx*(a: Vec3): Vec2 =
   vec2(a.y, a.x)
 
-proc zy*(a: Vec3): Vec2 =
+func zy*(a: Vec3): Vec2 =
   vec2(a.z, a.y)
 
-proc almostEquals*(a, b: Vec3, precision = 1e-6): bool =
+func almostEquals*(a, b: Vec3, precision = 1e-6): bool =
   let c = a - b
   return abs(c.x) < precision and abs(c.y) < precision and abs(c.z) < precision
 
@@ -359,11 +357,8 @@ proc randVec3*(): Vec3 =
     cos(th)
   )
 
-proc `$`*(a: Vec3): string =
-  return "(" &
-    a.x.formatfloat(ffDecimal, 8) & ", " &
-    a.y.formatfloat(ffDecimal, 8) & ", " &
-    a.z.formatfloat(ffDecimal, 8) & ")"
+func `$`*(a: Vec3): string =
+  &"({a.x:.8f}, {a.y:.8f}, {a.z:.8f})"
 
 type Vec4* = object
   ## 4D Vector.
@@ -372,104 +367,100 @@ type Vec4* = object
   z*: float32
   w*: float32
 
-proc vec4*(x, y, z, w: float32): Vec4 =
+func vec4*(x, y, z, w: float32): Vec4 =
   result.x = x
   result.y = y
   result.z = z
   result.w = w
 
-proc `+`*(a: Vec4, b: Vec4): Vec4 =
+func `+`*(a: Vec4, b: Vec4): Vec4 =
   result.x = a.x + b.x
   result.y = a.y + b.y
   result.z = a.z + b.z
   result.w = a.w + b.w
 
-proc `-`*(a: Vec4, b: Vec4): Vec4 =
+func `-`*(a: Vec4, b: Vec4): Vec4 =
   result.x = a.x - b.x
   result.y = a.y - b.y
   result.z = a.z - b.z
   result.w = a.w - b.w
 
-proc `-`*(a: Vec4): Vec4 =
+func `-`*(a: Vec4): Vec4 =
   result.x = -a.x
   result.y = -a.y
   result.z = -a.z
   result.w = -a.w
 
-proc `*`*(a: Vec4, b: float32): Vec4 =
+func `*`*(a: Vec4, b: float32): Vec4 =
   result.x = a.x * b
   result.y = a.y * b
   result.z = a.z * b
   result.w = a.w * b
 
-proc `*`*(a: float32, b: Vec4): Vec4 =
+func `*`*(a: float32, b: Vec4): Vec4 =
   b * a
 
-proc `/`*(a: Vec4, b: float32): Vec4 =
+func `/`*(a: Vec4, b: float32): Vec4 =
   result.x = a.x / b
   result.y = a.y / b
 
   result.z = a.z / b
   result.w = a.w / b
 
-proc `/`*(a: float32, b: Vec4): Vec4 =
+func `/`*(a: float32, b: Vec4): Vec4 =
   result.x = a / b.x
   result.y = a / b.y
   result.z = a / b.z
   result.w = a / b.w
 
-proc `+=`*(a: var Vec4, b: Vec4) =
+func `+=`*(a: var Vec4, b: Vec4) =
   a.x += b.x
   a.y += b.y
   a.z += b.z
   a.w += b.w
 
-proc `-=`*(a: var Vec4, b: Vec4) =
+func `-=`*(a: var Vec4, b: Vec4) =
   a.x -= b.x
   a.y -= b.y
   a.z -= b.z
   a.w -= b.w
 
-proc `*=`*(a: var Vec4, b: float32) =
+func `*=`*(a: var Vec4, b: float32) =
   a.x *= b
   a.y *= b
   a.z *= b
   a.w *= b
 
-proc `/=`*(a: var Vec4, b: float32) =
+func `/=`*(a: var Vec4, b: float32) =
   a.x /= b
   a.y /= b
   a.z /= b
   a.w /= b
 
-proc zero*(a: var Vec4) =
+func zero*(a: var Vec4) =
   a.x = 0
   a.y = 0
   a.z = 0
   a.w = 0
 
-proc xyz*(a: Vec4): Vec3 =
+func xyz*(a: Vec4): Vec3 =
   vec3(a.x, a.y, a.z)
 
-proc `$`*(a: Vec4): string =
-  return "(" &
-    a.x.formatfloat(ffDecimal, 8) & ", " &
-    a.y.formatfloat(ffDecimal, 8) & ", " &
-    a.z.formatfloat(ffDecimal, 8) & ", " &
-    a.w.formatfloat(ffDecimal, 8) & ")"
+func `$`*(a: Vec4): string =
+  &"({a.x:.8f}, {a.y:.8f}, {a.z:.8f}, {a.w:.8f})"
 
-proc vec3*(a: Vec2, z = 0.0): Vec3 =
+func vec3*(a: Vec2, z = 0.0): Vec3 =
   vec3(a.x, a.y, z)
 
-proc vec4*(a: Vec3, w = 0.0): Vec4 =
+func vec4*(a: Vec3, w = 0.0): Vec4 =
   vec4(a.x, a.y, a.z, w)
 
-proc vec4*(a: Vec2, z = 0.0, w = 0.0): Vec4 =
+func vec4*(a: Vec2, z = 0.0, w = 0.0): Vec4 =
   vec4(a.x, a.y, z, w)
 
 type Mat3* = array[9, float32] ## 3x3 Matrix
 
-proc mat3*(a, b, c, d, e, f, g, h, i: float32): Mat3 =
+func mat3*(a, b, c, d, e, f, g, h, i: float32): Mat3 =
   result[0] = a
   result[1] = b
   result[2] = c
@@ -480,10 +471,10 @@ proc mat3*(a, b, c, d, e, f, g, h, i: float32): Mat3 =
   result[7] = h
   result[8] = i
 
-proc mat3*(a: Mat3): Mat3 =
+func mat3*(a: Mat3): Mat3 =
   result = a
 
-proc identity*(a: var Mat3) =
+func identity*(a: var Mat3) =
   a[0] = 1
   a[1] = 0
   a[2] = 0
@@ -494,10 +485,10 @@ proc identity*(a: var Mat3) =
   a[7] = 0
   a[8] = 1
 
-proc mat3*(): Mat3 =
+func mat3*(): Mat3 =
   result.identity()
 
-proc transpose*(a: Mat3): Mat3 =
+func transpose*(a: Mat3): Mat3 =
   result[0] = a[0]
   result[1] = a[3]
   result[2] = a[6]
@@ -508,19 +499,12 @@ proc transpose*(a: Mat3): Mat3 =
   result[7] = a[5]
   result[8] = a[8]
 
-proc `$`*(a: Mat3): string =
-  return "[" &
-    a[0].formatfloat(ffDecimal, 4) & ", " &
-    a[1].formatfloat(ffDecimal, 4) & ", " &
-    a[2].formatfloat(ffDecimal, 4) & ", " &
-    a[3].formatfloat(ffDecimal, 4) & ", " &
-    a[4].formatfloat(ffDecimal, 4) & ", " &
-    a[5].formatfloat(ffDecimal, 4) & ", " &
-    a[6].formatfloat(ffDecimal, 4) & ", " &
-    a[7].formatfloat(ffDecimal, 4) & ", " &
-    a[8].formatfloat(ffDecimal, 4) & "]"
+func `$`*(a: Mat3): string =
+  &"""[{a[0]:.4f}, {a[1]:.4f}, {a[2]:.4f},
+{a[3]:.4f}, {a[4]:.4f}, {a[5]:.4f},
+{a[6]:.4f}, {a[7]:.4f}, {a[8]:.4f}]"""
 
-proc `*`*(a: Mat3, b: Mat3): Mat3 =
+func `*`*(a: Mat3, b: Mat3): Mat3 =
   let
     a00 = a[0]
     a01 = a[1]
@@ -554,12 +538,12 @@ proc `*`*(a: Mat3, b: Mat3): Mat3 =
   result[7] = b20 * a01 + b21 * a11 + b22 * a21
   result[8] = b20 * a02 + b21 * a12 + b22 * a22
 
-proc `*`*(m: Mat3, v: Vec3): Vec3 =
+func `*`*(m: Mat3, v: Vec3): Vec3 =
   result.x = m[0]*v.x + m[1]*v.y + m[2]*v.z
   result.y = m[3]*v.x + m[4]*v.y + m[5]*v.z
   result.z = m[6]*v.x + m[7]*v.y + m[8]*v.z
 
-proc scale*(a: Mat3, v: Vec2): Mat3 =
+func scale*(a: Mat3, v: Vec2): Mat3 =
   result[0] = v.x * a[0]
   result[1] = v.x * a[1]
   result[2] = v.x * a[2]
@@ -570,7 +554,7 @@ proc scale*(a: Mat3, v: Vec2): Mat3 =
   result[7] = a[7]
   result[8] = a[8]
 
-proc scale*(a: Mat3, v: Vec3): Mat3 =
+func scale*(a: Mat3, v: Vec3): Mat3 =
   result[0] = v.x * a[0]
   result[1] = v.x * a[1]
   result[2] = v.x * a[2]
@@ -581,7 +565,7 @@ proc scale*(a: Mat3, v: Vec3): Mat3 =
   result[7] = v.z * a[7]
   result[8] = v.z * a[8]
 
-proc rotationMat3*(angle: float32): Mat3 =
+func rotationMat3*(angle: float32): Mat3 =
   # Create a matrix from an angle.
   let
     sin = sin(angle)
@@ -598,17 +582,17 @@ proc rotationMat3*(angle: float32): Mat3 =
   result[7] = 0
   result[8] = 1
 
-proc rotate*(a: Mat3, angle: float32): Mat3 =
+func rotate*(a: Mat3, angle: float32): Mat3 =
   # Rotates a matrix by an angle.
   a * rotationMat3(angle)
 
-proc `*`*(a: Mat3, b: Vec2): Vec2 =
+func `*`*(a: Mat3, b: Vec2): Vec2 =
   result.x = a[0]*b.x + a[1]*b.y + a[6]
   result.y = a[3]*b.x + a[4]*b.y + a[7]
 
 type Mat4* = array[16, float32] ## 4x4 Matrix - OpenGL row order
 
-proc mat4*(v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13,
+func mat4*(v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13,
     v14, v15: float32): Mat4 =
   result[0] = v0
   result[1] = v1
@@ -627,10 +611,10 @@ proc mat4*(v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13,
   result[14] = v14
   result[15] = v15
 
-proc mat4*(a: Mat4): Mat4 =
+func mat4*(a: Mat4): Mat4 =
   result = a
 
-proc identity*(): Mat4 =
+func identity*(): Mat4 =
   result[0] = 1
   result[1] = 0
   result[2] = 0
@@ -648,10 +632,10 @@ proc identity*(): Mat4 =
   result[14] = 0
   result[15] = 1
 
-proc mat4*(): Mat4 =
+func mat4*(): Mat4 =
   return identity()
 
-proc transpose*(a: Mat4): Mat4 =
+func transpose*(a: Mat4): Mat4 =
   result[0] = a[0]
   result[1] = a[4]
   result[2] = a[8]
@@ -672,7 +656,7 @@ proc transpose*(a: Mat4): Mat4 =
   result[14] = a[11]
   result[15] = a[15]
 
-proc determinant*(a: Mat4): float32 =
+func determinant*(a: Mat4): float32 =
   var
     a00 = a[0]
     a01 = a[1]
@@ -700,7 +684,7 @@ proc determinant*(a: Mat4): float32 =
     a20*a01*a12*a33 - a00*a21*a12*a33 - a10*a01*a22*a33 + a00*a11*a22*a33
   )
 
-proc inverse*(a: Mat4): Mat4 =
+func inverse*(a: Mat4): Mat4 =
   var
     a00 = a[0]
     a01 = a[1]
@@ -753,7 +737,7 @@ proc inverse*(a: Mat4): Mat4 =
   result[14] = (-a30*b03 + a31*b01 - a32*b00)*invDet
   result[15] = (+a20*b03 - a21*b01 + a22*b00)*invDet
 
-proc `*`*(a, b: Mat4): Mat4 =
+func `*`*(a, b: Mat4): Mat4 =
   var
     a00 = a[0]
     a01 = a[1]
@@ -807,56 +791,56 @@ proc `*`*(a, b: Mat4): Mat4 =
   result[14] = b30*a02 + b31*a12 + b32*a22 + b33*a32
   result[15] = b30*a03 + b31*a13 + b32*a23 + b33*a33
 
-proc `*`*(a: Mat4, b: Vec3): Vec3 =
+func `*`*(a: Mat4, b: Vec3): Vec3 =
   result.x = a[0]*b.x + a[4]*b.y + a[8]*b.z + a[12]
   result.y = a[1]*b.x + a[5]*b.y + a[9]*b.z + a[13]
   result.z = a[2]*b.x + a[6]*b.y + a[10]*b.z + a[14]
 
-proc right*(a: Mat4): Vec3 =
+func right*(a: Mat4): Vec3 =
   result.x = a[0]
   result.y = a[1]
   result.z = a[2]
 
-proc `right=`*(a: var Mat4, b: Vec3) =
+func `right=`*(a: var Mat4, b: Vec3) =
   a[0] = b.x
   a[1] = b.y
   a[2] = b.z
 
-proc up*(a: Mat4): Vec3 =
+func up*(a: Mat4): Vec3 =
   result.x = a[4]
   result.y = a[5]
   result.z = a[6]
 
-proc `up=`*(a: var Mat4, b: Vec3) =
+func `up=`*(a: var Mat4, b: Vec3) =
   a[4] = b.x
   a[5] = b.y
   a[6] = b.z
 
-proc fov*(a: Mat4): Vec3 =
+func fov*(a: Mat4): Vec3 =
   result.x = a[8]
   result.y = a[9]
   result.z = a[10]
 
-proc `fov=`*(a: var Mat4, b: Vec3) =
+func `fov=`*(a: var Mat4, b: Vec3) =
   a[8] = b.x
   a[9] = b.y
   a[10] = b.z
 
-proc pos*(a: Mat4): Vec3 =
+func pos*(a: Mat4): Vec3 =
   result.x = a[12]
   result.y = a[13]
   result.z = a[14]
 
-proc `pos=`*(a: var Mat4, b: Vec3) =
+func `pos=`*(a: var Mat4, b: Vec3) =
   a[12] = b.x
   a[13] = b.y
   a[14] = b.z
 
-proc rotationOnly*(a: Mat4): Mat4 =
+func rotationOnly*(a: Mat4): Mat4 =
   result = a
   result.pos = vec3(0, 0, 0)
 
-proc dist*(a, b: Mat4): float32 =
+func dist*(a, b: Mat4): float32 =
   var
     x = a[12] - b[12]
     y = a[13] - b[13]
@@ -864,7 +848,7 @@ proc dist*(a, b: Mat4): float32 =
   return sqrt(x*x + y*y + z*z)
 
 #[
-proc translate*(a: Mat4, v: Vec3): Mat4 =
+func translate*(a: Mat4, v: Vec3): Mat4 =
   var
     a00 = a[0]
     a01 = a[1]
@@ -898,7 +882,7 @@ proc translate*(a: Mat4, v: Vec3): Mat4 =
   result[15] = a03*v.x + a13*v.y + a23*v.z + a[15]
 ]#
 
-proc translate*(v: Vec3): Mat4 =
+func translate*(v: Vec3): Mat4 =
   result[0] = 1
   result[5] = 1
   result[10] = 1
@@ -907,19 +891,19 @@ proc translate*(v: Vec3): Mat4 =
   result[13] = v.y
   result[14] = v.z
 
-proc scale*(v: Vec3): Mat4 =
+func scale*(v: Vec3): Mat4 =
   result[0] = v.x
   result[5] = v.y
   result[10] = v.z
   result[15] = 1
 
-proc close*(a: Mat4, b: Mat4): bool =
+func close*(a: Mat4, b: Mat4): bool =
   for i in 0..15:
     if abs(a[i] - b[i]) > 0.001:
       return false
   return true
 
-proc hrp*(m: Mat4): Vec3 =
+func hrp*(m: Mat4): Vec3 =
   var heading, pitch, roll: float32
   if m[1] > 0.998: # singularity at north pole
     heading = arctan2(m[2], m[10])
@@ -937,7 +921,7 @@ proc hrp*(m: Mat4): Vec3 =
   result.y = pitch
   result.z = roll
 
-proc frustum*(left, right, bottom, top, near, far: float32): Mat4 =
+func frustum*(left, right, bottom, top, near, far: float32): Mat4 =
   var
     rl = (right - left)
     tb = (top - bottom)
@@ -959,13 +943,13 @@ proc frustum*(left, right, bottom, top, near, far: float32): Mat4 =
   result[14] = -(far*near*2) / fn
   result[15] = 0
 
-proc perspective*(fovy, aspect, near, far: float32): Mat4 =
+func perspective*(fovy, aspect, near, far: float32): Mat4 =
   var
     top = near * tan(fovy*PI / 360.0)
     right = top * aspect
   return frustum(-right, right, -top, top, near, far)
 
-proc ortho*(left, right, bottom, top, near, far: float32): Mat4 =
+func ortho*(left, right, bottom, top, near, far: float32): Mat4 =
   var
     rl = (right - left)
     tb = (top - bottom)
@@ -987,7 +971,7 @@ proc ortho*(left, right, bottom, top, near, far: float32): Mat4 =
   result[14] = -(far + near) / fn
   result[15] = 1
 
-proc lookAt*(eye, center, up: Vec3): Mat4 =
+func lookAt*(eye, center, up: Vec3): Mat4 =
   var
     eyex = eye[0]
     eyey = eye[1]
@@ -1064,7 +1048,7 @@ proc lookAt*(eye, center, up: Vec3): Mat4 =
   result[14] = -(z0*eyex + z1*eyey + z2*eyez)
   result[15] = 1
 
-proc toFloat32*(m: Mat4): array[16, float32] =
+func toFloat32*(m: Mat4): array[16, float32] =
   return [
      float32 m[00], float32 m[01], float32 m[02], float32 m[03],
      float32 m[04], float32 m[05], float32 m[06], float32 m[07],
@@ -1072,24 +1056,11 @@ proc toFloat32*(m: Mat4): array[16, float32] =
      float32 m[12], float32 m[13], float32 m[14], float32 m[15]
   ]
 
-proc `$`*(a: Mat4): string =
-  return "[" &
-    a[0].formatfloat(ffDecimal, 5) & ", " &
-    a[1].formatfloat(ffDecimal, 5) & ", " &
-    a[2].formatfloat(ffDecimal, 5) & ", " &
-    a[3].formatfloat(ffDecimal, 5) & ",\n" &
-    a[4].formatfloat(ffDecimal, 5) & ", " &
-    a[5].formatfloat(ffDecimal, 5) & ", " &
-    a[6].formatfloat(ffDecimal, 5) & ", " &
-    a[7].formatfloat(ffDecimal, 5) & ",\n " &
-    a[8].formatfloat(ffDecimal, 5) & ", " &
-    a[9].formatfloat(ffDecimal, 5) & ", " &
-    a[10].formatfloat(ffDecimal, 5) & ", " &
-    a[11].formatfloat(ffDecimal, 5) & ",\n" &
-    a[12].formatfloat(ffDecimal, 5) & ", " &
-    a[13].formatfloat(ffDecimal, 5) & ", " &
-    a[14].formatfloat(ffDecimal, 5) & ", " &
-    a[15].formatfloat(ffDecimal, 5) & "]"
+func `$`*(a: Mat4): string =
+  &"""[{a[0]:.5f}, {a[1]:.5f}, {a[2]:.5f}, {a[3]:.5f},
+{a[4]:.5f}, {a[5]:.5f}, {a[6]:.5f}, {a[7]:.5f},
+{a[8]:.5f}, {a[9]:.5f}, {a[10]:.5f}, {a[11]:.5f},
+{a[12]:.5f}, {a[13]:.5f}, {a[14]:.5f}, {a[15]:.5f}]"""
 
 type Quat* = object
   x*: float32
@@ -1097,55 +1068,55 @@ type Quat* = object
   z*: float32
   w*: float32
 
-proc quat*(x, y, z, w: float32): Quat =
+func quat*(x, y, z, w: float32): Quat =
   result.x = x
   result.y = y
   result.z = z
   result.w = w
 
-proc conjugate*(q: Quat): Quat =
+func conjugate*(q: Quat): Quat =
   result.w = +q.w
   result.x = -q.x
   result.y = -q.y
   result.z = -q.z
 
-proc length*(q: Quat): float32 =
+func length*(q: Quat): float32 =
   return sqrt(
     q.w * q.w +
     q.x * q.x +
     q.y * q.y +
     q.z * q.z)
 
-proc normalize*(q: Quat): Quat =
+func normalize*(q: Quat): Quat =
   var m = q.length
   result.x = q.x / m
   result.y = q.y / m
   result.z = q.z / m
   result.w = q.w / m
 
-proc xyz*(q: Quat): Vec3 =
+func xyz*(q: Quat): Vec3 =
   result.x = q.x
   result.y = q.y
   result.z = q.z
 
-proc `xyz=`*(q: var Quat, v: Vec3) =
+func `xyz=`*(q: var Quat, v: Vec3) =
   q.x = v.x
   q.y = v.y
   q.z = v.z
 
-proc `-`*(a: var Quat): Quat =
+func `-`*(a: var Quat): Quat =
   result.x = -a.x
   result.y = -a.y
   result.z = -a.z
   result.w = -a.w
 
-proc `+`*(a: Quat, b: Quat): Quat =
+func `+`*(a: Quat, b: Quat): Quat =
   result.x = a.x + b.x
   result.y = a.y + b.y
   result.z = a.z + b.z
   result.w = a.w + b.w
 
-proc `*`*(a, b: Quat): Quat =
+func `*`*(a, b: Quat): Quat =
   ## Multiply the quaternion by a quaternion.
   #[
   var q = quat(0,0,0,0)
@@ -1163,14 +1134,14 @@ proc `*`*(a, b: Quat): Quat =
   result.z = a.z * b.w + a.w * b.z + a.x * b.y - a.y * b.x
   result.w = a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z
 
-proc `*`*(q: Quat, v: float32): Quat =
+func `*`*(q: Quat, v: float32): Quat =
   ## Multiply the quaternion by a float32.
   result.x = q.x * v
   result.y = q.y * v
   result.z = q.z * v
   result.w = q.w * v
 
-proc `*`*(q: Quat, v: Vec3): Vec3 =
+func `*`*(q: Quat, v: Vec3): Vec3 =
   ## Multiply the quaternion by a vector.
   var
     x = v.x
@@ -1191,7 +1162,18 @@ proc `*`*(q: Quat, v: Vec3): Vec3 =
   result.y = iy * qw + iw * -qy + iz * -qx - ix * -qz
   result.z = iz * qw + iw * -qz + ix * -qy - iy * -qx
 
-proc mat3*(q: Quat): Mat3 =
+func `[]=`*(a: var Quat, i: int, b: float32) =
+  assert(i == 0 or i == 1 or i == 2 or i == 3)
+  if i == 0:
+    a.x = b
+  elif i == 1:
+    a.y = b
+  elif i == 2:
+    a.z = b
+  elif i == 3:
+    a.w = b
+
+func mat3*(q: Quat): Mat3 =
   var xx = q.x * q.x
   var xy = q.x * q.y
   var xz = q.x * q.z
@@ -1214,7 +1196,7 @@ proc mat3*(q: Quat): Mat3 =
   result[7] = 0 + 2 * (yz + xw)
   result[8] = 1 - 2 * (xx + yy)
 
-proc mat4*(q: Quat): Mat4 =
+func mat4*(q: Quat): Mat4 =
   var xx = q.x * q.x
   var xy = q.x * q.y
   var xz = q.x * q.z
@@ -1245,7 +1227,7 @@ proc mat4*(q: Quat): Mat4 =
   result[14] = 0
   result[15] = 1.0
 
-proc reciprocalSqrt*(x: float32): float32 =
+func recifuncalSqrt*(x: float32): float32 =
   return 1.0/sqrt(x)
 
 proc quat*(m: Mat4): Quat =
@@ -1285,7 +1267,7 @@ proc quat*(m: Mat4): Quat =
   assert abs(q.length - 1.0) < 0.001
   return q
 
-proc fromAxisAngle*(axis: Vec3, angle: float32): Quat =
+func fromAxisAngle*(axis: Vec3, angle: float32): Quat =
   var a = axis.normalize()
   var s = sin(angle / 2)
   result.x = a.x * s
@@ -1293,7 +1275,7 @@ proc fromAxisAngle*(axis: Vec3, angle: float32): Quat =
   result.z = a.z * s
   result.w = cos(angle / 2)
 
-proc toAxisAngle*(q: Quat, axis: var Vec3, angle: var float32) =
+func toAxisAngle*(q: Quat, axis: var Vec3, angle: var float32) =
   var cosAngle = q.w
   angle = arccos(cosAngle) * 2.0
   var sinAngle = sqrt(1.0 - cosAngle * cosAngle)
@@ -1305,7 +1287,7 @@ proc toAxisAngle*(q: Quat, axis: var Vec3, angle: var float32) =
   axis.y = q.y / sinAngle
   axis.z = q.z / sinAngle
 
-proc quat*(heading, pitch, roll: float32): Quat =
+func quat*(heading, pitch, roll: float32): Quat =
   var t0 = cos(heading * 0.5)
   var t1 = sin(heading * 0.5)
   var t2 = cos(roll * 0.5)
@@ -1317,7 +1299,7 @@ proc quat*(heading, pitch, roll: float32): Quat =
   result.y = t0 * t2 * t5 + t1 * t3 * t4
   result.z = t1 * t2 * t4 - t0 * t3 * t5
 
-proc hrp*(q: Quat): Vec3 =
+func hrp*(q: Quat): Vec3 =
   var ysqr = q.y * q.y
   # roll
   var t0 = +2.0 * (q.w * q.x + q.y * q.z)
@@ -1335,42 +1317,38 @@ proc hrp*(q: Quat): Vec3 =
   var t4 = +1.0 - 2.0 * (ysqr + q.z * q.z)
   result.x = arctan2(t3, t4)
 
-proc dot*(a: Quat, b: Quat): float32 =
+func dot*(a: Quat, b: Quat): float32 =
   a.x*b.x + a.y*b.y + a.z*b.z + a.w*b.w
 
-proc nlerp*(a: Quat, b: Quat, v: float32): Quat =
+func nlerp*(a: Quat, b: Quat, v: float32): Quat =
   if dot(a, b) < 0:
     var c = a
     (-c * (1.0 - v) + b * v).normalize()
   else:
     (a * (1.0 - v) + b * v).normalize()
 
-proc `$`*(a: Quat): string =
-  return "q(" &
-    a.x.formatfloat(ffDecimal, 8) & ", " &
-    a.y.formatfloat(ffDecimal, 8) & ", " &
-    a.z.formatfloat(ffDecimal, 8) & ", " &
-    a.w.formatfloat(ffDecimal, 8) & ")"
+func `$`*(a: Quat): string =
+  &"q({a.x:.8f}, {a.y:.8f}, {a.z:.8f}, {a.w:.8f})"
 
-proc rotate*(angle: float32, axis: Vec3): Mat4 =
+func rotate*(angle: float32, axis: Vec3): Mat4 =
   fromAxisAngle(axis, angle).mat4()
 
-proc rotateX*(angle: float32): Mat4 =
+func rotateX*(angle: float32): Mat4 =
   return rotate(angle, vec3(1, 0, 0))
 
-proc rotateY*(angle: float32): Mat4 =
+func rotateY*(angle: float32): Mat4 =
   return rotate(angle, vec3(0, 1, 0))
 
-proc rotateZ*(angle: float32): Mat4 =
+func rotateZ*(angle: float32): Mat4 =
   return rotate(angle, vec3(0, 0, 1))
 
-proc scaleMat*(scale: Vec3): Mat4 =
+func scaleMat*(scale: Vec3): Mat4 =
   result[0] = scale.x
   result[5] = scale.y
   result[10] = scale.z
   result[15] = 1.0
 
-proc scaleMat*(scale: float32): Mat4 =
+func scaleMat*(scale: float32): Mat4 =
   return scaleMat(vec3(scale, scale, scale))
 
 type Rect* = object
@@ -1379,64 +1357,60 @@ type Rect* = object
   w*: float32
   h*: float32
 
-proc rect*(x, y, w, h: float32): Rect =
+func rect*(x, y, w, h: float32): Rect =
   result.x = x
   result.y = y
   result.w = w
   result.h = h
 
-proc rect*(pos, size: Vec2): Rect =
+func rect*(pos, size: Vec2): Rect =
   result.x = pos.x
   result.y = pos.y
   result.w = size.x
   result.h = size.y
 
-proc xy*(rect: Rect): Vec2 =
+func xy*(rect: Rect): Vec2 =
   ## Gets the xy as a Vec2.
   vec2(rect.x, rect.y)
 
-proc `xy=`*(rect: var Rect, v: Vec2) =
+func `xy=`*(rect: var Rect, v: Vec2) =
   ## Sets the xy from Vec2.
   rect.x = v.x
   rect.y = v.y
 
-proc wh*(rect: Rect): Vec2 =
+func wh*(rect: Rect): Vec2 =
   ## Gets the wh as a Vec2.
   vec2(rect.w, rect.h)
 
-proc `wh=`*(rect: var Rect, v: Vec2) =
+func `wh=`*(rect: var Rect, v: Vec2) =
   ## Sets the wh from Vec2.
   rect.w = v.x
   rect.h = v.y
 
-proc `*`*(r: Rect, v: float): Rect =
+func `*`*(r: Rect, v: float): Rect =
   ## * all elements of a Rect.
   rect(r.x * v, r.y * v, r.w * v, r.h * v)
 
-proc `/`*(r: Rect, v: float): Rect =
+func `/`*(r: Rect, v: float): Rect =
   ## / all elements of a Rect.
   rect(r.x / v, r.y / v, r.w / v, r.h / v)
 
-proc `+`*(a, b: Rect): Rect =
+func `+`*(a, b: Rect): Rect =
   ## Add two boxes together.
   result.x = a.x + b.x
   result.y = a.y + b.y
   result.w = a.w
   result.h = a.h
 
-proc `$`*(a: Rect): string =
-  return "(" &
-    $a.x & ", " &
-    $a.y & ": " &
-    $a.w & " x " &
-    $a.h & ")"
+func `$`*(a: Rect): string =
+  &"({a.x}, {a.y}: {a.w} x {a.h})"
 
-proc inside*(pos: Vec2, rect: Rect): bool =
+func inside*(pos: Vec2, rect: Rect): bool =
   ## Checks if pos is inside rect.
   (rect.x <= pos.x and pos.x <= rect.x + rect.w) and (
     rect.y <= pos.y and pos.y <= rect.y + rect.h)
 
-proc overlap*(a, b: Rect): bool =
+func overlap*(a, b: Rect): bool =
   ## Returns true if box a overlaps box b.
   let
     xOverlap = between(a.x, b.x, b.x + b.w) or between(b.x, a.x, a.x + a.w)
