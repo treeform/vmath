@@ -83,7 +83,7 @@ func hash*(a: Vec2): Hash =
   var h: Hash
   h = h !& hash(a.x)
   h = h !& hash(a.y)
-  result = !$h
+  !$h
 
 func lengthSq*(a: Vec2): float32 =
   a.x * a.x + a.y * a.y
@@ -101,7 +101,7 @@ func dot*(a: Vec2, b: Vec2): float32 =
   a.x*b.x + a.y*b.y
 
 func dir*(at: Vec2, to: Vec2): Vec2 =
-  result = (at - to).normalize()
+  (at - to).normalize()
 
 func dir*(th: float32): Vec2 =
   vec2(cos(th), sin(th))
@@ -270,7 +270,7 @@ func hash*(a: Vec3): Hash =
   h = h !& hash(a.x)
   h = h !& hash(a.y)
   h = h !& hash(a.z)
-  result = !$h
+  !$h
 
 func lengthSq*(a: Vec3): float32 =
   a.x * a.x + a.y * a.y + a.z * a.z
@@ -290,13 +290,13 @@ func cross*(a: Vec3, b: Vec3): Vec3 =
   result.z = a.x*b.y - a.y*b.x
 
 func computeNormal*(a, b, c: Vec3): Vec3 =
-  result = cross(c - b, b - a).normalize()
+  cross(c - b, b - a).normalize()
 
 func dot*(a: Vec3, b: Vec3): float32 =
   a.x*b.x + a.y*b.y + a.z*b.z
 
 func dir*(at: Vec3, to: Vec3): Vec3 =
-  result = (at - to).normalize()
+  (at - to).normalize()
 
 func dist*(at: Vec3, to: Vec3): float32 =
   (at - to).length
@@ -463,7 +463,7 @@ func hash*(a: Vec4): Hash =
   h = h !& hash(a.y)
   h = h !& hash(a.z)
   h = h !& hash(a.w)
-  result = !$h
+  !$h
 
 func xyz*(a: Vec4): Vec3 =
   vec3(a.x, a.y, a.z)
@@ -494,7 +494,7 @@ func mat3*(a, b, c, d, e, f, g, h, i: float32): Mat3 =
   result[8] = i
 
 func mat3*(a: Mat3): Mat3 =
-  result = a
+  a
 
 func identity*(a: var Mat3) =
   a[0] = 1
@@ -634,7 +634,7 @@ func mat4*(v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13,
   result[15] = v15
 
 func mat4*(a: Mat4): Mat4 =
-  result = a
+  a
 
 func identity*(): Mat4 =
   result[0] = 1
