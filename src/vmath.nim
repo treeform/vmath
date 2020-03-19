@@ -1,4 +1,4 @@
-import math, random, strformat, strutils
+import hashes, math, random, strformat, strutils
 
 export math
 
@@ -79,6 +79,12 @@ func `-`*(a: Vec2): Vec2 =
   result.x = -a.x
   result.y = -a.y
 
+func hash*(a: Vec2): Hash =
+  var h: Hash
+  h = h !& hash(a.x)
+  h = h !& hash(a.y)
+  !$h
+
 func lengthSq*(a: Vec2): float32 =
   a.x * a.x + a.y * a.y
 
@@ -95,7 +101,7 @@ func dot*(a: Vec2, b: Vec2): float32 =
   a.x*b.x + a.y*b.y
 
 func dir*(at: Vec2, to: Vec2): Vec2 =
-  result = (at - to).normalize()
+  (at - to).normalize()
 
 func dir*(th: float32): Vec2 =
   vec2(cos(th), sin(th))
@@ -119,7 +125,7 @@ func inRect*(v: Vec2, a: Vec2, b: Vec2): bool =
   let
     min = vec2(min(a.x, b.x), min(a.y, b.y))
     max = vec2(max(a.x, b.x), max(a.y, b.y))
-  return v.x > min.x and v.x < max.x and v.y > min.y and v.y < max.y
+  v.x > min.x and v.x < max.x and v.y > min.y and v.y < max.y
 
 func `[]`*(a: Vec2, i: int): float32 =
   assert(i == 0 or i == 1)
@@ -150,7 +156,7 @@ func fixAngle*(angle: float32): float32 =
     angle -= PI*2
   while angle < -PI:
     angle += PI*2
-  return angle
+  angle
 
 func angle*(a: Vec2): float32 =
   ## Angle of a Vec2.
@@ -174,7 +180,7 @@ func turnAngle*(a, b, speed: float32): float32 =
     turn = speed
   elif turn < -speed:
     turn = -speed
-  return a + turn
+  a + turn
 
 type Vec3* = object
   ## 3D vector
@@ -259,6 +265,13 @@ func `-`*(a: var Vec3): Vec3 =
   result.y = -a.y
   result.z = -a.z
 
+func hash*(a: Vec3): Hash =
+  var h: Hash
+  h = h !& hash(a.x)
+  h = h !& hash(a.y)
+  h = h !& hash(a.z)
+  !$h
+
 func lengthSq*(a: Vec3): float32 =
   a.x * a.x + a.y * a.y + a.z * a.z
 
@@ -269,7 +282,7 @@ func `length=`*(a: var Vec3, b: float32) =
   a *= b / a.length
 
 func normalize*(a: Vec3): Vec3 =
-  return a / math.sqrt(a.x*a.x + a.y*a.y + a.z*a.z)
+  a / math.sqrt(a.x*a.x + a.y*a.y + a.z*a.z)
 
 func cross*(a: Vec3, b: Vec3): Vec3 =
   result.x = a.y*b.z - a.z*b.y
@@ -277,13 +290,13 @@ func cross*(a: Vec3, b: Vec3): Vec3 =
   result.z = a.x*b.y - a.y*b.x
 
 func computeNormal*(a, b, c: Vec3): Vec3 =
-  result = cross(c - b, b - a).normalize()
+  cross(c - b, b - a).normalize()
 
 func dot*(a: Vec3, b: Vec3): float32 =
   a.x*b.x + a.y*b.y + a.z*b.z
 
 func dir*(at: Vec3, to: Vec3): Vec3 =
-  result = (at - to).normalize()
+  (at - to).normalize()
 
 func dist*(at: Vec3, to: Vec3): float32 =
   (at - to).length
@@ -302,7 +315,7 @@ func quantize*(v: Vec3, n: float32): Vec3 =
 func angleBetween*(a, b: Vec3): float32 =
   var dot = dot(a, b)
   dot = dot / (a.length * b.length)
-  return arccos(dot)
+  arccos(dot)
 
 func `[]`*(a: Vec3, i: int): float32 =
   assert(i == 0 or i == 1 or i == 2)
@@ -342,7 +355,7 @@ func zy*(a: Vec3): Vec2 =
 
 func almostEquals*(a, b: Vec3, precision = 1e-6): bool =
   let c = a - b
-  return abs(c.x) < precision and abs(c.y) < precision and abs(c.z) < precision
+  abs(c.x) < precision and abs(c.y) < precision and abs(c.z) < precision
 
 proc randVec3*(): Vec3 =
   ## Generates a random unit vector based on
@@ -444,6 +457,14 @@ func zero*(a: var Vec4) =
   a.z = 0
   a.w = 0
 
+func hash*(a: Vec4): Hash =
+  var h: Hash
+  h = h !& hash(a.x)
+  h = h !& hash(a.y)
+  h = h !& hash(a.z)
+  h = h !& hash(a.w)
+  !$h
+
 func xyz*(a: Vec4): Vec3 =
   vec3(a.x, a.y, a.z)
 
@@ -473,7 +494,7 @@ func mat3*(a, b, c, d, e, f, g, h, i: float32): Mat3 =
   result[8] = i
 
 func mat3*(a: Mat3): Mat3 =
-  result = a
+  a
 
 func identity*(a: var Mat3) =
   a[0] = 1
@@ -613,7 +634,7 @@ func mat4*(v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13,
   result[15] = v15
 
 func mat4*(a: Mat4): Mat4 =
-  result = a
+  a
 
 func identity*(): Mat4 =
   result[0] = 1
@@ -634,7 +655,7 @@ func identity*(): Mat4 =
   result[15] = 1
 
 func mat4*(): Mat4 =
-  return identity()
+  identity()
 
 func transpose*(a: Mat4): Mat4 =
   result[0] = a[0]
@@ -676,7 +697,7 @@ func determinant*(a: Mat4): float32 =
     a32 = a[14]
     a33 = a[15]
 
-  return (
+  (
     a30*a21*a12*a03 - a20*a31*a12*a03 - a30*a11*a22*a03 + a10*a31*a22*a03 +
     a20*a11*a32*a03 - a10*a21*a32*a03 - a30*a21*a02*a13 + a20*a31*a02*a13 +
     a30*a01*a22*a13 - a00*a31*a22*a13 - a20*a01*a32*a13 + a00*a21*a32*a13 +
@@ -846,7 +867,7 @@ func dist*(a, b: Mat4): float32 =
     x = a[12] - b[12]
     y = a[13] - b[13]
     z = a[14] - b[14]
-  return sqrt(x*x + y*y + z*z)
+  sqrt(x*x + y*y + z*z)
 
 #[
 func translate*(a: Mat4, v: Vec3): Mat4 =
@@ -902,7 +923,7 @@ func close*(a: Mat4, b: Mat4): bool =
   for i in 0..15:
     if abs(a[i] - b[i]) > 0.001:
       return false
-  return true
+  true
 
 func hrp*(m: Mat4): Vec3 =
   var heading, pitch, roll: float32
@@ -948,7 +969,7 @@ func perspective*(fovy, aspect, near, far: float32): Mat4 =
   var
     top = near * tan(fovy*PI / 360.0)
     right = top * aspect
-  return frustum(-right, right, -top, top, near, far)
+  frustum(-right, right, -top, top, near, far)
 
 func ortho*(left, right, bottom, top, near, far: float32): Mat4 =
   var
@@ -1050,7 +1071,7 @@ func lookAt*(eye, center, up: Vec3): Mat4 =
   result[15] = 1
 
 func toFloat32*(m: Mat4): array[16, float32] =
-  return [
+  [
      float32 m[00], float32 m[01], float32 m[02], float32 m[03],
      float32 m[04], float32 m[05], float32 m[06], float32 m[07],
      float32 m[08], float32 m[09], float32 m[10], float32 m[11],
@@ -1082,7 +1103,7 @@ func conjugate*(q: Quat): Quat =
   result.z = -q.z
 
 func length*(q: Quat): float32 =
-  return sqrt(
+  sqrt(
     q.w * q.w +
     q.x * q.x +
     q.y * q.y +
@@ -1229,7 +1250,7 @@ func mat4*(q: Quat): Mat4 =
   result[15] = 1.0
 
 func recifuncalSqrt*(x: float32): float32 =
-  return 1.0/sqrt(x)
+  1.0/sqrt(x)
 
 proc quat*(m: Mat4): Quat =
   var
@@ -1266,7 +1287,7 @@ proc quat*(m: Mat4): Quat =
 
   echo abs(q.length - 1.0)
   assert abs(q.length - 1.0) < 0.001
-  return q
+  q
 
 func fromAxisAngle*(axis: Vec3, angle: float32): Quat =
   var a = axis.normalize()
@@ -1335,13 +1356,13 @@ func rotate*(angle: float32, axis: Vec3): Mat4 =
   fromAxisAngle(axis, angle).mat4()
 
 func rotateX*(angle: float32): Mat4 =
-  return rotate(angle, vec3(1, 0, 0))
+  rotate(angle, vec3(1, 0, 0))
 
 func rotateY*(angle: float32): Mat4 =
-  return rotate(angle, vec3(0, 1, 0))
+  rotate(angle, vec3(0, 1, 0))
 
 func rotateZ*(angle: float32): Mat4 =
-  return rotate(angle, vec3(0, 0, 1))
+  rotate(angle, vec3(0, 0, 1))
 
 func scaleMat*(scale: Vec3): Mat4 =
   result[0] = scale.x
@@ -1350,7 +1371,7 @@ func scaleMat*(scale: Vec3): Mat4 =
   result[15] = 1.0
 
 func scaleMat*(scale: float32): Mat4 =
-  return scaleMat(vec3(scale, scale, scale))
+  scaleMat(vec3(scale, scale, scale))
 
 type Rect* = object
   x*: float32
@@ -1416,4 +1437,4 @@ func overlap*(a, b: Rect): bool =
   let
     xOverlap = between(a.x, b.x, b.x + b.w) or between(b.x, a.x, a.x + a.w)
     yOverlap = between(a.y, b.y, b.y + b.h) or between(b.y, a.y, a.y + a.h)
-  return xOverlap and yOverlap
+  xOverlap and yOverlap
