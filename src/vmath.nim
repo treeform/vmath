@@ -355,16 +355,17 @@ proc almostEquals*(a, b: Vec3, precision = 1e-6): bool =
   return abs(c.x) < precision and abs(c.y) < precision and abs(c.z) < precision
 
 proc randVec3*(): Vec3 =
-  ## Generates a random vector based on http://mathworld.wolfram.com/SpherePointPicking.html
+  ## Generates a random unit vector based on
+  ## http://mathworld.wolfram.com/SpherePointPicking.html
   let
     u = rand(0.0 .. 1.0)
     v = rand(0.0 .. 1.0)
     th = 2 * PI * u
     ph = arccos(2 * v - 1)
   vec3(
-    sin(th) * cos(ph),
-    sin(th) * sin(th),
-    cos(th)
+    cos(th) * sin(ph),
+    sin(th) * sin(ph),
+    cos(ph)
   )
 
 proc `$`*(a: Vec3): string =
