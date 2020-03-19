@@ -1,4 +1,4 @@
-import math, random, strformat, strutils
+import hashes, math, random, strformat, strutils
 
 export math
 
@@ -78,6 +78,12 @@ func zero*(a: var Vec2) =
 func `-`*(a: Vec2): Vec2 =
   result.x = -a.x
   result.y = -a.y
+
+func hash*(a: Vec2): Hash =
+  var h: Hash
+  h = h !& hash(a.x)
+  h = h !& hash(a.y)
+  result = !$h
 
 func lengthSq*(a: Vec2): float32 =
   a.x * a.x + a.y * a.y
@@ -258,6 +264,13 @@ func `-`*(a: var Vec3): Vec3 =
   result.x = -a.x
   result.y = -a.y
   result.z = -a.z
+
+func hash*(a: Vec3): Hash =
+  var h: Hash
+  h = h !& hash(a.x)
+  h = h !& hash(a.y)
+  h = h !& hash(a.z)
+  result = !$h
 
 func lengthSq*(a: Vec3): float32 =
   a.x * a.x + a.y * a.y + a.z * a.z
@@ -443,6 +456,14 @@ func zero*(a: var Vec4) =
   a.y = 0
   a.z = 0
   a.w = 0
+
+func hash*(a: Vec4): Hash =
+  var h: Hash
+  h = h !& hash(a.x)
+  h = h !& hash(a.y)
+  h = h !& hash(a.z)
+  h = h !& hash(a.w)
+  result = !$h
 
 func xyz*(a: Vec4): Vec3 =
   vec3(a.x, a.y, a.z)
