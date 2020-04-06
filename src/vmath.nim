@@ -838,12 +838,12 @@ func `up=`*(a: var Mat4, b: Vec3) =
   a[5] = b.y
   a[6] = b.z
 
-func fov*(a: Mat4): Vec3 =
+func forward*(a: Mat4): Vec3 =
   result.x = a[8]
   result.y = a[9]
   result.z = a[10]
 
-func `fov=`*(a: var Mat4, b: Vec3) =
+func `forward=`*(a: var Mat4, b: Vec3) =
   a[8] = b.x
   a[9] = b.y
   a[10] = b.z
