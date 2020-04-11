@@ -281,6 +281,15 @@ func length*(a: Vec3): float32 =
 func `length=`*(a: var Vec3, b: float32) =
   a *= b / a.length
 
+func floor*(a: Vec3): Vec3 =
+  vec3(floor(a.x), floor(a.y), floor(a.z))
+
+func round*(a: Vec3): Vec3 =
+  vec3(round(a.x), round(a.y), round(a.z))
+
+func ceil*(a: Vec3): Vec3 =
+  vec3(ceil(a.x), ceil(a.y), ceil(a.z))
+
 func normalize*(a: Vec3): Vec3 =
   a / math.sqrt(a.x*a.x + a.y*a.y + a.z*a.z)
 
