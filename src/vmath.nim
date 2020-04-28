@@ -80,10 +80,7 @@ func `-`*(a: Vec2): Vec2 =
   result.y = -a.y
 
 func hash*(a: Vec2): Hash =
-  var h: Hash
-  h = h !& hash(a.x)
-  h = h !& hash(a.y)
-  !$h
+  hash((a.x, a.y))
 
 func lengthSq*(a: Vec2): float32 =
   a.x * a.x + a.y * a.y
@@ -266,11 +263,7 @@ func `-`*(a: var Vec3): Vec3 =
   result.z = -a.z
 
 func hash*(a: Vec3): Hash =
-  var h: Hash
-  h = h !& hash(a.x)
-  h = h !& hash(a.y)
-  h = h !& hash(a.z)
-  !$h
+  hash((a.x, a.y, a.z))
 
 func lengthSq*(a: Vec3): float32 =
   a.x * a.x + a.y * a.y + a.z * a.z
@@ -467,12 +460,7 @@ func zero*(a: var Vec4) =
   a.w = 0
 
 func hash*(a: Vec4): Hash =
-  var h: Hash
-  h = h !& hash(a.x)
-  h = h !& hash(a.y)
-  h = h !& hash(a.z)
-  h = h !& hash(a.w)
-  !$h
+  hash((a.x, a.y, a.z, a.w))
 
 func xyz*(a: Vec4): Vec3 =
   vec3(a.x, a.y, a.z)
@@ -826,6 +814,12 @@ func `*`*(a: Mat4, b: Vec3): Vec3 =
   result.x = a[0]*b.x + a[4]*b.y + a[8]*b.z + a[12]
   result.y = a[1]*b.x + a[5]*b.y + a[9]*b.z + a[13]
   result.z = a[2]*b.x + a[6]*b.y + a[10]*b.z + a[14]
+
+func `*`*(a: Mat4, b: Vec4): Vec4 =
+  result.x = a[0]*b.x + a[4]*b.y + a[8]*b.z + a[12]*b.w
+  result.y = a[1]*b.x + a[5]*b.y + a[9]*b.z + a[13]*b.w
+  result.z = a[2]*b.x + a[6]*b.y + a[10]*b.z + a[14]*b.w
+  result.w = a[3]*b.x + a[7]*b.y + a[11]*b.z + a[15]*b.w
 
 func right*(a: Mat4): Vec3 =
   result.x = a[0]
