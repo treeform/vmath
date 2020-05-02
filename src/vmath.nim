@@ -462,6 +462,31 @@ func zero*(a: var Vec4) =
 func hash*(a: Vec4): Hash =
   hash((a.x, a.y, a.z, a.w))
 
+func `[]`*(a: Vec4, i: int): float32 =
+  assert(i == 0 or i == 1 or i == 2)
+  if i == 0:
+    return a.x
+  elif i == 1:
+    return a.y
+  elif i == 2:
+    return a.z
+  elif i == 3:
+    return a.w
+
+func `[]=`*(a: var Vec4, i: int, b: float32) =
+  assert(i == 0 or i == 1 or i == 2)
+  if i == 0:
+    a.x = b
+  elif i == 1:
+    a.y = b
+  elif i == 2:
+    a.z = b
+  elif i == 3:
+    a.w = b
+
+func lerp*(a: Vec4, b: Vec4, v: float32): Vec4 =
+  a * (1.0 - v) + b * v
+
 func xyz*(a: Vec4): Vec3 =
   vec3(a.x, a.y, a.z)
 
