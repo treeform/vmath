@@ -1,6 +1,6 @@
 include ../src/vmath, streams
 
-var s = newFileStream("tests/test.output.txt", fmWrite)
+var s = newFileStream("tests/test-output.txt", fmWrite)
 
 randomize(1234)
 
