@@ -6,7 +6,6 @@ description   = "Math vector library for graphical things."
 license       = "MIT"
 
 srcDir        = "src"
-bin           = @["vmath"]
 
 # Dependencies
 

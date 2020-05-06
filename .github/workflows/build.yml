@@ -1,4 +1,4 @@
-name: Build
+name: Run tests
 on: [push]
 jobs:
   build:
@@ -23,5 +23,4 @@ jobs:
 
     - uses: jiro4989/setup-nim-action@v1.0.2
 
-    - run: nimble build -y
     - run: nimble test -y
