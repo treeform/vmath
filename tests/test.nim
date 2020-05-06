@@ -1,4 +1,4 @@
-include ../src/vmath, streams
+import vmath, osproc, random, streams
 
 var s = newFileStream("tests/test-output.txt", fmWrite)
 
@@ -223,5 +223,7 @@ block:
 
 s.close()
 
-if readFile("tests/test-output.txt") != readFile("tests/test-output-valid.txt"):
-  quit("Failure: test-output.txt does not match test-output-valid.txt")
+let (outp, _) = execCmdEx("git diff tests/test-output.txt")
+if len(outp) != 0:
+  echo outp
+  quit("Output does not match")
