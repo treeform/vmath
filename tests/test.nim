@@ -224,4 +224,4 @@ block:
 s.close()
 
 if readFile("tests/test-output.txt") != readFile("tests/test-output-valid.txt"):
-  raise newException(Exception, "Test output does not match")
+  quit("Failure: test-output.txt does not match test-output-valid.txt")
