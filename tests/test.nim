@@ -222,3 +222,6 @@ block:
   # assert m1.close(m2)
 
 s.close()
+
+if readFile("tests/test-output.txt") != readFile("tests/test-output-valid.txt"):
+  raise newException(Exception, "Test output does not match")
