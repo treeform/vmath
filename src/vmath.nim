@@ -6,11 +6,6 @@ func between*(value, min, max: float32): bool =
   ## Returns true if value is between min and max or equal to them.
   (value >= min) and (value <= max)
 
-func sign*(v: float32): float32 =
-  ## Returns the sign of a number, -1 or 1.
-  if v >= 0:
-    return 1.0
-  return -1.0
 
 func quantize*(v: float32, n: float32): float32 =
   ## Makes v be multipe of n. Rounding to integer quantize by 1.0.
