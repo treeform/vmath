@@ -32,6 +32,10 @@ func vec2*(x, y: float32): Vec2 =
   result.x = x
   result.y = y
 
+func vec2*(v: float32): Vec2 =
+  result.x = v
+  result.y = v
+
 func vec2*(a: Vec2): Vec2 =
   result.x = a.x
   result.y = a.y
@@ -189,6 +193,11 @@ func vec3*(x, y, z: float32): Vec3 =
   result.x = x
   result.y = y
   result.z = z
+
+func vec3*(v: float32): Vec3 =
+  result.x = v
+  result.y = v
+  result.z = v
 
 func vec3*(a: Vec3): Vec3 =
   result.x = a.x
@@ -388,6 +397,12 @@ func vec4*(x, y, z, w: float32): Vec4 =
   result.y = y
   result.z = z
   result.w = w
+
+func vec4*(v: float32): Vec4 =
+  result.x = v
+  result.y = v
+  result.z = v
+  result.w = v
 
 func `+`*(a: Vec4, b: Vec4): Vec4 =
   result.x = a.x + b.x
