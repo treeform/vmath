@@ -1355,6 +1355,9 @@ func quat*(heading, pitch, roll: float32): Quat =
   result.y = t0 * t2 * t5 + t1 * t3 * t4
   result.z = t1 * t2 * t4 - t0 * t3 * t5
 
+func quat*(hpr: Vec3): Quat =
+  quat(hpr.x, hpr.y, hpr.z)
+
 func hrp*(q: Quat): Vec3 =
   var ysqr = q.y * q.y
   # roll
