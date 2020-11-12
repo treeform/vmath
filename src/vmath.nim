@@ -519,6 +519,9 @@ func vec4*(a: Vec2, z = 0.0, w = 0.0): Vec4 =
 
 type Mat3* = array[9, float32] ## 3x3 Matrix
 
+template `[]`*(a: Mat3, i, j: int): float32 = a[i * 3 + j ]
+template `[]=`*(a: Mat3, i, j: int, v: float32) = a[i * 3 + j] = v
+
 func mat3*(a, b, c, d, e, f, g, h, i: float32): Mat3 =
   result[0] = a
   result[1] = b
@@ -564,43 +567,15 @@ func `$`*(a: Mat3): string =
 {a[6]:.4f}, {a[7]:.4f}, {a[8]:.4f}]"""
 
 func `*`*(a: Mat3, b: Mat3): Mat3 =
-  let
-    a00 = a[0]
-    a01 = a[1]
-    a02 = a[2]
-    a10 = a[3]
-    a11 = a[4]
-    a12 = a[5]
-    a20 = a[6]
-    a21 = a[7]
-    a22 = a[8]
-
-    b00 = b[0]
-    b01 = b[1]
-    b02 = b[2]
-    b10 = b[3]
-    b11 = b[4]
-    b12 = b[5]
-    b20 = b[6]
-    b21 = b[7]
-    b22 = b[8]
-
-  result[0] = b00 * a00 + b01 * a10 + b02 * a20
-  result[1] = b00 * a01 + b01 * a11 + b02 * a21
-  result[2] = b00 * a02 + b01 * a12 + b02 * a22
-
-  result[3] = b10 * a00 + b11 * a10 + b12 * a20
-  result[4] = b10 * a01 + b11 * a11 + b12 * a21
-  result[5] = b10 * a02 + b11 * a12 + b12 * a22
-
-  result[6] = b20 * a00 + b21 * a10 + b22 * a20
-  result[7] = b20 * a01 + b21 * a11 + b22 * a21
-  result[8] = b20 * a02 + b21 * a12 + b22 * a22
-
-func `*`*(m: Mat3, v: Vec3): Vec3 =
-  result.x = m[0]*v.x + m[1]*v.y + m[2]*v.z
-  result.y = m[3]*v.x + m[4]*v.y + m[5]*v.z
-  result.z = m[6]*v.x + m[7]*v.y + m[8]*v.z
+  result[0, 0] += b[0, 0] * a[0, 0] + b[0, 1] * a[1, 0] + b[0, 2] * a[2, 0]
+  result[0, 1] += b[0, 0] * a[0, 1] + b[0, 1] * a[1, 1] + b[0, 2] * a[2, 1]
+  result[0, 2] += b[0, 0] * a[0, 2] + b[0, 1] * a[1, 2] + b[0, 2] * a[2, 2]
+  result[1, 0] += b[1, 0] * a[0, 0] + b[1, 1] * a[1, 0] + b[1, 2] * a[2, 0]
+  result[1, 1] += b[1, 0] * a[0, 1] + b[1, 1] * a[1, 1] + b[1, 2] * a[2, 1]
+  result[1, 2] += b[1, 0] * a[0, 2] + b[1, 1] * a[1, 2] + b[1, 2] * a[2, 2]
+  result[2, 0] += b[2, 0] * a[0, 0] + b[2, 1] * a[1, 0] + b[2, 2] * a[2, 0]
+  result[2, 1] += b[2, 0] * a[0, 1] + b[2, 1] * a[1, 1] + b[2, 2] * a[2, 1]
+  result[2, 2] += b[2, 0] * a[0, 2] + b[2, 1] * a[1, 2] + b[2, 2] * a[2, 2]
 
 func scale*(a: Mat3, v: Vec2): Mat3 =
   result[0] = v.x * a[0]
@@ -630,10 +605,10 @@ func rotationMat3*(angle: float32): Mat3 =
     sin = sin(angle)
     cos = cos(angle)
   result[0] = cos
-  result[1] = -sin
+  result[1] = sin
   result[2] = 0
 
-  result[3] = sin
+  result[3] = -sin
   result[4] = cos
   result[5] = 0
 
@@ -646,10 +621,35 @@ func rotate*(a: Mat3, angle: float32): Mat3 =
   a * rotationMat3(angle)
 
 func `*`*(a: Mat3, b: Vec2): Vec2 =
-  result.x = a[0]*b.x + a[1]*b.y + a[6]
-  result.y = a[3]*b.x + a[4]*b.y + a[7]
+  result.x = a[0, 0]*b.x + a[1, 0]*b.y + a[2, 0]
+  result.y = a[0, 1]*b.x + a[1, 1]*b.y + a[2, 1]
+
+func `*`*(a: Mat3, b: Vec3): Vec3 =
+  result.x = a[0, 0]*b.x + a[1, 0]*b.y + a[2, 0]*b.z
+  result.y = a[0, 1]*b.x + a[1, 1]*b.y + a[2, 1]*b.z
+  result.z = a[0, 2]*b.x + a[1, 2]*b.y + a[2, 2]*b.z
+
+func inverse*(a: Mat3): Mat3 =
+  let determinant = (
+    a[0, 0] * (a[1, 1] * a[2, 2] - a[2, 1] * a[1, 2]) -
+    a[0, 1] * (a[1, 0] * a[2, 2] - a[1, 2] * a[2, 0]) +
+    a[0, 2] * (a[1, 0] * a[2, 1] - a[1, 1] * a[2, 0])
+  )
+  let invDet = 1 / determinant
+  result[0, 0] =  (a[1, 1] * a[2, 2] - a[2, 1] * a[1, 2]) * invDet
+  result[1, 0] = -(a[0, 1] * a[2, 2] - a[0, 2] * a[2, 1]) * invDet
+  result[2, 0] =  (a[0, 1] * a[1, 2] - a[0, 2] * a[1, 1]) * invDet
+  result[0, 1] = -(a[1, 0] * a[2, 2] - a[1, 2] * a[2, 0]) * invDet
+  result[1, 1] =  (a[0, 0] * a[2, 2] - a[0, 2] * a[2, 0]) * invDet
+  result[2, 1] = -(a[0, 0] * a[1, 2] - a[1, 0] * a[0, 2]) * invDet
+  result[0, 2] =  (a[1, 0] * a[2, 1] - a[2, 0] * a[1, 1]) * invDet
+  result[1, 2] = -(a[0, 0] * a[2, 1] - a[2, 0] * a[0, 1]) * invDet
+  result[2, 2] =  (a[0, 0] * a[1, 1] - a[1, 0] * a[0, 1]) * invDet
 
 type Mat4* = array[16, float32] ## 4x4 Matrix - OpenGL row order
+
+template `[]`*(a: Mat4, i, j: int): float32 = a[i * 4 + j ]
+template `[]=`*(a: Mat4, i, j: int, v: float32) = a[i * 4 + j] = v
 
 func mat4*(v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13,
     v14, v15: float32): Mat4 =
@@ -776,7 +776,7 @@ func inverse*(a: Mat4): Mat4 =
     b10 = a21*a33 - a23*a31
     b11 = a22*a33 - a23*a32
 
-  # Calculate the invese determinant
+  # Calculate the inverse determinant.
   var invDet = 1.0/(b00*b11 - b01*b10 + b02*b09 + b03*b08 - b04*b07 + b05*b06)
 
   result[00] = (+a11*b11 - a12*b10 + a13*b09)*invDet
@@ -1112,6 +1112,64 @@ func lookAt*(eye, center, up: Vec3): Mat4 =
   result[13] = -(y0*eyex + y1*eyey + y2*eyez)
   result[14] = -(z0*eyex + z1*eyey + z2*eyez)
   result[15] = 1
+
+func mat3*(m: Mat4): Mat3 =
+  ## Gets rotation and translation, ignoring z coordinates.
+  result[0, 0] = m[0, 0]
+  result[0, 1] = m[0, 1]
+  result[0, 2] = 0
+  result[1, 0] = m[1, 0]
+  result[1, 1] = m[1, 1]
+  result[1, 2] = 0
+  result[2, 0] = m[3, 0]
+  result[2, 1] = m[3, 1]
+  result[2, 2] = 0
+
+func mat3Rotation*(m: Mat4): Mat3 =
+  ## Gets the rotational part of the 4x4 matrix.
+  result[0, 0] = m[0, 0]
+  result[0, 1] = m[0, 1]
+  result[0, 2] = m[0, 2]
+  result[1, 0] = m[1, 0]
+  result[1, 1] = m[1, 1]
+  result[1, 2] = m[1, 2]
+  result[2, 0] = m[2, 0]
+  result[2, 1] = m[2, 1]
+  result[2, 2] = m[2, 2]
+
+func mat4*(m: Mat3): Mat4 =
+  ## Takes a 2d Mat3 with position and converts to a 3d matrix.
+  result[0, 0] = m[0, 0]
+  result[0, 1] = m[0, 1]
+  result[0, 2] = 0
+  result[0, 3] = 0
+
+  result[1, 0] = m[1, 0]
+  result[1, 1] = m[1, 1]
+  result[1, 2] = 0
+  result[1, 3] = 0
+
+  result[2, 0] = 0
+  result[2, 1] = 0
+  result[2, 2] = 1
+  result[2, 3] = 0
+
+  result[3, 0] = m[2, 0]
+  result[3, 1] = m[2, 1]
+  result[3, 2] = 0
+  result[3, 3] = 1
+
+func mat4Rotation*(m: Mat3): Mat4 =
+  ## Gets the rotational part of the 3x3 matrix into a 4x4 matrix.
+  result[0, 0] = m[0, 0]
+  result[0, 1] = m[0, 1]
+  result[0, 2] = m[0, 2]
+  result[1, 0] = m[1, 0]
+  result[1, 1] = m[1, 1]
+  result[1, 2] = m[1, 2]
+  result[2, 0] = m[2, 0]
+  result[2, 1] = m[2, 1]
+  result[2, 2] = m[2, 2]
 
 func `$`*(a: Mat4): string =
   &"""[{a[0]:.5f}, {a[1]:.5f}, {a[2]:.5f}, {a[3]:.5f},
