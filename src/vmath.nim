@@ -1533,3 +1533,17 @@ func overlap*(a, b: Rect): bool =
     xOverlap = between(a.x, b.x, b.x + b.w) or between(b.x, a.x, a.x + a.w)
     yOverlap = between(a.y, b.y, b.y + b.h) or between(b.y, a.y, a.y + a.h)
   xOverlap and yOverlap
+
+proc `or`*(a, b: Rect): Rect =
+  ## Union of two rectangles.
+  result.x = min(a.x, b.x)
+  result.y = min(a.y, b.y)
+  result.w = max(a.x + a.w, b.x + b.w) - result.x
+  result.h = max(a.y + a.h, b.y + b.h) - result.y
+
+proc `and`*(a, b: Rect): Rect =
+  ## Intersection of two rectangles.
+  result.x = max(a.x, b.x)
+  result.y = max(a.y, b.y)
+  result.w = min(a.x + a.w, b.x + b.w) - result.x
+  result.h = min(a.y + a.h, b.y + b.h) - result.y
