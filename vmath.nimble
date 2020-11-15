@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.3.1"
+version       = "0.3.2"
 author        = "treeform"
 description   = "Math vector library for graphical things."
 license       = "MIT"
