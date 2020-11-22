@@ -66,6 +66,13 @@ func vec2(x, y: float32): Vec2
 
 
 ```nim
+func vec2(v: float32): Vec2
+```
+
+## **func** vec2
+
+
+```nim
 func vec2(a: Vec2): Vec2
 ```
 
@@ -144,6 +151,13 @@ func zero(a: var Vec2)
 
 ```nim
 func `-`(a: Vec2): Vec2
+```
+
+## **func** hash
+
+
+```nim
+func hash(a: Vec2): Hash
 ```
 
 ## **func** lengthSq
@@ -321,6 +335,13 @@ func vec3(x, y, z: float32): Vec3
 
 
 ```nim
+func vec3(v: float32): Vec3
+```
+
+## **func** vec3
+
+
+```nim
 func vec3(a: Vec3): Vec3
 ```
 
@@ -436,6 +457,13 @@ func zero(a: var Vec3)
 func `-`(a: var Vec3): Vec3
 ```
 
+## **func** hash
+
+
+```nim
+func hash(a: Vec3): Hash
+```
+
 ## **func** lengthSq
 
 
@@ -455,6 +483,27 @@ func length(a: Vec3): float32
 
 ```nim
 func length=(a: var Vec3; b: float32)
+```
+
+## **func** floor
+
+
+```nim
+func floor(a: Vec3): Vec3
+```
+
+## **func** round
+
+
+```nim
+func round(a: Vec3): Vec3
+```
+
+## **func** ceil
+
+
+```nim
+func ceil(a: Vec3): Vec3
 ```
 
 ## **func** normalize
@@ -592,7 +641,7 @@ func almostEquals(a, b: Vec3; precision = 1e-006): bool
 
 ## **proc** randVec3
 
-Generates a random vector based on <a class="reference external" href="http://mathworld.wolfram.com/SpherePointPicking.html">http://mathworld.wolfram.com/SpherePointPicking.html</a>
+Generates a random unit vector based on <a class="reference external" href="http://mathworld.wolfram.com/SpherePointPicking.html">http://mathworld.wolfram.com/SpherePointPicking.html</a>
 
 ```nim
 proc randVec3(): Vec3
@@ -622,6 +671,13 @@ Vec4 = object
 
 ```nim
 func vec4(x, y, z, w: float32): Vec4
+```
+
+## **func** vec4
+
+
+```nim
+func vec4(v: float32): Vec4
 ```
 
 ## **func** `+`
@@ -708,6 +764,34 @@ func `/=`(a: var Vec4; b: float32)
 func zero(a: var Vec4)
 ```
 
+## **func** hash
+
+
+```nim
+func hash(a: Vec4): Hash
+```
+
+## **func** `[]`
+
+
+```nim
+func `[]`(a: Vec4; i: int): float32
+```
+
+## **func** `[]=`
+
+
+```nim
+func `[]=`(a: var Vec4; i: int; b: float32)
+```
+
+## **func** lerp
+
+
+```nim
+func lerp(a: Vec4; b: Vec4; v: float32): Vec4
+```
+
 ## **func** xyz
 
 
@@ -749,6 +833,20 @@ func vec4(a: Vec2; z = 0.0; w = 0.0): Vec4
 
 ```nim
 Mat3 = array[9, float32]
+```
+
+## **template** `[]`
+
+
+```nim
+template `[]`(a: Mat3; i, j: int): float32
+```
+
+## **template** `[]=`
+
+
+```nim
+template `[]=`(a: Mat3; i, j: int; v: float32)
 ```
 
 ## **func** mat3
@@ -800,13 +898,6 @@ func `$`(a: Mat3): string {.raises: [ValueError].}
 func `*`(a: Mat3; b: Mat3): Mat3
 ```
 
-## **func** `*`
-
-
-```nim
-func `*`(m: Mat3; v: Vec3): Vec3
-```
-
 ## **func** scale
 
 
@@ -819,6 +910,20 @@ func scale(a: Mat3; v: Vec2): Mat3
 
 ```nim
 func scale(a: Mat3; v: Vec3): Mat3
+```
+
+## **func** translate
+
+
+```nim
+func translate(v: Vec2): Mat3
+```
+
+## **func** scale
+
+
+```nim
+func scale(v: Vec2): Mat3
 ```
 
 ## **func** rotationMat3
@@ -842,12 +947,40 @@ func rotate(a: Mat3; angle: float32): Mat3
 func `*`(a: Mat3; b: Vec2): Vec2
 ```
 
+## **func** `*`
+
+
+```nim
+func `*`(a: Mat3; b: Vec3): Vec3
+```
+
+## **func** inverse
+
+
+```nim
+func inverse(a: Mat3): Mat3
+```
+
 ## **type** Mat4
 
 4x4 Matrix - OpenGL row order
 
 ```nim
 Mat4 = array[16, float32]
+```
+
+## **template** `[]`
+
+
+```nim
+template `[]`(a: Mat4; i, j: int): float32
+```
+
+## **template** `[]=`
+
+
+```nim
+template `[]=`(a: Mat4; i, j: int; v: float32)
 ```
 
 ## **func** mat4
@@ -913,6 +1046,13 @@ func `*`(a, b: Mat4): Mat4
 func `*`(a: Mat4; b: Vec3): Vec3
 ```
 
+## **func** `*`
+
+
+```nim
+func `*`(a: Mat4; b: Vec4): Vec4
+```
+
 ## **func** right
 
 
@@ -941,18 +1081,18 @@ func up(a: Mat4): Vec3
 func up=(a: var Mat4; b: Vec3)
 ```
 
-## **func** fov
+## **func** forward
 
 
 ```nim
-func fov(a: Mat4): Vec3
+func forward(a: Mat4): Vec3
 ```
 
-## **func** fov=
+## **func** forward=
 
 
 ```nim
-func fov=(a: var Mat4; b: Vec3)
+func forward=(a: var Mat4; b: Vec3)
 ```
 
 ## **func** pos
@@ -1039,11 +1179,36 @@ func ortho(left, right, bottom, top, near, far: float32): Mat4
 func lookAt(eye, center, up: Vec3): Mat4
 ```
 
-## **func** toFloat32
+## **func** mat3
 
+Gets rotation and translation, ignoring z coordinates.
 
 ```nim
-func toFloat32(m: Mat4): array[16, float32]
+func mat3(m: Mat4): Mat3
+```
+
+## **func** mat3Rotation
+
+Gets the rotational part of the 4x4 matrix.
+
+```nim
+func mat3Rotation(m: Mat4): Mat3
+```
+
+## **func** mat4
+
+Takes a 2d Mat3 with position and converts to a 3d matrix.
+
+```nim
+func mat4(m: Mat3): Mat4
+```
+
+## **func** mat4Rotation
+
+Gets the rotational part of the 3x3 matrix into a 4x4 matrix.
+
+```nim
+func mat4Rotation(m: Mat3): Mat4
 ```
 
 ## **func** `$`
@@ -1198,6 +1363,13 @@ func toAxisAngle(q: Quat; axis: var Vec3; angle: var float32)
 
 ```nim
 func quat(heading, pitch, roll: float32): Quat
+```
+
+## **func** quat
+
+
+```nim
+func quat(hpr: Vec3): Quat
 ```
 
 ## **func** hrp
@@ -1372,4 +1544,20 @@ Returns true if box a overlaps box b.
 
 ```nim
 func overlap(a, b: Rect): bool
+```
+
+## **proc** `or`
+
+Union of two rectangles.
+
+```nim
+proc `or`(a, b: Rect): Rect
+```
+
+## **proc** `and`
+
+Intersection of two rectangles.
+
+```nim
+proc `and`(a, b: Rect): Rect
 ```
