@@ -599,6 +599,18 @@ func scale*(a: Mat3, v: Vec3): Mat3 =
   result[7] = v.z * a[7]
   result[8] = v.z * a[8]
 
+func translate*(v: Vec2): Mat3 =
+  result[0, 0] = 1
+  result[1, 1] = 1
+  result[2, 0] = v.x
+  result[2, 1] = v.y
+  result[2, 2] = 1
+
+func scale*(v: Vec2): Mat3 =
+  result[0, 0] = v.x
+  result[1, 1] = v.y
+  result[2, 2] = 1
+
 func rotationMat3*(angle: float32): Mat3 =
   # Create a matrix from an angle.
   let
@@ -637,13 +649,15 @@ func inverse*(a: Mat3): Mat3 =
   )
   let invDet = 1 / determinant
   result[0, 0] =  (a[1, 1] * a[2, 2] - a[2, 1] * a[1, 2]) * invDet
-  result[1, 0] = -(a[0, 1] * a[2, 2] - a[0, 2] * a[2, 1]) * invDet
-  result[2, 0] =  (a[0, 1] * a[1, 2] - a[0, 2] * a[1, 1]) * invDet
-  result[0, 1] = -(a[1, 0] * a[2, 2] - a[1, 2] * a[2, 0]) * invDet
+  result[0, 1] = -(a[0, 1] * a[2, 2] - a[0, 2] * a[2, 1]) * invDet
+  result[0, 2] =  (a[0, 1] * a[1, 2] - a[0, 2] * a[1, 1]) * invDet
+
+  result[1, 0] = -(a[1, 0] * a[2, 2] - a[1, 2] * a[2, 0]) * invDet
   result[1, 1] =  (a[0, 0] * a[2, 2] - a[0, 2] * a[2, 0]) * invDet
-  result[2, 1] = -(a[0, 0] * a[1, 2] - a[1, 0] * a[0, 2]) * invDet
-  result[0, 2] =  (a[1, 0] * a[2, 1] - a[2, 0] * a[1, 1]) * invDet
-  result[1, 2] = -(a[0, 0] * a[2, 1] - a[2, 0] * a[0, 1]) * invDet
+  result[1, 2] = -(a[0, 0] * a[1, 2] - a[1, 0] * a[0, 2]) * invDet
+
+  result[2, 0] =  (a[1, 0] * a[2, 1] - a[2, 0] * a[1, 1]) * invDet
+  result[2, 1] = -(a[0, 0] * a[2, 1] - a[2, 0] * a[0, 1]) * invDet
   result[2, 2] =  (a[0, 0] * a[1, 1] - a[1, 0] * a[0, 1]) * invDet
 
 type Mat4* = array[16, float32] ## 4x4 Matrix - OpenGL row order
