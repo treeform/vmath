@@ -616,17 +616,17 @@ func rotationMat3*(angle: float32): Mat3 =
   let
     sin = sin(angle)
     cos = cos(angle)
-  result[0] = cos
-  result[1] = sin
-  result[2] = 0
+  result[0, 0] = cos
+  result[0, 1] = -sin
+  result[0, 2] = 0
 
-  result[3] = -sin
-  result[4] = cos
-  result[5] = 0
+  result[1, 0] = sin
+  result[1, 1] = cos
+  result[1, 2] = 0
 
-  result[6] = 0
-  result[7] = 0
-  result[8] = 1
+  result[2, 0] = 0
+  result[2, 1] = 0
+  result[2, 2] = 1
 
 func rotate*(a: Mat3, angle: float32): Mat3 =
   # Rotates a matrix by an angle.
