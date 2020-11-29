@@ -90,7 +90,7 @@ proc lengthSq*(a: Vec2): float32 {.inline.} =
   a.x * a.x + a.y * a.y
 
 proc length*(a: Vec2): float32 {.inline.} =
-  math.sqrt(a.lengthSq)
+  sqrt(a.lengthSq)
 
 proc `length=`*(a: var Vec2, b: float32) {.inline.}=
   a *= b / a.length
@@ -161,11 +161,11 @@ proc fixAngle*(angle: float32): float32 =
 
 proc angle*(a: Vec2): float32 =
   ## Angle of a Vec2.
-  math.arctan2(a.y, a.x)
+  arctan2(a.y, a.x)
 
 proc angleBetween*(a: Vec2, b: Vec2): float32 =
   ## Angle between 2 Vec2.
-  fixAngle(math.arctan2(a.y - b.y, a.x - b.x))
+  fixAngle(arctan2(a.y - b.y, a.x - b.x))
 
 proc angleBetween*(a, b: float32): float32 =
   ## Angle between angle a and angle b.
@@ -278,7 +278,7 @@ proc lengthSq*(a: Vec3): float32 =
   a.x * a.x + a.y * a.y + a.z * a.z
 
 proc length*(a: Vec3): float32 =
-  math.sqrt(a.lengthSq)
+  sqrt(a.lengthSq)
 
 proc `length=`*(a: var Vec3, b: float32) =
   a *= b / a.length
@@ -293,7 +293,7 @@ proc ceil*(a: Vec3): Vec3 =
   vec3(ceil(a.x), ceil(a.y), ceil(a.z))
 
 proc normalize*(a: Vec3): Vec3 =
-  a / math.sqrt(a.x*a.x + a.y*a.y + a.z*a.z)
+  a / sqrt(a.x*a.x + a.y*a.y + a.z*a.z)
 
 proc cross*(a: Vec3, b: Vec3): Vec3 =
   result.x = a.y*b.z - a.z*b.y
