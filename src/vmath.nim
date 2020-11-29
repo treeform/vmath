@@ -8,9 +8,7 @@ proc between*(value, min, max: float32): bool =
 
 proc sign*(v: float32): float32 =
   ## Returns the sign of a number, -1 or 1.
-  if v >= 0:
-    return 1.0
-  return -1.0
+  if v >= 0: 1.0 else: -1.0
 
 proc quantize*(v: float32, n: float32): float32 =
   ## Makes v be multipe of n. Rounding to integer quantize by 1.0.
@@ -92,7 +90,7 @@ proc lengthSq*(a: Vec2): float32 {.inline.} =
 proc length*(a: Vec2): float32 {.inline.} =
   sqrt(a.lengthSq)
 
-proc `length=`*(a: var Vec2, b: float32) {.inline.}=
+proc `length=`*(a: var Vec2, b: float32) {.inline.} =
   a *= b / a.length
 
 proc normalize*(a: Vec2): Vec2 {.inline.} =
@@ -519,7 +517,7 @@ proc vec4*(a: Vec2, z = 0.0, w = 0.0): Vec4 =
 
 type Mat3* = array[9, float32] ## 3x3 Matrix
 
-template `[]`*(a: Mat3, i, j: int): float32 = a[i * 3 + j ]
+template `[]`*(a: Mat3, i, j: int): float32 = a[i * 3 + j]
 template `[]=`*(a: Mat3, i, j: int, v: float32) = a[i * 3 + j] = v
 
 proc mat3*(a, b, c, d, e, f, g, h, i: float32): Mat3 =
@@ -662,7 +660,7 @@ proc inverse*(a: Mat3): Mat3 =
 
 type Mat4* = array[16, float32] ## 4x4 Matrix - OpenGL row order
 
-template `[]`*(a: Mat4, i, j: int): float32 = a[i * 4 + j ]
+template `[]`*(a: Mat4, i, j: int): float32 = a[i * 4 + j]
 template `[]=`*(a: Mat4, i, j: int, v: float32) = a[i * 4 + j] = v
 
 proc mat4*(v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13,
@@ -1214,7 +1212,8 @@ proc length*(q: Quat): float32 =
     q.w * q.w +
     q.x * q.x +
     q.y * q.y +
-    q.z * q.z)
+    q.z * q.z
+  )
 
 proc normalize*(q: Quat): Quat =
   var m = q.length
