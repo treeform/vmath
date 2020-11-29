@@ -1,5 +1,7 @@
 # VMath
 
+`nimble install vmath`
+
 Collection of math routines for 2d and 3d graphics.
 
 Has functions for Vec2, Vec3, Vec4, Mat3, Mat4 and Quat.
