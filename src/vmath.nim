@@ -28,99 +28,99 @@ type Vec2* = object
   x*: float32
   y*: float32
 
-func vec2*(x, y: float32): Vec2 =
+func vec2*(x, y: float32): Vec2 {.inline.} =
   result.x = x
   result.y = y
 
-func vec2*(v: float32): Vec2 =
+func vec2*(v: float32): Vec2 {.inline.} =
   result.x = v
   result.y = v
 
-func vec2*(a: Vec2): Vec2 =
+func vec2*(a: Vec2): Vec2 {.inline.} =
   result.x = a.x
   result.y = a.y
 
-func `+`*(a: Vec2, b: Vec2): Vec2 =
+func `+`*(a: Vec2, b: Vec2): Vec2 {.inline.} =
   result.x = a.x + b.x
   result.y = a.y + b.y
 
-func `-`*(a: Vec2, b: Vec2): Vec2 =
+func `-`*(a: Vec2, b: Vec2): Vec2 {.inline.} =
   result.x = a.x - b.x
   result.y = a.y - b.y
 
-func `*`*(a: Vec2, b: float32): Vec2 =
+func `*`*(a: Vec2, b: float32): Vec2 {.inline.} =
   result.x = a.x * b
   result.y = a.y * b
 
-func `*`*(a: float32, b: Vec2): Vec2 =
+func `*`*(a: float32, b: Vec2): Vec2 {.inline.} =
   b * a
 
-func `/`*(a: Vec2, b: float32): Vec2 =
+func `/`*(a: Vec2, b: float32): Vec2 {.inline.} =
   result.x = a.x / b
   result.y = a.y / b
 
-func `+=`*(a: var Vec2, b: Vec2) =
+func `+=`*(a: var Vec2, b: Vec2) {.inline.} =
   a.x += b.x
   a.y += b.y
 
-func `-=`*(a: var Vec2, b: Vec2) =
+func `-=`*(a: var Vec2, b: Vec2) {.inline.} =
   a.x -= b.x
   a.y -= b.y
 
-func `*=`*(a: var Vec2, b: float32) =
+func `*=`*(a: var Vec2, b: float32) {.inline.} =
   a.x *= b
   a.y *= b
 
-func `/=`*(a: var Vec2, b: float32) =
+func `/=`*(a: var Vec2, b: float32) {.inline.} =
   a.x /= b
   a.y /= b
 
-func zero*(a: var Vec2) =
+func zero*(a: var Vec2) {.inline.} =
   a.x = 0
   a.y = 0
 
-func `-`*(a: Vec2): Vec2 =
+func `-`*(a: Vec2): Vec2 {.inline.} =
   result.x = -a.x
   result.y = -a.y
 
 func hash*(a: Vec2): Hash =
   hash((a.x, a.y))
 
-func lengthSq*(a: Vec2): float32 =
+func lengthSq*(a: Vec2): float32 {.inline.} =
   a.x * a.x + a.y * a.y
 
-func length*(a: Vec2): float32 =
+func length*(a: Vec2): float32 {.inline.} =
   math.sqrt(a.lengthSq)
 
-func `length=`*(a: var Vec2, b: float32) =
+func `length=`*(a: var Vec2, b: float32) {.inline.}=
   a *= b / a.length
 
-func normalize*(a: Vec2): Vec2 =
+func normalize*(a: Vec2): Vec2 {.inline.} =
   a / a.length
 
-func dot*(a: Vec2, b: Vec2): float32 =
+func dot*(a: Vec2, b: Vec2): float32 {.inline.} =
   a.x*b.x + a.y*b.y
 
-func dir*(at: Vec2, to: Vec2): Vec2 =
+func dir*(at: Vec2, to: Vec2): Vec2 {.inline.} =
   (at - to).normalize()
 
-func dir*(th: float32): Vec2 =
+func dir*(th: float32): Vec2 {.inline.} =
   vec2(cos(th), sin(th))
 
-func dist*(at: Vec2, to: Vec2): float32 =
+func dist*(at: Vec2, to: Vec2): float32 {.inline.} =
   (at - to).length
 
-func distSq*(at: Vec2, to: Vec2): float32 =
+func distSq*(at: Vec2, to: Vec2): float32 {.inline.} =
   (at - to).lengthSq
 
-func lerp*(a: Vec2, b: Vec2, v: float32): Vec2 =
+func lerp*(a: Vec2, b: Vec2, v: float32): Vec2 {.inline.} =
   a * (1.0 - v) + b * v
 
-func quantize*(v: Vec2, n: float32): Vec2 =
+func quantize*(v: Vec2, n: float32): Vec2 {.inline.} =
   result.x = sign(v.x) * floor(abs(v.x) / n) * n
   result.y = sign(v.y) * floor(abs(v.y) / n) * n
 
-func inRect*(v: Vec2, a: Vec2, b: Vec2): bool =
+func inRect*(v: Vec2, a: Vec2, b: Vec2): bool {.inline.} =
   ## Check to see if v is inside a rectange formed by a and b.
   ## It does not matter how a and b are arranged.
   let
