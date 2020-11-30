@@ -167,9 +167,9 @@ proc `[]=`*(a: var Vec2, i: int, b: float32) =
   else:
     a.y = b
 
-proc randVec2*(): Vec2 =
-  let a = rand(PI * 2)
-  let v = rand(1.0)
+proc randVec2*(r: var Rand): Vec2 =
+  let a = r.rand(PI * 2)
+  let v = r.rand(1.0)
   vec2(cos(a) * v, sin(a) * v)
 
 proc `$`*(a: Vec2): string =
@@ -368,12 +368,12 @@ proc almostEquals*(a, b: Vec3, precision = 1e-6): bool =
   let c = a - b
   abs(c.x) < precision and abs(c.y) < precision and abs(c.z) < precision
 
-proc randVec3*(): Vec3 =
+proc randVec3*(r: var Rand): Vec3 =
   ## Generates a random unit vector based on
   ## http://mathworld.wolfram.com/SpherePointPicking.html
   let
-    u = rand(0.0 .. 1.0)
-    v = rand(0.0 .. 1.0)
+    u = r.rand(0.0 .. 1.0)
+    v = r.rand(0.0 .. 1.0)
     th = 2 * PI * u
     ph = arccos(2 * v - 1)
   vec3(
