@@ -2,24 +2,49 @@ import hashes, math, random, strformat, strutils
 
 export math
 
-proc between*(value, min, max: float32): bool =
+proc between*(value, min, max: float32): bool {.inline.} =
   ## Returns true if value is between min and max or equal to them.
   (value >= min) and (value <= max)
 
-proc sign*(v: float32): float32 =
+proc sign*(v: float32): float32 {.inline.} =
   ## Returns the sign of a number, -1 or 1.
   if v >= 0: 1.0 else: -1.0
 
-proc quantize*(v: float32, n: float32): float32 =
+proc quantize*(v: float32, n: float32): float32 {.inline.} =
   ## Makes v be multipe of n. Rounding to integer quantize by 1.0.
   sign(v) * floor(abs(v) / n) * n
 
-proc lerp*(a: float32, b: float32, v: float32): float32 =
+proc lerp*(a: float32, b: float32, v: float32): float32 {.inline.} =
   ## Interpolates value between a and b.
   ## * 0 -> a
   ## * 1 -> b
   ## * 0.5 -> between a and b
   a * (1.0 - v) + b * v
+
+proc fixAngle*(angle: float32): float32 =
+  ## Make angle be from -PI to PI radians.
+  var angle = angle
+  while angle > PI:
+    angle -= PI * 2
+  while angle < -PI:
+    angle += PI * 2
+  angle
+
+proc angleBetween*(a, b: float32): float32 {.inline.} =
+  ## Angle between angle a and angle b.
+  fixAngle(b - a)
+
+proc turnAngle*(a, b, speed: float32): float32 =
+  ## Move from angle a to angle b with step of v.
+  var
+    turn = fixAngle(b - a)
+  if abs(turn) < speed:
+    return b
+  elif turn > speed:
+    turn = speed
+  elif turn < -speed:
+    turn = -speed
+  a + turn
 
 type Vec2* = object
   ## 2D vector
@@ -81,7 +106,7 @@ proc `-`*(a: Vec2): Vec2 {.inline.} =
   result.x = -a.x
   result.y = -a.y
 
-proc hash*(a: Vec2): Hash =
+proc hash*(a: Vec2): Hash {.inline.} =
   hash((a.x, a.y))
 
 proc lengthSq*(a: Vec2): float32 {.inline.} =
@@ -97,7 +122,7 @@ proc normalize*(a: Vec2): Vec2 {.inline.} =
   a / a.length
 
 proc dot*(a: Vec2, b: Vec2): float32 {.inline.} =
-  a.x*b.x + a.y*b.y
+  a.x * b.x + a.y * b.y
 
 proc dir*(at: Vec2, to: Vec2): Vec2 {.inline.} =
   (at - to).normalize()
@@ -127,59 +152,32 @@ proc inRect*(v: Vec2, a: Vec2, b: Vec2): bool {.inline.} =
   v.x > min.x and v.x < max.x and v.y > min.y and v.y < max.y
 
 proc `[]`*(a: Vec2, i: int): float32 =
-  assert(i == 0 or i == 1)
-  if i == 0:
-    return a.x
-  elif i == 1:
-    return a.y
+  case i
+  of 0: a.x
+  of 1: a.y
+  else: raise newException(IndexDefect, "Index not in 0 .. 1")
 
 proc `[]=`*(a: var Vec2, i: int, b: float32) =
-  assert(i == 0 or i == 1)
-  if i == 0:
-    a.x = b
-  elif i == 1:
-    a.y = b
+  case i
+  of 0: a.x = b
+  of 1: a.y = b
+  else: raise newException(IndexDefect, "Index not in 0 .. 1")
 
-proc randVec2*(): Vec2 =
-  let a = rand(PI*2)
-  let v = rand(1.0)
-  vec2(cos(a)*v, sin(a)*v)
+proc randVec2*(r: var Rand): Vec2 =
+  let a = r.rand(PI * 2)
+  let v = r.rand(1.0)
+  vec2(cos(a) * v, sin(a) * v)
 
 proc `$`*(a: Vec2): string =
   &"({a.x:.4f}, {a.y:.4f})"
 
-proc fixAngle*(angle: float32): float32 =
-  ## Make angle be from -PI to PI radians.
-  var angle = angle
-  while angle > PI:
-    angle -= PI*2
-  while angle < -PI:
-    angle += PI*2
-  angle
-
-proc angle*(a: Vec2): float32 =
+proc angle*(a: Vec2): float32 {.inline.} =
   ## Angle of a Vec2.
   arctan2(a.y, a.x)
 
-proc angleBetween*(a: Vec2, b: Vec2): float32 =
+proc angleBetween*(a: Vec2, b: Vec2): float32 {.inline.} =
   ## Angle between 2 Vec2.
   fixAngle(arctan2(a.y - b.y, a.x - b.x))
-
-proc angleBetween*(a, b: float32): float32 =
-  ## Angle between angle a and angle b.
-  (b - a).fixAngle
-
-proc turnAngle*(a, b, speed: float32): float32 =
-  ## Move from angle a to angle b with step of v.
-  var
-    turn = fixAngle(b - a)
-  if abs(turn) < speed:
-    return b
-  elif turn > speed:
-    turn = speed
-  elif turn < -speed:
-    turn = -speed
-  a + turn
 
 type Vec3* = object
   ## 3D vector
@@ -187,17 +185,17 @@ type Vec3* = object
   y*: float32
   z*: float32
 
-proc vec3*(x, y, z: float32): Vec3 =
+proc vec3*(x, y, z: float32): Vec3 {.inline.} =
   result.x = x
   result.y = y
   result.z = z
 
-proc vec3*(v: float32): Vec3 =
+proc vec3*(v: float32): Vec3 {.inline.} =
   result.x = v
   result.y = v
   result.z = v
 
-proc vec3*(a: Vec3): Vec3 =
+proc vec3*(a: Vec3): Vec3 {.inline.} =
   result.x = a.x
   result.y = a.y
   result.z = a.z
@@ -206,114 +204,114 @@ const X_DIR* = vec3(1.0, 0.0, 0.0)
 const Y_DIR* = vec3(0.0, 1.0, 0.0)
 const Z_DIR* = vec3(0.0, 0.0, 1.0)
 
-proc `+`*(a: Vec3, b: Vec3): Vec3 =
+proc `+`*(a: Vec3, b: Vec3): Vec3 {.inline.} =
   result.x = a.x + b.x
   result.y = a.y + b.y
   result.z = a.z + b.z
 
-proc `-`*(a: Vec3, b: Vec3): Vec3 =
+proc `-`*(a: Vec3, b: Vec3): Vec3 {.inline.} =
   result.x = a.x - b.x
   result.y = a.y - b.y
   result.z = a.z - b.z
 
-proc `-`*(a: Vec3): Vec3 =
+proc `-`*(a: Vec3): Vec3 {.inline.} =
   result.x = -a.x
   result.y = -a.y
   result.z = -a.z
 
-proc `*`*(a: Vec3, b: float32): Vec3 =
+proc `*`*(a: Vec3, b: float32): Vec3 {.inline.} =
   result.x = a.x * b
   result.y = a.y * b
   result.z = a.z * b
 
-proc `*`*(a: float32, b: Vec3): Vec3 =
+proc `*`*(a: float32, b: Vec3): Vec3 {.inline.} =
   b * a
 
-proc `/`*(a: Vec3, b: float32): Vec3 =
+proc `/`*(a: Vec3, b: float32): Vec3 {.inline.} =
   result.x = a.x / b
   result.y = a.y / b
   result.z = a.z / b
 
-proc `/`*(a: float32, b: Vec3): Vec3 =
+proc `/`*(a: float32, b: Vec3): Vec3 {.inline.} =
   result.x = a / b.x
   result.y = a / b.y
   result.z = a / b.z
 
-proc `+=`*(a: var Vec3, b: Vec3) =
+proc `+=`*(a: var Vec3, b: Vec3) {.inline.} =
   a.x += b.x
   a.y += b.y
   a.z += b.z
 
-proc `-=`*(a: var Vec3, b: Vec3) =
+proc `-=`*(a: var Vec3, b: Vec3) {.inline.} =
   a.x -= b.x
   a.y -= b.y
   a.z -= b.z
 
-proc `*=`*(a: var Vec3, b: float32) =
+proc `*=`*(a: var Vec3, b: float32) {.inline.} =
   a.x *= b
   a.y *= b
   a.z *= b
 
-proc `/=`*(a: var Vec3, b: float32) =
+proc `/=`*(a: var Vec3, b: float32) {.inline.} =
   a.x /= b
   a.y /= b
   a.z /= b
 
-proc zero*(a: var Vec3) =
+proc zero*(a: var Vec3) {.inline.} =
   a.x = 0
   a.y = 0
   a.z = 0
 
-proc `-`*(a: var Vec3): Vec3 =
+proc `-`*(a: var Vec3): Vec3 {.inline.} =
   result.x = -a.x
   result.y = -a.y
   result.z = -a.z
 
-proc hash*(a: Vec3): Hash =
+proc hash*(a: Vec3): Hash {.inline.} =
   hash((a.x, a.y, a.z))
 
-proc lengthSq*(a: Vec3): float32 =
+proc lengthSq*(a: Vec3): float32 {.inline.} =
   a.x * a.x + a.y * a.y + a.z * a.z
 
-proc length*(a: Vec3): float32 =
+proc length*(a: Vec3): float32 {.inline.} =
   sqrt(a.lengthSq)
 
-proc `length=`*(a: var Vec3, b: float32) =
+proc `length=`*(a: var Vec3, b: float32) {.inline.} =
   a *= b / a.length
 
-proc floor*(a: Vec3): Vec3 =
+proc floor*(a: Vec3): Vec3 {.inline.} =
   vec3(floor(a.x), floor(a.y), floor(a.z))
 
-proc round*(a: Vec3): Vec3 =
+proc round*(a: Vec3): Vec3 {.inline.} =
   vec3(round(a.x), round(a.y), round(a.z))
 
-proc ceil*(a: Vec3): Vec3 =
+proc ceil*(a: Vec3): Vec3 {.inline.} =
   vec3(ceil(a.x), ceil(a.y), ceil(a.z))
 
-proc normalize*(a: Vec3): Vec3 =
-  a / sqrt(a.x*a.x + a.y*a.y + a.z*a.z)
+proc normalize*(a: Vec3): Vec3 {.inline.} =
+  a / sqrt(a.x * a.x + a.y * a.y + a.z * a.z)
 
-proc cross*(a: Vec3, b: Vec3): Vec3 =
-  result.x = a.y*b.z - a.z*b.y
-  result.y = a.z*b.x - a.x*b.z
-  result.z = a.x*b.y - a.y*b.x
+proc cross*(a: Vec3, b: Vec3): Vec3 {.inline.} =
+  result.x = a.y * b.z - a.z * b.y
+  result.y = a.z * b.x - a.x * b.z
+  result.z = a.x * b.y - a.y * b.x
 
 proc computeNormal*(a, b, c: Vec3): Vec3 =
   cross(c - b, b - a).normalize()
 
-proc dot*(a: Vec3, b: Vec3): float32 =
-  a.x*b.x + a.y*b.y + a.z*b.z
+proc dot*(a: Vec3, b: Vec3): float32 {.inline.} =
+  a.x * b.x + a.y * b.y + a.z * b.z
 
-proc dir*(at: Vec3, to: Vec3): Vec3 =
+proc dir*(at: Vec3, to: Vec3): Vec3 {.inline.} =
   (at - to).normalize()
 
-proc dist*(at: Vec3, to: Vec3): float32 =
+proc dist*(at: Vec3, to: Vec3): float32 {.inline.} =
   (at - to).length
 
-proc distSq*(at: Vec3, to: Vec3): float32 =
+proc distSq*(at: Vec3, to: Vec3): float32 {.inline.} =
   (at - to).lengthSq
 
-proc lerp*(a: Vec3, b: Vec3, v: float32): Vec3 =
+proc lerp*(a: Vec3, b: Vec3, v: float32): Vec3 {.inline.} =
   a * (1.0 - v) + b * v
 
 proc quantize*(v: Vec3, n: float32): Vec3 =
@@ -327,51 +325,47 @@ proc angleBetween*(a, b: Vec3): float32 =
   arccos(dot)
 
 proc `[]`*(a: Vec3, i: int): float32 =
-  assert(i == 0 or i == 1 or i == 2)
-  if i == 0:
-    return a.x
-  elif i == 1:
-    return a.y
-  elif i == 2:
-    return a.z
+  case i
+  of 0: a.x
+  of 1: a.y
+  of 2: a.z
+  else: raise newException(IndexDefect, "Index not in 0 .. 2")
 
 proc `[]=`*(a: var Vec3, i: int, b: float32) =
-  assert(i == 0 or i == 1 or i == 2)
-  if i == 0:
-    a.x = b
-  elif i == 1:
-    a.y = b
-  elif i == 2:
-    a.z = b
+  case i
+  of 0: a.x = b
+  of 1: a.y = b
+  of 2: a.z = b
+  else: raise newException(IndexDefect, "Index not in 0 .. 2")
 
-proc xy*(a: Vec3): Vec2 =
+proc xy*(a: Vec3): Vec2 {.inline.} =
   vec2(a.x, a.y)
 
-proc xz*(a: Vec3): Vec2 =
+proc xz*(a: Vec3): Vec2 {.inline.} =
   vec2(a.x, a.z)
 
-proc yx*(a: Vec3): Vec2 =
+proc yx*(a: Vec3): Vec2 {.inline.} =
   vec2(a.y, a.x)
 
-proc yz*(a: Vec3): Vec2 =
+proc yz*(a: Vec3): Vec2 {.inline.} =
   vec2(a.y, a.z)
 
-proc zx*(a: Vec3): Vec2 =
+proc zx*(a: Vec3): Vec2 {.inline.} =
   vec2(a.y, a.x)
 
-proc zy*(a: Vec3): Vec2 =
+proc zy*(a: Vec3): Vec2 {.inline.} =
   vec2(a.z, a.y)
 
-proc almostEquals*(a, b: Vec3, precision = 1e-6): bool =
+proc almostEquals*(a, b: Vec3, precision = 1e-6): bool {.inline.} =
   let c = a - b
   abs(c.x) < precision and abs(c.y) < precision and abs(c.z) < precision
 
-proc randVec3*(): Vec3 =
+proc randVec3*(r: var Rand): Vec3 =
   ## Generates a random unit vector based on
   ## http://mathworld.wolfram.com/SpherePointPicking.html
   let
-    u = rand(0.0 .. 1.0)
-    v = rand(0.0 .. 1.0)
+    u = r.rand(0.0 .. 1.0)
+    v = r.rand(0.0 .. 1.0)
     th = 2 * PI * u
     ph = arccos(2 * v - 1)
   vec3(
@@ -390,129 +384,122 @@ type Vec4* = object
   z*: float32
   w*: float32
 
-proc vec4*(x, y, z, w: float32): Vec4 =
+proc vec4*(x, y, z, w: float32): Vec4 {.inline.} =
   result.x = x
   result.y = y
   result.z = z
   result.w = w
 
-proc vec4*(v: float32): Vec4 =
+proc vec4*(v: float32): Vec4 {.inline.} =
   result.x = v
   result.y = v
   result.z = v
   result.w = v
 
-proc `+`*(a: Vec4, b: Vec4): Vec4 =
+proc `+`*(a: Vec4, b: Vec4): Vec4 {.inline.} =
   result.x = a.x + b.x
   result.y = a.y + b.y
   result.z = a.z + b.z
   result.w = a.w + b.w
 
-proc `-`*(a: Vec4, b: Vec4): Vec4 =
+proc `-`*(a: Vec4, b: Vec4): Vec4 {.inline.} =
   result.x = a.x - b.x
   result.y = a.y - b.y
   result.z = a.z - b.z
   result.w = a.w - b.w
 
-proc `-`*(a: Vec4): Vec4 =
+proc `-`*(a: Vec4): Vec4 {.inline.} =
   result.x = -a.x
   result.y = -a.y
   result.z = -a.z
   result.w = -a.w
 
-proc `*`*(a: Vec4, b: float32): Vec4 =
+proc `*`*(a: Vec4, b: float32): Vec4 {.inline.} =
   result.x = a.x * b
   result.y = a.y * b
   result.z = a.z * b
   result.w = a.w * b
 
-proc `*`*(a: float32, b: Vec4): Vec4 =
+proc `*`*(a: float32, b: Vec4): Vec4 {.inline.} =
   b * a
 
-proc `/`*(a: Vec4, b: float32): Vec4 =
+proc `/`*(a: Vec4, b: float32): Vec4 {.inline.} =
   result.x = a.x / b
   result.y = a.y / b
-
   result.z = a.z / b
   result.w = a.w / b
 
-proc `/`*(a: float32, b: Vec4): Vec4 =
+proc `/`*(a: float32, b: Vec4): Vec4 {.inline.}=
   result.x = a / b.x
   result.y = a / b.y
   result.z = a / b.z
   result.w = a / b.w
 
-proc `+=`*(a: var Vec4, b: Vec4) =
+proc `+=`*(a: var Vec4, b: Vec4) {.inline.} =
   a.x += b.x
   a.y += b.y
   a.z += b.z
   a.w += b.w
 
-proc `-=`*(a: var Vec4, b: Vec4) =
+proc `-=`*(a: var Vec4, b: Vec4) {.inline.} =
   a.x -= b.x
   a.y -= b.y
   a.z -= b.z
   a.w -= b.w
 
-proc `*=`*(a: var Vec4, b: float32) =
+proc `*=`*(a: var Vec4, b: float32) {.inline.} =
   a.x *= b
   a.y *= b
   a.z *= b
   a.w *= b
 
-proc `/=`*(a: var Vec4, b: float32) =
+proc `/=`*(a: var Vec4, b: float32) {.inline.} =
   a.x /= b
   a.y /= b
   a.z /= b
   a.w /= b
 
-proc zero*(a: var Vec4) =
+proc zero*(a: var Vec4) {.inline.} =
   a.x = 0
   a.y = 0
   a.z = 0
   a.w = 0
 
-proc hash*(a: Vec4): Hash =
+proc hash*(a: Vec4): Hash {.inline.} =
   hash((a.x, a.y, a.z, a.w))
 
 proc `[]`*(a: Vec4, i: int): float32 =
-  assert(i == 0 or i == 1 or i == 2)
-  if i == 0:
-    return a.x
-  elif i == 1:
-    return a.y
-  elif i == 2:
-    return a.z
-  elif i == 3:
-    return a.w
+  case i
+  of 0: a.x
+  of 1: a.y
+  of 2: a.z
+  of 3: a.w
+  else: raise newException(IndexDefect, "Index not in 0 .. 3")
 
 proc `[]=`*(a: var Vec4, i: int, b: float32) =
-  assert(i == 0 or i == 1 or i == 2)
-  if i == 0:
-    a.x = b
-  elif i == 1:
-    a.y = b
-  elif i == 2:
-    a.z = b
-  elif i == 3:
-    a.w = b
+  case i
+  of 0: a.x = b
+  of 1: a.y = b
+  of 2: a.z = b
+  of 3: a.w = b
+  else: raise newException(IndexDefect, "Index not in 0 .. 3")
 
-proc lerp*(a: Vec4, b: Vec4, v: float32): Vec4 =
+proc lerp*(a: Vec4, b: Vec4, v: float32): Vec4 {.inline.} =
   a * (1.0 - v) + b * v
 
-proc xyz*(a: Vec4): Vec3 =
+proc xyz*(a: Vec4): Vec3 {.inline.} =
   vec3(a.x, a.y, a.z)
 
 proc `$`*(a: Vec4): string =
   &"({a.x:.8f}, {a.y:.8f}, {a.z:.8f}, {a.w:.8f})"
 
-proc vec3*(a: Vec2, z = 0.0): Vec3 =
+proc vec3*(a: Vec2, z = 0.0): Vec3 {.inline.} =
   vec3(a.x, a.y, z)
 
-proc vec4*(a: Vec3, w = 0.0): Vec4 =
+proc vec4*(a: Vec3, w = 0.0): Vec4 {.inline.} =
   vec4(a.x, a.y, a.z, w)
 
-proc vec4*(a: Vec2, z = 0.0, w = 0.0): Vec4 =
+proc vec4*(a: Vec2, z = 0.0, w = 0.0): Vec4 {.inline.} =
   vec4(a.x, a.y, z, w)
 
 type Mat3* = array[9, float32] ## 3x3 Matrix
@@ -545,7 +532,7 @@ proc identity*(a: var Mat3) =
   a[7] = 0
   a[8] = 1
 
-proc mat3*(): Mat3 =
+proc mat3*(): Mat3 {.inline.} =
   result.identity()
 
 proc transpose*(a: Mat3): Mat3 =
