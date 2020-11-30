@@ -572,35 +572,30 @@ proc scale*(a: Mat3, v: Vec3): Mat3 =
   result[7] = v.z * a[7]
   result[8] = v.z * a[8]
 
-proc translate*(v: Vec2): Mat3 =
-  result[0, 0] = 1
-  result[1, 1] = 1
-  result[2, 0] = v.x
-  result[2, 1] = v.y
-  result[2, 2] = 1
+proc translate*(v: Vec2): Mat3 {.inline.} =
+  [
+    1.float32, 0,   0,
+    0,         1,   0,
+    v.x,       v.y, 1
+  ]
 
-proc scale*(v: Vec2): Mat3 =
-  result[0, 0] = v.x
-  result[1, 1] = v.y
-  result[2, 2] = 1
+proc scale*(v: Vec2): Mat3 {.inline.} =
+  [
+    v.x, 0,   0,
+    0,   v.y, 0,
+    0,   0,   1
+  ]
 
-proc rotationMat3*(angle: float32): Mat3 =
+proc rotationMat3*(angle: float32): Mat3 {.inline.} =
   # Create a matrix from an angle.
   let
     sin = sin(angle)
     cos = cos(angle)
-
-  result[0, 0] = cos
-  result[0, 1] = -sin
-  result[0, 2] = 0
-
-  result[1, 0] = sin
-  result[1, 1] = cos
-  result[1, 2] = 0
-
-  result[2, 0] = 0
-  result[2, 1] = 0
-  result[2, 2] = 1
+  result = [
+    cos, -sin, 0,
+    sin,  cos, 0,
+    0,    0,   1
+  ]
 
 proc rotate*(a: Mat3, angle: float32): Mat3 {.inline.} =
   # Rotates a matrix by an angle.
