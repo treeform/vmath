@@ -641,69 +641,37 @@ type Mat4* = array[16, float32] ## 4x4 Matrix - OpenGL row order
 template `[]`*(a: Mat4, i, j: int): float32 = a[i * 4 + j]
 template `[]=`*(a: Mat4, i, j: int, v: float32) = a[i * 4 + j] = v
 
-proc mat4*(v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13,
-    v14, v15: float32): Mat4 =
-  result[0] = v0
-  result[1] = v1
-  result[2] = v2
-  result[3] = v3
-  result[4] = v4
-  result[5] = v5
-  result[6] = v6
-  result[7] = v7
-  result[8] = v8
-  result[9] = v9
-  result[10] = v10
-  result[11] = v11
-  result[12] = v12
-  result[13] = v13
-  result[14] = v14
-  result[15] = v15
+proc mat4*(
+  v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15: float32
+): Mat4 {.inline.} =
+  [
+    v0,  v1,  v2,  v3,
+    v4,  v5,  v6,  v7,
+    v8,  v9,  v10, v11,
+    v12, v13, v14, v15
+  ]
 
-proc mat4*(a: Mat4): Mat4 =
+proc mat4*(a: Mat4): Mat4 {.inline.} =
   a
 
-proc identity*(): Mat4 =
-  result[0] = 1
-  result[1] = 0
-  result[2] = 0
-  result[3] = 0
-  result[4] = 0
-  result[5] = 1
-  result[6] = 0
-  result[7] = 0
-  result[8] = 0
-  result[9] = 0
-  result[10] = 1
-  result[11] = 0
-  result[12] = 0
-  result[13] = 0
-  result[14] = 0
-  result[15] = 1
+proc identity*(): Mat4 {.inline.} =
+  [
+    1.float32, 0, 0, 0,
+    0,         1, 0, 0,
+    0,         0, 1, 0,
+    0,         0, 0, 1
+  ]
 
-proc mat4*(): Mat4 =
+proc mat4*(): Mat4 {.inline.} =
   identity()
 
-proc transpose*(a: Mat4): Mat4 =
-  result[0] = a[0]
-  result[1] = a[4]
-  result[2] = a[8]
-  result[3] = a[12]
-
-  result[4] = a[1]
-  result[5] = a[5]
-  result[6] = a[9]
-  result[7] = a[13]
-
-  result[8] = a[2]
-  result[9] = a[6]
-  result[10] = a[10]
-  result[11] = a[14]
-
-  result[12] = a[3]
-  result[13] = a[7]
-  result[14] = a[11]
-  result[15] = a[15]
+proc transpose*(a: Mat4): Mat4 {.inline.} =
+  [
+    a[0], a[4], a[8], a[12],
+    a[1], a[5], a[9], a[13],
+    a[2], a[6], a[10], a[14],
+    a[3], a[7], a[11], a[15]
+  ]
 
 proc determinant*(a: Mat4): float32 =
   var
