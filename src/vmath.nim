@@ -30,7 +30,7 @@ proc fixAngle*(angle: float32): float32 =
     angle += PI * 2
   angle
 
-proc angleBetween*(a, b: float32): float32 =
+proc angleBetween*(a, b: float32): float32 {.inline.} =
   ## Angle between angle a and angle b.
   fixAngle(b - a)
 
@@ -171,11 +171,11 @@ proc randVec2*(r: var Rand): Vec2 =
 proc `$`*(a: Vec2): string =
   &"({a.x:.4f}, {a.y:.4f})"
 
-proc angle*(a: Vec2): float32 =
+proc angle*(a: Vec2): float32 {.inline.} =
   ## Angle of a Vec2.
   arctan2(a.y, a.x)
 
-proc angleBetween*(a: Vec2, b: Vec2): float32 =
+proc angleBetween*(a: Vec2, b: Vec2): float32 {.inline.} =
   ## Angle between 2 Vec2.
   fixAngle(arctan2(a.y - b.y, a.x - b.x))
 
@@ -302,16 +302,16 @@ proc computeNormal*(a, b, c: Vec3): Vec3 =
 proc dot*(a: Vec3, b: Vec3): float32 {.inline.} =
   a.x * b.x + a.y * b.y + a.z * b.z
 
-proc dir*(at: Vec3, to: Vec3): Vec3 =
+proc dir*(at: Vec3, to: Vec3): Vec3 {.inline.} =
   (at - to).normalize()
 
-proc dist*(at: Vec3, to: Vec3): float32 =
+proc dist*(at: Vec3, to: Vec3): float32 {.inline.} =
   (at - to).length
 
-proc distSq*(at: Vec3, to: Vec3): float32 =
+proc distSq*(at: Vec3, to: Vec3): float32 {.inline.} =
   (at - to).lengthSq
 
-proc lerp*(a: Vec3, b: Vec3, v: float32): Vec3 =
+proc lerp*(a: Vec3, b: Vec3, v: float32): Vec3 {.inline.} =
   a * (1.0 - v) + b * v
 
 proc quantize*(v: Vec3, n: float32): Vec3 =
@@ -484,7 +484,7 @@ proc `[]=`*(a: var Vec4, i: int, b: float32) =
   of 3: a.w = b
   else: raise newException(IndexDefect, "Index not in 0 .. 3")
 
-proc lerp*(a: Vec4, b: Vec4, v: float32): Vec4 =
+proc lerp*(a: Vec4, b: Vec4, v: float32): Vec4 {.inline.} =
   a * (1.0 - v) + b * v
 
 proc xyz*(a: Vec4): Vec3 {.inline.} =
@@ -501,23 +501,6 @@ proc vec4*(a: Vec3, w = 0.0): Vec4 {.inline.} =
 
 proc vec4*(a: Vec2, z = 0.0, w = 0.0): Vec4 {.inline.} =
   vec4(a.x, a.y, z, w)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 type Mat3* = array[9, float32] ## 3x3 Matrix
 
