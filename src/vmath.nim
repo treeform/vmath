@@ -21,6 +21,31 @@ proc lerp*(a: float32, b: float32, v: float32): float32 =
   ## * 0.5 -> between a and b
   a * (1.0 - v) + b * v
 
+proc fixAngle*(angle: float32): float32 =
+  ## Make angle be from -PI to PI radians.
+  var angle = angle
+  while angle > PI:
+    angle -= PI * 2
+  while angle < -PI:
+    angle += PI * 2
+  angle
+
+proc angleBetween*(a, b: float32): float32 =
+  ## Angle between angle a and angle b.
+  fixAngle(b - a)
+
+proc turnAngle*(a, b, speed: float32): float32 =
+  ## Move from angle a to angle b with step of v.
+  var
+    turn = fixAngle(b - a)
+  if abs(turn) < speed:
+    return b
+  elif turn > speed:
+    turn = speed
+  elif turn < -speed:
+    turn = -speed
+  a + turn
+
 type Vec2* = object
   ## 2D vector
   x*: float32
@@ -81,7 +106,7 @@ proc `-`*(a: Vec2): Vec2 {.inline.} =
   result.x = -a.x
   result.y = -a.y
 
-proc hash*(a: Vec2): Hash =
+proc hash*(a: Vec2): Hash {.inline.} =
   hash((a.x, a.y))
 
 proc lengthSq*(a: Vec2): float32 {.inline.} =
@@ -97,7 +122,7 @@ proc normalize*(a: Vec2): Vec2 {.inline.} =
   a / a.length
 
 proc dot*(a: Vec2, b: Vec2): float32 {.inline.} =
-  a.x*b.x + a.y*b.y
+  a.x * b.x + a.y * b.y
 
 proc dir*(at: Vec2, to: Vec2): Vec2 {.inline.} =
   (at - to).normalize()
@@ -127,35 +152,28 @@ proc inRect*(v: Vec2, a: Vec2, b: Vec2): bool {.inline.} =
   v.x > min.x and v.x < max.x and v.y > min.y and v.y < max.y
 
 proc `[]`*(a: Vec2, i: int): float32 =
-  assert(i == 0 or i == 1)
+  if i > 1:
+    raise newException(IndexDefect, "Vec2 index out of bounds")
   if i == 0:
-    return a.x
-  elif i == 1:
-    return a.y
+    a.x
+  else:
+    a.y
 
 proc `[]=`*(a: var Vec2, i: int, b: float32) =
-  assert(i == 0 or i == 1)
+  if i > 1:
+    raise newException(IndexDefect, "Vec2 index out of bounds")
   if i == 0:
     a.x = b
-  elif i == 1:
+  else:
     a.y = b
 
 proc randVec2*(): Vec2 =
-  let a = rand(PI*2)
+  let a = rand(PI * 2)
   let v = rand(1.0)
-  vec2(cos(a)*v, sin(a)*v)
+  vec2(cos(a) * v, sin(a) * v)
 
 proc `$`*(a: Vec2): string =
   &"({a.x:.4f}, {a.y:.4f})"
-
-proc fixAngle*(angle: float32): float32 =
-  ## Make angle be from -PI to PI radians.
-  var angle = angle
-  while angle > PI:
-    angle -= PI*2
-  while angle < -PI:
-    angle += PI*2
-  angle
 
 proc angle*(a: Vec2): float32 =
   ## Angle of a Vec2.
@@ -164,22 +182,6 @@ proc angle*(a: Vec2): float32 =
 proc angleBetween*(a: Vec2, b: Vec2): float32 =
   ## Angle between 2 Vec2.
   fixAngle(arctan2(a.y - b.y, a.x - b.x))
-
-proc angleBetween*(a, b: float32): float32 =
-  ## Angle between angle a and angle b.
-  (b - a).fixAngle
-
-proc turnAngle*(a, b, speed: float32): float32 =
-  ## Move from angle a to angle b with step of v.
-  var
-    turn = fixAngle(b - a)
-  if abs(turn) < speed:
-    return b
-  elif turn > speed:
-    turn = speed
-  elif turn < -speed:
-    turn = -speed
-  a + turn
 
 type Vec3* = object
   ## 3D vector
