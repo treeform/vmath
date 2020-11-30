@@ -1361,11 +1361,11 @@ proc mat3(q: Quat): Mat3
 proc mat4(q: Quat): Mat4
 ```
 
-## **proc** recifuncalSqrt
+## **proc** reciprocalSqrt
 
 
 ```nim
-proc recifuncalSqrt(x: float32): float32 {.inline.}
+proc reciprocalSqrt(x: float32): float32 {.inline.}
 ```
 
 ## **proc** quat

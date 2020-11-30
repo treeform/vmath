@@ -661,7 +661,7 @@ proc transpose*(a: Mat4): Mat4 {.inline.} =
   ]
 
 proc determinant*(a: Mat4): float32 =
-  var
+  let
     a00 = a[0]
     a01 = a[1]
     a02 = a[2]
@@ -689,7 +689,7 @@ proc determinant*(a: Mat4): float32 =
   )
 
 proc inverse*(a: Mat4): Mat4 =
-  var
+  let
     a00 = a[0]
     a01 = a[1]
     a02 = a[2]
@@ -707,7 +707,7 @@ proc inverse*(a: Mat4): Mat4 =
     a32 = a[14]
     a33 = a[15]
 
-  var
+  let
     b00 = a00 * a11 - a01 * a10
     b01 = a00 * a12 - a02 * a10
     b02 = a00 * a13 - a03 * a10
@@ -722,7 +722,7 @@ proc inverse*(a: Mat4): Mat4 =
     b11 = a22 * a33 - a23 * a32
 
   # Calculate the inverse determinant.
-  var invDet = 1.0/(b00*b11 - b01*b10 + b02*b09 + b03*b08 - b04*b07 + b05*b06)
+  let invDet = 1.0/(b00*b11 - b01*b10 + b02*b09 + b03*b08 - b04*b07 + b05*b06)
 
   result[00] = (+a11 * b11 - a12 * b10 + a13 * b09) * invDet
   result[01] = (-a01 * b11 + a02 * b10 - a03 * b09) * invDet
@@ -742,7 +742,7 @@ proc inverse*(a: Mat4): Mat4 =
   result[15] = (+a20 * b03 - a21 * b01 + a22 * b00) * invDet
 
 proc `*`*(a, b: Mat4): Mat4 =
-  var
+  let
     a00 = a[0]
     a01 = a[1]
     a02 = a[2]
@@ -760,7 +760,7 @@ proc `*`*(a, b: Mat4): Mat4 =
     a32 = a[14]
     a33 = a[15]
 
-  var
+  let
     b00 = b[0]
     b01 = b[1]
     b02 = b[2]
@@ -1308,7 +1308,7 @@ proc mat4*(q: Quat): Mat4 =
   result[14] = 0
   result[15] = 1.0
 
-proc recifuncalSqrt*(x: float32): float32 {.inline.} =
+proc reciprocalSqrt*(x: float32): float32 {.inline.} =
   1.0 / sqrt(x)
 
 proc quat*(m: Mat4): Quat =
