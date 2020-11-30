@@ -10,11 +10,11 @@ proc sign*(v: float32): float32 {.inline.} =
   ## Returns the sign of a number, -1 or 1.
   if v >= 0: 1.0 else: -1.0
 
-proc quantize*(v: float32, n: float32): float32 {.inline.} =
+proc quantize*(v, n: float32): float32 {.inline.} =
   ## Makes v be multipe of n. Rounding to integer quantize by 1.0.
   sign(v) * floor(abs(v) / n) * n
 
-proc lerp*(a: float32, b: float32, v: float32): float32 {.inline.} =
+proc lerp*(a, b, v: float32): float32 {.inline.} =
   ## Interpolates value between a and b.
   ## * 0 -> a
   ## * 1 -> b
@@ -63,11 +63,11 @@ proc vec2*(a: Vec2): Vec2 {.inline.} =
   result.x = a.x
   result.y = a.y
 
-proc `+`*(a: Vec2, b: Vec2): Vec2 {.inline.} =
+proc `+`*(a, b: Vec2): Vec2 {.inline.} =
   result.x = a.x + b.x
   result.y = a.y + b.y
 
-proc `-`*(a: Vec2, b: Vec2): Vec2 {.inline.} =
+proc `-`*(a, b: Vec2): Vec2 {.inline.} =
   result.x = a.x - b.x
   result.y = a.y - b.y
 
@@ -121,29 +121,29 @@ proc `length=`*(a: var Vec2, b: float32) {.inline.} =
 proc normalize*(a: Vec2): Vec2 {.inline.} =
   a / a.length
 
-proc dot*(a: Vec2, b: Vec2): float32 {.inline.} =
+proc dot*(a, b: Vec2): float32 {.inline.} =
   a.x * b.x + a.y * b.y
 
-proc dir*(at: Vec2, to: Vec2): Vec2 {.inline.} =
+proc dir*(at, to: Vec2): Vec2 {.inline.} =
   (at - to).normalize()
 
 proc dir*(th: float32): Vec2 {.inline.} =
   vec2(cos(th), sin(th))
 
-proc dist*(at: Vec2, to: Vec2): float32 {.inline.} =
+proc dist*(at, to: Vec2): float32 {.inline.} =
   (at - to).length
 
-proc distSq*(at: Vec2, to: Vec2): float32 {.inline.} =
+proc distSq*(at, to: Vec2): float32 {.inline.} =
   (at - to).lengthSq
 
-proc lerp*(a: Vec2, b: Vec2, v: float32): Vec2 {.inline.} =
+proc lerp*(a, b: Vec2, v: float32): Vec2 {.inline.} =
   a * (1.0 - v) + b * v
 
 proc quantize*(v: Vec2, n: float32): Vec2 {.inline.} =
   result.x = sign(v.x) * floor(abs(v.x) / n) * n
   result.y = sign(v.y) * floor(abs(v.y) / n) * n
 
-proc inRect*(v: Vec2, a: Vec2, b: Vec2): bool {.inline.} =
+proc inRect*(v, a, b: Vec2): bool {.inline.} =
   ## Check to see if v is inside a rectange formed by a and b.
   ## It does not matter how a and b are arranged.
   let
@@ -204,12 +204,12 @@ const X_DIR* = vec3(1.0, 0.0, 0.0)
 const Y_DIR* = vec3(0.0, 1.0, 0.0)
 const Z_DIR* = vec3(0.0, 0.0, 1.0)
 
-proc `+`*(a: Vec3, b: Vec3): Vec3 {.inline.} =
+proc `+`*(a, b: Vec3): Vec3 {.inline.} =
   result.x = a.x + b.x
   result.y = a.y + b.y
   result.z = a.z + b.z
 
-proc `-`*(a: Vec3, b: Vec3): Vec3 {.inline.} =
+proc `-`*(a, b: Vec3): Vec3 {.inline.} =
   result.x = a.x - b.x
   result.y = a.y - b.y
   result.z = a.z - b.z
@@ -291,7 +291,7 @@ proc ceil*(a: Vec3): Vec3 {.inline.} =
 proc normalize*(a: Vec3): Vec3 {.inline.} =
   a / sqrt(a.x * a.x + a.y * a.y + a.z * a.z)
 
-proc cross*(a: Vec3, b: Vec3): Vec3 {.inline.} =
+proc cross*(a, b: Vec3): Vec3 {.inline.} =
   result.x = a.y * b.z - a.z * b.y
   result.y = a.z * b.x - a.x * b.z
   result.z = a.x * b.y - a.y * b.x
@@ -299,19 +299,19 @@ proc cross*(a: Vec3, b: Vec3): Vec3 {.inline.} =
 proc computeNormal*(a, b, c: Vec3): Vec3 =
   cross(c - b, b - a).normalize()
 
-proc dot*(a: Vec3, b: Vec3): float32 {.inline.} =
+proc dot*(a, b: Vec3): float32 {.inline.} =
   a.x * b.x + a.y * b.y + a.z * b.z
 
-proc dir*(at: Vec3, to: Vec3): Vec3 {.inline.} =
+proc dir*(at, to: Vec3): Vec3 {.inline.} =
   (at - to).normalize()
 
-proc dist*(at: Vec3, to: Vec3): float32 {.inline.} =
+proc dist*(at, to: Vec3): float32 {.inline.} =
   (at - to).length
 
-proc distSq*(at: Vec3, to: Vec3): float32 {.inline.} =
+proc distSq*(at, to: Vec3): float32 {.inline.} =
   (at - to).lengthSq
 
-proc lerp*(a: Vec3, b: Vec3, v: float32): Vec3 {.inline.} =
+proc lerp*(a, b: Vec3, v: float32): Vec3 {.inline.} =
   a * (1.0 - v) + b * v
 
 proc quantize*(v: Vec3, n: float32): Vec3 =
@@ -396,13 +396,13 @@ proc vec4*(v: float32): Vec4 {.inline.} =
   result.z = v
   result.w = v
 
-proc `+`*(a: Vec4, b: Vec4): Vec4 {.inline.} =
+proc `+`*(a, b: Vec4): Vec4 {.inline.} =
   result.x = a.x + b.x
   result.y = a.y + b.y
   result.z = a.z + b.z
   result.w = a.w + b.w
 
-proc `-`*(a: Vec4, b: Vec4): Vec4 {.inline.} =
+proc `-`*(a, b: Vec4): Vec4 {.inline.} =
   result.x = a.x - b.x
   result.y = a.y - b.y
   result.z = a.z - b.z
@@ -429,7 +429,7 @@ proc `/`*(a: Vec4, b: float32): Vec4 {.inline.} =
   result.z = a.z / b
   result.w = a.w / b
 
-proc `/`*(a: float32, b: Vec4): Vec4 {.inline.}=
+proc `/`*(a: float32, b: Vec4): Vec4 {.inline.} =
   result.x = a / b.x
   result.y = a / b.y
   result.z = a / b.z
@@ -539,7 +539,7 @@ proc `$`*(a: Mat3): string =
 {a[3]:.4f}, {a[4]:.4f}, {a[5]:.4f},
 {a[6]:.4f}, {a[7]:.4f}, {a[8]:.4f}]"""
 
-proc `*`*(a: Mat3, b: Mat3): Mat3 =
+proc `*`*(a, b: Mat3): Mat3 =
   result[0, 0] += b[0, 0] * a[0, 0] + b[0, 1] * a[1, 0] + b[0, 2] * a[2, 0]
   result[0, 1] += b[0, 0] * a[0, 1] + b[0, 1] * a[1, 1] + b[0, 2] * a[2, 1]
   result[0, 2] += b[0, 0] * a[0, 2] + b[0, 1] * a[1, 2] + b[0, 2] * a[2, 2]
@@ -708,38 +708,38 @@ proc inverse*(a: Mat4): Mat4 =
     a33 = a[15]
 
   var
-    b00 = a00*a11 - a01*a10
-    b01 = a00*a12 - a02*a10
-    b02 = a00*a13 - a03*a10
-    b03 = a01*a12 - a02*a11
-    b04 = a01*a13 - a03*a11
-    b05 = a02*a13 - a03*a12
-    b06 = a20*a31 - a21*a30
-    b07 = a20*a32 - a22*a30
-    b08 = a20*a33 - a23*a30
-    b09 = a21*a32 - a22*a31
-    b10 = a21*a33 - a23*a31
-    b11 = a22*a33 - a23*a32
+    b00 = a00 * a11 - a01 * a10
+    b01 = a00 * a12 - a02 * a10
+    b02 = a00 * a13 - a03 * a10
+    b03 = a01 * a12 - a02 * a11
+    b04 = a01 * a13 - a03 * a11
+    b05 = a02 * a13 - a03 * a12
+    b06 = a20 * a31 - a21 * a30
+    b07 = a20 * a32 - a22 * a30
+    b08 = a20 * a33 - a23 * a30
+    b09 = a21 * a32 - a22 * a31
+    b10 = a21 * a33 - a23 * a31
+    b11 = a22 * a33 - a23 * a32
 
   # Calculate the inverse determinant.
   var invDet = 1.0/(b00*b11 - b01*b10 + b02*b09 + b03*b08 - b04*b07 + b05*b06)
 
-  result[00] = (+a11*b11 - a12*b10 + a13*b09)*invDet
-  result[01] = (-a01*b11 + a02*b10 - a03*b09)*invDet
-  result[02] = (+a31*b05 - a32*b04 + a33*b03)*invDet
-  result[03] = (-a21*b05 + a22*b04 - a23*b03)*invDet
-  result[04] = (-a10*b11 + a12*b08 - a13*b07)*invDet
-  result[05] = (+a00*b11 - a02*b08 + a03*b07)*invDet
-  result[06] = (-a30*b05 + a32*b02 - a33*b01)*invDet
-  result[07] = (+a20*b05 - a22*b02 + a23*b01)*invDet
-  result[08] = (+a10*b10 - a11*b08 + a13*b06)*invDet
-  result[09] = (-a00*b10 + a01*b08 - a03*b06)*invDet
-  result[10] = (+a30*b04 - a31*b02 + a33*b00)*invDet
-  result[11] = (-a20*b04 + a21*b02 - a23*b00)*invDet
-  result[12] = (-a10*b09 + a11*b07 - a12*b06)*invDet
-  result[13] = (+a00*b09 - a01*b07 + a02*b06)*invDet
-  result[14] = (-a30*b03 + a31*b01 - a32*b00)*invDet
-  result[15] = (+a20*b03 - a21*b01 + a22*b00)*invDet
+  result[00] = (+a11 * b11 - a12 * b10 + a13 * b09) * invDet
+  result[01] = (-a01 * b11 + a02 * b10 - a03 * b09) * invDet
+  result[02] = (+a31 * b05 - a32 * b04 + a33 * b03) * invDet
+  result[03] = (-a21 * b05 + a22 * b04 - a23 * b03) * invDet
+  result[04] = (-a10 * b11 + a12 * b08 - a13 * b07) * invDet
+  result[05] = (+a00 * b11 - a02 * b08 + a03 * b07) * invDet
+  result[06] = (-a30 * b05 + a32 * b02 - a33 * b01) * invDet
+  result[07] = (+a20 * b05 - a22 * b02 + a23 * b01) * invDet
+  result[08] = (+a10 * b10 - a11 * b08 + a13 * b06) * invDet
+  result[09] = (-a00 * b10 + a01 * b08 - a03 * b06) * invDet
+  result[10] = (+a30 * b04 - a31 * b02 + a33 * b00) * invDet
+  result[11] = (-a20 * b04 + a21 * b02 - a23 * b00) * invDet
+  result[12] = (-a10 * b09 + a11 * b07 - a12 * b06) * invDet
+  result[13] = (+a00 * b09 - a01 * b07 + a02 * b06) * invDet
+  result[14] = (-a30 * b03 + a31 * b01 - a32 * b00) * invDet
+  result[15] = (+a20 * b03 - a21 * b01 + a22 * b00) * invDet
 
 proc `*`*(a, b: Mat4): Mat4 =
   var
@@ -778,22 +778,22 @@ proc `*`*(a, b: Mat4): Mat4 =
     b32 = b[14]
     b33 = b[15]
 
-  result[00] = b00*a00 + b01*a10 + b02*a20 + b03*a30
-  result[01] = b00*a01 + b01*a11 + b02*a21 + b03*a31
-  result[02] = b00*a02 + b01*a12 + b02*a22 + b03*a32
-  result[03] = b00*a03 + b01*a13 + b02*a23 + b03*a33
-  result[04] = b10*a00 + b11*a10 + b12*a20 + b13*a30
-  result[05] = b10*a01 + b11*a11 + b12*a21 + b13*a31
-  result[06] = b10*a02 + b11*a12 + b12*a22 + b13*a32
-  result[07] = b10*a03 + b11*a13 + b12*a23 + b13*a33
-  result[08] = b20*a00 + b21*a10 + b22*a20 + b23*a30
-  result[09] = b20*a01 + b21*a11 + b22*a21 + b23*a31
-  result[10] = b20*a02 + b21*a12 + b22*a22 + b23*a32
-  result[11] = b20*a03 + b21*a13 + b22*a23 + b23*a33
-  result[12] = b30*a00 + b31*a10 + b32*a20 + b33*a30
-  result[13] = b30*a01 + b31*a11 + b32*a21 + b33*a31
-  result[14] = b30*a02 + b31*a12 + b32*a22 + b33*a32
-  result[15] = b30*a03 + b31*a13 + b32*a23 + b33*a33
+  result[00] = b00 * a00 + b01 * a10 + b02 * a20 + b03 * a30
+  result[01] = b00 * a01 + b01 * a11 + b02 * a21 + b03 * a31
+  result[02] = b00 * a02 + b01 * a12 + b02 * a22 + b03 * a32
+  result[03] = b00 * a03 + b01 * a13 + b02 * a23 + b03 * a33
+  result[04] = b10 * a00 + b11 * a10 + b12 * a20 + b13 * a30
+  result[05] = b10 * a01 + b11 * a11 + b12 * a21 + b13 * a31
+  result[06] = b10 * a02 + b11 * a12 + b12 * a22 + b13 * a32
+  result[07] = b10 * a03 + b11 * a13 + b12 * a23 + b13 * a33
+  result[08] = b20 * a00 + b21 * a10 + b22 * a20 + b23 * a30
+  result[09] = b20 * a01 + b21 * a11 + b22 * a21 + b23 * a31
+  result[10] = b20 * a02 + b21 * a12 + b22 * a22 + b23 * a32
+  result[11] = b20 * a03 + b21 * a13 + b22 * a23 + b23 * a33
+  result[12] = b30 * a00 + b31 * a10 + b32 * a20 + b33 * a30
+  result[13] = b30 * a01 + b31 * a11 + b32 * a21 + b33 * a31
+  result[14] = b30 * a02 + b31 * a12 + b32 * a22 + b33 * a32
+  result[15] = b30 * a03 + b31 * a13 + b32 * a23 + b33 * a33
 
 proc `*`*(a: Mat4, b: Vec3): Vec3 =
   result.x = a[0] * b.x + a[4] * b.y + a[8] * b.z + a[12]
