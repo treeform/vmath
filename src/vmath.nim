@@ -529,9 +529,9 @@ proc mat3*(): Mat3 {.inline.} =
 
 proc transpose*(a: Mat3): Mat3 {.inline.} =
   [
-    a[0], a[3], a[6],
-    a[1], a[4], a[7],
-    a[2], a[5], a[8]
+    a[0, 0], a[1, 0], a[2, 0],
+    a[0, 1], a[1, 1], a[2, 1],
+    a[0, 2], a[1, 2], a[2, 2]
   ]
 
 proc `$`*(a: Mat3): string =
@@ -654,10 +654,10 @@ proc mat4*(): Mat4 {.inline.} =
 
 proc transpose*(a: Mat4): Mat4 {.inline.} =
   [
-    a[0], a[4], a[8], a[12],
-    a[1], a[5], a[9], a[13],
-    a[2], a[6], a[10], a[14],
-    a[3], a[7], a[11], a[15]
+    a[0, 0], a[1, 0], a[2, 0], a[3, 0],
+    a[0, 1], a[1, 1], a[2, 1], a[3, 1],
+    a[0, 2], a[1, 2], a[2, 2], a[3, 2],
+    a[0, 3], a[1, 3], a[2, 3], a[3, 3]
   ]
 
 proc determinant*(a: Mat4): float32 =
@@ -850,7 +850,7 @@ proc rotationOnly*(a: Mat4): Mat4 {.inline.} =
   result = a
   result.pos = vec3(0, 0, 0)
 
-proc dist*(a, b: Mat4): float32 =
+proc dist*(a, b: Mat4): float32 {.inline.} =
   let
     x = a[12] - b[12]
     y = a[13] - b[13]
