@@ -1308,7 +1308,7 @@ proc mat4*(q: Quat): Mat4 =
   result[14] = 0
   result[15] = 1.0
 
-proc recifuncalSqrt*(x: float32): float32 {.inline.} =
+proc reciprocalSqrt*(x: float32): float32 {.inline.} =
   1.0 / sqrt(x)
 
 proc quat*(m: Mat4): Quat =
