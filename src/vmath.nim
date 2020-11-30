@@ -152,7 +152,7 @@ proc inRect*(v: Vec2, a: Vec2, b: Vec2): bool {.inline.} =
   v.x > min.x and v.x < max.x and v.y > min.y and v.y < max.y
 
 proc `[]`*(a: Vec2, i: int): float32 =
-  if i > 1:
+  if i < 0 or i > 1:
     raise newException(IndexDefect, "Vec2 index out of bounds")
   if i == 0:
     a.x
@@ -160,7 +160,7 @@ proc `[]`*(a: Vec2, i: int): float32 =
     a.y
 
 proc `[]=`*(a: var Vec2, i: int, b: float32) =
-  if i > 1:
+  if i < 0 or i > 1:
     raise newException(IndexDefect, "Vec2 index out of bounds")
   if i == 0:
     a.x = b
@@ -329,7 +329,7 @@ proc angleBetween*(a, b: Vec3): float32 =
   arccos(dot)
 
 proc `[]`*(a: Vec3, i: int): float32 =
-  if i > 2:
+  if i < 0 or i > 2:
     raise newException(IndexDefect, "Vec3 index out of bounds")
   if i == 0:
     a.x
@@ -339,7 +339,7 @@ proc `[]`*(a: Vec3, i: int): float32 =
     a.z
 
 proc `[]=`*(a: var Vec3, i: int, b: float32) =
-  if i > 2:
+  if i < 0 or i > 2:
     raise newException(IndexDefect, "Vec3 index out of bounds")
   if i == 0:
     a.x = b
@@ -479,7 +479,7 @@ proc hash*(a: Vec4): Hash {.inline.} =
   hash((a.x, a.y, a.z, a.w))
 
 proc `[]`*(a: Vec4, i: int): float32 =
-  if i > 3:
+  if i < 0 or i > 3:
     raise newException(IndexDefect, "Vec4 index out of bounds")
   if i == 0:
     a.x
@@ -491,7 +491,7 @@ proc `[]`*(a: Vec4, i: int): float32 =
     a.w
 
 proc `[]=`*(a: var Vec4, i: int, b: float32) =
-  if i > 3:
+  if i < 0 or i > 3:
     raise newException(IndexDefect, "Vec4 index out of bounds")
   if i == 0:
     a.x = b
@@ -519,6 +519,23 @@ proc vec4*(a: Vec3, w = 0.0): Vec4 {.inline.} =
 
 proc vec4*(a: Vec2, z = 0.0, w = 0.0): Vec4 {.inline.} =
   vec4(a.x, a.y, z, w)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 type Mat3* = array[9, float32] ## 3x3 Matrix
 
@@ -550,7 +567,7 @@ proc identity*(a: var Mat3) =
   a[7] = 0
   a[8] = 1
 
-proc mat3*(): Mat3 =
+proc mat3*(): Mat3 {.inline.} =
   result.identity()
 
 proc transpose*(a: Mat3): Mat3 =
