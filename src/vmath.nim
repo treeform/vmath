@@ -507,44 +507,32 @@ type Mat3* = array[9, float32] ## 3x3 Matrix
 template `[]`*(a: Mat3, i, j: int): float32 = a[i * 3 + j]
 template `[]=`*(a: Mat3, i, j: int, v: float32) = a[i * 3 + j] = v
 
-proc mat3*(a, b, c, d, e, f, g, h, i: float32): Mat3 =
-  result[0] = a
-  result[1] = b
-  result[2] = c
-  result[3] = d
-  result[4] = e
-  result[5] = f
-  result[6] = g
-  result[7] = h
-  result[8] = i
+proc mat3*(a, b, c, d, e, f, g, h, i: float32): Mat3 {.inline.} =
+  [
+    a, b, c,
+    d, e, f,
+    g, h, i
+  ]
 
-proc mat3*(a: Mat3): Mat3 =
+proc mat3*(a: Mat3): Mat3 {.inline.} =
   a
 
-proc identity*(a: var Mat3) =
-  a[0] = 1
-  a[1] = 0
-  a[2] = 0
-  a[3] = 0
-  a[4] = 1
-  a[5] = 0
-  a[6] = 0
-  a[7] = 0
-  a[8] = 1
+proc identity*(a: var Mat3) {.inline.} =
+  a = [
+    1.float32, 0, 0,
+    0,         1, 0,
+    0,         0, 1
+  ]
 
 proc mat3*(): Mat3 {.inline.} =
   result.identity()
 
-proc transpose*(a: Mat3): Mat3 =
-  result[0] = a[0]
-  result[1] = a[3]
-  result[2] = a[6]
-  result[3] = a[1]
-  result[4] = a[4]
-  result[5] = a[7]
-  result[6] = a[2]
-  result[7] = a[5]
-  result[8] = a[8]
+proc transpose*(a: Mat3): Mat3 {.inline.} =
+  [
+    a[0], a[3], a[6],
+    a[1], a[4], a[7],
+    a[2], a[5], a[8]
+  ]
 
 proc `$`*(a: Mat3): string =
   &"""[{a[0]:.4f}, {a[1]:.4f}, {a[2]:.4f},
@@ -601,6 +589,7 @@ proc rotationMat3*(angle: float32): Mat3 =
   let
     sin = sin(angle)
     cos = cos(angle)
+
   result[0, 0] = cos
   result[0, 1] = -sin
   result[0, 2] = 0
@@ -613,26 +602,28 @@ proc rotationMat3*(angle: float32): Mat3 =
   result[2, 1] = 0
   result[2, 2] = 1
 
-proc rotate*(a: Mat3, angle: float32): Mat3 =
+proc rotate*(a: Mat3, angle: float32): Mat3 {.inline.} =
   # Rotates a matrix by an angle.
   a * rotationMat3(angle)
 
 proc `*`*(a: Mat3, b: Vec2): Vec2 =
-  result.x = a[0, 0]*b.x + a[1, 0]*b.y + a[2, 0]
-  result.y = a[0, 1]*b.x + a[1, 1]*b.y + a[2, 1]
+  result.x = a[0, 0] * b.x + a[1, 0] * b.y + a[2, 0]
+  result.y = a[0, 1] * b.x + a[1, 1] * b.y + a[2, 1]
 
 proc `*`*(a: Mat3, b: Vec3): Vec3 =
-  result.x = a[0, 0]*b.x + a[1, 0]*b.y + a[2, 0]*b.z
-  result.y = a[0, 1]*b.x + a[1, 1]*b.y + a[2, 1]*b.z
-  result.z = a[0, 2]*b.x + a[1, 2]*b.y + a[2, 2]*b.z
+  result.x = a[0, 0] * b.x + a[1, 0] * b.y + a[2, 0] * b.z
+  result.y = a[0, 1] * b.x + a[1, 1] * b.y + a[2, 1] * b.z
+  result.z = a[0, 2] * b.x + a[1, 2] * b.y + a[2, 2] * b.z
 
 proc inverse*(a: Mat3): Mat3 =
-  let determinant = (
-    a[0, 0] * (a[1, 1] * a[2, 2] - a[2, 1] * a[1, 2]) -
-    a[0, 1] * (a[1, 0] * a[2, 2] - a[1, 2] * a[2, 0]) +
-    a[0, 2] * (a[1, 0] * a[2, 1] - a[1, 1] * a[2, 0])
-  )
-  let invDet = 1 / determinant
+  let
+    determinant = (
+      a[0, 0] * (a[1, 1] * a[2, 2] - a[2, 1] * a[1, 2]) -
+      a[0, 1] * (a[1, 0] * a[2, 2] - a[1, 2] * a[2, 0]) +
+      a[0, 2] * (a[1, 0] * a[2, 1] - a[1, 1] * a[2, 0])
+    )
+    invDet = 1 / determinant
+
   result[0, 0] =  (a[1, 1] * a[2, 2] - a[2, 1] * a[1, 2]) * invDet
   result[0, 1] = -(a[0, 1] * a[2, 2] - a[0, 2] * a[2, 1]) * invDet
   result[0, 2] =  (a[0, 1] * a[1, 2] - a[0, 2] * a[1, 1]) * invDet
