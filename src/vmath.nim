@@ -1202,6 +1202,19 @@ proc `*`*(q: Quat, v: float32): Quat {.inline.} =
   result.z = q.z * v
   result.w = q.w * v
 
+proc `/`*(q: Quat, v: float32): Quat {.inline.} =
+  ## Divide the quaternion by a float32.
+  result.x = q.x / v
+  result.y = q.y / v
+  result.z = q.z / v
+  result.w = q.w / v
+
+proc `*=`*(a: var Quat, b: float32) {.inline.} =
+  a = a * b
+
+proc `/=`*(a: var Quat, b: float32) {.inline.} =
+  a = a / b
+
 proc `*`*(q: Quat, v: Vec3): Vec3 =
   ## Multiply the quaternion by a vector.
   let
