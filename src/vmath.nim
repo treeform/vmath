@@ -152,20 +152,16 @@ proc inRect*(v: Vec2, a: Vec2, b: Vec2): bool {.inline.} =
   v.x > min.x and v.x < max.x and v.y > min.y and v.y < max.y
 
 proc `[]`*(a: Vec2, i: int): float32 =
-  if i < 0 or i > 1:
-    raise newException(IndexDefect, "Vec2 index out of bounds")
-  if i == 0:
-    a.x
-  else:
-    a.y
+  case i
+  of 0: a.x
+  of 1: a.y
+  else: raise newException(IndexDefect, "Index not in 0 .. 1")
 
 proc `[]=`*(a: var Vec2, i: int, b: float32) =
-  if i < 0 or i > 1:
-    raise newException(IndexDefect, "Vec2 index out of bounds")
-  if i == 0:
-    a.x = b
-  else:
-    a.y = b
+  case i
+  of 0: a.x = b
+  of 1: a.y = b
+  else: raise newException(IndexDefect, "Index not in 0 .. 1")
 
 proc randVec2*(r: var Rand): Vec2 =
   let a = r.rand(PI * 2)
@@ -329,24 +325,18 @@ proc angleBetween*(a, b: Vec3): float32 =
   arccos(dot)
 
 proc `[]`*(a: Vec3, i: int): float32 =
-  if i < 0 or i > 2:
-    raise newException(IndexDefect, "Vec3 index out of bounds")
-  if i == 0:
-    a.x
-  elif i == 1:
-    a.y
-  else:
-    a.z
+  case i
+  of 0: a.x
+  of 1: a.y
+  of 2: a.z
+  else: raise newException(IndexDefect, "Index not in 0 .. 2")
 
 proc `[]=`*(a: var Vec3, i: int, b: float32) =
-  if i < 0 or i > 2:
-    raise newException(IndexDefect, "Vec3 index out of bounds")
-  if i == 0:
-    a.x = b
-  elif i == 1:
-    a.y = b
-  else:
-    a.z = b
+  case i
+  of 0: a.x = b
+  of 1: a.y = b
+  of 2: a.z = b
+  else: raise newException(IndexDefect, "Index not in 0 .. 2")
 
 proc xy*(a: Vec3): Vec2 {.inline.} =
   vec2(a.x, a.y)
@@ -479,28 +469,20 @@ proc hash*(a: Vec4): Hash {.inline.} =
   hash((a.x, a.y, a.z, a.w))
 
 proc `[]`*(a: Vec4, i: int): float32 =
-  if i < 0 or i > 3:
-    raise newException(IndexDefect, "Vec4 index out of bounds")
-  if i == 0:
-    a.x
-  elif i == 1:
-    a.y
-  elif i == 2:
-    a.z
-  else:
-    a.w
+  case i
+  of 0: a.x
+  of 1: a.y
+  of 2: a.z
+  of 3: a.w
+  else: raise newException(IndexDefect, "Index not in 0 .. 3")
 
 proc `[]=`*(a: var Vec4, i: int, b: float32) =
-  if i < 0 or i > 3:
-    raise newException(IndexDefect, "Vec4 index out of bounds")
-  if i == 0:
-    a.x = b
-  elif i == 1:
-    a.y = b
-  elif i == 2:
-    a.z = b
-  else:
-    a.w = b
+  case i
+  of 0: a.x = b
+  of 1: a.y = b
+  of 2: a.z = b
+  of 3: a.w = b
+  else: raise newException(IndexDefect, "Index not in 0 .. 3")
 
 proc lerp*(a: Vec4, b: Vec4, v: float32): Vec4 =
   a * (1.0 - v) + b * v
