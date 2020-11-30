@@ -10,11 +10,11 @@ proc sign*(v: float32): float32 {.inline.} =
   ## Returns the sign of a number, -1 or 1.
   if v >= 0: 1.0 else: -1.0
 
-proc quantize*(v: float32, n: float32): float32 {.inline.} =
+proc quantize*(v, n: float32): float32 {.inline.} =
   ## Makes v be multipe of n. Rounding to integer quantize by 1.0.
   sign(v) * floor(abs(v) / n) * n
 
-proc lerp*(a: float32, b: float32, v: float32): float32 {.inline.} =
+proc lerp*(a, b, v: float32): float32 {.inline.} =
   ## Interpolates value between a and b.
   ## * 0 -> a
   ## * 1 -> b
@@ -63,11 +63,11 @@ proc vec2*(a: Vec2): Vec2 {.inline.} =
   result.x = a.x
   result.y = a.y
 
-proc `+`*(a: Vec2, b: Vec2): Vec2 {.inline.} =
+proc `+`*(a, b: Vec2): Vec2 {.inline.} =
   result.x = a.x + b.x
   result.y = a.y + b.y
 
-proc `-`*(a: Vec2, b: Vec2): Vec2 {.inline.} =
+proc `-`*(a, b: Vec2): Vec2 {.inline.} =
   result.x = a.x - b.x
   result.y = a.y - b.y
 
@@ -121,29 +121,29 @@ proc `length=`*(a: var Vec2, b: float32) {.inline.} =
 proc normalize*(a: Vec2): Vec2 {.inline.} =
   a / a.length
 
-proc dot*(a: Vec2, b: Vec2): float32 {.inline.} =
+proc dot*(a, b: Vec2): float32 {.inline.} =
   a.x * b.x + a.y * b.y
 
-proc dir*(at: Vec2, to: Vec2): Vec2 {.inline.} =
+proc dir*(at, to: Vec2): Vec2 {.inline.} =
   (at - to).normalize()
 
 proc dir*(th: float32): Vec2 {.inline.} =
   vec2(cos(th), sin(th))
 
-proc dist*(at: Vec2, to: Vec2): float32 {.inline.} =
+proc dist*(at, to: Vec2): float32 {.inline.} =
   (at - to).length
 
-proc distSq*(at: Vec2, to: Vec2): float32 {.inline.} =
+proc distSq*(at, to: Vec2): float32 {.inline.} =
   (at - to).lengthSq
 
-proc lerp*(a: Vec2, b: Vec2, v: float32): Vec2 {.inline.} =
+proc lerp*(a, b: Vec2, v: float32): Vec2 {.inline.} =
   a * (1.0 - v) + b * v
 
 proc quantize*(v: Vec2, n: float32): Vec2 {.inline.} =
   result.x = sign(v.x) * floor(abs(v.x) / n) * n
   result.y = sign(v.y) * floor(abs(v.y) / n) * n
 
-proc inRect*(v: Vec2, a: Vec2, b: Vec2): bool {.inline.} =
+proc inRect*(v, a, b: Vec2): bool {.inline.} =
   ## Check to see if v is inside a rectange formed by a and b.
   ## It does not matter how a and b are arranged.
   let
@@ -204,12 +204,12 @@ const X_DIR* = vec3(1.0, 0.0, 0.0)
 const Y_DIR* = vec3(0.0, 1.0, 0.0)
 const Z_DIR* = vec3(0.0, 0.0, 1.0)
 
-proc `+`*(a: Vec3, b: Vec3): Vec3 {.inline.} =
+proc `+`*(a, b: Vec3): Vec3 {.inline.} =
   result.x = a.x + b.x
   result.y = a.y + b.y
   result.z = a.z + b.z
 
-proc `-`*(a: Vec3, b: Vec3): Vec3 {.inline.} =
+proc `-`*(a, b: Vec3): Vec3 {.inline.} =
   result.x = a.x - b.x
   result.y = a.y - b.y
   result.z = a.z - b.z
@@ -291,7 +291,7 @@ proc ceil*(a: Vec3): Vec3 {.inline.} =
 proc normalize*(a: Vec3): Vec3 {.inline.} =
   a / sqrt(a.x * a.x + a.y * a.y + a.z * a.z)
 
-proc cross*(a: Vec3, b: Vec3): Vec3 {.inline.} =
+proc cross*(a, b: Vec3): Vec3 {.inline.} =
   result.x = a.y * b.z - a.z * b.y
   result.y = a.z * b.x - a.x * b.z
   result.z = a.x * b.y - a.y * b.x
@@ -299,19 +299,19 @@ proc cross*(a: Vec3, b: Vec3): Vec3 {.inline.} =
 proc computeNormal*(a, b, c: Vec3): Vec3 =
   cross(c - b, b - a).normalize()
 
-proc dot*(a: Vec3, b: Vec3): float32 {.inline.} =
+proc dot*(a, b: Vec3): float32 {.inline.} =
   a.x * b.x + a.y * b.y + a.z * b.z
 
-proc dir*(at: Vec3, to: Vec3): Vec3 {.inline.} =
+proc dir*(at, to: Vec3): Vec3 {.inline.} =
   (at - to).normalize()
 
-proc dist*(at: Vec3, to: Vec3): float32 {.inline.} =
+proc dist*(at, to: Vec3): float32 {.inline.} =
   (at - to).length
 
-proc distSq*(at: Vec3, to: Vec3): float32 {.inline.} =
+proc distSq*(at, to: Vec3): float32 {.inline.} =
   (at - to).lengthSq
 
-proc lerp*(a: Vec3, b: Vec3, v: float32): Vec3 {.inline.} =
+proc lerp*(a, b: Vec3, v: float32): Vec3 {.inline.} =
   a * (1.0 - v) + b * v
 
 proc quantize*(v: Vec3, n: float32): Vec3 =
@@ -396,13 +396,13 @@ proc vec4*(v: float32): Vec4 {.inline.} =
   result.z = v
   result.w = v
 
-proc `+`*(a: Vec4, b: Vec4): Vec4 {.inline.} =
+proc `+`*(a, b: Vec4): Vec4 {.inline.} =
   result.x = a.x + b.x
   result.y = a.y + b.y
   result.z = a.z + b.z
   result.w = a.w + b.w
 
-proc `-`*(a: Vec4, b: Vec4): Vec4 {.inline.} =
+proc `-`*(a, b: Vec4): Vec4 {.inline.} =
   result.x = a.x - b.x
   result.y = a.y - b.y
   result.z = a.z - b.z
@@ -539,7 +539,7 @@ proc `$`*(a: Mat3): string =
 {a[3]:.4f}, {a[4]:.4f}, {a[5]:.4f},
 {a[6]:.4f}, {a[7]:.4f}, {a[8]:.4f}]"""
 
-proc `*`*(a: Mat3, b: Mat3): Mat3 =
+proc `*`*(a, b: Mat3): Mat3 =
   result[0, 0] += b[0, 0] * a[0, 0] + b[0, 1] * a[1, 0] + b[0, 2] * a[2, 0]
   result[0, 1] += b[0, 0] * a[0, 1] + b[0, 1] * a[1, 1] + b[0, 2] * a[2, 1]
   result[0, 2] += b[0, 0] * a[0, 2] + b[0, 1] * a[1, 2] + b[0, 2] * a[2, 2]
