@@ -550,27 +550,19 @@ proc `*`*(a: Mat3, b: Mat3): Mat3 =
   result[2, 1] += b[2, 0] * a[0, 1] + b[2, 1] * a[1, 1] + b[2, 2] * a[2, 1]
   result[2, 2] += b[2, 0] * a[0, 2] + b[2, 1] * a[1, 2] + b[2, 2] * a[2, 2]
 
-proc scale*(a: Mat3, v: Vec2): Mat3 =
-  result[0] = v.x * a[0]
-  result[1] = v.x * a[1]
-  result[2] = v.x * a[2]
-  result[3] = v.y * a[3]
-  result[4] = v.y * a[4]
-  result[5] = v.y * a[5]
-  result[6] = a[6]
-  result[7] = a[7]
-  result[8] = a[8]
+proc scale*(a: Mat3, v: Vec2): Mat3 {.inline.} =
+  [
+    v.x * a[0], v.x * a[1], v.x * a[2],
+    v.y * a[3], v.y * a[4], v.y * a[5],
+    a[6],       a[7],       a[8]
+  ]
 
-proc scale*(a: Mat3, v: Vec3): Mat3 =
-  result[0] = v.x * a[0]
-  result[1] = v.x * a[1]
-  result[2] = v.x * a[2]
-  result[3] = v.y * a[3]
-  result[4] = v.y * a[4]
-  result[5] = v.y * a[5]
-  result[6] = v.z * a[6]
-  result[7] = v.z * a[7]
-  result[8] = v.z * a[8]
+proc scale*(a: Mat3, v: Vec3): Mat3 {.inline.} =
+  [
+    v.x * a[0], v.x * a[1], v.x * a[2],
+    v.y * a[3], v.y * a[4], v.y * a[5],
+    v.z * a[6], v.z * a[7], v.z * a[8]
+  ]
 
 proc translate*(v: Vec2): Mat3 {.inline.} =
   [
