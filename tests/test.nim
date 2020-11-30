@@ -1,5 +1,21 @@
 import vmath, osproc, random, streams
 
+var v2 = vec2(0, 0)
+v2 *= 1
+v2 /= 1
+
+var v3 = vec3(0, 0, 0)
+v3 *= 1
+v3 /= 1
+
+var v4 = vec4(0, 0, 0, 0)
+v4 *= 1
+v4 /= 1
+
+var q = quat(0, 0, 0, 0)
+q *= 1
+q /= 1
+
 var s = newFileStream("tests/test-output.txt", fmWrite)
 
 randomize(1234)
