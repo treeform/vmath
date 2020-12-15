@@ -504,8 +504,8 @@ proc vec4*(a: Vec2, z = 0.0, w = 0.0): Vec4 {.inline.} =
 
 type Mat3* = array[9, float32] ## 3x3 Matrix
 
-template `[]`*(a: Mat3, i, j: int): float32 = a[i * 3 + j]
-template `[]=`*(a: Mat3, i, j: int, v: float32) = a[i * 3 + j] = v
+proc `[]`*(a: Mat3, i, j: int): float32 {.inline.} = a[i * 3 + j]
+proc `[]=`*(a: var Mat3, i, j: int, v: float32) {.inline.} = a[i * 3 + j] = v
 
 proc mat3*(a, b, c, d, e, f, g, h, i: float32): Mat3 {.inline.} =
   [
@@ -540,15 +540,15 @@ proc `$`*(a: Mat3): string =
 {a[6]:.4f}, {a[7]:.4f}, {a[8]:.4f}]"""
 
 proc `*`*(a, b: Mat3): Mat3 =
-  result[0, 0] += b[0, 0] * a[0, 0] + b[0, 1] * a[1, 0] + b[0, 2] * a[2, 0]
-  result[0, 1] += b[0, 0] * a[0, 1] + b[0, 1] * a[1, 1] + b[0, 2] * a[2, 1]
-  result[0, 2] += b[0, 0] * a[0, 2] + b[0, 1] * a[1, 2] + b[0, 2] * a[2, 2]
-  result[1, 0] += b[1, 0] * a[0, 0] + b[1, 1] * a[1, 0] + b[1, 2] * a[2, 0]
-  result[1, 1] += b[1, 0] * a[0, 1] + b[1, 1] * a[1, 1] + b[1, 2] * a[2, 1]
-  result[1, 2] += b[1, 0] * a[0, 2] + b[1, 1] * a[1, 2] + b[1, 2] * a[2, 2]
-  result[2, 0] += b[2, 0] * a[0, 0] + b[2, 1] * a[1, 0] + b[2, 2] * a[2, 0]
-  result[2, 1] += b[2, 0] * a[0, 1] + b[2, 1] * a[1, 1] + b[2, 2] * a[2, 1]
-  result[2, 2] += b[2, 0] * a[0, 2] + b[2, 1] * a[1, 2] + b[2, 2] * a[2, 2]
+  result[0, 0] = b[0, 0] * a[0, 0] + b[0, 1] * a[1, 0] + b[0, 2] * a[2, 0]
+  result[0, 1] = b[0, 0] * a[0, 1] + b[0, 1] * a[1, 1] + b[0, 2] * a[2, 1]
+  result[0, 2] = b[0, 0] * a[0, 2] + b[0, 1] * a[1, 2] + b[0, 2] * a[2, 2]
+  result[1, 0] = b[1, 0] * a[0, 0] + b[1, 1] * a[1, 0] + b[1, 2] * a[2, 0]
+  result[1, 1] = b[1, 0] * a[0, 1] + b[1, 1] * a[1, 1] + b[1, 2] * a[2, 1]
+  result[1, 2] = b[1, 0] * a[0, 2] + b[1, 1] * a[1, 2] + b[1, 2] * a[2, 2]
+  result[2, 0] = b[2, 0] * a[0, 0] + b[2, 1] * a[1, 0] + b[2, 2] * a[2, 0]
+  result[2, 1] = b[2, 0] * a[0, 1] + b[2, 1] * a[1, 1] + b[2, 2] * a[2, 1]
+  result[2, 2] = b[2, 0] * a[0, 2] + b[2, 1] * a[1, 2] + b[2, 2] * a[2, 2]
 
 proc scale*(a: Mat3, v: Vec2): Mat3 {.inline.} =
   [
