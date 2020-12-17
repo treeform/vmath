@@ -351,7 +351,7 @@ proc yz*(a: Vec3): Vec2 {.inline.} =
   vec2(a.y, a.z)
 
 proc zx*(a: Vec3): Vec2 {.inline.} =
-  vec2(a.y, a.x)
+  vec2(a.z, a.x)
 
 proc zy*(a: Vec3): Vec2 {.inline.} =
   vec2(a.z, a.y)
