@@ -625,8 +625,8 @@ proc inverse*(a: Mat3): Mat3 =
 
 type Mat4* = array[16, float32] ## 4x4 Matrix - OpenGL row order
 
-template `[]`*(a: Mat4, i, j: int): float32 = a[i * 4 + j]
-template `[]=`*(a: Mat4, i, j: int, v: float32) = a[i * 4 + j] = v
+proc `[]`*(a: Mat4, i, j: int): float32 = a[i * 4 + j]
+proc `[]=`*(a: var Mat4, i, j: int, v: float32) = a[i * 4 + j] = v
 
 proc mat4*(
   v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15: float32
