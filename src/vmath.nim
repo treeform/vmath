@@ -121,6 +121,15 @@ proc `length=`*(a: var Vec2, b: float32) {.inline.} =
 proc normalize*(a: Vec2): Vec2 {.inline.} =
   a / a.length
 
+proc floor*(a: Vec2): Vec2 {.inline.} =
+  vec2(floor(a.x), floor(a.y))
+
+proc round*(a: Vec2): Vec2 {.inline.} =
+  vec2(round(a.x), round(a.y))
+
+proc ceil*(a: Vec2): Vec2 {.inline.} =
+  vec2(ceil(a.x), ceil(a.y))
+
 proc dot*(a, b: Vec2): float32 {.inline.} =
   a.x * b.x + a.y * b.y
 
@@ -467,6 +476,15 @@ proc zero*(a: var Vec4) {.inline.} =
 
 proc hash*(a: Vec4): Hash {.inline.} =
   hash((a.x, a.y, a.z, a.w))
+
+proc floor*(a: Vec4): Vec4 {.inline.} =
+  vec4(floor(a.x), floor(a.y), floor(a.z), floor(a.w))
+
+proc round*(a: Vec4): Vec4 {.inline.} =
+  vec4(round(a.x), round(a.y), round(a.z), round(a.w))
+
+proc ceil*(a: Vec4): Vec4 {.inline.} =
+  vec4(ceil(a.x), ceil(a.y), ceil(a.z), ceil(a.w))
 
 proc `[]`*(a: Vec4, i: int): float32 =
   case i
