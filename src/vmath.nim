@@ -641,6 +641,14 @@ proc inverse*(a: Mat3): Mat3 =
   result[2, 1] = -(a[0, 0] * a[2, 1] - a[2, 0] * a[0, 1]) * invDet
   result[2, 2] =  (a[0, 0] * a[1, 1] - a[1, 0] * a[0, 1]) * invDet
 
+proc pos*(a: Mat3): Vec2 {.inline.} =
+  result.x = a[2, 0]
+  result.y = a[2, 1]
+
+proc `pos=`*(a: var Mat3, b: Vec2) {.inline.} =
+  a[2, 0] = b.x
+  a[2, 1] = b.y
+
 type Mat4* = array[16, float32] ## 4x4 Matrix - OpenGL row order
 
 proc `[]`*(a: Mat4, i, j: int): float32 = a[i * 4 + j]
