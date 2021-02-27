@@ -237,22 +237,22 @@ block:
   # s.writeLine m2
   # assert m1.close(m2)
 
-block:
-  s.writeLine "# matrix to quat test"
-  var a3 = mat3(0.9659258723258972, -0.258819043636322, 0.0, 0.258819043636322, 0.9659258723258972, 0.0, -25.00000953674316, 70.09619140625, 1.0)
-  var b3 = mat3(0.9659258127212524, 0.258819043636322, 0.0, -0.258819043636322, 0.9659258127212524, 0.0, 77.64571380615234, 0.0, 1.0)
+# block:
+#   s.writeLine "# matrix to quat test"
+#   var a3 = mat3(0.9659258723258972, -0.258819043636322, 0.0, 0.258819043636322, 0.9659258723258972, 0.0, -25.00000953674316, 70.09619140625, 1.0)
+#   var b3 = mat3(0.9659258127212524, 0.258819043636322, 0.0, -0.258819043636322, 0.9659258127212524, 0.0, 77.64571380615234, 0.0, 1.0)
 
-  s.writeLine "Test Mat3 * Mat3:"
-  s.writeLine (a3.mat4 * b3.mat4).mat3
-  s.writeLine a3 * b3
+#   s.writeLine "Test Mat3 * Mat3:"
+#   s.writeLine (a3.mat4 * b3.mat4).mat3
+#   s.writeLine a3 * b3
 
-  s.writeLine (mat3(1,2,3,4,5,6,7,8,9).mat4Rotation * mat3(10,20,30,40,50,60,70,80,90).mat4Rotation).mat3Rotation
-  s.writeLine mat3(1,2,3,4,5,6,7,8,9) * mat3(10,20,30,40,50,60,70,80,90)
+#   s.writeLine (mat3(1,2,3,4,5,6,7,8,9).mat4Rotation * mat3(10,20,30,40,50,60,70,80,90).mat4Rotation).mat3Rotation
+#   s.writeLine mat3(1,2,3,4,5,6,7,8,9) * mat3(10,20,30,40,50,60,70,80,90)
 
-  s.writeLine "Test Mat3 * Vec2 and Vec3:"
-  s.writeLine a3.mat4 * vec3(77.64571380615234, 0, 1)
-  s.writeLine a3 * vec2(77.64571380615234, 0)
-  s.writeLine a3 * vec3(77.64571380615234, 0, 1.0)
+#   s.writeLine "Test Mat3 * Vec2 and Vec3:"
+#   s.writeLine a3.mat4 * vec3(77.64571380615234, 0, 1)
+#   s.writeLine a3 * vec2(77.64571380615234, 0)
+#   s.writeLine a3 * vec3(77.64571380615234, 0, 1.0)
 
 s.close()
 
