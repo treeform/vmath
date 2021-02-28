@@ -12,6 +12,14 @@ Has functions for Vec2, Vec3, Vec4, Mat3, Mat4 and Quat.
 import vmath
 ```
 
+## **proc** `~=`
+
+Almost equal.
+
+```nim
+proc `~=`(a, b: float32): bool
+```
+
 ## **proc** between
 
 Returns true if value is between min and max or equal to them.
@@ -100,6 +108,13 @@ proc vec2(v: float32): Vec2 {.inline.}
 
 ```nim
 proc vec2(a: Vec2): Vec2 {.inline.}
+```
+
+## **proc** `~=`
+
+
+```nim
+proc `~=`(a, b: Vec2): bool
 ```
 
 ## **proc** `+`
@@ -214,6 +229,27 @@ proc length=(a: var Vec2; b: float32) {.inline.}
 proc normalize(a: Vec2): Vec2 {.inline.}
 ```
 
+## **proc** floor
+
+
+```nim
+proc floor(a: Vec2): Vec2 {.inline.}
+```
+
+## **proc** round
+
+
+```nim
+proc round(a: Vec2): Vec2 {.inline.}
+```
+
+## **proc** ceil
+
+
+```nim
+proc ceil(a: Vec2): Vec2 {.inline.}
+```
+
 ## **proc** dot
 
 
@@ -261,14 +297,6 @@ proc lerp(a, b: Vec2; v: float32): Vec2 {.inline.}
 
 ```nim
 proc quantize(v: Vec2; n: float32): Vec2 {.inline.}
-```
-
-## **proc** inRect
-
-Check to see if v is inside a rectange formed by a and b. It does not matter how a and b are arranged.
-
-```nim
-proc inRect(v, a, b: Vec2): bool {.inline.}
 ```
 
 ## **proc** `[]`
@@ -366,6 +394,13 @@ Y_DIR = (x: 0.0, y: 1.0, z: 0.0)
 
 ```nim
 Z_DIR = (x: 0.0, y: 0.0, z: 1.0)
+```
+
+## **proc** `~=`
+
+
+```nim
+proc `~=`(a, b: Vec3): bool
 ```
 
 ## **proc** `+`
@@ -634,11 +669,193 @@ proc zx(a: Vec3): Vec2 {.inline.}
 proc zy(a: Vec3): Vec2 {.inline.}
 ```
 
-## **proc** almostEquals
+## **proc** xxx
 
 
 ```nim
-proc almostEquals(a, b: Vec3; precision = 1e-006): bool {.inline, tags: [].}
+proc xxx(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** xxy
+
+
+```nim
+proc xxy(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** xxz
+
+
+```nim
+proc xxz(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** xyx
+
+
+```nim
+proc xyx(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** xyy
+
+
+```nim
+proc xyy(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** xyz
+
+
+```nim
+proc xyz(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** xzx
+
+
+```nim
+proc xzx(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** xzy
+
+
+```nim
+proc xzy(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** xzz
+
+
+```nim
+proc xzz(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** yxx
+
+
+```nim
+proc yxx(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** yxy
+
+
+```nim
+proc yxy(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** yxz
+
+
+```nim
+proc yxz(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** yyx
+
+
+```nim
+proc yyx(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** yyy
+
+
+```nim
+proc yyy(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** yyz
+
+
+```nim
+proc yyz(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** yzx
+
+
+```nim
+proc yzx(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** yzy
+
+
+```nim
+proc yzy(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** yzz
+
+
+```nim
+proc yzz(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** zxx
+
+
+```nim
+proc zxx(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** zxy
+
+
+```nim
+proc zxy(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** zxz
+
+
+```nim
+proc zxz(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** zyx
+
+
+```nim
+proc zyx(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** zyy
+
+
+```nim
+proc zyy(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** zyz
+
+
+```nim
+proc zyz(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** zzx
+
+
+```nim
+proc zzx(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** zzy
+
+
+```nim
+proc zzy(a: Vec3): Vec3 {.inline.}
+```
+
+## **proc** zzz
+
+
+```nim
+proc zzz(a: Vec3): Vec3 {.inline.}
 ```
 
 ## **proc** randVec3
@@ -680,6 +897,13 @@ proc vec4(x, y, z, w: float32): Vec4 {.inline.}
 
 ```nim
 proc vec4(v: float32): Vec4 {.inline.}
+```
+
+## **proc** `~=`
+
+
+```nim
+proc `~=`(a, b: Vec4): bool
 ```
 
 ## **proc** `+`
@@ -773,6 +997,27 @@ proc zero(a: var Vec4) {.inline.}
 proc hash(a: Vec4): Hash {.inline.}
 ```
 
+## **proc** floor
+
+
+```nim
+proc floor(a: Vec4): Vec4 {.inline.}
+```
+
+## **proc** round
+
+
+```nim
+proc round(a: Vec4): Vec4 {.inline.}
+```
+
+## **proc** ceil
+
+
+```nim
+proc ceil(a: Vec4): Vec4 {.inline.}
+```
+
 ## **proc** `[]`
 
 
@@ -837,18 +1082,18 @@ proc vec4(a: Vec2; z = 0.0; w = 0.0): Vec4 {.inline.}
 Mat3 = array[9, float32]
 ```
 
-## **template** `[]`
+## **proc** `[]`
 
 
 ```nim
-template `[]`(a: Mat3; i, j: int): float32
+proc `[]`(a: Mat3; i, j: int): float32 {.inline.}
 ```
 
-## **template** `[]=`
+## **proc** `[]=`
 
 
 ```nim
-template `[]=`(a: Mat3; i, j: int; v: float32)
+proc `[]=`(a: var Mat3; i, j: int; v: float32) {.inline.}
 ```
 
 ## **proc** mat3
@@ -863,6 +1108,13 @@ proc mat3(a, b, c, d, e, f, g, h, i: float32): Mat3 {.inline, tags: [].}
 
 ```nim
 proc mat3(a: Mat3): Mat3 {.inline.}
+```
+
+## **proc** `~=`
+
+
+```nim
+proc `~=`(a: Mat3; b: Mat3): bool
 ```
 
 ## **proc** identity
@@ -963,6 +1215,20 @@ proc `*`(a: Mat3; b: Vec3): Vec3
 proc inverse(a: Mat3): Mat3
 ```
 
+## **proc** pos
+
+
+```nim
+proc pos(a: Mat3): Vec2 {.inline.}
+```
+
+## **proc** pos=
+
+
+```nim
+proc pos=(a: var Mat3; b: Vec2) {.inline.}
+```
+
 ## **type** Mat4
 
 4x4 Matrix - OpenGL row order
@@ -971,18 +1237,18 @@ proc inverse(a: Mat3): Mat3
 Mat4 = array[16, float32]
 ```
 
-## **template** `[]`
+## **proc** `[]`
 
 
 ```nim
-template `[]`(a: Mat4; i, j: int): float32
+proc `[]`(a: Mat4; i, j: int): float32
 ```
 
-## **template** `[]=`
+## **proc** `[]=`
 
 
 ```nim
-template `[]=`(a: Mat4; i, j: int; v: float32)
+proc `[]=`(a: var Mat4; i, j: int; v: float32)
 ```
 
 ## **proc** mat4
@@ -1011,6 +1277,13 @@ proc identity(): Mat4 {.inline.}
 
 ```nim
 proc mat4(): Mat4 {.inline.}
+```
+
+## **proc** `~=`
+
+
+```nim
+proc `~=`(a: Mat4; b: Mat4): bool
 ```
 
 ## **proc** transpose
@@ -1139,13 +1412,6 @@ proc translate(v: Vec3): Mat4
 proc scale(v: Vec3): Mat4
 ```
 
-## **proc** close
-
-
-```nim
-proc close(a: Mat4; b: Mat4): bool
-```
-
 ## **proc** hrp
 
 
@@ -1236,6 +1502,13 @@ Quat = object
 
 ```nim
 proc quat(x, y, z, w: float32): Quat {.inline.}
+```
+
+## **proc** `~=`
+
+
+```nim
+proc `~=`(a, b: Quat): bool
 ```
 
 ## **proc** conjugate
@@ -1471,124 +1744,4 @@ proc scaleMat(scale: Vec3): Mat4 {.inline.}
 
 ```nim
 proc scaleMat(scale: float32): Mat4 {.inline.}
-```
-
-## **type** Rect
-
-
-```nim
-Rect = object
- x*: float32
- y*: float32
- w*: float32
- h*: float32
-```
-
-## **proc** rect
-
-
-```nim
-proc rect(x, y, w, h: float32): Rect
-```
-
-## **proc** rect
-
-
-```nim
-proc rect(pos, size: Vec2): Rect
-```
-
-## **proc** xy
-
-Gets the xy as a Vec2.
-
-```nim
-proc xy(rect: Rect): Vec2
-```
-
-## **proc** xy=
-
-Sets the xy from Vec2.
-
-```nim
-proc xy=(rect: var Rect; v: Vec2)
-```
-
-## **proc** wh
-
-Gets the wh as a Vec2.
-
-```nim
-proc wh(rect: Rect): Vec2
-```
-
-## **proc** wh=
-
-Sets the wh from Vec2.
-
-```nim
-proc wh=(rect: var Rect; v: Vec2)
-```
-
-## **proc** `*`
-
-* all elements of a Rect.
-
-```nim
-proc `*`(r: Rect; v: float): Rect
-```
-
-## **proc** `/`
-
-/ all elements of a Rect.
-
-```nim
-proc `/`(r: Rect; v: float): Rect
-```
-
-## **proc** `+`
-
-Add two boxes together.
-
-```nim
-proc `+`(a, b: Rect): Rect
-```
-
-## **proc** `$`
-
-
-```nim
-proc `$`(a: Rect): string {.raises: [ValueError].}
-```
-
-## **proc** inside
-
-Checks if pos is inside rect.
-
-```nim
-proc inside(pos: Vec2; rect: Rect): bool
-```
-
-## **proc** overlap
-
-Returns true if box a overlaps box b.
-
-```nim
-proc overlap(a, b: Rect): bool
-```
-
-## **proc** `or`
-
-Union of two rectangles.
-
-```nim
-proc `or`(a, b: Rect): Rect
-```
-
-## **proc** `and`
-
-Intersection of two rectangles.
-
-```nim
-proc `and`(a, b: Rect): Rect
 ```
