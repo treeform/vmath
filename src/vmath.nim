@@ -674,6 +674,19 @@ proc `pos=`*(a: var Mat3, b: Vec2) {.inline.} =
   a[2, 0] = b.x
   a[2, 1] = b.y
 
+proc hash*(a: Mat3): Hash {.inline.} =
+  hash((
+    a[0],
+    a[1],
+    a[2],
+    a[3],
+    a[4],
+    a[5],
+    a[6],
+    a[7],
+    a[8]
+  ))
+
 type Mat4* = array[16, float32] ## 4x4 Matrix - OpenGL row order
 
 proc `[]`*(a: Mat4, i, j: int): float32 = a[i * 4 + j]
@@ -914,41 +927,6 @@ proc dist*(a, b: Mat4): float32 {.inline.} =
     z = a[14] - b[14]
   sqrt(x * x + y * y + z * z)
 
-#[
-proc translate*(a: Mat4, v: Vec3): Mat4 =
-  var
-    a00 = a[0]
-    a01 = a[1]
-    a02 = a[2]
-    a03 = a[3]
-    a10 = a[4]
-    a11 = a[5]
-    a12 = a[6]
-    a13 = a[7]
-    a20 = a[8]
-    a21 = a[9]
-    a22 = a[10]
-    a23 = a[11]
-
-  result[0] = a00
-  result[1] = a01
-  result[2] = a02
-  result[3] = a03
-  result[4] = a10
-  result[5] = a11
-  result[6] = a12
-  result[7] = a13
-  result[8] = a20
-  result[9] = a21
-  result[10] = a22
-  result[11] = a23
-
-  result[12] = a00*v.x + a10*v.y + a20*v.z + a[12]
-  result[13] = a01*v.x + a11*v.y + a21*v.z + a[13]
-  result[14] = a02*v.x + a12*v.y + a22*v.z + a[14]
-  result[15] = a03*v.x + a13*v.y + a23*v.z + a[15]
-]#
-
 proc translate*(v: Vec3): Mat4 =
   result[0] = 1
   result[5] = 1
@@ -1166,6 +1144,26 @@ proc mat4Rotation*(m: Mat3): Mat4 =
   result[2, 0] = m[2, 0]
   result[2, 1] = m[2, 1]
   result[2, 2] = m[2, 2]
+
+proc hash*(a: Mat4): Hash {.inline.} =
+  hash((
+    a[0],
+    a[1],
+    a[2],
+    a[3],
+    a[4],
+    a[5],
+    a[6],
+    a[7],
+    a[8],
+    a[9],
+    a[10],
+    a[11],
+    a[12],
+    a[13],
+    a[14],
+    a[15],
+  ))
 
 proc `$`*(a: Mat4): string =
   &"""[{a[0]:.5f}, {a[1]:.5f}, {a[2]:.5f}, {a[3]:.5f},
@@ -1466,6 +1464,9 @@ proc nlerp*(a: Quat, b: Quat, v: float32): Quat =
     (-c * (1.0 - v) + b * v).normalize()
   else:
     (a * (1.0 - v) + b * v).normalize()
+
+proc hash*(a: Quat): Hash {.inline.} =
+  hash((a.x, a.y, a.z, a.w))
 
 proc `$`*(a: Quat): string =
   &"q({a.x:.8f}, {a.y:.8f}, {a.z:.8f}, {a.w:.8f})"
