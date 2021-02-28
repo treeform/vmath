@@ -2,6 +2,11 @@ import hashes, math, random, strformat, strutils
 
 export math
 
+proc `~=`*(a, b: float32): bool =
+  ## Almost equal.
+  const epsilon = 0.000001
+  abs(a - b) < epsilon
+
 proc between*(value, min, max: float32): bool {.inline.} =
   ## Returns true if value is between min and max or equal to them.
   (value >= min) and (value <= max)
@@ -62,6 +67,9 @@ proc vec2*(v: float32): Vec2 {.inline.} =
 proc vec2*(a: Vec2): Vec2 {.inline.} =
   result.x = a.x
   result.y = a.y
+
+proc `~=`*(a, b: Vec2): bool =
+  a.x ~= b.x and a.y ~= b.y
 
 proc `+`*(a, b: Vec2): Vec2 {.inline.} =
   result.x = a.x + b.x
@@ -152,14 +160,6 @@ proc quantize*(v: Vec2, n: float32): Vec2 {.inline.} =
   result.x = sign(v.x) * floor(abs(v.x) / n) * n
   result.y = sign(v.y) * floor(abs(v.y) / n) * n
 
-proc inRect*(v, a, b: Vec2): bool {.inline.} =
-  ## Check to see if v is inside a rectange formed by a and b.
-  ## It does not matter how a and b are arranged.
-  let
-    min = vec2(min(a.x, b.x), min(a.y, b.y))
-    max = vec2(max(a.x, b.x), max(a.y, b.y))
-  v.x > min.x and v.x < max.x and v.y > min.y and v.y < max.y
-
 proc `[]`*(a: Vec2, i: int): float32 =
   case i
   of 0: a.x
@@ -178,7 +178,7 @@ proc randVec2*(r: var Rand): Vec2 =
   vec2(cos(a) * v, sin(a) * v)
 
 proc `$`*(a: Vec2): string =
-  &"({a.x:.4f}, {a.y:.4f})"
+  &"({a.x:.7f}, {a.y:.7f})"
 
 proc angle*(a: Vec2): float32 {.inline.} =
   ## Angle of a Vec2.
@@ -212,6 +212,9 @@ proc vec3*(a: Vec3): Vec3 {.inline.} =
 const X_DIR* = vec3(1.0, 0.0, 0.0)
 const Y_DIR* = vec3(0.0, 1.0, 0.0)
 const Z_DIR* = vec3(0.0, 0.0, 1.0)
+
+proc `~=`*(a, b: Vec3): bool =
+  a.x ~= b.x and a.y ~= b.y and a.z ~= b.z
 
 proc `+`*(a, b: Vec3): Vec3 {.inline.} =
   result.x = a.x + b.x
@@ -347,27 +350,40 @@ proc `[]=`*(a: var Vec3, i: int, b: float32) =
   of 2: a.z = b
   else: raise newException(IndexDefect, "Index not in 0 .. 2")
 
-proc xy*(a: Vec3): Vec2 {.inline.} =
-  vec2(a.x, a.y)
+proc xy*(a: Vec3): Vec2 {.inline.} = vec2(a.x, a.y)
+proc xz*(a: Vec3): Vec2 {.inline.} = vec2(a.x, a.z)
+proc yx*(a: Vec3): Vec2 {.inline.} = vec2(a.y, a.x)
+proc yz*(a: Vec3): Vec2 {.inline.} = vec2(a.y, a.z)
+proc zx*(a: Vec3): Vec2 {.inline.} = vec2(a.z, a.x)
+proc zy*(a: Vec3): Vec2 {.inline.} = vec2(a.z, a.y)
 
-proc xz*(a: Vec3): Vec2 {.inline.} =
-  vec2(a.x, a.z)
-
-proc yx*(a: Vec3): Vec2 {.inline.} =
-  vec2(a.y, a.x)
-
-proc yz*(a: Vec3): Vec2 {.inline.} =
-  vec2(a.y, a.z)
-
-proc zx*(a: Vec3): Vec2 {.inline.} =
-  vec2(a.z, a.x)
-
-proc zy*(a: Vec3): Vec2 {.inline.} =
-  vec2(a.z, a.y)
-
-proc almostEquals*(a, b: Vec3, precision = 1e-6): bool {.inline.} =
-  let c = a - b
-  abs(c.x) < precision and abs(c.y) < precision and abs(c.z) < precision
+proc xxx*(a: Vec3): Vec3 {.inline.} = vec3(a.x, a.x, a.x)
+proc xxy*(a: Vec3): Vec3 {.inline.} = vec3(a.x, a.x, a.y)
+proc xxz*(a: Vec3): Vec3 {.inline.} = vec3(a.x, a.x, a.z)
+proc xyx*(a: Vec3): Vec3 {.inline.} = vec3(a.x, a.y, a.x)
+proc xyy*(a: Vec3): Vec3 {.inline.} = vec3(a.x, a.y, a.y)
+proc xyz*(a: Vec3): Vec3 {.inline.} = vec3(a.x, a.y, a.z)
+proc xzx*(a: Vec3): Vec3 {.inline.} = vec3(a.x, a.z, a.x)
+proc xzy*(a: Vec3): Vec3 {.inline.} = vec3(a.x, a.z, a.y)
+proc xzz*(a: Vec3): Vec3 {.inline.} = vec3(a.x, a.z, a.z)
+proc yxx*(a: Vec3): Vec3 {.inline.} = vec3(a.y, a.x, a.x)
+proc yxy*(a: Vec3): Vec3 {.inline.} = vec3(a.y, a.x, a.y)
+proc yxz*(a: Vec3): Vec3 {.inline.} = vec3(a.y, a.x, a.z)
+proc yyx*(a: Vec3): Vec3 {.inline.} = vec3(a.y, a.y, a.x)
+proc yyy*(a: Vec3): Vec3 {.inline.} = vec3(a.y, a.y, a.y)
+proc yyz*(a: Vec3): Vec3 {.inline.} = vec3(a.y, a.y, a.z)
+proc yzx*(a: Vec3): Vec3 {.inline.} = vec3(a.y, a.z, a.x)
+proc yzy*(a: Vec3): Vec3 {.inline.} = vec3(a.y, a.z, a.y)
+proc yzz*(a: Vec3): Vec3 {.inline.} = vec3(a.y, a.z, a.z)
+proc zxx*(a: Vec3): Vec3 {.inline.} = vec3(a.z, a.x, a.x)
+proc zxy*(a: Vec3): Vec3 {.inline.} = vec3(a.z, a.x, a.y)
+proc zxz*(a: Vec3): Vec3 {.inline.} = vec3(a.z, a.x, a.z)
+proc zyx*(a: Vec3): Vec3 {.inline.} = vec3(a.z, a.y, a.x)
+proc zyy*(a: Vec3): Vec3 {.inline.} = vec3(a.z, a.y, a.y)
+proc zyz*(a: Vec3): Vec3 {.inline.} = vec3(a.z, a.y, a.z)
+proc zzx*(a: Vec3): Vec3 {.inline.} = vec3(a.z, a.z, a.x)
+proc zzy*(a: Vec3): Vec3 {.inline.} = vec3(a.z, a.z, a.y)
+proc zzz*(a: Vec3): Vec3 {.inline.} = vec3(a.z, a.z, a.z)
 
 proc randVec3*(r: var Rand): Vec3 =
   ## Generates a random unit vector based on
@@ -404,6 +420,9 @@ proc vec4*(v: float32): Vec4 {.inline.} =
   result.y = v
   result.z = v
   result.w = v
+
+proc `~=`*(a, b: Vec4): bool =
+  a.x ~= b.x and a.y ~= b.y and a.z ~= b.z and a.w ~= b.w
 
 proc `+`*(a, b: Vec4): Vec4 {.inline.} =
   result.x = a.x + b.x
@@ -535,6 +554,12 @@ proc mat3*(a, b, c, d, e, f, g, h, i: float32): Mat3 {.inline.} =
 proc mat3*(a: Mat3): Mat3 {.inline.} =
   a
 
+proc `~=`*(a: Mat3, b: Mat3): bool =
+  for i in 0 .. 8:
+    if not(a[i] ~= b[i]):
+      return false
+  true
+
 proc identity*(a: var Mat3) {.inline.} =
   a = [
     1.float32, 0, 0,
@@ -553,9 +578,9 @@ proc transpose*(a: Mat3): Mat3 {.inline.} =
   ]
 
 proc `$`*(a: Mat3): string =
-  &"""[{a[0]:.4f}, {a[1]:.4f}, {a[2]:.4f},
-{a[3]:.4f}, {a[4]:.4f}, {a[5]:.4f},
-{a[6]:.4f}, {a[7]:.4f}, {a[8]:.4f}]"""
+  &"""[{a[0]:.7f}, {a[1]:.7f}, {a[2]:.7f},
+{a[3]:.7f}, {a[4]:.7f}, {a[5]:.7f},
+{a[6]:.7f}, {a[7]:.7f}, {a[8]:.7f}]"""
 
 proc `*`*(a, b: Mat3): Mat3 =
   result[0, 0] = b[0, 0] * a[0, 0] + b[0, 1] * a[1, 0] + b[0, 2] * a[2, 0]
@@ -677,6 +702,12 @@ proc identity*(): Mat4 {.inline.} =
 
 proc mat4*(): Mat4 {.inline.} =
   identity()
+
+proc `~=`*(a: Mat4, b: Mat4): bool =
+  for i in 0 .. 15:
+    if not(a[i] ~= b[i]):
+      return false
+  true
 
 proc transpose*(a: Mat4): Mat4 {.inline.} =
   [
@@ -933,12 +964,6 @@ proc scale*(v: Vec3): Mat4 =
   result[10] = v.z
   result[15] = 1
 
-proc close*(a: Mat4, b: Mat4): bool =
-  for i in 0..15:
-    if abs(a[i] - b[i]) > 0.001:
-      return false
-  true
-
 proc hrp*(m: Mat4): Vec3 =
   var heading, pitch, roll: float32
   if m[1] > 0.998: # singularity at north pole
@@ -1159,6 +1184,9 @@ proc quat*(x, y, z, w: float32): Quat {.inline.} =
   result.y = y
   result.z = z
   result.w = w
+
+proc `~=`*(a, b: Quat): bool =
+  a.x ~= b.x and a.y ~= b.y and a.z ~= b.z and a.w ~= b.w
 
 proc conjugate*(q: Quat): Quat {.inline.} =
   result.w = +q.w
