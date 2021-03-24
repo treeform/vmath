@@ -406,8 +406,10 @@ proc dir*[T](at, to: GVec234[T]): type(to) =
   (at - to).normalize
 
 proc dir*[T](angle: T): GVec2[T] =
-  result[0] = cos(angle)
-  result[1] = sin(angle)
+  [
+    cos(angle),
+    sin(angle),
+  ]
 
 type
   GMat2*[T] = array[2, GVec2[T]]
@@ -570,9 +572,11 @@ proc `*`*[T](a, b: GMat4[T]): GMat4[T] =
   result[3, 3] = b30 * a03 + b31 * a13 + b32 * a23 + b33 * a33
 
 proc `*`*[T](a: GMat4[T], b: GVec3[T]): GVec3[T] =
-  result.x = a[0, 0] * b.x + a[1, 0] * b.y + a[2, 0] * b.z + a[3, 0]
-  result.y = a[0, 1] * b.x + a[1, 1] * b.y + a[2, 1] * b.z + a[3, 1]
-  result.z = a[0, 2] * b.x + a[1, 2] * b.y + a[2, 2] * b.z + a[3, 2]
+  [
+    a[0, 0] * b.x + a[1, 0] * b.y + a[2, 0] * b.z + a[3, 0],
+    a[0, 1] * b.x + a[1, 1] * b.y + a[2, 1] * b.z + a[3, 1],
+    a[0, 2] * b.x + a[1, 2] * b.y + a[2, 2] * b.z + a[3, 2]
+  ]
 
 proc transpose*[T](a: GMat3[T]): GMat3[T] =
   [
@@ -677,14 +681,17 @@ proc inverse*[T](a: GMat4[T]): GMat4[T] =
   result[0, 1] = (-a01 * b11 + a02 * b10 - a03 * b09) * invDet
   result[0, 2] = (+a31 * b05 - a32 * b04 + a33 * b03) * invDet
   result[0, 3] = (-a21 * b05 + a22 * b04 - a23 * b03) * invDet
+
   result[1, 0] = (-a10 * b11 + a12 * b08 - a13 * b07) * invDet
   result[1, 1] = (+a00 * b11 - a02 * b08 + a03 * b07) * invDet
   result[1, 2] = (-a30 * b05 + a32 * b02 - a33 * b01) * invDet
   result[1, 3] = (+a20 * b05 - a22 * b02 + a23 * b01) * invDet
+
   result[2, 0] = (+a10 * b10 - a11 * b08 + a13 * b06) * invDet
   result[2, 1] = (-a00 * b10 + a01 * b08 - a03 * b06) * invDet
   result[2, 2] = (+a30 * b04 - a31 * b02 + a33 * b00) * invDet
   result[2, 3] = (-a20 * b04 + a21 * b02 - a23 * b00) * invDet
+
   result[3, 0] = (-a10 * b09 + a11 * b07 - a12 * b06) * invDet
   result[3, 1] = (+a00 * b09 - a01 * b07 + a02 * b06) * invDet
   result[3, 2] = (-a30 * b03 + a31 * b01 - a32 * b00) * invDet
@@ -744,27 +751,29 @@ proc hrp*[T](m: GMat4[T]): GVec3[T] =
     heading = arctan2(-m[8], m[0])
     pitch = arctan2(-m[6], m[5])
     roll = arcsin(m[4])
-  result.x = heading
-  result.y = pitch
-  result.z = roll
+  [heading, pitch, roll]
 
 proc frustum*[T](left, right, bottom, top, near, far: T): GMat4[T] =
   let
     rl = (right - left)
     tb = (top - bottom)
     fn = (far - near)
+
   result[0, 0] = (near * 2) / rl
   result[0, 1] = 0
   result[0, 2] = 0
   result[0, 3] = 0
+
   result[1, 0] = 0
   result[1, 1] = (near * 2) / tb
   result[1, 2] = 0
   result[1, 3] = 0
+
   result[2, 0] = (right + left) / rl
   result[2, 1] = (top + bottom) / tb
   result[2, 2] = -(far + near) / fn
   result[2, 3] = -1
+
   result[3, 0] = 0
   result[3, 1] = 0
   result[3, 2] = -(far * near * 2) / fn
@@ -781,18 +790,22 @@ proc ortho*[T](left, right, bottom, top, near, far: T): GMat4[T] =
     rl = (right - left)
     tb = (top - bottom)
     fn = (far - near)
+
   result[0, 0] = 2 / rl
   result[0, 1] = 0
   result[0, 2] = 0
   result[0, 3] = 0
+
   result[1, 0] = 0
   result[1, 1] = 2 / tb
   result[1, 2] = 0
   result[1, 3] = 0
+
   result[2, 0] = 0
   result[2, 1] = 0
   result[2, 2] = -2 / fn
   result[2, 3] = 0
+
   result[3, 0] = -(left + right) / rl
   result[3, 1] = -(top + bottom) / tb
   result[3, 2] = -(far + near) / fn
@@ -862,14 +875,17 @@ proc lookAt*[T](eye, center, up: GVec3[T]): GMat4[T] =
   result[0, 1] = y0
   result[0, 2] = z0
   result[0, 3] = 0
+
   result[1, 0] = x1
   result[1, 1] = y1
   result[1, 2] = z1
   result[1, 3] = 0
+
   result[2, 0] = x2
   result[2, 1] = y2
   result[2, 2] = z2
   result[2, 3] = 0
+
   result[3, 0] = -(x0 * eyex + x1 * eyey + x2 * eyez)
   result[3, 1] = -(y0 * eyex + y1 * eyey + y2 * eyez)
   result[3, 2] = -(z0 * eyex + z1 * eyey + z2 * eyez)
@@ -905,10 +921,12 @@ proc fromAxisAngle*[T](axis: GVec3[T], angle: T): GVec4[T] =
   let
     a = axis.normalize()
     s = sin(angle / 2)
-  result.x = a.x * s
-  result.y = a.y * s
-  result.z = a.z * s
-  result.w = cos(angle / 2)
+  [
+    a.x * s,
+    a.y * s,
+    a.z * s,
+    cos(angle / 2)
+  ]
 
 proc toAxisAngle*[T](q: GVec4[T]): (GVec3[T], T) =
   let cosAngle = q.w
@@ -920,9 +938,11 @@ proc toAxisAngle*[T](q: GVec4[T]): (GVec3[T], T) =
   if abs(sinAngle) < 0.0005:
     sinAngle = 1.0
 
-  axis.x = q.x / sinAngle
-  axis.y = q.y / sinAngle
-  axis.z = q.z / sinAngle
+  axis.x = [
+    q.x / sinAngle,
+    q.y / sinAngle,
+    q.z / sinAngle
+  ]
   return (axis, angle)
 
 proc quat*[T](m: GMat4[T]): GVec4[T] =
@@ -930,9 +950,11 @@ proc quat*[T](m: GMat4[T]): GVec4[T] =
     m00 = m[0, 0]
     m01 = m[1, 0]
     m02 = m[2, 0]
+
     m10 = m[0, 1]
     m11 = m[1, 1]
     m12 = m[2, 1]
+
     m20 = m[0, 2]
     m21 = m[1, 2]
     m22 = m[2, 2]
