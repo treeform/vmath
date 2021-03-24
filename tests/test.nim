@@ -1,4 +1,4 @@
-import vmath, random
+import vmath, random, hashes
 
 randomize(1234)
 
