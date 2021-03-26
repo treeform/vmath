@@ -777,8 +777,8 @@ proc frustum*[T](left, right, bottom, top, near, far: T): GMat4[T] =
 
 proc perspective*[T](fovy, aspect, near, far: T): GMat4[T] =
   let
-    top = near * tan(fovy * PI / 360.0)
-    right = top * aspect
+    top: T = near * tan(fovy * PI.float32 / 360.0)
+    right: T = top * aspect
   frustum(-right, right, -top, top, near, far)
 
 proc ortho*[T](left, right, bottom, top, near, far: T): GMat4[T] =
@@ -979,6 +979,13 @@ proc fromTwoVectors*[T](a, b: GVec3[T]): GVec4[T] =
     q = cross(u, half)
     w = dot(u, half)
   return [q.x, q.y, q.z, w]
+
+proc nlerp*(a: Quat, b: Quat, v: float32): Quat =
+  if dot(a, b) < 0:
+    var c = a
+    (-c * (1.0 - v) + b * v).normalize()
+  else:
+    (a * (1.0 - v) + b * v).normalize()
 
 proc quat*[T](m: GMat4[T]): GVec4[T] =
   let
