@@ -1,4 +1,5 @@
 import math
+
 export math
 
 type
@@ -31,9 +32,9 @@ type
 
 {.push inline.}
 when defined(release):
-  {.push noinit, checks:off.}
+  {.push noinit, checks: off.}
 
-proc `~=`*[T:SomeFloat](a, b: T): bool =
+proc `~=`*[T: SomeFloat](a, b: T): bool =
   ## Almost equal.
   const epsilon = 0.000001
   abs(a - b) <= epsilon
@@ -46,18 +47,18 @@ proc sign*[T](v: T): T =
   ## Returns the sign of a number, -1 or 1.
   if v >= 0: 1 else: -1
 
-proc quantize*[T:SomeFloat](v, n: T): T =
+proc quantize*[T: SomeFloat](v, n: T): T =
   ## Makes v be multiple of n. Rounding to integer quantize by 1.0.
   sign(v) * floor(abs(v) / n) * n
 
-proc lerp*[T:SomeFloat](a, b, v: T): T =
+proc lerp*[T: SomeFloat](a, b, v: T): T =
   ## Interpolates value between a and b.
   ## * 0 -> a
   ## * 1 -> b
   ## * 0.5 -> between a and b
   a * (1.0 - v) + b * v
 
-proc fixAngle*[T:SomeFloat](angle: T): T =
+proc fixAngle*[T: SomeFloat](angle: T): T =
   ## Make angle be from -PI to PI radians.
   var angle = angle
   while angle > PI:
@@ -66,11 +67,11 @@ proc fixAngle*[T:SomeFloat](angle: T): T =
     angle += PI * 2
   angle
 
-proc angleBetween*[T:SomeFloat](a, b: T): T =
+proc angleBetween*[T: SomeFloat](a, b: T): T =
   ## Angle between angle a and angle b.
   fixAngle(b - a)
 
-proc turnAngle*[T:SomeFloat](a, b, speed: T): T =
+proc turnAngle*[T: SomeFloat](a, b, speed: T): T =
   ## Move from angle a to angle b with step of v.
   var
     turn = fixAngle(b - a)
@@ -82,10 +83,10 @@ proc turnAngle*[T:SomeFloat](a, b, speed: T): T =
     turn = -speed
   a + turn
 
-proc toRadians*[T:SomeFloat](deg: T): T =
+proc toRadians*[T: SomeFloat](deg: T): T =
   return PI * deg / 180.0
 
-proc toDegrees*[T:SomeFloat](rad: T): T =
+proc toDegrees*[T: SomeFloat](rad: T): T =
   return fixAngle(180.0 * rad / PI)
 
 proc gvec2*[T](x, y: T): GVec2[T] =
@@ -106,12 +107,17 @@ template genConstructor(lower, upper, typ: untyped) =
   proc `lower 3`*(x: typ): `upper 3` = gvec3[typ](x, x, x)
   proc `lower 4`*(x: typ): `upper 4` = gvec4[typ](x, x, x, x)
 
-  proc `lower 2`*[T](x: GVec2[T]): `upper 2` = gvec2[typ](typ(x[0]), typ(x[1]))
-  proc `lower 3`*[T](x: GVec3[T]): `upper 3` = gvec3[typ](typ(x[0]), typ(x[1]), typ(x[2]))
-  proc `lower 4`*[T](x: GVec4[T]): `upper 4` = gvec4[typ](typ(x[0]), typ(x[1]), typ(x[2]), typ(x[3]))
+  proc `lower 2`*[T](x: GVec2[T]): `upper 2` =
+    gvec2[typ](typ(x[0]), typ(x[1]))
+  proc `lower 3`*[T](x: GVec3[T]): `upper 3` =
+    gvec3[typ](typ(x[0]), typ(x[1]), typ(x[2]))
+  proc `lower 4`*[T](x: GVec4[T]): `upper 4` =
+    gvec4[typ](typ(x[0]), typ(x[1]), typ(x[2]), typ(x[3]))
 
-  proc `lower 3`*[T](x: GVec2[T]): `upper 3` = gvec3[typ](typ(x[0]), typ(x[1]), 0)
-  proc `lower 4`*[T](x: GVec3[T]): `upper 4` = gvec4[typ](typ(x[0]), typ(x[1]), typ(x[2]), 0)
+  proc `lower 3`*[T](x: GVec2[T]): `upper 3` =
+    gvec3[typ](typ(x[0]), typ(x[1]), 0)
+  proc `lower 4`*[T](x: GVec3[T]): `upper 4` =
+    gvec4[typ](typ(x[0]), typ(x[1]), typ(x[2]), 0)
 
 genConstructor(bvec, BVec, bool)
 genConstructor(ivec, IVec, int32)
@@ -369,7 +375,7 @@ proc lengthSq*[T](a: GVec4[T]): T =
 proc normalize*[T](a: GVec234[T]): type(a) =
   a / a.length
 
-proc lerp*[T:SomeFloat](a, b: GVec234[T], v: T): type(a) =
+proc lerp*[T: SomeFloat](a, b: GVec234[T], v: T): type(a) =
   a * (1.0 - v) + b * v
 
 proc dot*[T](a, b: GVec2[T]): T =
@@ -427,14 +433,14 @@ template genMatConstructor(lower, upper, T: untyped) =
   proc `lower 4`*(
     a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p: T
   ): `upper 4` =
-    [[T(a), b, c, d], [e, f, g, h], [i, j, k, l], [m , n, o, p]]
+    [[T(a), b, c, d], [e, f, g, h], [i, j, k, l], [m, n, o, p]]
 
   proc `lower 2`*(a, b: GVec2[T]): `upper 2` = [a, b]
   proc `lower 3`*(a, b, c: GVec3[T]): `upper 3` = [a, b, c]
   proc `lower 4`*(a, b, c, d: GVec4[T]): `upper 4` = [a, b, c, d]
 
   proc `lower 2`*(m: GMat3[T]): `upper 2` = [m[0].xy, m[1].xy]
-  proc `lower 3`*(m: GMat4[T]): `upper 3` =  [m[0].xyz, m[1].xyz, [T(0), 0, 1]]
+  proc `lower 3`*(m: GMat4[T]): `upper 3` = [m[0].xyz, m[1].xyz, [T(0), 0, 1]]
 
   proc `lower 3`*(m: GMat2[T]): `upper 3` =
     [
@@ -619,17 +625,17 @@ proc inverse*[T](a: GMat3[T]): GMat3[T] =
     )
     invDet = 1 / determinant
 
-  result[0, 0] =  (a[1, 1] * a[2, 2] - a[2, 1] * a[1, 2]) * invDet
+  result[0, 0] = +(a[1, 1] * a[2, 2] - a[2, 1] * a[1, 2]) * invDet
   result[0, 1] = -(a[0, 1] * a[2, 2] - a[0, 2] * a[2, 1]) * invDet
-  result[0, 2] =  (a[0, 1] * a[1, 2] - a[0, 2] * a[1, 1]) * invDet
+  result[0, 2] = +(a[0, 1] * a[1, 2] - a[0, 2] * a[1, 1]) * invDet
 
   result[1, 0] = -(a[1, 0] * a[2, 2] - a[1, 2] * a[2, 0]) * invDet
-  result[1, 1] =  (a[0, 0] * a[2, 2] - a[0, 2] * a[2, 0]) * invDet
+  result[1, 1] = +(a[0, 0] * a[2, 2] - a[0, 2] * a[2, 0]) * invDet
   result[1, 2] = -(a[0, 0] * a[1, 2] - a[1, 0] * a[0, 2]) * invDet
 
-  result[2, 0] =  (a[1, 0] * a[2, 1] - a[2, 0] * a[1, 1]) * invDet
+  result[2, 0] = +(a[1, 0] * a[2, 1] - a[2, 0] * a[1, 1]) * invDet
   result[2, 1] = -(a[0, 0] * a[2, 1] - a[2, 0] * a[0, 1]) * invDet
-  result[2, 2] =  (a[0, 0] * a[1, 1] - a[1, 0] * a[0, 1]) * invDet
+  result[2, 2] = +(a[0, 0] * a[1, 1] - a[1, 0] * a[0, 1]) * invDet
 
 proc inverse*[T](a: GMat4[T]): GMat4[T] =
   let
@@ -801,7 +807,7 @@ proc ortho*[T](left, right, bottom, top, near, far: T): GMat4[T] =
   result[3, 2] = -(far + near) / fn
   result[3, 3] = 1
 
-proc lookAt*[T](eye, center: GVec3[T], up = [T(0),0,1]): GMat4[T] =
+proc lookAt*[T](eye, center: GVec3[T], up = [T(0), 0, 1]): GMat4[T] =
   let
     eyex = eye[0]
     eyey = eye[1]
@@ -881,12 +887,11 @@ proc lookAt*[T](eye, center: GVec3[T], up = [T(0),0,1]): GMat4[T] =
   result[3, 2] = -(z0 * eyex + z1 * eyey + z2 * eyez)
   result[3, 3] = 1
 
-
 proc angle*[T](a: GVec2[T]): T =
   ## Angle of a Vec2.
   arctan2(a.y, a.x)
 
-proc angle*[T](a, b: GVec2[T]): T  =
+proc angle*[T](a, b: GVec2[T]): T =
   ## Angle between 2 Vec2.
   fixAngle(arctan2(a.y - b.y, a.x - b.x))
 
@@ -905,7 +910,8 @@ template genQuatConstructor(lower, upper, typ: untyped) =
   proc `lower`*(): `upper` = gvec4[typ](0, 0, 0, 1)
   proc `lower`*(x, y, z, w: typ): `upper` = gvec4[typ](x, y, z, w)
   proc `lower`*(x: typ): `upper` = gvec4[typ](x, x, x, x)
-  proc `lower`*[T](x: GVec4[T]): `upper` = gvec4[typ](typ(x[0]), typ(x[1]), typ(x[2]), typ(x[3]))
+  proc `lower`*[T](x: GVec4[T]): `upper` =
+    gvec4[typ](typ(x[0]), typ(x[1]), typ(x[2]), typ(x[3]))
 
 genQuatConstructor(quat, Quat, float32)
 genQuatConstructor(dquat, DQuat, float64)
@@ -941,15 +947,15 @@ proc toAxisAngle*[T](q: GVec4[T]): (GVec3[T], T) =
 proc orthogonal*[T](v: GVec3[T]): GVec3[T] =
   let v = abs(v)
   var other: type(v) =
-    if v.x < v.y :
+    if v.x < v.y:
       if v.x < v.z:
         [T(1), 0, 0] # X_AXIS
       else:
         [T(0), 0, 1] # Z_AXIS
-    elif v.y < v.z :
-      [T(0), 1, 0] # Y_AXIS
+    elif v.y < v.z:
+      [T(0), 1, 0]   # Y_AXIS
     else:
-      [T(0), 0, 1] # Z_AXIS
+      [T(0), 0, 1]   # Z_AXIS
   return cross(v, other)
 
 proc fromTwoVectors*[T](a, b: GVec3[T]): GVec4[T] =
