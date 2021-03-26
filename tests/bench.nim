@@ -32,7 +32,10 @@ import benchy, vmath
 timeIt "matrix mat4":
   var m = mat4()
   for i in 0 ..< 10_000:
-    m = m * rotate(0.2.float32, vec3(1, 0, 0)) * scale(vec3(0.3)) * translate(vec3(1))
+    m = m *
+      rotate(0.2.float32, vec3(1, 0, 0)) *
+      scale(vec3(0.3)) *
+      translate(vec3(1))
   keep m
 
 timeIt "matrix mat3":
