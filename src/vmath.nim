@@ -129,6 +129,10 @@ template genConstructor(lower, upper, typ: untyped) =
   proc `lower 3`*[T](x: GVec3[T]): `upper 3` = gvec3[typ](typ(x[0]), typ(x[1]), typ(x[2]))
   proc `lower 4`*[T](x: GVec4[T]): `upper 4` = gvec4[typ](typ(x[0]), typ(x[1]), typ(x[2]), typ(x[3]))
 
+  proc `lower 3`*[T](x: GVec2[T]): `upper 3` = gvec3[typ](typ(x[0]), typ(x[1]), 0)
+  proc `lower 4`*[T](x: GVec3[T]): `upper 4` = gvec4[typ](typ(x[0]), typ(x[1]), typ(x[2]), 0)
+
+
 genConstructor(bvec, BVec, bool)
 genConstructor(ivec, IVec, int32)
 genConstructor(uvec, UVec, uint32)
@@ -957,7 +961,6 @@ proc toAxisAngle*[T](q: GVec4[T]): (GVec3[T], T) =
   return (axis, angle)
 
 proc orthogonal*[T](v: GVec3[T]): GVec3[T] =
-
   let v = abs(v)
   var other: type(v) =
     if v.x < v.y :
@@ -1077,25 +1080,6 @@ proc rotateY*[T](angle: T): GMat4[T] =
 
 proc rotateZ*[T](angle: T): GMat4[T] =
   fromAxisAngle([T(0), 0, 1], angle).mat4()
-
-# compatibility functions
-
-proc vec3*(a: Vec2, b: float32): Vec3 = vec3(a.x, a.y, b)
-proc vec3*(a: Vec2): Vec3 = vec3(a.x, a.y, 0.0)
-
-proc `*`*(x: int, v: Vec2): Vec2 = x.float32 * v
-#proc `[]`*(m: Mat3, i: int): float32 = m[i div 3][i mod 3]
-#proc `[]=`*(m: var Mat3, i: int, v: float32) = m[i div 3][i mod 3] = v
-
-# proc x*[T](a: var GVec2[T]): var T = a[0]
-# proc y*[T](a: var GVec2[T]): var T = a[1]
-# proc z*[T](a: var GVec2[T]): var T = a[2]
-
-#proc angleBetween*(a, b: Vec3): float32 = angle(a, b)
-
-proc scaleMat*(s: float32): Mat4 = scale(vec3(s))
-proc scaleMat*(s: Vec3): Mat4 = scale(s)
-proc rotationMat3*(x: float32): Mat3 = rotate(x)
 
 when defined(release):
   {.pop noinit, checks:off.}
