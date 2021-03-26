@@ -1,4 +1,4 @@
-import vmath, random
+import random, vmath
 
 randomize(1234)
 
@@ -12,22 +12,30 @@ block:
   doAssert not(0.001 ~= 0.002)
   doAssert not(0.0001 ~= 0.0002)
   doAssert not(0.00001 ~= 0.00002)
+
   # Diff < epsilon.
   doAssert 0.000001 ~= 0.000002
+  doAssert -0.000001 ~= -0.000002
 
   doAssert vec2(1.0, 2.0) ~= vec2(1.0, 2.0)
   doAssert vec3(1.0, 2.0, 3.0) ~= vec3(1.0, 2.0, 3.0)
   doAssert vec4(1.0, 2.0, 3.0, 4.0) ~= vec4(1.0, 2.0, 3.0, 4.0)
   doAssert quat(1.0, 2.0, 3.0, 4.0) ~= quat(1.0, 2.0, 3.0, 4.0)
 
+  doAssert dvec2(1) ~= dvec2(1)
+  doAssert dvec4(1, 2, 3, 4).xy ~= dvec2(1, 2)
+
+  when compiles(1 ~= 1):
+    doAssert false
+
 block:
   # Test simple functions.
   doAssert between(0.5, 0, 1)
   doAssert not between(1.5, 0, 1)
 
-  doAssert sign(-1) == -1.0
-  doAssert sign(0) == 1.0
-  doAssert sign(1) == 1.0
+  doAssert sign(-1.0) == -1.0
+  doAssert sign(0.0) == 1.0
+  doAssert sign(1.0) == 1.0
 
   doAssert quantize(1.23456789, 1.0) ~= 1
   doAssert quantize(1.23456789, 0.1) ~= 1.2
@@ -51,9 +59,9 @@ block:
   doAssert fixAngle(-3.1) ~= -3.1
   doAssert fixAngle(-4.1) ~= 2.183185577392578
 
-  doAssert angleBetween(0, 1.0) ~= 1.0
-  doAssert angleBetween(0, PI) ~= PI
-  doAssert angleBetween(0, PI + 0.2) ~= (-PI + 0.2)
+  doAssert angleBetween(0.0, 1.0) ~= 1.0
+  doAssert angleBetween(0.0, PI) ~= PI
+  doAssert angleBetween(0.0, PI + 0.2) ~= (-PI + 0.2)
   doAssert angleBetween(0.1, 0.2) ~= 0.1
   doAssert angleBetween(0.1, 0.2 + PI*2) ~= 0.1
   doAssert angleBetween(0.1, 0.2 - PI*2) ~= 0.1
@@ -65,7 +73,7 @@ block:
   doAssert angleBetween(0.2 + PI*2, 0.1) ~= -0.1
   doAssert angleBetween(0.2 - PI*2, 0.1) ~= -0.1
 
-  doAssert turnAngle(0, PI, 0.5) ~= 0.5
+  doAssert turnAngle(0.0, PI, 0.5) ~= 0.5
   doAssert turnAngle(0.5, PI, 3.5) ~= PI
 
 block:
@@ -134,6 +142,214 @@ block:
   doAssert a ~= vec4(1.0, 2.0, 3.0, 4.0)
 
 block:
+  # Test all type constructors compile
+  let
+    _ = bvec2(true, false)
+    _ = bvec3(true, false, true)
+    _ = bvec4(true, false, true, false)
+
+    _ = ivec2(-1, 2)
+    _ = ivec3(-1, 2, 3)
+    _ = ivec4(-1, 2, 3, 4)
+
+    _ = uvec2(1, 2)
+    _ = uvec3(1, 2, 3)
+    _ = uvec4(1, 2, 3, 4)
+
+    _ = vec2(1.0, 2.0)
+    _ = vec3(1.0, 2.0, 3.0)
+    _ = vec4(1.0, 2.0, 3.0, 4.0)
+
+    _ = dvec2(1.0, 2.0)
+    _ = dvec3(1.0, 2.0, 3.0)
+    _ = dvec4(1.0, 2.0, 3.0, 4.0)
+
+    _ = bvec2(true, false)
+    _ = bvec3(true, false, true)
+    _ = bvec4(true, false, true, false)
+
+    _ = ivec2(-1)
+    _ = ivec3(-1)
+    _ = ivec4(-1)
+
+    _ = uvec2(1)
+    _ = uvec3(1)
+    _ = uvec4(1)
+
+    _ = vec2(1.0)
+    _ = vec3(1.0)
+    _ = vec4(1.0)
+
+    _ = dvec2(1.0)
+    _ = dvec3(1.0)
+    _ = dvec4(1.0)
+
+block:
+  # Test basic vector mat constructors.
+  block:
+    let
+      _ = mat2()
+      _ = mat3()
+      _ = mat4()
+
+  block:
+    let
+      _ = mat2(
+        1, 0,
+        0, 1
+      )
+      _ = mat3(
+        1, 0, 0,
+        0, 1, 0,
+        0, 0, 1
+      )
+      _ = mat4(
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1
+      )
+
+  block:
+    let
+      _ = mat2(
+        vec2(1, 0),
+        vec2(0, 1)
+      )
+      _ = mat3(
+        vec3(1, 0, 0),
+        vec3(0, 1, 0),
+        vec3(0, 0, 1)
+      )
+      _ = mat4(
+        vec4(1, 0, 0, 0),
+        vec4(0, 1, 0, 0),
+        vec4(0, 0, 1, 0),
+        vec4(0, 0, 0, 1)
+      )
+
+  block:
+    let
+      _ = dmat2()
+      _ = dmat3()
+      _ = dmat4()
+
+  block:
+    let
+      _ = dmat2(
+        1, 0,
+        0, 1
+      )
+      _ = dmat3(
+        1, 0, 0,
+        0, 1, 0,
+        0, 0, 1
+      )
+      _ = dmat4(
+        1, 0, 0, 0,
+        0, 1, 0, 0,
+        0, 0, 1, 0,
+        0, 0, 0, 1
+      )
+
+  block:
+    let
+      _ = dmat2(
+        dvec2(1, 0),
+        dvec2(0, 1)
+      )
+      _ = dmat3(
+        dvec3(1, 0, 0),
+        dvec3(0, 1, 0),
+        dvec3(0, 0, 1)
+      )
+      _ = dmat4(
+        dvec4(1, 0, 0, 0),
+        dvec4(0, 1, 0, 0),
+        dvec4(0, 0, 1, 0),
+        dvec4(0, 0, 0, 1)
+      )
+
+block:
+  # Test basic mat functions.
+  doAssert dmat3().transpose() ~= [
+    [1.0, 0.0, 0.0],
+    [0.0, 1.0, 0.0],
+    [0.0, 0.0, 1.0]
+  ]
+  doAssert dmat4().transpose() ~= [
+    [1.0, 0.0, 0.0, 0.0],
+    [0.0, 1.0, 0.0, 0.0],
+    [0.0, 0.0, 1.0, 0.0],
+    [0.0, 0.0, 0.0, 1.0]
+  ]
+
+  doAssert scale(dvec2(1, 2)) ~= [
+    [1.0, 0.0, 0.0],
+    [0.0, 2.0, 0.0],
+    [0.0, 0.0, 1.0]
+  ]
+  doAssert scale(dvec3(2, 2, 3)) ~= [
+    [2.0, 0.0, 0.0, 0.0],
+    [0.0, 2.0, 0.0, 0.0],
+    [0.0, 0.0, 3.0, 0.0],
+    [0.0, 0.0, 0.0, 1.0]
+  ]
+
+  doAssert translate(dvec2(1, 2)) ~= [
+    [1.0, 0.0, 0.0],
+    [0.0, 1.0, 0.0],
+    [1.0, 2.0, 1.0]
+  ]
+  doAssert translate(dvec3(1, 2, 3)) ~= [
+    [1.0, 0.0, 0.0, 0.0],
+    [0.0, 1.0, 0.0, 0.0],
+    [0.0, 0.0, 1.0, 0.0],
+    [1.0, 2.0, 3.0, 1.0]
+  ]
+
+  doAssert rotate(1.0) ~= [
+    [0.5403023058681398, -0.8414709848078965, 0.0],
+    [0.8414709848078965, 0.5403023058681398, 0.0],
+    [0.0, 0.0, 1.0]
+  ]
+
+  doAssert scale(dvec2(2)) ~= [
+    [2.0, 0.0, 0.0],
+    [0.0, 2.0, 0.0],
+    [0.0, 0.0, 1.0]
+  ]
+  doAssert scale(dvec3(2)) ~= [
+    [2.0, 0.0, 0.0, 0.0],
+    [0.0, 2.0, 0.0, 0.0],
+    [0.0, 0.0, 2.0, 0.0],
+    [0.0, 0.0, 0.0, 1.0]
+  ]
+  doAssert translate(dvec2(2)) ~= [
+    [1.0, 0.0, 0.0],
+    [0.0, 1.0, 0.0],
+    [2.0, 2.0, 1.0]
+  ]
+  doAssert translate(dvec3(2)) ~= [
+    [1.0, 0.0, 0.0, 0.0],
+    [0.0, 1.0, 0.0, 0.0],
+    [0.0, 0.0, 1.0, 0.0],
+    [2.0, 2.0, 2.0, 1.0]
+  ]
+
+  doAssert rotate(1.0).inverse() ~= [
+    [0.5403023058681398, 0.8414709848078965, -0.0],
+    [-0.8414709848078965, 0.5403023058681398, -0.0],
+    [0.0, -0.0, 1.0]
+  ]
+  doAssert rotate(1.0, dvec3(1, 0, 0)).inverse() ~= [
+    [1.0, 0.0, 0.0, 0.0],
+    [-0.0, 0.5403022766113281, 0.8414710164070129, 0.0],
+    [0.0, -0.8414710164070129, 0.5403022766113281, 0.0],
+    [0.0, 0.0, 0.0, 1.0]
+  ]
+
+block:
   # Test basic vector mat4 and quat.
   var m1 = mat4(
     1, 0, 0, 0,
@@ -163,59 +379,59 @@ block:
 
 block:
   # Test Y 90.
-  var m1 = rotate(PI/2, vec3(0, 1, 0))
+  var m1 = rotate(PI/2, dvec3(0, 1, 0))
   var q1 = m1.quat()
   var m2 = q1.mat4()
   doAssert m1 ~= m2
 
 block:
   # Test -Y 90.
-  var m1 = rotate(PI/2, vec3(0, -1, 0))
+  var m1 = rotate(PI/2, dvec3(0, -1, 0))
   var q1 = m1.quat()
   var m2 = q1.mat4()
   doAssert m1 ~= m2
 
 block:
   # Test X 90.
-  var m1 = rotate(PI/2, vec3(1, 0, 0))
+  var m1 = rotate(PI/2, dvec3(1, 0, 0))
   var q1 = m1.quat()
   var m2 = q1.mat4()
   doAssert m1 ~= m2
 
 block:
   # Test Y 90.
-  var m1 = rotate(PI/2, vec3(1, 0, 0))
+  var m1 = rotate(PI/2, dvec3(1, 0, 0))
   var q1 = m1.quat()
   var m2 = q1.mat4()
   doAssert m1 ~= m2
 
 block:
   # Test 1,1,1 1.11rad.
-  var m1 = rotate(PI*1.11, vec3(1, 1, 1).normalize())
+  var m1 = rotate(PI*1.11, dvec3(1, 1, 1).normalize())
   var q1 = m1.quat()
   var m2 = q1.mat4()
   doAssert m1 ~= m2
 
 block:
   # Test 1,1,1 1.11rad.
-  var m1 = rotate(PI*1.11, vec3(-1, 1, 1).normalize())
+  var m1 = rotate(PI*1.11, dvec3(-1, 1, 1).normalize())
   var q1 = m1.quat()
   var m2 = q1.mat4()
   doAssert m1 ~= m2
 
 block:
   # Test 1,1,1 1.11rad.
-  var m1 = rotate(PI*1.11, vec3(-1, 0.34, 1.123).normalize())
+  var m1 = rotate(PI*1.11, dvec3(-1, 0.34, 1.123).normalize())
   var q1 = m1.quat()
   var m2 = q1.mat4()
   doAssert m1 ~= m2
 
 block:
   # Test super random quat test.
-  for i in 0 .. 100:
+  for i in 0 ..< 1000:
     var m1 = rotate(
       PI*rand(2.0),
-      vec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
+      dvec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
     )
     var q1 = m1.quat()
     var m2 = q1.mat4()
@@ -256,49 +472,62 @@ block:
     77.64571380615234, 0.0, 1.0
   )
 
-  doAssert (a3.mat4 * b3.mat4).mat3 ~= mat3(
-    1.0000, 0.0000, 0.0000,
-    0.0000, 1.0000, 0.0000,
-    50.0000, 50.0000, 0.0000
-  )
   doAssert a3 * b3 ~= mat3(
     1.0000, 0.0000, 0.0000,
     0.0000, 1.0000, 0.0000,
     50.0000, 50.0000, 1.0000
   )
 
-  doAssert (
-      mat3(1,2,3,4,5,6,7,8,9).mat4Rotation *
-      mat3(10,20,30,40,50,60,70,80,90).mat4Rotation
-    ).mat3Rotation ~= mat3(
+  doAssert mat3(1, 2, 3, 4, 5, 6, 7, 8, 9) *
+    mat3(10, 20, 30, 40, 50, 60, 70, 80, 90) ~= mat3(
       300.0000, 360.0000, 420.0000,
       660.0000, 810.0000, 960.0000,
       1020.0000, 1260.0000, 1500.0000
     )
 
-  doAssert mat3(1,2,3,4,5,6,7,8,9) * mat3(10,20,30,40,50,60,70,80,90) ~= mat3(
-    300.0000, 360.0000, 420.0000,
-    660.0000, 810.0000, 960.0000,
-    1020.0000, 1260.0000, 1500.0000
-  )
-  doAssert a3.mat4 * vec3(77.64571380615234, 0, 1) ~= vec3(50.0, 50.0, 1.0)
   doAssert a3 * vec2(77.64571380615234, 0) ~= vec2(50.0, 50.0)
-  doAssert a3 * vec3(77.64571380615234, 0, 1.0) ~= vec3(50.0, 50.0, 1.0)
 
 block:
-  # hashing
-  doAssert hash(vec2(PI, E)) == 1311648097060332001
-  doAssert hash(vec3(PI, E, TAU)) == 5625953707464987239
-  doAssert hash(vec4(PI, E, TAU, sqrt(2.0))) == -6538384897102876123
-  doAssert hash(quat(1, 0, 0, sqrt(2.0))) == 1497919211694084820
-  doAssert hash( mat3(
-    300.0000, 360.0000, 420.0000,
-    660.0000, 810.0000, 960.0000,
-    1020.0000, 1260.0000, 1500.0000
-  )) == -4194936143766837151
-  doAssert hash(mat4(
-    1.00000, 0.00000, 0.00000, 0.00000,
-    0.00000, 1.00000, 0.00000, 0.00000,
-    0.00000, 0.00000, 1.00000, 0.00000,
-    7.00000, 8.00000, 9.00000, 1.00000
-  )) == 7507518476139335223
+  # test quat and matrix lookat
+  doAssert lookAt(vec3(1, 2, 3), vec3(0, 0, 0)).quat ~=
+    quat(
+      0.07232953608036041,
+      0.3063928484916687,
+      0.9237624406814575,
+      0.2180707305669785
+    )
+  doAssert lookAt(vec3(0, 0, 0), vec3(0, 0, 0)).quat ~= quat(0.0, 0.0, 0.0, 1.0)
+  doAssert lookAt(vec3(1, 0, 0), vec3(0, 0, 0)).quat ~= quat(0.5, 0.5, 0.5, 0.5)
+  doAssert lookAt(vec3(0, 1, 0), vec3(0, 0, 0)).quat ~=
+    quat(
+      0.0,
+      0.7071067690849304,
+      0.7071067690849304,
+      0.0
+    )
+  doAssert lookAt(vec3(0, 0, 1), vec3(0, 0, 0)).quat ~= quat(0.0, 0.0, 0.0, 1.0)
+
+  # Test super random quat test.
+  for i in 0 ..< 1000:
+    var m1 = rotate(
+      PI*rand(2.0),
+      dvec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
+    )
+    var q1 = m1.quat()
+    var m2 = q1.mat4()
+    doAssert m1 ~= m2
+
+block:
+  # test fromTwoVectors
+  let
+    a = vec3(1, 0, 0)
+    b = vec3(0, 1, 0)
+    q1 = fromTwoVectors(a, b)
+  doAssert q1.mat4 * a ~= b
+
+  for i in 0 ..< 1000:
+    let
+      a = vec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
+      b = vec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
+      q = fromTwoVectors(a, b)
+    doAssert q.mat4 * a ~= b
