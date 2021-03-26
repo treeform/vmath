@@ -29,7 +29,7 @@ float32 | float  | Vec2  | Vec3  | Vec4  | Mat3  | Mat4  | Quat  |
 float64 | double | DVec2 | DVec3 | DVec4 | DMat3 | DMat4 | DQuat |
 
 
-# 1.x to 2.0.0 Vmath breaking changes:
+# 0.x.x to 1.0.0 vmath breaking changes:
 
 * `vec3(v)` no longer works please use `vec3(v.x, v.y, 0)` instead.
 * `vec3(v, 0)` no longer works please use `vec3(v.x, v.y, 0)` instead.

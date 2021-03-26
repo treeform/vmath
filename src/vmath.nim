@@ -1,27 +1,6 @@
 import math
 export math
 
-#[
-
-NIM     | GLSL   | description
------------------------------------------------------------------------
-bool    | bool   | conditional type, values may be either true or false
-int32   | int    | a signed, two's complement, 32-bit integer
-uint32  | uint   | an unsigned 32-bit integer
-float32 | float  | an IEEE-754 single-precision floating point number
-float64 | double | an IEEE-754 double-precision floating-point number
------------------------------------------------------------------------
-
-type  | constructor
------------------------------------------------------------------------
-BVec# | bvec# | a vector of booleans
-IVec# | ivec# | a vector of signed integers
-UVec# | uvec# | a vector of unsigned integers
-Vec#  | vec#  | a vector of single-precision floating-point numbers
-DVec# | dvec# | a vector of double-precision floating-point numbers
-
-]#
-
 type
   GVec2*[T] = array[2, T]
   GVec3*[T] = array[3, T]
@@ -111,8 +90,10 @@ proc toDegrees*[T:SomeFloat](rad: T): T =
 
 proc gvec2*[T](x, y: T): GVec2[T] =
   [x, y]
+
 proc gvec3*[T](x, y, z: T): GVec3[T] =
   [x, y, z]
+
 proc gvec4*[T](x, y, z, w: T): GVec4[T] =
   [x, y, z, w]
 
@@ -131,7 +112,6 @@ template genConstructor(lower, upper, typ: untyped) =
 
   proc `lower 3`*[T](x: GVec2[T]): `upper 3` = gvec3[typ](typ(x[0]), typ(x[1]), 0)
   proc `lower 4`*[T](x: GVec3[T]): `upper 4` = gvec4[typ](typ(x[0]), typ(x[1]), typ(x[2]), 0)
-
 
 genConstructor(bvec, BVec, bool)
 genConstructor(ivec, IVec, int32)
@@ -429,12 +409,10 @@ type
   GMat4*[T] = array[4, GVec4[T]]
 
   Mat2* = GMat2[float32]
-  #Mat3Rot* = GMat3[float32]
   Mat3* = GMat3[float32]
   Mat4* = GMat4[float32]
 
   DMat2* = GMat2[float64]
-  #DMat3Rot* = GMat3[float32]
   DMat3* = GMat3[float64]
   DMat4* = GMat4[float64]
 
@@ -1082,5 +1060,5 @@ proc rotateZ*[T](angle: T): GMat4[T] =
   fromAxisAngle([T(0), 0, 1], angle).mat4()
 
 when defined(release):
-  {.pop noinit, checks:off.}
-{.pop inline.}
+  {.pop.}
+{.pop.}

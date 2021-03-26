@@ -12,6 +12,7 @@ block:
   doAssert not(0.001 ~= 0.002)
   doAssert not(0.0001 ~= 0.0002)
   doAssert not(0.00001 ~= 0.00002)
+
   # Diff < epsilon.
   doAssert 0.000001 ~= 0.000002
   doAssert -0.000001 ~= -0.000002
@@ -183,50 +184,26 @@ block:
     _ = dvec3(1.0)
     _ = dvec4(1.0)
 
-  # let swazzle = "xyzw"
-  # for a in swazzle:
-  #   echo a
-  #   echo a & "="
-
-  # for a in swazzle:
-  #   for b in swazzle:
-  #     echo a & b
-  #     echo a & b & "="
-
-  # for a in swazzle:
-  #   for b in swazzle:
-  #     for c in swazzle:
-  #       echo a & b & c
-  #       echo a & b & c & "="
-
-  # for a in swazzle:
-  #   for b in swazzle:
-  #     for c in swazzle:
-  #       for d in swazzle:
-  #         echo a & b & c & d
-  #         echo a & b & c & d & "="
-
-
 block:
   # Test basic vector mat constructors.
   block:
     let
-      m2 = mat2()
-      m3 = mat3()
-      m4 = mat4()
+      _ = mat2()
+      _ = mat3()
+      _ = mat4()
 
   block:
     let
-      m2 = mat2(
+      _ = mat2(
         1, 0,
         0, 1
       )
-      m3 = mat3(
+      _ = mat3(
         1, 0, 0,
         0, 1, 0,
         0, 0, 1
       )
-      m4 = mat4(
+      _ = mat4(
         1, 0, 0, 0,
         0, 1, 0, 0,
         0, 0, 1, 0,
@@ -235,16 +212,16 @@ block:
 
   block:
     let
-      m2 = mat2(
+      _ = mat2(
         vec2(1, 0),
         vec2(0, 1)
       )
-      m3 = mat3(
+      _ = mat3(
         vec3(1, 0, 0),
         vec3(0, 1, 0),
         vec3(0, 0, 1)
       )
-      m4 = mat4(
+      _ = mat4(
         vec4(1, 0, 0, 0),
         vec4(0, 1, 0, 0),
         vec4(0, 0, 1, 0),
@@ -253,22 +230,22 @@ block:
 
   block:
     let
-      m2 = dmat2()
-      m3 = dmat3()
-      m4 = dmat4()
+      _ = dmat2()
+      _ = dmat3()
+      _ = dmat4()
 
   block:
     let
-      m2 = dmat2(
+      _ = dmat2(
         1, 0,
         0, 1
       )
-      m3 = dmat3(
+      _ = dmat3(
         1, 0, 0,
         0, 1, 0,
         0, 0, 1
       )
-      m4 = dmat4(
+      _ = dmat4(
         1, 0, 0, 0,
         0, 1, 0, 0,
         0, 0, 1, 0,
@@ -277,29 +254,30 @@ block:
 
   block:
     let
-      m2 = dmat2(
+      _ = dmat2(
         dvec2(1, 0),
         dvec2(0, 1)
       )
-      m3 = dmat3(
+      _ = dmat3(
         dvec3(1, 0, 0),
         dvec3(0, 1, 0),
         dvec3(0, 0, 1)
       )
-      m4 = dmat4(
+      _ = dmat4(
         dvec4(1, 0, 0, 0),
         dvec4(0, 1, 0, 0),
         dvec4(0, 0, 1, 0),
         dvec4(0, 0, 0, 1)
       )
 
+block:
+  # Test basic mat functions.
   doAssert dmat3().transpose() ~= [
     [1.0, 0.0, 0.0],
     [0.0, 1.0, 0.0],
     [0.0, 0.0, 1.0]
   ]
-
-  doAssert dmat4() ~= [
+  doAssert dmat4().transpose() ~= [
     [1.0, 0.0, 0.0, 0.0],
     [0.0, 1.0, 0.0, 0.0],
     [0.0, 0.0, 1.0, 0.0],
@@ -357,6 +335,18 @@ block:
     [0.0, 1.0, 0.0, 0.0],
     [0.0, 0.0, 1.0, 0.0],
     [2.0, 2.0, 2.0, 1.0]
+  ]
+
+  doAssert rotate(1.0).inverse() ~= [
+    [0.5403023058681398, 0.8414709848078965, -0.0],
+    [-0.8414709848078965, 0.5403023058681398, -0.0],
+    [0.0, -0.0, 1.0]
+  ]
+  doAssert rotate(1.0, dvec3(1, 0, 0)).inverse() ~= [
+    [1.0, 0.0, 0.0, 0.0],
+    [-0.0, 0.5403022766113281, 0.8414710164070129, 0.0],
+    [0.0, -0.8414710164070129, 0.5403022766113281, 0.0],
+    [0.0, 0.0, 0.0, 1.0]
   ]
 
 block:
@@ -438,7 +428,7 @@ block:
 
 block:
   # Test super random quat test.
-  for i in 0 .. 100:
+  for i in 0 ..< 1000:
     var m1 = rotate(
       PI*rand(2.0),
       dvec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
@@ -488,41 +478,16 @@ block:
     50.0000, 50.0000, 1.0000
   )
 
-  # doAssert (a3.mat4 * b3.mat4).mat3 ~= mat3(
-  #   1.0000, 0.0000, 0.0000,
-  #   0.0000, 1.0000, 0.0000,
-  #   50.0000, 50.0000, 0.0000
-  # )
-
-#   doAssert (
-#       mat3(1,2,3,4,5,6,7,8,9).mat4Rotation *
-#       mat3(10,20,30,40,50,60,70,80,90).mat4Rotation
-#     ).mat3Rotation ~= mat3(
-#       300.0000, 360.0000, 420.0000,
-#       660.0000, 810.0000, 960.0000,
-#       1020.0000, 1260.0000, 1500.0000
-#     )
-
   doAssert mat3(1,2,3,4,5,6,7,8,9) * mat3(10,20,30,40,50,60,70,80,90) ~= mat3(
     300.0000, 360.0000, 420.0000,
     660.0000, 810.0000, 960.0000,
     1020.0000, 1260.0000, 1500.0000
   )
-#   doAssert a3.mat4 * vec3(77.64571380615234, 0, 1) ~= vec3(50.0, 50.0, 1.0)
+
   doAssert a3 * vec2(77.64571380615234, 0) ~= vec2(50.0, 50.0)
-  #doAssert a3 * vec3(77.64571380615234, 0, 1.0) ~= vec3(50.0, 50.0, 1.0)
 
 block:
   # test quat and matrix lookat
-
-  let
-    m1 = lookAt(vec3(1, 2, 3), vec3(0, 0, 0))
-    #q1 = lookAtQuat(vec3(1, 2, 3), vec3(0, 0, 0))
-
-  #echo m1.quat
-  #echo q1
-  #doAssert m1.quat ~= q1
-
   doAssert lookAt(vec3(1, 2, 3), vec3(0, 0, 0)).quat ~= quat(0.07232953608036041, 0.3063928484916687, 0.9237624406814575, 0.2180707305669785)
   doAssert lookAt(vec3(0, 0, 0), vec3(0, 0, 0)).quat ~= quat(0.0, 0.0, 0.0, 1.0)
   doAssert lookAt(vec3(1, 0, 0), vec3(0, 0, 0)).quat ~= quat(0.5, 0.5, 0.5, 0.5)
@@ -530,7 +495,7 @@ block:
   doAssert lookAt(vec3(0, 0, 1), vec3(0, 0, 0)).quat ~= quat(0.0, 0.0, 0.0, 1.0)
 
   # Test super random quat test.
-  for i in 0 .. 100:
+  for i in 0 ..< 1000:
     var m1 = rotate(
       PI*rand(2.0),
       dvec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
@@ -547,7 +512,7 @@ block:
     q1 = fromTwoVectors(a, b)
   doAssert q1.mat4 * a ~= b
 
-  for i in 0 .. 100:
+  for i in 0 ..< 1000:
     let
       a = vec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
       b = vec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
