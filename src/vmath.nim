@@ -807,7 +807,7 @@ proc ortho*[T](left, right, bottom, top, near, far: T): GMat4[T] =
   result[3, 2] = -(far + near) / fn
   result[3, 3] = 1
 
-proc lookAt*[T](eye, center: GVec3[T], up = [T(0), 0, 1]): GMat4[T] =
+proc lookAt*[T](eye, center, up: GVec3[T]): GMat4[T] =
   let
     eyex = eye[0]
     eyey = eye[1]
@@ -886,6 +886,9 @@ proc lookAt*[T](eye, center: GVec3[T], up = [T(0), 0, 1]): GMat4[T] =
   result[3, 1] = -(y0 * eyex + y1 * eyey + y2 * eyez)
   result[3, 2] = -(z0 * eyex + z1 * eyey + z2 * eyez)
   result[3, 3] = 1
+
+proc lookAt*[T](eye, center: GVec3[T]): GMat4[T] =
+  lookAt(eye, center, [T(0), 0, 1])
 
 proc angle*[T](a: GVec2[T]): T =
   ## Angle of a Vec2.
