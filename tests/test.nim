@@ -511,3 +511,45 @@ block:
 #   doAssert a3.mat4 * vec3(77.64571380615234, 0, 1) ~= vec3(50.0, 50.0, 1.0)
   doAssert a3 * vec2(77.64571380615234, 0) ~= vec2(50.0, 50.0)
   #doAssert a3 * vec3(77.64571380615234, 0, 1.0) ~= vec3(50.0, 50.0, 1.0)
+
+block:
+  # test quat and matrix lookat
+
+  let
+    m1 = lookAt(vec3(1, 2, 3), vec3(0, 0, 0))
+    #q1 = lookAtQuat(vec3(1, 2, 3), vec3(0, 0, 0))
+
+  #echo m1.quat
+  #echo q1
+  #doAssert m1.quat ~= q1
+
+  doAssert lookAt(vec3(1, 2, 3), vec3(0, 0, 0)).quat ~= quat(0.07232953608036041, 0.3063928484916687, 0.9237624406814575, 0.2180707305669785)
+  doAssert lookAt(vec3(0, 0, 0), vec3(0, 0, 0)).quat ~= quat(0.0, 0.0, 0.0, 1.0)
+  doAssert lookAt(vec3(1, 0, 0), vec3(0, 0, 0)).quat ~= quat(0.5, 0.5, 0.5, 0.5)
+  doAssert lookAt(vec3(0, 1, 0), vec3(0, 0, 0)).quat ~= quat(0.0, 0.7071067690849304, 0.7071067690849304, 0.0)
+  doAssert lookAt(vec3(0, 0, 1), vec3(0, 0, 0)).quat ~= quat(0.0, 0.0, 0.0, 1.0)
+
+  # Test super random quat test.
+  for i in 0 .. 100:
+    var m1 = rotate(
+      PI*rand(2.0),
+      dvec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
+    )
+    var q1 = m1.quat()
+    var m2 = q1.mat4()
+    doAssert m1 ~= m2
+
+block:
+  # test fromTwoVectors
+  let
+    a = vec3(1, 0, 0)
+    b = vec3(0, 1, 0)
+    q1 = fromTwoVectors(a, b)
+  doAssert q1.mat4 * a ~= b
+
+  for i in 0 .. 100:
+    let
+      a = vec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
+      b = vec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
+      q = fromTwoVectors(a, b)
+    doAssert q.mat4 * a ~= b

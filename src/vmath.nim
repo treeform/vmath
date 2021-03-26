@@ -350,6 +350,7 @@ genMathFn(log2)
 genMathFn(sqrt)
 genMathFn(floor)
 genMathFn(ciel)
+genMathFn(abs)
 
 proc `~=`*[T](a, b: GVec2[T]): bool =
   ## Almost equal.
@@ -395,6 +396,13 @@ proc dot*[T](a, b: GVec3[T]): T =
 
 proc dot*[T](a, b: GVec4[T]): T =
   a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w
+
+proc cross*[T](a, b: GVec3[T]): GVec3[T] =
+  [
+    a.y * b.z - a.z * b.y,
+    a.z * b.x - a.x * b.z,
+    a.x * b.y - a.y * b.x
+  ]
 
 proc dist*[T](at, to: GVec234[T]): T =
   (at - to).length
@@ -811,7 +819,7 @@ proc ortho*[T](left, right, bottom, top, near, far: T): GMat4[T] =
   result[3, 2] = -(far + near) / fn
   result[3, 3] = 1
 
-proc lookAt*[T](eye, center, up: GVec3[T]): GMat4[T] =
+proc lookAt*[T](eye, center: GVec3[T], up = [T(0),0,1]): GMat4[T] =
   let
     eyex = eye[0]
     eyey = eye[1]
@@ -891,6 +899,7 @@ proc lookAt*[T](eye, center, up: GVec3[T]): GMat4[T] =
   result[3, 2] = -(z0 * eyex + z1 * eyey + z2 * eyez)
   result[3, 3] = 1
 
+
 proc angle*[T](a: GVec2[T]): T =
   ## Angle of a Vec2.
   arctan2(a.y, a.x)
@@ -910,6 +919,8 @@ type
   DQuat* = GVec4[float64]
 
 template genQuatConstructor(lower, upper, typ: untyped) =
+
+  proc `lower`*(): `upper` = gvec4[typ](0, 0, 0, 1)
   proc `lower`*(x, y, z, w: typ): `upper` = gvec4[typ](x, y, z, w)
   proc `lower`*(x: typ): `upper` = gvec4[typ](x, x, x, x)
   proc `lower`*[T](x: GVec4[T]): `upper` = gvec4[typ](typ(x[0]), typ(x[1]), typ(x[2]), typ(x[3]))
@@ -945,6 +956,43 @@ proc toAxisAngle*[T](q: GVec4[T]): (GVec3[T], T) =
   ]
   return (axis, angle)
 
+proc orthogonal*[T](v: GVec3[T]): GVec3[T] =
+
+  let v = abs(v)
+  var other: type(v) =
+    if v.x < v.y :
+      if v.x < v.z:
+        [T(1), 0, 0] # X_AXIS
+      else:
+        [T(0), 0, 1] # Z_AXIS
+    elif v.y < v.z :
+      [T(0), 1, 0] # Y_AXIS
+    else:
+      [T(0), 0, 1] # Z_AXIS
+  return cross(v, other)
+
+proc fromTwoVectors*[T](a, b: GVec3[T]): GVec4[T] =
+  ## Return a quat that would take a and rotate it into b.
+
+  # It is important that the inputs are of equal length when
+  # calculating the half-way vector.
+  let
+    u = b.normalize()
+    v = a.normalize()
+
+  # Unfortunately, we have to check for when u == -v, as u + v
+  # in this case will be (0, 0, 0), which cannot be normalized.
+  if (u == -v):
+    # 180 degree rotation around any orthogonal vector
+    let q = normalize(orthogonal(u))
+    return [q.x, q.y, q.z, 0]
+
+  let
+    half = normalize(u + v)
+    q = cross(u, half)
+    w = dot(u, half)
+  return [q.x, q.y, q.z, w]
+
 proc quat*[T](m: GMat4[T]): GVec4[T] =
   let
     m00 = m[0, 0]
@@ -979,8 +1027,10 @@ proc quat*[T](m: GMat4[T]): GVec4[T] =
       q = gvec4(m12 - m21, m20 - m02, m01 - m10, t)
   q = q * (0.5 / sqrt(t))
 
-  assert abs(q.length - 1.0) < 0.001
-  q
+  if abs(q.length - 1.0) > 0.001:
+    return [T(0), 0, 0, 1]
+
+  return q
 
 proc mat4*[T](q: GVec4[T]): GMat4[T] =
   let
