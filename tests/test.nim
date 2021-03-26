@@ -1,4 +1,4 @@
-import vmath, random
+import random, vmath
 
 randomize(1234)
 
@@ -25,7 +25,7 @@ block:
   doAssert dvec2(1) ~= dvec2(1)
   doAssert dvec4(1, 2, 3, 4).xy ~= dvec2(1, 2)
 
-  when compiles( 1 ~= 1):
+  when compiles(1 ~= 1):
     doAssert false
 
 block:
@@ -478,20 +478,33 @@ block:
     50.0000, 50.0000, 1.0000
   )
 
-  doAssert mat3(1,2,3,4,5,6,7,8,9) * mat3(10,20,30,40,50,60,70,80,90) ~= mat3(
-    300.0000, 360.0000, 420.0000,
-    660.0000, 810.0000, 960.0000,
-    1020.0000, 1260.0000, 1500.0000
-  )
+  doAssert mat3(1, 2, 3, 4, 5, 6, 7, 8, 9) *
+    mat3(10, 20, 30, 40, 50, 60, 70, 80, 90) ~= mat3(
+      300.0000, 360.0000, 420.0000,
+      660.0000, 810.0000, 960.0000,
+      1020.0000, 1260.0000, 1500.0000
+    )
 
   doAssert a3 * vec2(77.64571380615234, 0) ~= vec2(50.0, 50.0)
 
 block:
   # test quat and matrix lookat
-  doAssert lookAt(vec3(1, 2, 3), vec3(0, 0, 0)).quat ~= quat(0.07232953608036041, 0.3063928484916687, 0.9237624406814575, 0.2180707305669785)
+  doAssert lookAt(vec3(1, 2, 3), vec3(0, 0, 0)).quat ~=
+    quat(
+      0.07232953608036041,
+      0.3063928484916687,
+      0.9237624406814575,
+      0.2180707305669785
+    )
   doAssert lookAt(vec3(0, 0, 0), vec3(0, 0, 0)).quat ~= quat(0.0, 0.0, 0.0, 1.0)
   doAssert lookAt(vec3(1, 0, 0), vec3(0, 0, 0)).quat ~= quat(0.5, 0.5, 0.5, 0.5)
-  doAssert lookAt(vec3(0, 1, 0), vec3(0, 0, 0)).quat ~= quat(0.0, 0.7071067690849304, 0.7071067690849304, 0.0)
+  doAssert lookAt(vec3(0, 1, 0), vec3(0, 0, 0)).quat ~=
+    quat(
+      0.0,
+      0.7071067690849304,
+      0.7071067690849304,
+      0.0
+    )
   doAssert lookAt(vec3(0, 0, 1), vec3(0, 0, 0)).quat ~= quat(0.0, 0.0, 0.0, 1.0)
 
   # Test super random quat test.
