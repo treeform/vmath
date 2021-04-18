@@ -51,12 +51,19 @@ proc quantize*[T: SomeFloat](v, n: T): T =
   ## Makes v be multiple of n. Rounding to integer quantize by 1.0.
   sign(v) * floor(abs(v) / n) * n
 
+proc fractional*[T: SomeFloat](v: T): T =
+  ## Returns fractional part of a number.
+  ## 3.14 -> 0.14
+  ## -3.14 -> 0.14
+  result = abs(v)
+  result = result - floor(result)
+
 proc lerp*[T: SomeFloat](a, b, v: T): T =
   ## Interpolates value between a and b.
   ## * 0 -> a
   ## * 1 -> b
   ## * 0.5 -> between a and b
-  a * (1.0 - v) + b * v
+  v * (b - a) + a
 
 proc fixAngle*[T: SomeFloat](angle: T): T =
   ## Make angle be from -PI to PI radians.
@@ -339,7 +346,7 @@ genMathFn(ln)
 genMathFn(log2)
 genMathFn(sqrt)
 genMathFn(floor)
-genMathFn(ciel)
+genMathFn(ceil)
 genMathFn(abs)
 
 proc `~=`*[T](a, b: GVec2[T]): bool =
@@ -490,6 +497,9 @@ proc `~=`*[T](a, b: GMat3[T]): bool =
 
 proc `~=`*[T](a, b: GMat4[T]): bool =
   a[0] ~= b[0] and a[1] ~= b[1] and a[2] ~= b[2] and a[3] ~= b[3]
+
+proc pos*[T](a: GMat3[T]): GVec2[T] =
+  return [a[2][2], a[2][1]]
 
 proc `*`*[T](a, b: GMat3[T]): GMat3[T] =
   result[0, 0] = b[0, 0] * a[0, 0] + b[0, 1] * a[1, 0] + b[0, 2] * a[2, 0]

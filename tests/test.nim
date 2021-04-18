@@ -41,6 +41,12 @@ block:
   doAssert quantize(1.23456789, 0.1) ~= 1.2
   doAssert quantize(1.23456789, 0.01) ~= 1.23
 
+  doAssert fractional(0.0) ~= 0.0
+  doAssert fractional(3.14) ~= 0.14
+  doAssert fractional(-3.14) ~= 0.14
+  doAssert fractional(1.23456789) ~= 0.23456789
+  doAssert fractional(-1.23456789) ~= 0.23456789
+
   doAssert lerp(0.0, 1.0, 0.5) ~= 0.5
   doAssert lerp(0.0, 10.0, 0.5) ~= 5.0
   doAssert lerp(0.0, 100.0, 0.5) ~= 50.0
