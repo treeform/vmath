@@ -355,6 +355,12 @@ block:
     [0.0, 0.0, 0.0, 1.0]
   ]
 
+  doAssert translate(vec2(1, 2)).pos == vec2(1, 2)
+
+  var translation = translate(vec2(1, 2))
+  translation.pos = vec2(3, 4)
+  doAssert translation.pos == vec2(3, 4)
+
 block:
   # Test basic vector mat4 and quat.
   var m1 = mat4(

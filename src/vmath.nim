@@ -499,7 +499,11 @@ proc `~=`*[T](a, b: GMat4[T]): bool =
   a[0] ~= b[0] and a[1] ~= b[1] and a[2] ~= b[2] and a[3] ~= b[3]
 
 proc pos*[T](a: GMat3[T]): GVec2[T] =
-  return [a[2][2], a[2][1]]
+  [a[2][0], a[2][1]]
+
+proc `pos=`*[T](a: var GMat3[T], pos: GVec2[T]) =
+  a[2][0] = pos.x
+  a[2][1] = pos.y
 
 proc `*`*[T](a, b: GMat3[T]): GMat3[T] =
   result[0, 0] = b[0, 0] * a[0, 0] + b[0, 1] * a[1, 0] + b[0, 2] * a[2, 0]
