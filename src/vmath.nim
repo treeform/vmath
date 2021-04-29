@@ -186,41 +186,6 @@ when defined(vmathArrayBased):
   proc `z=`*[T](a: var GVec34[T], value: T) = a[2] = value
   proc `w=`*[T](a: var GVec4[T], value: T) = a[3] = value
 
-  proc xy*[T](a: GVec234[T]): GVec2[T] = [a.x, a.y]
-  proc xz*[T](a: GVec234[T]): GVec2[T] = [a.x, a.z]
-  proc yx*[T](a: GVec234[T]): GVec2[T] = [a.y, a.x]
-  proc yz*[T](a: GVec234[T]): GVec2[T] = [a.y, a.z]
-  proc zx*[T](a: GVec234[T]): GVec2[T] = [a.z, a.x]
-  proc zy*[T](a: GVec234[T]): GVec2[T] = [a.z, a.y]
-
-  proc xxx*[T](a: GVec34[T]): GVec3[T] = [a.x, a.x, a.x]
-  proc xxy*[T](a: GVec34[T]): GVec3[T] = [a.x, a.x, a.y]
-  proc xxz*[T](a: GVec34[T]): GVec3[T] = [a.x, a.x, a.z]
-  proc xyx*[T](a: GVec34[T]): GVec3[T] = [a.x, a.y, a.x]
-  proc xyy*[T](a: GVec34[T]): GVec3[T] = [a.x, a.y, a.y]
-  proc xyz*[T](a: GVec34[T]): GVec3[T] = [a.x, a.y, a.z]
-  proc xzx*[T](a: GVec34[T]): GVec3[T] = [a.x, a.z, a.x]
-  proc xzy*[T](a: GVec34[T]): GVec3[T] = [a.x, a.z, a.y]
-  proc xzz*[T](a: GVec34[T]): GVec3[T] = [a.x, a.z, a.z]
-  proc yxx*[T](a: GVec34[T]): GVec3[T] = [a.y, a.x, a.x]
-  proc yxy*[T](a: GVec34[T]): GVec3[T] = [a.y, a.x, a.y]
-  proc yxz*[T](a: GVec34[T]): GVec3[T] = [a.y, a.x, a.z]
-  proc yyx*[T](a: GVec34[T]): GVec3[T] = [a.y, a.y, a.x]
-  proc yyy*[T](a: GVec34[T]): GVec3[T] = [a.y, a.y, a.y]
-  proc yyz*[T](a: GVec34[T]): GVec3[T] = [a.y, a.y, a.z]
-  proc yzx*[T](a: GVec34[T]): GVec3[T] = [a.y, a.z, a.x]
-  proc yzy*[T](a: GVec34[T]): GVec3[T] = [a.y, a.z, a.y]
-  proc yzz*[T](a: GVec34[T]): GVec3[T] = [a.y, a.z, a.z]
-  proc zxx*[T](a: GVec34[T]): GVec3[T] = [a.z, a.x, a.x]
-  proc zxy*[T](a: GVec34[T]): GVec3[T] = [a.z, a.x, a.y]
-  proc zxz*[T](a: GVec34[T]): GVec3[T] = [a.z, a.x, a.z]
-  proc zyx*[T](a: GVec34[T]): GVec3[T] = [a.z, a.y, a.x]
-  proc zyy*[T](a: GVec34[T]): GVec3[T] = [a.z, a.y, a.y]
-  proc zyz*[T](a: GVec34[T]): GVec3[T] = [a.z, a.y, a.z]
-  proc zzx*[T](a: GVec34[T]): GVec3[T] = [a.z, a.z, a.x]
-  proc zzy*[T](a: GVec34[T]): GVec3[T] = [a.z, a.z, a.y]
-  proc zzz*[T](a: GVec34[T]): GVec3[T] = [a.z, a.z, a.z]
-
 else:
 
   template `[]`*[T](a: GVec2[T], i: int): T =
@@ -241,41 +206,40 @@ else:
   template `[]=`*[T](a: GVec4[T], i: int, v: T) =
     cast[array[4, T]](a)[i] = v
 
+proc xy*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.x, a.y)
+proc xz*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.x, a.z)
+proc yx*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.y, a.x)
+proc yz*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.y, a.z)
+proc zx*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.z, a.x)
+proc zy*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.z, a.y)
 
-  proc xy*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.x, a.y)
-  proc xz*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.x, a.z)
-  proc yx*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.y, a.x)
-  proc yz*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.y, a.z)
-  proc zx*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.z, a.x)
-  proc zy*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.z, a.y)
-
-  proc xxx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.x, a.x)
-  proc xxy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.x, a.y)
-  proc xxz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.x, a.z)
-  proc xyx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.y, a.x)
-  proc xyy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.y, a.y)
-  proc xyz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.y, a.z)
-  proc xzx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.z, a.x)
-  proc xzy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.z, a.y)
-  proc xzz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.z, a.z)
-  proc yxx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.x, a.x)
-  proc yxy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.x, a.y)
-  proc yxz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.x, a.z)
-  proc yyx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.y, a.x)
-  proc yyy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.y, a.y)
-  proc yyz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.y, a.z)
-  proc yzx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.z, a.x)
-  proc yzy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.z, a.y)
-  proc yzz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.z, a.z)
-  proc zxx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.x, a.x)
-  proc zxy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.x, a.y)
-  proc zxz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.x, a.z)
-  proc zyx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.y, a.x)
-  proc zyy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.y, a.y)
-  proc zyz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.y, a.z)
-  proc zzx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.z, a.x)
-  proc zzy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.z, a.y)
-  proc zzz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.z, a.z)
+proc xxx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.x, a.x)
+proc xxy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.x, a.y)
+proc xxz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.x, a.z)
+proc xyx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.y, a.x)
+proc xyy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.y, a.y)
+proc xyz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.y, a.z)
+proc xzx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.z, a.x)
+proc xzy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.z, a.y)
+proc xzz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.z, a.z)
+proc yxx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.x, a.x)
+proc yxy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.x, a.y)
+proc yxz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.x, a.z)
+proc yyx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.y, a.x)
+proc yyy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.y, a.y)
+proc yyz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.y, a.z)
+proc yzx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.z, a.x)
+proc yzy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.z, a.y)
+proc yzz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.z, a.z)
+proc zxx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.x, a.x)
+proc zxy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.x, a.y)
+proc zxz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.x, a.z)
+proc zyx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.y, a.x)
+proc zyy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.y, a.y)
+proc zyz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.y, a.z)
+proc zzx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.z, a.x)
+proc zzy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.z, a.y)
+proc zzz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.z, a.z)
 
 template genOp(op: untyped) =
   proc op*[T](a, b: GVec2[T]): GVec2[T] =
