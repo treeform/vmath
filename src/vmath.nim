@@ -2,11 +2,21 @@ import math
 
 export math
 
-type
-  GVec2*[T] = array[2, T]
-  GVec3*[T] = array[3, T]
-  GVec4*[T] = array[4, T]
+when defined(vmathArrayBased):
+  type
+    GVec2*[T] = array[2, T]
+    GVec3*[T] = array[3, T]
+    GVec4*[T] = array[4, T]
+else:
+  type
+    GVec2*[T] = object
+      x*, y*: T
+    GVec3*[T] = object
+      x*, y*, z*: T
+    GVec4*[T] = object
+      x*, y*, z*, w*: T
 
+type
   BVec2* = GVec2[bool]
   BVec3* = GVec3[bool]
   BVec4* = GVec4[bool]
@@ -96,14 +106,24 @@ proc toRadians*[T: SomeFloat](deg: T): T =
 proc toDegrees*[T: SomeFloat](rad: T): T =
   return fixAngle(180.0 * rad / PI)
 
-proc gvec2*[T](x, y: T): GVec2[T] =
-  [x, y]
+when defined(vmathArrayBased):
+  proc gvec2*[T](x, y: T): GVec2[T] =
+    [x, y]
 
-proc gvec3*[T](x, y, z: T): GVec3[T] =
-  [x, y, z]
+  proc gvec3*[T](x, y, z: T): GVec3[T] =
+    [x, y, z]
 
-proc gvec4*[T](x, y, z, w: T): GVec4[T] =
-  [x, y, z, w]
+  proc gvec4*[T](x, y, z, w: T): GVec4[T] =
+    [x, y, z, w]
+else:
+  proc gvec2*[T](x, y: T): GVec2[T] =
+    GVec2[T](x: x, y: y)
+
+  proc gvec3*[T](x, y, z: T): GVec3[T] =
+    GVec3[T](x: x, y: y, z: z)
+
+  proc gvec4*[T](x, y, z, w: T): GVec4[T] =
+    GVec4[T](x: x, y: y, z: z, w: w)
 
 template genConstructor(lower, upper, typ: untyped) =
   proc `lower 2`*(x, y: typ): `upper 2` = gvec2[typ](x, y)
@@ -132,137 +152,194 @@ genConstructor(uvec, UVec, uint32)
 genConstructor(vec, Vec, float32)
 genConstructor(dvec, DVec, float64)
 
-proc x*[T](a: var GVec2[T]): var T = a[0]
-proc y*[T](a: var GVec2[T]): var T = a[1]
+when defined(vmathArrayBased):
+  proc x*[T](a: var GVec2[T]): var T = a[0]
+  proc y*[T](a: var GVec2[T]): var T = a[1]
 
-proc x*[T](a: var GVec3[T]): var T = a[0]
-proc y*[T](a: var GVec3[T]): var T = a[1]
-proc z*[T](a: var GVec3[T]): var T = a[2]
+  proc x*[T](a: var GVec3[T]): var T = a[0]
+  proc y*[T](a: var GVec3[T]): var T = a[1]
+  proc z*[T](a: var GVec3[T]): var T = a[2]
 
-proc x*[T](a: var GVec4[T]): var T = a[0]
-proc y*[T](a: var GVec4[T]): var T = a[1]
-proc z*[T](a: var GVec4[T]): var T = a[2]
-proc w*[T](a: var GVec4[T]): var T = a[3]
+  proc x*[T](a: var GVec4[T]): var T = a[0]
+  proc y*[T](a: var GVec4[T]): var T = a[1]
+  proc z*[T](a: var GVec4[T]): var T = a[2]
+  proc w*[T](a: var GVec4[T]): var T = a[3]
 
-proc x*[T](a: GVec2[T]): T = a[0]
-proc x*[T](a: GVec3[T]): T = a[0]
-proc x*[T](a: GVec4[T]): T = a[0]
+  proc x*[T](a: GVec2[T]): T = a[0]
+  proc x*[T](a: GVec3[T]): T = a[0]
+  proc x*[T](a: GVec4[T]): T = a[0]
 
-proc y*[T](a: GVec2[T]): T = a[1]
-proc y*[T](a: GVec3[T]): T = a[1]
-proc y*[T](a: GVec4[T]): T = a[1]
+  proc y*[T](a: GVec2[T]): T = a[1]
+  proc y*[T](a: GVec3[T]): T = a[1]
+  proc y*[T](a: GVec4[T]): T = a[1]
 
-proc z*[T](a: GVec2[T]): T = {.error: "using .w on a Vec2".}
-proc z*[T](a: GVec3[T]): T = a[2]
-proc z*[T](a: GVec4[T]): T = a[2]
+  proc z*[T](a: GVec2[T]): T = {.error: "using .w on a Vec2".}
+  proc z*[T](a: GVec3[T]): T = a[2]
+  proc z*[T](a: GVec4[T]): T = a[2]
 
-proc w*[T](a: GVec2[T]): T = {.error: "using .w on a Vec2".}
-proc w*[T](a: GVec3[T]): T = {.error: "using .w on a Vec3".}
-proc w*[T](a: GVec4[T]): T = a[3]
+  proc w*[T](a: GVec2[T]): T = {.error: "using .w on a Vec2".}
+  proc w*[T](a: GVec3[T]): T = {.error: "using .w on a Vec3".}
+  proc w*[T](a: GVec4[T]): T = a[3]
 
-proc `x=`*[T](a: var GVec234[T], value: T) = a[0] = value
-proc `y=`*[T](a: var GVec234[T], value: T) = a[1] = value
-proc `z=`*[T](a: var GVec34[T], value: T) = a[2] = value
-proc `w=`*[T](a: var GVec4[T], value: T) = a[3] = value
+  proc `x=`*[T](a: var GVec234[T], value: T) = a[0] = value
+  proc `y=`*[T](a: var GVec234[T], value: T) = a[1] = value
+  proc `z=`*[T](a: var GVec34[T], value: T) = a[2] = value
+  proc `w=`*[T](a: var GVec4[T], value: T) = a[3] = value
 
-proc xy*[T](a: GVec234[T]): GVec2[T] = [a.x, a.y]
-proc xz*[T](a: GVec234[T]): GVec2[T] = [a.x, a.z]
-proc yx*[T](a: GVec234[T]): GVec2[T] = [a.y, a.x]
-proc yz*[T](a: GVec234[T]): GVec2[T] = [a.y, a.z]
-proc zx*[T](a: GVec234[T]): GVec2[T] = [a.z, a.x]
-proc zy*[T](a: GVec234[T]): GVec2[T] = [a.z, a.y]
+  proc xy*[T](a: GVec234[T]): GVec2[T] = [a.x, a.y]
+  proc xz*[T](a: GVec234[T]): GVec2[T] = [a.x, a.z]
+  proc yx*[T](a: GVec234[T]): GVec2[T] = [a.y, a.x]
+  proc yz*[T](a: GVec234[T]): GVec2[T] = [a.y, a.z]
+  proc zx*[T](a: GVec234[T]): GVec2[T] = [a.z, a.x]
+  proc zy*[T](a: GVec234[T]): GVec2[T] = [a.z, a.y]
 
-proc xxx*[T](a: GVec34[T]): GVec3[T] = [a.x, a.x, a.x]
-proc xxy*[T](a: GVec34[T]): GVec3[T] = [a.x, a.x, a.y]
-proc xxz*[T](a: GVec34[T]): GVec3[T] = [a.x, a.x, a.z]
-proc xyx*[T](a: GVec34[T]): GVec3[T] = [a.x, a.y, a.x]
-proc xyy*[T](a: GVec34[T]): GVec3[T] = [a.x, a.y, a.y]
-proc xyz*[T](a: GVec34[T]): GVec3[T] = [a.x, a.y, a.z]
-proc xzx*[T](a: GVec34[T]): GVec3[T] = [a.x, a.z, a.x]
-proc xzy*[T](a: GVec34[T]): GVec3[T] = [a.x, a.z, a.y]
-proc xzz*[T](a: GVec34[T]): GVec3[T] = [a.x, a.z, a.z]
-proc yxx*[T](a: GVec34[T]): GVec3[T] = [a.y, a.x, a.x]
-proc yxy*[T](a: GVec34[T]): GVec3[T] = [a.y, a.x, a.y]
-proc yxz*[T](a: GVec34[T]): GVec3[T] = [a.y, a.x, a.z]
-proc yyx*[T](a: GVec34[T]): GVec3[T] = [a.y, a.y, a.x]
-proc yyy*[T](a: GVec34[T]): GVec3[T] = [a.y, a.y, a.y]
-proc yyz*[T](a: GVec34[T]): GVec3[T] = [a.y, a.y, a.z]
-proc yzx*[T](a: GVec34[T]): GVec3[T] = [a.y, a.z, a.x]
-proc yzy*[T](a: GVec34[T]): GVec3[T] = [a.y, a.z, a.y]
-proc yzz*[T](a: GVec34[T]): GVec3[T] = [a.y, a.z, a.z]
-proc zxx*[T](a: GVec34[T]): GVec3[T] = [a.z, a.x, a.x]
-proc zxy*[T](a: GVec34[T]): GVec3[T] = [a.z, a.x, a.y]
-proc zxz*[T](a: GVec34[T]): GVec3[T] = [a.z, a.x, a.z]
-proc zyx*[T](a: GVec34[T]): GVec3[T] = [a.z, a.y, a.x]
-proc zyy*[T](a: GVec34[T]): GVec3[T] = [a.z, a.y, a.y]
-proc zyz*[T](a: GVec34[T]): GVec3[T] = [a.z, a.y, a.z]
-proc zzx*[T](a: GVec34[T]): GVec3[T] = [a.z, a.z, a.x]
-proc zzy*[T](a: GVec34[T]): GVec3[T] = [a.z, a.z, a.y]
-proc zzz*[T](a: GVec34[T]): GVec3[T] = [a.z, a.z, a.z]
+  proc xxx*[T](a: GVec34[T]): GVec3[T] = [a.x, a.x, a.x]
+  proc xxy*[T](a: GVec34[T]): GVec3[T] = [a.x, a.x, a.y]
+  proc xxz*[T](a: GVec34[T]): GVec3[T] = [a.x, a.x, a.z]
+  proc xyx*[T](a: GVec34[T]): GVec3[T] = [a.x, a.y, a.x]
+  proc xyy*[T](a: GVec34[T]): GVec3[T] = [a.x, a.y, a.y]
+  proc xyz*[T](a: GVec34[T]): GVec3[T] = [a.x, a.y, a.z]
+  proc xzx*[T](a: GVec34[T]): GVec3[T] = [a.x, a.z, a.x]
+  proc xzy*[T](a: GVec34[T]): GVec3[T] = [a.x, a.z, a.y]
+  proc xzz*[T](a: GVec34[T]): GVec3[T] = [a.x, a.z, a.z]
+  proc yxx*[T](a: GVec34[T]): GVec3[T] = [a.y, a.x, a.x]
+  proc yxy*[T](a: GVec34[T]): GVec3[T] = [a.y, a.x, a.y]
+  proc yxz*[T](a: GVec34[T]): GVec3[T] = [a.y, a.x, a.z]
+  proc yyx*[T](a: GVec34[T]): GVec3[T] = [a.y, a.y, a.x]
+  proc yyy*[T](a: GVec34[T]): GVec3[T] = [a.y, a.y, a.y]
+  proc yyz*[T](a: GVec34[T]): GVec3[T] = [a.y, a.y, a.z]
+  proc yzx*[T](a: GVec34[T]): GVec3[T] = [a.y, a.z, a.x]
+  proc yzy*[T](a: GVec34[T]): GVec3[T] = [a.y, a.z, a.y]
+  proc yzz*[T](a: GVec34[T]): GVec3[T] = [a.y, a.z, a.z]
+  proc zxx*[T](a: GVec34[T]): GVec3[T] = [a.z, a.x, a.x]
+  proc zxy*[T](a: GVec34[T]): GVec3[T] = [a.z, a.x, a.y]
+  proc zxz*[T](a: GVec34[T]): GVec3[T] = [a.z, a.x, a.z]
+  proc zyx*[T](a: GVec34[T]): GVec3[T] = [a.z, a.y, a.x]
+  proc zyy*[T](a: GVec34[T]): GVec3[T] = [a.z, a.y, a.y]
+  proc zyz*[T](a: GVec34[T]): GVec3[T] = [a.z, a.y, a.z]
+  proc zzx*[T](a: GVec34[T]): GVec3[T] = [a.z, a.z, a.x]
+  proc zzy*[T](a: GVec34[T]): GVec3[T] = [a.z, a.z, a.y]
+  proc zzz*[T](a: GVec34[T]): GVec3[T] = [a.z, a.z, a.z]
+
+else:
+
+  template `[]`*[T](a: GVec2[T], i: int): T =
+    cast[array[2, T]](a)[i]
+
+  template `[]`*[T](a: GVec3[T], i: int): T =
+    cast[array[3, T]](a)[i]
+
+  template `[]`*[T](a: GVec4[T], i: int): T =
+    cast[array[4, T]](a)[i]
+
+  template `[]=`*[T](a: GVec2[T], i: int, v: T) =
+    cast[array[2, T]](a)[i] = v
+
+  template `[]=`*[T](a: GVec3[T], i: int, v: T) =
+    cast[array[3, T]](a)[i] = v
+
+  template `[]=`*[T](a: GVec4[T], i: int, v: T) =
+    cast[array[4, T]](a)[i] = v
+
+
+  proc xy*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.x, a.y)
+  proc xz*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.x, a.z)
+  proc yx*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.y, a.x)
+  proc yz*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.y, a.z)
+  proc zx*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.z, a.x)
+  proc zy*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.z, a.y)
+
+  proc xxx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.x, a.x)
+  proc xxy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.x, a.y)
+  proc xxz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.x, a.z)
+  proc xyx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.y, a.x)
+  proc xyy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.y, a.y)
+  proc xyz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.y, a.z)
+  proc xzx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.z, a.x)
+  proc xzy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.z, a.y)
+  proc xzz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.z, a.z)
+  proc yxx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.x, a.x)
+  proc yxy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.x, a.y)
+  proc yxz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.x, a.z)
+  proc yyx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.y, a.x)
+  proc yyy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.y, a.y)
+  proc yyz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.y, a.z)
+  proc yzx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.z, a.x)
+  proc yzy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.z, a.y)
+  proc yzz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.z, a.z)
+  proc zxx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.x, a.x)
+  proc zxy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.x, a.y)
+  proc zxz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.x, a.z)
+  proc zyx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.y, a.x)
+  proc zyy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.y, a.y)
+  proc zyz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.y, a.z)
+  proc zzx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.z, a.x)
+  proc zzy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.z, a.y)
+  proc zzz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.z, a.z)
 
 template genOp(op: untyped) =
   proc op*[T](a, b: GVec2[T]): GVec2[T] =
-    [
+    gvec2[T](
       op(a[0], b[0]),
       op(a[1], b[1])
-    ]
+    )
 
   proc op*[T](a, b: GVec3[T]): GVec3[T] =
-    [
+    gvec3[T](
       op(a[0], b[0]),
       op(a[1], b[1]),
       op(a[2], b[2])
-    ]
+    )
 
   proc op*[T](a, b: GVec4[T]): GVec4[T] =
-    [
+    gvec4[T](
       op(a[0], b[0]),
       op(a[1], b[1]),
       op(a[2], b[2]),
       op(a[3], b[3])
-    ]
+    )
 
   proc op*[T](a: GVec2[T], b: T): GVec2[T] =
-    [
+    gvec2[T](
       op(a[0], b),
       op(a[1], b)
-    ]
+    )
 
   proc op*[T](a: GVec3[T], b: T): GVec3[T] =
-    [
+    gvec3[T](
       op(a[0], b),
       op(a[1], b),
       op(a[2], b)
-    ]
+    )
 
   proc op*[T](a: GVec4[T], b: T): GVec4[T] =
-    [
+    gvec4[T](
       op(a[0], b),
       op(a[1], b),
       op(a[2], b),
       op(a[3], b)
-    ]
+    )
 
   proc op*[T](a: T, b: GVec2[T]): GVec2[T] =
-    [
+    gvec2[T](
       op(a, b[0]),
       op(a, b[1])
-    ]
+    )
 
   proc op*[T](a: T, b: GVec3[T]): GVec3[T] =
-    [
+    gvec3[T](
       op(a, b[0]),
       op(a, b[1]),
       op(a, b[2])
-    ]
+    )
 
   proc op*[T](a: T, b: GVec4[T]): GVec4[T] =
-    [
+    gvec4[T](
       op(a, b[0]),
       op(a, b[1]),
       op(a, b[2]),
       op(a, b[3])
-    ]
+    )
 
 genOp(`+`)
 genOp(`-`)
@@ -271,36 +348,69 @@ genOp(`/`)
 genOp(`mod`)
 genOp(`div`)
 
-template genEqOp(op: untyped) =
-  proc op*[T](a: var GVec2[T], b: GVec2[T]) =
-    op(a[0], b[0])
-    op(a[1], b[1])
+when defined(vmathArrayBased):
+  template genEqOp(op: untyped) =
+    proc op*[T](a: var GVec2[T], b: GVec2[T]) =
+      op(a[0], b[0])
+      op(a[1], b[1])
 
-  proc op*[T](a: var GVec3[T], b: GVec3[T]) =
-    op(a[0], b[0])
-    op(a[1], b[1])
-    op(a[2], b[2])
+    proc op*[T](a: var GVec3[T], b: GVec3[T]) =
+      op(a[0], b[0])
+      op(a[1], b[1])
+      op(a[2], b[2])
 
-  proc op*[T](a: var GVec4[T], b: GVec4[T]) =
-    op(a[0], b[0])
-    op(a[1], b[1])
-    op(a[2], b[2])
-    op(a[3], b[3])
+    proc op*[T](a: var GVec4[T], b: GVec4[T]) =
+      op(a[0], b[0])
+      op(a[1], b[1])
+      op(a[2], b[2])
+      op(a[3], b[3])
 
-  proc op*[T](a: var GVec2[T], b: T) =
-    op(a[0], b)
-    op(a[1], b)
+    proc op*[T](a: var GVec2[T], b: T) =
+      op(a[0], b)
+      op(a[1], b)
 
-  proc op*[T](a: var GVec3[T], b: T) =
-    op(a[0], b)
-    op(a[1], b)
-    op(a[2], b)
+    proc op*[T](a: var GVec3[T], b: T) =
+      op(a[0], b)
+      op(a[1], b)
+      op(a[2], b)
 
-  proc op*[T](a: var GVec4[T], b: T) =
-    op(a[0], b)
-    op(a[1], b)
-    op(a[2], b)
-    op(a[3], b)
+    proc op*[T](a: var GVec4[T], b: T) =
+      op(a[0], b)
+      op(a[1], b)
+      op(a[2], b)
+      op(a[3], b)
+
+else:
+  template genEqOp(op: untyped) =
+    proc op*[T](a: var GVec2[T], b: GVec2[T]) =
+      op(a.x, b.x)
+      op(a.y, b.y)
+
+    proc op*[T](a: var GVec3[T], b: GVec3[T]) =
+      op(a.x, b.x)
+      op(a.y, b.y)
+      op(a.z, b.z)
+
+    proc op*[T](a: var GVec4[T], b: GVec4[T]) =
+      op(a.x, b.x)
+      op(a.y, b.y)
+      op(a.z, b.z)
+      op(a.w, b.w)
+
+    proc op*[T](a: var GVec2[T], b: T) =
+      op(a.x, b)
+      op(a.y, b)
+
+    proc op*[T](a: var GVec3[T], b: T) =
+      op(a.x, b)
+      op(a.y, b)
+      op(a.z, b)
+
+    proc op*[T](a: var GVec4[T], b: T) =
+      op(a.x, b)
+      op(a.y, b)
+      op(a.z, b)
+      op(a.w, b)
 
 genEqOp(`+=`)
 genEqOp(`-=`)
@@ -309,25 +419,25 @@ genEqOp(`/=`)
 
 template genMathFn(fn: untyped) =
   proc fn*[T](v: GVec2[T]): GVec2[T] =
-    [
+    gvec2[T](
       fn(v[0]),
       fn(v[1])
-    ]
+    )
 
   proc fn*[T](v: GVec3[T]): GVec3[T] =
-    [
+    gvec3[T](
       fn(v[0]),
       fn(v[1]),
       fn(v[2])
-    ]
+    )
 
   proc fn*[T](v: GVec4[T]): GVec4[T] =
-    [
+    gvec4[T](
       fn(v[0]),
       fn(v[1]),
       fn(v[2]),
       fn(v[3])
-    ]
+    )
 
 genMathFn(`-`)
 genMathFn(sin)
@@ -434,60 +544,91 @@ type
 
 template genMatConstructor(lower, upper, T: untyped) =
   proc `lower 2`*(a, b, c, d: T): `upper 2` =
-    [[a, b], [c, d]]
+    [gvec2[T](a, b), gvec2[T](c, d)]
   proc `lower 3`*(a, b, c, d, e, f, g, h, i: T): `upper 3` =
-    [[T(a), b, c], [d, e, f], [g, h, i]]
+    [gvec3[T](T(a), b, c), gvec3[T](d, e, f), gvec3[T](g, h, i)]
   proc `lower 4`*(
     a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p: T
   ): `upper 4` =
-    [[T(a), b, c, d], [e, f, g, h], [i, j, k, l], [m, n, o, p]]
+    [gvec4[T](T(a), b, c, d), gvec4[T](e, f, g, h), gvec4[T](i, j, k, l), gvec4[T](m, n, o, p)]
 
   proc `lower 2`*(a, b: GVec2[T]): `upper 2` = [a, b]
   proc `lower 3`*(a, b, c: GVec3[T]): `upper 3` = [a, b, c]
   proc `lower 4`*(a, b, c, d: GVec4[T]): `upper 4` = [a, b, c, d]
 
-  proc `lower 2`*(m: GMat3[T]): `upper 2` = [m[0].xy, m[1].xy]
-  proc `lower 3`*(m: GMat4[T]): `upper 3` = [m[0].xyz, m[1].xyz, [T(0), 0, 1]]
+  proc `lower 2`*(m: GMat3[T]): `upper 2` =
+    [m[0].xy, m[1].xy]
+  proc `lower 3`*(m: GMat4[T]): `upper 3` =
+    [m[0].xyz, m[1].xyz, gvec3[T](T(0), 0, 1)]
 
   proc `lower 3`*(m: GMat2[T]): `upper 3` =
     [
-      [m[0][0], m[0][1], 0],
-      [m[1][0], m[1][1], 0],
-      [T(0), 0, 1]
+      gvec3[T](m[0][0], m[0][1], 0),
+      gvec3[T](m[1][0], m[1][1], 0),
+      gvec3[T](T(0), 0, 1)
     ]
 
   proc `lower 4`*(m: GMat3[T]): `upper 4` =
     [
-      [m[0][0], m[0][1], m[0][2], 0],
-      [m[1][0], m[1][1], m[1][2], 0],
-      [T(0), 0, 1, 0],
-      [m[2][0], m[2][1], m[2][2], 1]
+      gvec4[T](m[0][0], m[0][1], m[0][2], 0),
+      gvec4[T](m[1][0], m[1][1], m[1][2], 0),
+      gvec4[T](T(0), 0, 1, 0),
+      gvec4[T](m[2][0], m[2][1], m[2][2], 1),
     ]
 
   proc `lower 2`*(): `upper 2` =
     [
-      [T(1), 0],
-      [T(0), 1]
+      gvec2[T]((1), 0),
+      gvec2[T]((0), 1)
     ]
   proc `lower 3`*(): `upper 3` =
     [
-      [T(1), 0, 0],
-      [T(0), 1, 0],
-      [T(0), 0, 1]
+      gvec3[T](T(1), 0, 0),
+      gvec3[T](T(0), 1, 0),
+      gvec3[T](T(0), 0, 1)
     ]
   proc `lower 4`*(): `upper 4` =
     [
-      [T(1), 0, 0, 0],
-      [T(0), 1, 0, 0],
-      [T(0), 0, 1, 0],
-      [T(0), 0, 0, 1]
+      gvec4[T]((1), 0, 0, 0),
+      gvec4[T]((0), 1, 0, 0),
+      gvec4[T]((0), 0, 1, 0),
+      gvec4[T]((0), 0, 0, 1)
     ]
 
 genMatConstructor(mat, Mat, float32)
 genMatConstructor(dmat, DMat, float64)
 
 proc `[]`*[T](a: GMat234[T], i, j: int): T = a[i][j]
-proc `[]=`*[T](a: var GMat234[T], i, j: int, v: T) = a[i][j] = v
+# proc `[]=`*[T](a: var GMat234[T], i, j: int, v: T) =
+#   a[i][j] = v
+
+# proc `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
+#   cast[var array[2*2, T]](a)[i * 2 + j] = v
+# proc `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
+#   cast[var array[3*3, T]](a)[i * 3 + j] = v
+# proc `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
+#   cast[var array[4*4, T]](a)[i * 4 + j] = v
+
+proc `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
+  case j:
+  of 0: a[i].x = v
+  of 1: a[i].y = v
+  else: discard
+
+proc `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
+  case j:
+  of 0: a[i].x = v
+  of 1: a[i].y = v
+  of 2: a[i].z = v
+  else: discard
+
+proc `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
+  case j:
+  of 0: a[i].x = v
+  of 1: a[i].y = v
+  of 2: a[i].z = v
+  of 3: a[i].w = v
+  else: discard
 
 proc `~=`*[T](a, b: GMat2[T]): bool =
   a[0] ~= b[0] and a[1] ~= b[1]
@@ -499,11 +640,11 @@ proc `~=`*[T](a, b: GMat4[T]): bool =
   a[0] ~= b[0] and a[1] ~= b[1] and a[2] ~= b[2] and a[3] ~= b[3]
 
 proc pos*[T](a: GMat3[T]): GVec2[T] =
-  [a[2][0], a[2][1]]
+  [a[2].x, a[2].y]
 
 proc `pos=`*[T](a: var GMat3[T], pos: GVec2[T]) =
-  a[2][0] = pos.x
-  a[2][1] = pos.y
+  a[2].x = pos.x
+  a[2].y = pos.y
 
 proc `*`*[T](a, b: GMat3[T]): GMat3[T] =
   result[0, 0] = b[0, 0] * a[0, 0] + b[0, 1] * a[1, 0] + b[0, 2] * a[2, 0]
@@ -519,10 +660,10 @@ proc `*`*[T](a, b: GMat3[T]): GMat3[T] =
   result[2, 2] = b[2, 0] * a[0, 2] + b[2, 1] * a[1, 2] + b[2, 2] * a[2, 2]
 
 proc `*`*[T](a: GMat3[T], b: GVec2[T]): GVec2[T] =
-  [
+  gvec2[T](
     a[0, 0] * b.x + a[1, 0] * b.y + a[2, 0],
     a[0, 1] * b.x + a[1, 1] * b.y + a[2, 1]
-  ]
+  )
 
 proc `*`*[T](a, b: GMat4[T]): GMat4[T] =
   let
@@ -709,32 +850,32 @@ proc inverse*[T](a: GMat4[T]): GMat4[T] =
 
 proc scale*[T](v: GVec2[T]): GMat3[T] =
   [
-    [v.x, 0, 0],
-    [T(0), v.y, 0],
-    [T(0), 0, 1]
+    gvec3[T](v.x, 0, 0),
+    gvec3[T](T(0), v.y, 0),
+    gvec3[T](T(0), 0, 1)
   ]
 
 proc scale*[T](v: GVec3[T]): GMat4[T] =
   [
-    [v.x, 0, 0, 0],
-    [T(0), v.y, 0, 0],
-    [T(0), 0, v.z, 0],
-    [T(0), 0, 0, 1]
+    gvec3[T](v.x, 0, 0, 0),
+    gvec3[T](T(0), v.y, 0, 0),
+    gvec3[T](T(0), 0, v.z, 0),
+    gvec3[T](T(0), 0, 0, 1)
   ]
 
 proc translate*[T](v: GVec2[T]): GMat3[T] =
   [
-    [T(1), 0, 0],
-    [T(0), 1, 0],
-    [v.x, v.y, 1]
+    gvec3[T](T(1), 0, 0),
+    gvec3[T](T(0), 1, 0),
+    gvec3[T](v.x, v.y, 1)
   ]
 
 proc translate*[T](v: GVec3[T]): GMat4[T] =
   [
-    [T(1), 0, 0, 0],
-    [T(0), 1, 0, 0],
-    [T(0), 0, 1, 0],
-    [v.x, v.y, v.z, 1]
+    gvec4[T](T(1), 0, 0, 0),
+    gvec4[T](T(0), 1, 0, 0),
+    gvec4[T](T(0), 0, 1, 0),
+    gvec4[T](v.x, v.y, v.z, 1)
   ]
 
 proc rotate*[T](angle: T): GMat3[T] =
@@ -742,9 +883,9 @@ proc rotate*[T](angle: T): GMat3[T] =
     sin = sin(angle)
     cos = cos(angle)
   [
-    [cos, -sin, 0],
-    [sin, cos, 0],
-    [T(0), 0, 1]
+    gvec3[T](cos, -sin, 0),
+    gvec3[T](sin, cos, 0),
+    gvec3[T](T(0), 0, 1)
   ]
 
 proc hrp*[T](m: GMat4[T]): GVec3[T] =
