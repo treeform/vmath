@@ -211,7 +211,7 @@ block:
     _ = dvec4(1.0)
 
 block:
-  # Test basic vector mat constructors.
+  # Test basic mat constructors.
   block:
     let
       _ = mat2()
@@ -295,6 +295,24 @@ block:
         dvec4(0, 0, 1, 0),
         dvec4(0, 0, 0, 1)
       )
+
+  block:
+    var
+      d2 = dmat2()
+      d3 = dmat3()
+      d4 = dmat4()
+
+    d2[0, 0] = 123.123
+    d2[1, 1] = 123.123
+
+    d3[0, 0] = 123.123
+    d3[1, 1] = 123.123
+    d3[2, 2] = 123.123
+
+    d4[0, 0] = 123.123
+    d4[1, 1] = 123.123
+    d4[2, 2] = 123.123
+    d4[3, 3] = 123.123
 
 block:
   # Test basic mat functions.
