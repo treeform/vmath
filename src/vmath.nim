@@ -197,14 +197,14 @@ else:
   template `[]`*[T](a: GVec4[T], i: int): T =
     cast[array[4, T]](a)[i]
 
-  template `[]=`*[T](a: GVec2[T], i: int, v: T) =
-    cast[array[2, T]](a)[i] = v
+  template `[]=`*[T](a: var GVec2[T], i: int, v: T) =
+    cast[ptr T](cast[uint64](a.addr) + i * sizeof(T))[] = v
 
-  template `[]=`*[T](a: GVec3[T], i: int, v: T) =
-    cast[array[3, T]](a)[i] = v
+  template `[]=`*[T](a: var GVec3[T], i: int, v: T) =
+    cast[ptr T](cast[uint64](a.addr) + i * sizeof(T))[] = v
 
-  template `[]=`*[T](a: GVec4[T], i: int, v: T) =
-    cast[array[4, T]](a)[i] = v
+  template `[]=`*[T](a: var GVec4[T], i: int, v: T) =
+    cast[ptr T](cast[uint64](a.addr) + i * sizeof(T))[] = v
 
 proc xy*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.x, a.y)
 proc xz*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.x, a.z)
@@ -469,11 +469,11 @@ proc dot*[T](a, b: GVec4[T]): T =
   a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w
 
 proc cross*[T](a, b: GVec3[T]): GVec3[T] =
-  [
+  gvec3(
     a.y * b.z - a.z * b.y,
     a.z * b.x - a.x * b.z,
     a.x * b.y - a.y * b.x
-  ]
+  )
 
 proc dist*[T](at, to: GVec234[T]): T =
   (at - to).length
@@ -490,11 +490,88 @@ proc dir*[T](angle: T): GVec2[T] =
     sin(angle),
   ]
 
-type
-  GMat2*[T] = array[2, GVec2[T]]
-  GMat3*[T] = array[3, GVec3[T]]
-  GMat4*[T] = array[4, GVec4[T]]
+when defined(vmathArrayBased):
+  type
+    GMat2*[T] = array[2, GVec2[T]]
+    GMat3*[T] = array[3, GVec3[T]]
+    GMat4*[T] = array[4, GVec4[T]]
 
+  proc gmat2*[T](
+    m00, m01,
+    m10, m11: T
+  ): GVec2[T] =
+    [
+      [m00, m01],
+      [m10, m11]
+    ]
+
+  proc gmat3*[T](
+    m00, m01, m02,
+    m10, m11, m12,
+    m20, m21, m22: T
+  ): GVec3[T] =
+    [
+      [m00, m01, m02],
+      [m10, m11, m12],
+      [m20, m21, m22]
+    ]
+
+  proc gmat4*[T](
+    m00, m01, m02, m03,
+    m10, m11, m12, m13,
+    m20, m21, m22, m23,
+    m30, m31, m32, m33: T
+  ): GVec4[T] =
+    [
+      [m00, m01, m02, m03],
+      [m10, m11, m12, m13],
+      [m20, m21, m22, m23],
+      [m30, m31, m32, m33]
+    ]
+
+else:
+  type
+    GMat2*[T] = object
+      m00*, m01*: T
+      m10*, m11*: T
+    GMat3*[T] = object
+      m00*, m01*, m02*: T
+      m10*, m11*, m12*: T
+      m20*, m21*, m22*: T
+    GMat4*[T] = object
+      m00*, m01*, m02*, m03*: T
+      m10*, m11*, m12*, m13*: T
+      m20*, m21*, m22*, m23*: T
+      m30*, m31*, m32*, m33*: T
+
+  proc gmat2*[T](
+    m00, m01,
+    m10, m11: T
+  ): GMat2[T] =
+    result.m00 = m00; result.m01 = m01
+    result.m10 = m10; result.m11 = m11
+
+  proc gmat3*[T](
+    m00, m01, m02,
+    m10, m11, m12,
+    m20, m21, m22: T
+  ): GMat3[T] =
+    result.m00 = m00; result.m01 = m01; result.m02 = m02
+    result.m10 = m10; result.m11 = m11; result.m12 = m12
+    result.m20 = m20; result.m21 = m21; result.m22 = m22
+
+  proc gmat4*[T](
+    m00, m01, m02, m03,
+    m10, m11, m12, m13,
+    m20, m21, m22, m23,
+    m30, m31, m32, m33: T
+  ): GMat4[T] =
+    result.m00 = m00; result.m01 = m01; result.m02 = m02; result.m03 = m03
+    result.m10 = m10; result.m11 = m11; result.m12 = m12; result.m13 = m13
+    result.m20 = m20; result.m21 = m21; result.m22 = m22; result.m23 = m23
+    result.m30 = m30; result.m31 = m31; result.m32 = m32; result.m33 = m33
+
+type
   Mat2* = GMat2[float32]
   Mat3* = GMat3[float32]
   Mat4* = GMat4[float32]
@@ -507,92 +584,169 @@ type
   GMat34[T] = GMat3[T] | GMat4[T]
 
 template genMatConstructor(lower, upper, T: untyped) =
-  proc `lower 2`*(a, b, c, d: T): `upper 2` =
-    [gvec2[T](a, b), gvec2[T](c, d)]
-  proc `lower 3`*(a, b, c, d, e, f, g, h, i: T): `upper 3` =
-    [gvec3[T](T(a), b, c), gvec3[T](d, e, f), gvec3[T](g, h, i)]
+
+  proc `lower 2`*(
+    m00, m01,
+    m10, m11: T
+  ): `upper 2` =
+    result.m00 = m00; result.m01 = m01
+    result.m10 = m10; result.m11 = m11
+
+  proc `lower 3`*(
+    m00, m01, m02,
+    m10, m11, m12,
+    m20, m21, m22: T
+  ): `upper 3` =
+    result.m00 = m00; result.m01 = m01; result.m02 = m02
+    result.m10 = m10; result.m11 = m11; result.m12 = m12
+    result.m20 = m20; result.m21 = m21; result.m22 = m22
+
   proc `lower 4`*(
-    a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p: T
+    m00, m01, m02, m03,
+    m10, m11, m12, m13,
+    m20, m21, m22, m23,
+    m30, m31, m32, m33: T
   ): `upper 4` =
-    [gvec4[T](T(a), b, c, d), gvec4[T](e, f, g, h), gvec4[T](i, j, k, l), gvec4[T](m, n, o, p)]
+    result.m00 = m00; result.m01 = m01; result.m02 = m02; result.m03 = m03
+    result.m10 = m10; result.m11 = m11; result.m12 = m12; result.m13 = m13
+    result.m20 = m20; result.m21 = m21; result.m22 = m22; result.m23 = m23
+    result.m30 = m30; result.m31 = m31; result.m32 = m32; result.m33 = m33
 
-  proc `lower 2`*(a, b: GVec2[T]): `upper 2` = [a, b]
-  proc `lower 3`*(a, b, c: GVec3[T]): `upper 3` = [a, b, c]
-  proc `lower 4`*(a, b, c, d: GVec4[T]): `upper 4` = [a, b, c, d]
+  proc `lower 2`*(a, b: GVec2[T]): `upper 2` =
+    gmat2[T](
+      a.x, a.y,
+      b.x, b.y
+    )
+  proc `lower 3`*(a, b, c: GVec3[T]): `upper 3` =
+    gmat3[T](
+      a.x, a.y, a.z,
+      b.x, b.y, b.z,
+      c.x, c.y, c.z,
+    )
+  proc `lower 4`*(a, b, c, d: GVec4[T]): `upper 4` =
+    gmat4[T](
+      a.x, a.y, a.z, a.w,
+      b.x, b.y, b.z, b.w,
+      c.x, c.y, c.z, c.w,
+      d.x, d.y, d.z, d.w,
+    )
 
-  proc `lower 2`*(m: GMat3[T]): `upper 2` =
-    [m[0].xy, m[1].xy]
-  proc `lower 3`*(m: GMat4[T]): `upper 3` =
-    [m[0].xyz, m[1].xyz, gvec3[T](T(0), 0, 1)]
+  # proc `lower 2`*(m: GMat3[T]): `upper 2` =
+  #   gmat2(m[0].xy, m[1].xy)
 
-  proc `lower 3`*(m: GMat2[T]): `upper 3` =
-    [
-      gvec3[T](m[0][0], m[0][1], 0),
-      gvec3[T](m[1][0], m[1][1], 0),
-      gvec3[T](T(0), 0, 1)
-    ]
+  # proc `lower 3`*(m: GMat4[T]): `upper 3` =
+  #   [m[0].xyz, m[1].xyz, gvec3[T](T(0), 0, 1)]
 
-  proc `lower 4`*(m: GMat3[T]): `upper 4` =
-    [
-      gvec4[T](m[0][0], m[0][1], m[0][2], 0),
-      gvec4[T](m[1][0], m[1][1], m[1][2], 0),
-      gvec4[T](T(0), 0, 1, 0),
-      gvec4[T](m[2][0], m[2][1], m[2][2], 1),
-    ]
+  # proc `lower 3`*(m: GMat2[T]): `upper 3` =
+  #   [
+  #     gvec3[T](m[0][0], m[0][1], 0),
+  #     gvec3[T](m[1][0], m[1][1], 0),
+  #     gvec3[T](T(0), 0, 1)
+  #   ]
+
+  # proc `lower 4`*(m: GMat3[T]): `upper 4` =
+  #   [
+  #     gvec4[T](m[0][0], m[0][1], m[0][2], 0),
+  #     gvec4[T](m[1][0], m[1][1], m[1][2], 0),
+  #     gvec4[T](T(0), 0, 1, 0),
+  #     gvec4[T](m[2][0], m[2][1], m[2][2], 1),
+  #   ]
 
   proc `lower 2`*(): `upper 2` =
-    [
-      gvec2[T]((1), 0),
-      gvec2[T]((0), 1)
-    ]
+    gmat2[T](
+      1.T, 0.T,
+      0.T, 1.T
+    )
   proc `lower 3`*(): `upper 3` =
-    [
-      gvec3[T](T(1), 0, 0),
-      gvec3[T](T(0), 1, 0),
-      gvec3[T](T(0), 0, 1)
-    ]
+    gmat3[T](
+      1.T, 0.T, 0.T,
+      0.T, 1.T, 0.T,
+      0.T, 0.T, 1.T
+    )
   proc `lower 4`*(): `upper 4` =
-    [
-      gvec4[T]((1), 0, 0, 0),
-      gvec4[T]((0), 1, 0, 0),
-      gvec4[T]((0), 0, 1, 0),
-      gvec4[T]((0), 0, 0, 1)
-    ]
+    gmat4[T](
+      1.T, 0.T, 0.T, 0.T,
+      0.T, 1.T, 0.T, 0.T,
+      0.T, 0.T, 1.T, 0.T,
+      0.T, 0.T, 0.T, 1.T
+    )
 
 genMatConstructor(mat, Mat, float32)
 genMatConstructor(dmat, DMat, float64)
 
-proc `[]`*[T](a: GMat234[T], i, j: int): T = a[i][j]
-# proc `[]=`*[T](a: var GMat234[T], i, j: int, v: T) =
-#   a[i][j] = v
+when defined(vmathArrayBased):
+  proc `[]`*[T](a: GMat234[T], i, j: int): T = a[i][j]
+  # proc `[]=`*[T](a: var GMat234[T], i, j: int, v: T) =
+  #   a[i][j] = v
 
-# proc `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
-#   cast[var array[2*2, T]](a)[i * 2 + j] = v
-# proc `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
-#   cast[var array[3*3, T]](a)[i * 3 + j] = v
-# proc `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
-#   cast[var array[4*4, T]](a)[i * 4 + j] = v
+  # proc `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
+  #   cast[var array[2*2, T]](a)[i * 2 + j] = v
+  # proc `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
+  #   cast[var array[3*3, T]](a)[i * 3 + j] = v
+  # proc `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
+  #   cast[var array[4*4, T]](a)[i * 4 + j] = v
 
-proc `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
-  case j:
-  of 0: a[i].x = v
-  of 1: a[i].y = v
-  else: discard
+  proc `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
+    case j:
+    of 0: a[i].x = v
+    of 1: a[i].y = v
+    else: discard
 
-proc `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
-  case j:
-  of 0: a[i].x = v
-  of 1: a[i].y = v
-  of 2: a[i].z = v
-  else: discard
+  proc `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
+    case j:
+    of 0: a[i].x = v
+    of 1: a[i].y = v
+    of 2: a[i].z = v
+    else: discard
 
-proc `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
-  case j:
-  of 0: a[i].x = v
-  of 1: a[i].y = v
-  of 2: a[i].z = v
-  of 3: a[i].w = v
-  else: discard
+  proc `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
+    case j:
+    of 0: a[i].x = v
+    of 1: a[i].y = v
+    of 2: a[i].z = v
+    of 3: a[i].w = v
+    else: discard
+
+else:
+  template `[]`*[T](a: GMat2[T], i, j: int): T =
+    cast[array[4, T]](a)[i * 2 + j]
+
+  template `[]`*[T](a: GMat3[T], i, j: int): T =
+    cast[array[9, T]](a)[i * 3 + j]
+
+  template `[]`*[T](a: GMat4[T], i, j: int): T =
+    cast[array[16, T]](a)[i * 4 + j]
+
+  template `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
+    cast[ptr T](cast[uint64](a.addr) + (i * 2 + j) * sizeof(T))[] = v
+
+  template `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
+    cast[ptr T](cast[uint64](a.addr) + (i * 3 + j) * sizeof(T))[] = v
+
+  template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
+    cast[ptr T](cast[uint64](a.addr) + (i * 4 + j) * sizeof(T))[] = v
+
+
+  template `[]`*[T](a: GMat2[T], i: int): GVec2[T] =
+    gvec2[T](
+      a[i, 0],
+      a[i, 1]
+    )
+
+  template `[]`*[T](a: GMat3[T], i: int): GVec3[T] =
+    gvec3[T](
+      a[i, 0],
+      a[i, 1],
+      a[i, 2]
+    )
+
+  template `[]`*[T](a: GMat4[T], i: int): GVec4[T] =
+    gvec4[T](
+      a[i, 0],
+      a[i, 1],
+      a[i, 2],
+      a[i, 3]
+    )
 
 proc `~=`*[T](a, b: GMat2[T]): bool =
   a[0] ~= b[0] and a[1] ~= b[1]
@@ -604,11 +758,11 @@ proc `~=`*[T](a, b: GMat4[T]): bool =
   a[0] ~= b[0] and a[1] ~= b[1] and a[2] ~= b[2] and a[3] ~= b[3]
 
 proc pos*[T](a: GMat3[T]): GVec2[T] =
-  [a[2].x, a[2].y]
+  gvec2[T](a[2].x, a[2].y)
 
 proc `pos=`*[T](a: var GMat3[T], pos: GVec2[T]) =
-  a[2].x = pos.x
-  a[2].y = pos.y
+  a[2, 0] = pos.x
+  a[2, 1] = pos.y
 
 proc `*`*[T](a, b: GMat3[T]): GMat3[T] =
   result[0, 0] = b[0, 0] * a[0, 0] + b[0, 1] * a[1, 0] + b[0, 2] * a[2, 0]
@@ -687,26 +841,26 @@ proc `*`*[T](a, b: GMat4[T]): GMat4[T] =
   result[3, 3] = b30 * a03 + b31 * a13 + b32 * a23 + b33 * a33
 
 proc `*`*[T](a: GMat4[T], b: GVec3[T]): GVec3[T] =
-  [
+  gvec3[T](
     a[0, 0] * b.x + a[1, 0] * b.y + a[2, 0] * b.z + a[3, 0],
     a[0, 1] * b.x + a[1, 1] * b.y + a[2, 1] * b.z + a[3, 1],
     a[0, 2] * b.x + a[1, 2] * b.y + a[2, 2] * b.z + a[3, 2]
-  ]
+  )
 
 proc transpose*[T](a: GMat3[T]): GMat3[T] =
-  [
-    [a[0, 0], a[1, 0], a[2, 0]],
-    [a[0, 1], a[1, 1], a[2, 1]],
-    [a[0, 2], a[1, 2], a[2, 2]]
-  ]
+  gmat3[T](
+    a[0, 0], a[1, 0], a[2, 0],
+    a[0, 1], a[1, 1], a[2, 1],
+    a[0, 2], a[1, 2], a[2, 2]
+  )
 
 proc transpose*[T](a: GMat4[T]): GMat4[T] =
-  [
-    [a[0, 0], a[1, 0], a[2, 0], a[3, 0]],
-    [a[0, 1], a[1, 1], a[2, 1], a[3, 1]],
-    [a[0, 2], a[1, 2], a[2, 2], a[3, 2]],
-    [a[0, 3], a[1, 3], a[2, 3], a[3, 3]]
-  ]
+  gmat4[T](
+    a[0, 0], a[1, 0], a[2, 0], a[3, 0],
+    a[0, 1], a[1, 1], a[2, 1], a[3, 1],
+    a[0, 2], a[1, 2], a[2, 2], a[3, 2],
+    a[0, 3], a[1, 3], a[2, 3], a[3, 3]
+  )
 
 proc determinant*[T](a: GMat4[T]): T =
   let
@@ -813,44 +967,44 @@ proc inverse*[T](a: GMat4[T]): GMat4[T] =
   result[3, 3] = (+a20 * b03 - a21 * b01 + a22 * b00) * invDet
 
 proc scale*[T](v: GVec2[T]): GMat3[T] =
-  [
-    gvec3[T](v.x, 0, 0),
-    gvec3[T](T(0), v.y, 0),
-    gvec3[T](T(0), 0, 1)
-  ]
+  gmat3[T](
+    v.x, 0, 0,
+    0, v.y, 0,
+    0, 0, 1
+  )
 
 proc scale*[T](v: GVec3[T]): GMat4[T] =
-  [
-    gvec3[T](v.x, 0, 0, 0),
-    gvec3[T](T(0), v.y, 0, 0),
-    gvec3[T](T(0), 0, v.z, 0),
-    gvec3[T](T(0), 0, 0, 1)
-  ]
+  gmat4[T](
+    v.x, 0, 0, 0,
+    0, v.y, 0, 0,
+    0, 0, v.z, 0,
+    0, 0, 0, 1
+  )
 
 proc translate*[T](v: GVec2[T]): GMat3[T] =
-  [
-    gvec3[T](T(1), 0, 0),
-    gvec3[T](T(0), 1, 0),
-    gvec3[T](v.x, v.y, 1)
-  ]
+  gmat3[T](
+    1, 0, 0,
+    0, 1, 0,
+    v.x, v.y, 1
+  )
 
 proc translate*[T](v: GVec3[T]): GMat4[T] =
-  [
-    gvec4[T](T(1), 0, 0, 0),
-    gvec4[T](T(0), 1, 0, 0),
-    gvec4[T](T(0), 0, 1, 0),
-    gvec4[T](v.x, v.y, v.z, 1)
-  ]
+  gmat4[T](
+    1, 0, 0, 0,
+    0, 1, 0, 0,
+    0, 0, 1, 0,
+    v.x, v.y, v.z, 1
+  )
 
 proc rotate*[T](angle: T): GMat3[T] =
   let
     sin = sin(angle)
     cos = cos(angle)
-  [
-    gvec3[T](cos, -sin, 0),
-    gvec3[T](sin, cos, 0),
-    gvec3[T](T(0), 0, 1)
-  ]
+  gmat3[T](
+    cos, -sin, 0,
+    sin, cos, 0,
+    0, 0, 1
+  )
 
 proc hrp*[T](m: GMat4[T]): GVec3[T] =
   var heading, pitch, roll: float32
@@ -866,7 +1020,7 @@ proc hrp*[T](m: GMat4[T]): GVec3[T] =
     heading = arctan2(-m[8], m[0])
     pitch = arctan2(-m[6], m[5])
     roll = arcsin(m[4])
-  [heading, pitch, roll]
+  gvec3[T](heading, pitch, roll)
 
 proc frustum*[T](left, right, bottom, top, near, far: T): GMat4[T] =
   let
@@ -1007,7 +1161,7 @@ proc lookAt*[T](eye, center, up: GVec3[T]): GMat4[T] =
   result[3, 3] = 1
 
 proc lookAt*[T](eye, center: GVec3[T]): GMat4[T] =
-  lookAt(eye, center, [T(0), 0, 1])
+  lookAt(eye, center, gvec3(T(0), 0, 1))
 
 proc angle*[T](a: GVec2[T]): T =
   ## Angle of a Vec2.
@@ -1042,12 +1196,12 @@ proc fromAxisAngle*[T](axis: GVec3[T], angle: T): GVec4[T] =
   let
     a = axis.normalize()
     s = sin(angle / 2)
-  [
+  gvec4[T](
     a.x * s,
     a.y * s,
     a.z * s,
     cos(angle / 2)
-  ]
+  )
 
 proc toAxisAngle*[T](q: GVec4[T]): (GVec3[T], T) =
   let cosAngle = q.w
@@ -1071,13 +1225,13 @@ proc orthogonal*[T](v: GVec3[T]): GVec3[T] =
   var other: type(v) =
     if v.x < v.y:
       if v.x < v.z:
-        [T(1), 0, 0] # X_AXIS
+        gvec3(T(1), 0, 0) # X_AXIS
       else:
-        [T(0), 0, 1] # Z_AXIS
+        gvec3(T(0), 0, 1) # Z_AXIS
     elif v.y < v.z:
-      [T(0), 1, 0]   # Y_AXIS
+      gvec3(T(0), 1, 0)   # Y_AXIS
     else:
-      [T(0), 0, 1]   # Z_AXIS
+      gvec3(T(0), 0, 1)   # Z_AXIS
   return cross(v, other)
 
 proc fromTwoVectors*[T](a, b: GVec3[T]): GVec4[T] =
@@ -1094,13 +1248,13 @@ proc fromTwoVectors*[T](a, b: GVec3[T]): GVec4[T] =
   if (u == -v):
     # 180 degree rotation around any orthogonal vector
     let q = normalize(orthogonal(u))
-    return [q.x, q.y, q.z, 0]
+    return gvec4(q.x, q.y, q.z, 0)
 
   let
     half = normalize(u + v)
     q = cross(u, half)
     w = dot(u, half)
-  return [q.x, q.y, q.z, w]
+  return gvec4(q.x, q.y, q.z, w)
 
 proc nlerp*(a: Quat, b: Quat, v: float32): Quat =
   if dot(a, b) < 0:
@@ -1144,7 +1298,7 @@ proc quat*[T](m: GMat4[T]): GVec4[T] =
   q = q * (0.5 / sqrt(t))
 
   if abs(q.length - 1.0) > 0.001:
-    return [T(0), 0, 0, 1]
+    return gvec4(T(0), 0, 0, 1)
 
   return q
 
