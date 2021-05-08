@@ -219,7 +219,7 @@ elif defined(vmathObjBased):
       a[i, 3]
     )
 
-else:
+elif true or defined(vmathObjArrayBased):
   type
     GVec2*[T] = object
       arr: array[2, T]
@@ -427,6 +427,11 @@ proc toDegrees*[T: SomeFloat](rad: T): T =
   return fixAngle(180.0 * rad / PI)
 
 template genConstructor(lower, upper, typ: untyped) =
+
+  proc `lower 2`*(): `upper 2` = gvec2[typ](typ(0), typ(0))
+  proc `lower 3`*(): `upper 3` = gvec3[typ](typ(0), typ(0), typ(0))
+  proc `lower 4`*(): `upper 4` = gvec4[typ](typ(0), typ(0), typ(0), typ(0))
+
   proc `lower 2`*(x, y: typ): `upper 2` = gvec2[typ](x, y)
   proc `lower 3`*(x, y, z: typ): `upper 3` = gvec3[typ](x, y, z)
   proc `lower 4`*(x, y, z, w: typ): `upper 4` = gvec4[typ](x, y, z, w)

@@ -190,9 +190,9 @@ block:
     _ = dvec3(1.0, 2.0, 3.0)
     _ = dvec4(1.0, 2.0, 3.0, 4.0)
 
-    _ = bvec2(true, false)
-    _ = bvec3(true, false, true)
-    _ = bvec4(true, false, true, false)
+    _ = bvec2(true)
+    _ = bvec3(true)
+    _ = bvec4(true)
 
     _ = ivec2(-1)
     _ = ivec3(-1)
@@ -209,6 +209,26 @@ block:
     _ = dvec2(1.0)
     _ = dvec3(1.0)
     _ = dvec4(1.0)
+
+    _ = bvec2()
+    _ = bvec3()
+    _ = bvec4()
+
+    _ = ivec2()
+    _ = ivec3()
+    _ = ivec4()
+
+    _ = uvec2()
+    _ = uvec3()
+    _ = uvec4()
+
+    _ = vec2()
+    _ = vec3()
+    _ = vec4()
+
+    _ = dvec2()
+    _ = dvec3()
+    _ = dvec4()
 
 block:
   # Test basic mat constructors.
