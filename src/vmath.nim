@@ -1116,28 +1116,28 @@ proc perspective*[T](fovy, aspect, near, far: T): GMat4[T] =
 proc ortho*[T](left, right, bottom, top, near, far: T): GMat4[T] =
   ## Create an orthographic matrix.
   let
-    rl = (right - left)
-    tb = (top - bottom)
-    fn = (far - near)
+    rl: T = (right - left)
+    tb: T = (top - bottom)
+    fn: T = (far - near)
 
-  result[0, 0] = 2 / rl
+  result[0, 0] = T(2 / rl)
   result[0, 1] = 0
   result[0, 2] = 0
   result[0, 3] = 0
 
   result[1, 0] = 0
-  result[1, 1] = 2 / tb
+  result[1, 1] = T(2 / tb)
   result[1, 2] = 0
   result[1, 3] = 0
 
   result[2, 0] = 0
   result[2, 1] = 0
-  result[2, 2] = -2 / fn
+  result[2, 2] = T(-2 / fn)
   result[2, 3] = 0
 
-  result[3, 0] = -(left + right) / rl
-  result[3, 1] = -(top + bottom) / tb
-  result[3, 2] = -(far + near) / fn
+  result[3, 0] = T(-(left + right) / rl)
+  result[3, 1] = T(-(top + bottom) / tb)
+  result[3, 2] = T(-(far + near) / fn)
   result[3, 3] = 1
 
 proc lookAt*[T](eye, center, up: GVec3[T]): GMat4[T] =
