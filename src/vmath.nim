@@ -5,7 +5,6 @@
 ##
 
 import math
-
 export math
 
 {.push inline.}
@@ -704,10 +703,10 @@ proc dir*[T](at, to: GVec234[T]): type(to) =
   (at - to).normalize
 
 proc dir*[T](angle: T): GVec2[T] =
-  [
+  gvec2(
     cos(angle),
     sin(angle),
-  ]
+  )
 
 type
   Mat2* = GMat2[float32]
@@ -1408,15 +1407,15 @@ proc rotate*[T](angle: T, axis: GVec3[T]): GMat4[T] =
 
 proc rotateX*[T](angle: T): GMat4[T] =
   ## Return a rotation matrix around X with angle.
-  fromAxisAngle([T(1), 0, 0], angle).mat4()
+  fromAxisAngle(gvec3[T](1, 0, 0), angle).mat4()
 
 proc rotateY*[T](angle: T): GMat4[T] =
   ## Return a rotation matrix around Y with angle.
-  fromAxisAngle([T(0), 1, 0], angle).mat4()
+  fromAxisAngle(gvec3[T](0, 1, 0), angle).mat4()
 
 proc rotateZ*[T](angle: T): GMat4[T] =
   ## Return a rotation matrix around Z with angle.
-  fromAxisAngle([T(0), 0, 1], angle).mat4()
+  fromAxisAngle(gvec3[T](0, 0, 1), angle).mat4()
 
 when defined(release):
   {.pop.}
