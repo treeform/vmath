@@ -20,14 +20,9 @@ when defined(vmathArrayBased):
     GVec34[T] = GVec3[T] | GVec4[T]
     GVec234[T] = GVec2[T] | GVec3[T] | GVec4[T]
 
-  template gvec2*[T](x, y: T): GVec2[T] =
-    [T(x), T(y)]
-
-  template gvec3*[T](x, y, z: T): GVec3[T] =
-    [T(x), T(y), T(z)]
-
-  template gvec4*[T](x, y, z, w: T): GVec4[T] =
-    [T(x), T(y), T(z), T(w)]
+  template gvec2*[T](x, y: T): GVec2[T] = [T(x), T(y)]
+  template gvec3*[T](x, y, z: T): GVec3[T] = [T(x), T(y), T(z)]
+  template gvec4*[T](x, y, z, w: T): GVec4[T] = [T(x), T(y), T(z), T(w)]
 
   template x*[T](a: GVec2[T]): T = a[0]
   template x*[T](a: GVec3[T]): T = a[0]
@@ -131,14 +126,9 @@ elif defined(vmathObjBased):
   template gvec4*[T](mx, my, mz, mw: T): GVec4[T] =
     GVec4[T](x: mx, y: my, z: mz, w: mw)
 
-  template `[]`*[T](a: GVec2[T], i: int): T =
-    cast[array[2, T]](a)[i]
-
-  template `[]`*[T](a: GVec3[T], i: int): T =
-    cast[array[3, T]](a)[i]
-
-  template `[]`*[T](a: GVec4[T], i: int): T =
-    cast[array[4, T]](a)[i]
+  template `[]`*[T](a: GVec2[T], i: int): T = cast[array[2, T]](a)[i]
+  template `[]`*[T](a: GVec3[T], i: int): T = cast[array[3, T]](a)[i]
+  template `[]`*[T](a: GVec4[T], i: int): T = cast[array[4, T]](a)[i]
 
   template `[]=`*[T](a: var GVec2[T], i: int, v: T) =
     cast[ptr T](cast[uint64](a.addr) + i * sizeof(T))[] = v
@@ -278,11 +268,8 @@ else:
   template `z=`*[T](a: var GVec34[T], value: T) = a.arr[2] = value
   template `w=`*[T](a: var GVec4[T], value: T) = a.arr[3] = value
 
-  template `[]`*[T](a: GVec234[T], i: int): T =
-    a.arr[i]
-
-  template `[]=`*[T](a: var GVec234[T], i: int, v: T) =
-    a.arr[i] = v
+  template `[]`*[T](a: GVec234[T], i: int): T = a.arr[i]
+  template `[]=`*[T](a: var GVec234[T], i: int, v: T) = a.arr[i] = v
 
   type
     GMat2*[T] = object
@@ -325,23 +312,13 @@ else:
       m30, m31, m32, m33
     ])
 
-  template `[]`*[T](a: GMat2[T], i, j: int): T =
-    a.arr[i * 2 + j]
+  template `[]`*[T](a: GMat2[T], i, j: int): T = a.arr[i * 2 + j]
+  template `[]`*[T](a: GMat3[T], i, j: int): T = a.arr[i * 3 + j]
+  template `[]`*[T](a: GMat4[T], i, j: int): T = a.arr[i * 4 + j]
 
-  template `[]`*[T](a: GMat3[T], i, j: int): T =
-    a.arr[i * 3 + j]
-
-  template `[]`*[T](a: GMat4[T], i, j: int): T =
-    a.arr[i * 4 + j]
-
-  template `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
-    a.arr[i * 2 + j] = v
-
-  template `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
-    a.arr[i * 3 + j] = v
-
-  template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
-    a.arr[i * 4 + j] = v
+  template `[]=`*[T](a: var GMat2[T], i, j: int, v: T) = a.arr[i * 2 + j] = v
+  template `[]=`*[T](a: var GMat3[T], i, j: int, v: T) = a.arr[i * 3 + j] = v
+  template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) = a.arr[i * 4 + j] = v
 
   template `[]`*[T](a: GMat2[T], i: int): GVec2[T] =
     gvec2[T](
@@ -442,9 +419,11 @@ proc turnAngle*[T: SomeFloat](a, b, speed: T): T =
   a + turn
 
 proc toRadians*[T: SomeFloat](deg: T): T =
+  ## Convert degrees to radians.
   return PI * deg / 180.0
 
 proc toDegrees*[T: SomeFloat](rad: T): T =
+  ## Convert radians to degrees.
   return fixAngle(180.0 * rad / PI)
 
 template genConstructor(lower, upper, typ: untyped) =
@@ -580,69 +559,36 @@ genOp(`/`)
 genOp(`mod`)
 genOp(`div`)
 
-when defined(vmathArrayBased):
-  template genEqOp(op: untyped) =
-    proc op*[T](a: var GVec2[T], b: GVec2[T]) =
-      op(a[0], b[0])
-      op(a[1], b[1])
+template genEqOp(op: untyped) =
+  proc op*[T](a: var GVec2[T], b: GVec2[T]) =
+    op(a.x, b.x)
+    op(a.y, b.y)
 
-    proc op*[T](a: var GVec3[T], b: GVec3[T]) =
-      op(a[0], b[0])
-      op(a[1], b[1])
-      op(a[2], b[2])
+  proc op*[T](a: var GVec3[T], b: GVec3[T]) =
+    op(a.x, b.x)
+    op(a.y, b.y)
+    op(a.z, b.z)
 
-    proc op*[T](a: var GVec4[T], b: GVec4[T]) =
-      op(a[0], b[0])
-      op(a[1], b[1])
-      op(a[2], b[2])
-      op(a[3], b[3])
+  proc op*[T](a: var GVec4[T], b: GVec4[T]) =
+    op(a.x, b.x)
+    op(a.y, b.y)
+    op(a.z, b.z)
+    op(a.w, b.w)
 
-    proc op*[T](a: var GVec2[T], b: T) =
-      op(a[0], b)
-      op(a[1], b)
+  proc op*[T](a: var GVec2[T], b: T) =
+    op(a.x, b)
+    op(a.y, b)
 
-    proc op*[T](a: var GVec3[T], b: T) =
-      op(a[0], b)
-      op(a[1], b)
-      op(a[2], b)
+  proc op*[T](a: var GVec3[T], b: T) =
+    op(a.x, b)
+    op(a.y, b)
+    op(a.z, b)
 
-    proc op*[T](a: var GVec4[T], b: T) =
-      op(a[0], b)
-      op(a[1], b)
-      op(a[2], b)
-      op(a[3], b)
-
-else:
-  template genEqOp(op: untyped) =
-    proc op*[T](a: var GVec2[T], b: GVec2[T]) =
-      op(a.x, b.x)
-      op(a.y, b.y)
-
-    proc op*[T](a: var GVec3[T], b: GVec3[T]) =
-      op(a.x, b.x)
-      op(a.y, b.y)
-      op(a.z, b.z)
-
-    proc op*[T](a: var GVec4[T], b: GVec4[T]) =
-      op(a.x, b.x)
-      op(a.y, b.y)
-      op(a.z, b.z)
-      op(a.w, b.w)
-
-    proc op*[T](a: var GVec2[T], b: T) =
-      op(a.x, b)
-      op(a.y, b)
-
-    proc op*[T](a: var GVec3[T], b: T) =
-      op(a.x, b)
-      op(a.y, b)
-      op(a.z, b)
-
-    proc op*[T](a: var GVec4[T], b: T) =
-      op(a.x, b)
-      op(a.y, b)
-      op(a.z, b)
-      op(a.w, b)
+  proc op*[T](a: var GVec4[T], b: T) =
+    op(a.x, b)
+    op(a.y, b)
+    op(a.z, b)
+    op(a.w, b)
 
 genEqOp(`+=`)
 genEqOp(`-=`)
@@ -944,6 +890,7 @@ proc `*`*[T](a: GMat4[T], b: GVec3[T]): GVec3[T] =
   )
 
 proc transpose*[T](a: GMat3[T]): GMat3[T] =
+  ## Return an transpose of the matrix.
   gmat3[T](
     a[0, 0], a[1, 0], a[2, 0],
     a[0, 1], a[1, 1], a[2, 1],
@@ -951,6 +898,7 @@ proc transpose*[T](a: GMat3[T]): GMat3[T] =
   )
 
 proc transpose*[T](a: GMat4[T]): GMat4[T] =
+  ## Return an transpose of the matrix.
   gmat4[T](
     a[0, 0], a[1, 0], a[2, 0], a[3, 0],
     a[0, 1], a[1, 1], a[2, 1], a[3, 1],
@@ -959,6 +907,7 @@ proc transpose*[T](a: GMat4[T]): GMat4[T] =
   )
 
 proc determinant*[T](a: GMat4[T]): T =
+  ## Compute a determinant of the matrix.
   let
     a00 = a[0, 0]
     a01 = a[0, 1]
@@ -986,6 +935,7 @@ proc determinant*[T](a: GMat4[T]): T =
   )
 
 proc inverse*[T](a: GMat3[T]): GMat3[T] =
+  ## Return an inverse of the matrix.
   let
     determinant = (
       a[0, 0] * (a[1, 1] * a[2, 2] - a[2, 1] * a[1, 2]) -
@@ -1007,6 +957,7 @@ proc inverse*[T](a: GMat3[T]): GMat3[T] =
   result[2, 2] = +(a[0, 0] * a[1, 1] - a[1, 0] * a[0, 1]) * invDet
 
 proc inverse*[T](a: GMat4[T]): GMat4[T] =
+  ## Return an inverse of the matrix.
   let
     a00 = a[0, 0]
     a01 = a[0, 1]
@@ -1063,6 +1014,7 @@ proc inverse*[T](a: GMat4[T]): GMat4[T] =
   result[3, 3] = (+a20 * b03 - a21 * b01 + a22 * b00) * invDet
 
 proc scale*[T](v: GVec2[T]): GMat3[T] =
+  ## Create scale matrix.
   gmat3[T](
     v.x, 0, 0,
     0, v.y, 0,
@@ -1070,6 +1022,7 @@ proc scale*[T](v: GVec2[T]): GMat3[T] =
   )
 
 proc scale*[T](v: GVec3[T]): GMat4[T] =
+  ## Create scale matrix.
   gmat4[T](
     v.x, 0, 0, 0,
     0, v.y, 0, 0,
@@ -1078,6 +1031,7 @@ proc scale*[T](v: GVec3[T]): GMat4[T] =
   )
 
 proc translate*[T](v: GVec2[T]): GMat3[T] =
+  ## Create translation matrix.
   gmat3[T](
     1, 0, 0,
     0, 1, 0,
@@ -1085,6 +1039,7 @@ proc translate*[T](v: GVec2[T]): GMat3[T] =
   )
 
 proc translate*[T](v: GVec3[T]): GMat4[T] =
+  ## Create translation matrix.
   gmat4[T](
     1, 0, 0, 0,
     0, 1, 0, 0,
@@ -1093,6 +1048,7 @@ proc translate*[T](v: GVec3[T]): GMat4[T] =
   )
 
 proc rotate*[T](angle: T): GMat3[T] =
+  ## Create a rotation matrix by an angle.
   let
     sin = sin(angle)
     cos = cos(angle)
@@ -1103,6 +1059,7 @@ proc rotate*[T](angle: T): GMat3[T] =
   )
 
 proc hrp*[T](m: GMat4[T]): GVec3[T] =
+  ## Return heading, rotation and pivot of a matrix.
   var heading, pitch, roll: float32
   if m[1] > 0.998: # singularity at north pole
     heading = arctan2(m[2], m[10])
@@ -1119,6 +1076,7 @@ proc hrp*[T](m: GMat4[T]): GVec3[T] =
   gvec3[T](heading, pitch, roll)
 
 proc frustum*[T](left, right, bottom, top, near, far: T): GMat4[T] =
+  ## Create a frustum matrix.
   let
     rl = (right - left)
     tb = (top - bottom)
@@ -1145,12 +1103,14 @@ proc frustum*[T](left, right, bottom, top, near, far: T): GMat4[T] =
   result[3, 3] = 0
 
 proc perspective*[T](fovy, aspect, near, far: T): GMat4[T] =
+  ## Create a perspective matrix.
   let
     top: T = near * tan(fovy * PI.float32 / 360.0)
     right: T = top * aspect
   frustum(-right, right, -top, top, near, far)
 
 proc ortho*[T](left, right, bottom, top, near, far: T): GMat4[T] =
+  ## Create an orthographic matrix.
   let
     rl = (right - left)
     tb = (top - bottom)
@@ -1177,6 +1137,7 @@ proc ortho*[T](left, right, bottom, top, near, far: T): GMat4[T] =
   result[3, 3] = 1
 
 proc lookAt*[T](eye, center, up: GVec3[T]): GMat4[T] =
+  ## Create a matrix that would convert eye pos to looking at center.
   let
     eyex = eye[0]
     eyey = eye[1]
@@ -1257,6 +1218,7 @@ proc lookAt*[T](eye, center, up: GVec3[T]): GMat4[T] =
   result[3, 3] = 1
 
 proc lookAt*[T](eye, center: GVec3[T]): GMat4[T] =
+  ## Look center from eye with default UP vector.
   lookAt(eye, center, gvec3(T(0), 0, 1))
 
 proc angle*[T](a: GVec2[T]): T =
@@ -1278,7 +1240,6 @@ type
   DQuat* = GVec4[float64]
 
 template genQuatConstructor(lower, upper, typ: untyped) =
-
   proc `lower`*(): `upper` = gvec4[typ](0, 0, 0, 1)
   proc `lower`*(x, y, z, w: typ): `upper` = gvec4[typ](x, y, z, w)
   proc `lower`*(x: typ): `upper` = gvec4[typ](x, x, x, x)
@@ -1289,6 +1250,7 @@ genQuatConstructor(quat, Quat, float32)
 genQuatConstructor(dquat, DQuat, float64)
 
 proc fromAxisAngle*[T](axis: GVec3[T], angle: T): GVec4[T] =
+  ## Create a quaternion from axis and angle.
   let
     a = axis.normalize()
     s = sin(angle / 2)
@@ -1300,6 +1262,7 @@ proc fromAxisAngle*[T](axis: GVec3[T], angle: T): GVec4[T] =
   )
 
 proc toAxisAngle*[T](q: GVec4[T]): (GVec3[T], T) =
+  ## Convert a quaternion to axis and angle.
   let cosAngle = q.w
   let angle = arccos(cosAngle) * 2.0
   var
@@ -1317,6 +1280,7 @@ proc toAxisAngle*[T](q: GVec4[T]): (GVec3[T], T) =
   return (axis, angle)
 
 proc orthogonal*[T](v: GVec3[T]): GVec3[T] =
+  ## Returns orthogonal vector to given vector.
   let v = abs(v)
   var other: type(v) =
     if v.x < v.y:
@@ -1360,6 +1324,7 @@ proc nlerp*(a: Quat, b: Quat, v: float32): Quat =
     (a * (1.0 - v) + b * v).normalize()
 
 proc quat*[T](m: GMat4[T]): GVec4[T] =
+  ## Create a quaternion from matrix.
   let
     m00 = m[0, 0]
     m01 = m[1, 0]
@@ -1433,15 +1398,19 @@ proc mat4*[T](q: GVec4[T]): GMat4[T] =
   result[3, 3] = 1.0
 
 proc rotate*[T](angle: T, axis: GVec3[T]): GMat4[T] =
+  ## Return a rotation matrix with axis and angle.
   fromAxisAngle(axis, angle).mat4()
 
 proc rotateX*[T](angle: T): GMat4[T] =
+  ## Return a rotation matrix around X with angle.
   fromAxisAngle([T(1), 0, 0], angle).mat4()
 
 proc rotateY*[T](angle: T): GMat4[T] =
+  ## Return a rotation matrix around Y with angle.
   fromAxisAngle([T(0), 1, 0], angle).mat4()
 
 proc rotateZ*[T](angle: T): GMat4[T] =
+  ## Return a rotation matrix around Z with angle.
   fromAxisAngle([T(0), 0, 1], angle).mat4()
 
 when defined(release):
