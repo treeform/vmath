@@ -20,14 +20,14 @@ when defined(vmathArrayBased):
     GVec34[T] = GVec3[T] | GVec4[T]
     GVec234[T] = GVec2[T] | GVec3[T] | GVec4[T]
 
-  proc gvec2*[T](x, y: T): GVec2[T] =
-    [x, y]
+  template gvec2*[T](x, y: T): GVec2[T] =
+    [T(x), T(y)]
 
-  proc gvec3*[T](x, y, z: T): GVec3[T] =
-    [x, y, z]
+  template gvec3*[T](x, y, z: T): GVec3[T] =
+    [T(x), T(y), T(z)]
 
-  proc gvec4*[T](x, y, z, w: T): GVec4[T] =
-    [x, y, z, w]
+  template gvec4*[T](x, y, z, w: T): GVec4[T] =
+    [T(x), T(y), T(z), T(w)]
 
   template x*[T](a: GVec2[T]): T = a[0]
   template x*[T](a: GVec3[T]): T = a[0]
@@ -103,25 +103,13 @@ when defined(vmathArrayBased):
   template `[]`*[T](a: GMat234[T], i, j: int): T = a[i][j]
 
   template `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
-    case j:
-    of 0: a[i].x = v
-    of 1: a[i].y = v
-    else: discard
+    cast[ptr T](cast[uint64](a.addr) + (i * 2 + j) * sizeof(T))[] = v
 
   template `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
-    case j:
-    of 0: a[i].x = v
-    of 1: a[i].y = v
-    of 2: a[i].z = v
-    else: discard
+    cast[ptr T](cast[uint64](a.addr) + (i * 3 + j) * sizeof(T))[] = v
 
   template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
-    case j:
-    of 0: a[i].x = v
-    of 1: a[i].y = v
-    of 2: a[i].z = v
-    of 3: a[i].w = v
-    else: discard
+    cast[ptr T](cast[uint64](a.addr) + (i * 4 + j) * sizeof(T))[] = v
 
 elif defined(vmathObjBased):
   type
@@ -134,14 +122,14 @@ elif defined(vmathObjBased):
     GVec34[T] = GVec3[T] | GVec4[T]
     GVec234[T] = GVec2[T] | GVec3[T] | GVec4[T]
 
-  proc gvec2*[T](x, y: T): GVec2[T] =
-    GVec2[T](x: x, y: y)
+  template gvec2*[T](mx, my: T): GVec2[T] =
+    GVec2[T](x: mx, y: my)
 
-  proc gvec3*[T](x, y, z: T): GVec3[T] =
-    GVec3[T](x: x, y: y, z: z)
+  template gvec3*[T](mx, my, mz: T): GVec3[T] =
+    GVec3[T](x: mx, y: my, z: mz)
 
-  proc gvec4*[T](x, y, z, w: T): GVec4[T] =
-    GVec4[T](x: x, y: y, z: z, w: w)
+  template gvec4*[T](mx, my, mz, mw: T): GVec4[T] =
+    GVec4[T](x: mx, y: my, z: mz, w: mw)
 
   template `[]`*[T](a: GVec2[T], i: int): T =
     cast[array[2, T]](a)[i]
@@ -220,7 +208,6 @@ elif defined(vmathObjBased):
   template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
     cast[ptr T](cast[uint64](a.addr) + (i * 4 + j) * sizeof(T))[] = v
 
-
   template `[]`*[T](a: GMat2[T], i: int): GVec2[T] =
     gvec2[T](
       a[i, 0],
@@ -253,14 +240,14 @@ else:
     GVec34[T] = GVec3[T] | GVec4[T]
     GVec234[T] = GVec2[T] | GVec3[T] | GVec4[T]
 
-  proc gvec2*[T](x, y: T): GVec2[T] =
-    GVec2[T](arr:[x, y])
+  template gvec2*[T](x, y: T): GVec2[T] =
+    GVec2[T](arr:[T(x), T(y)])
 
-  proc gvec3*[T](x, y, z: T): GVec3[T] =
-    GVec3[T](arr:[x, y, z])
+  template gvec3*[T](x, y, z: T): GVec3[T] =
+    GVec3[T](arr:[T(x), T(y), T(z)])
 
-  proc gvec4*[T](x, y, z, w: T): GVec4[T] =
-    GVec4[T](arr:[x, y, z, w])
+  template gvec4*[T](x, y, z, w: T): GVec4[T] =
+    GVec4[T](arr:[T(x), T(y), T(z), T(w)])
 
   template x*[T](a: var GVec2[T]): var T = a.arr[0]
   template y*[T](a: var GVec2[T]): var T = a.arr[1]
