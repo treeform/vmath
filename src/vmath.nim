@@ -1,13 +1,129 @@
+##
+## -d:vmathObjBased
+## -d:vmathArrayBased
+## default: ObjArray based
+##
+
 import math
 
 export math
+
+{.push inline.}
+when defined(release):
+  {.push noinit, checks: off.}
 
 when defined(vmathArrayBased):
   type
     GVec2*[T] = array[2, T]
     GVec3*[T] = array[3, T]
     GVec4*[T] = array[4, T]
-else:
+    GVec34[T] = GVec3[T] | GVec4[T]
+    GVec234[T] = GVec2[T] | GVec3[T] | GVec4[T]
+
+  proc gvec2*[T](x, y: T): GVec2[T] =
+    [x, y]
+
+  proc gvec3*[T](x, y, z: T): GVec3[T] =
+    [x, y, z]
+
+  proc gvec4*[T](x, y, z, w: T): GVec4[T] =
+    [x, y, z, w]
+
+  template x*[T](a: GVec2[T]): T = a[0]
+  template x*[T](a: GVec3[T]): T = a[0]
+  template x*[T](a: GVec4[T]): T = a[0]
+
+  template y*[T](a: GVec2[T]): T = a[1]
+  template y*[T](a: GVec3[T]): T = a[1]
+  template y*[T](a: GVec4[T]): T = a[1]
+
+  template z*[T](a: GVec2[T]): T = {.error: "using .w on a Vec2".}
+  template z*[T](a: GVec3[T]): T = a[2]
+  template z*[T](a: GVec4[T]): T = a[2]
+
+  template w*[T](a: GVec2[T]): T = {.error: "using .w on a Vec2".}
+  template w*[T](a: GVec3[T]): T = {.error: "using .w on a Vec3".}
+  template w*[T](a: GVec4[T]): T = a[3]
+
+  template x*[T](a: var GVec2[T]): var T = a[0]
+  template x*[T](a: var GVec3[T]): var T = a[0]
+  template x*[T](a: var GVec4[T]): var T = a[0]
+  template y*[T](a: var GVec2[T]): var T = a[1]
+  template y*[T](a: var GVec3[T]): var T = a[1]
+  template y*[T](a: var GVec4[T]): var T = a[1]
+  template z*[T](a: var GVec3[T]): var T = a[2]
+  template z*[T](a: var GVec4[T]): var T = a[2]
+  template w*[T](a: var GVec4[T]): var T = a[3]
+
+  template `x=`*[T](a: var GVec234[T], value: T) = a[0] = value
+  template `y=`*[T](a: var GVec234[T], value: T) = a[1] = value
+  template `z=`*[T](a: var GVec34[T], value: T) = a[2] = value
+  template `w=`*[T](a: var GVec4[T], value: T) = a[3] = value
+
+  type
+    GMat2*[T] = array[2, GVec2[T]]
+    GMat3*[T] = array[3, GVec3[T]]
+    GMat4*[T] = array[4, GVec4[T]]
+
+    GMat234[T] = GMat2[T] | GMat3[T] | GMat4[T]
+
+  proc gmat2*[T](
+    m00, m01,
+    m10, m11: T
+  ): GMat2[T] =
+    [
+      [m00, m01],
+      [m10, m11]
+    ]
+
+  proc gmat3*[T](
+    m00, m01, m02,
+    m10, m11, m12,
+    m20, m21, m22: T
+  ): GMat3[T] =
+    [
+      [m00, m01, m02],
+      [m10, m11, m12],
+      [m20, m21, m22]
+    ]
+
+  proc gmat4*[T](
+    m00, m01, m02, m03,
+    m10, m11, m12, m13,
+    m20, m21, m22, m23,
+    m30, m31, m32, m33: T
+  ): GMat4[T] =
+    [
+      [m00, m01, m02, m03],
+      [m10, m11, m12, m13],
+      [m20, m21, m22, m23],
+      [m30, m31, m32, m33]
+    ]
+
+  template `[]`*[T](a: GMat234[T], i, j: int): T = a[i][j]
+
+  template `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
+    case j:
+    of 0: a[i].x = v
+    of 1: a[i].y = v
+    else: discard
+
+  template `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
+    case j:
+    of 0: a[i].x = v
+    of 1: a[i].y = v
+    of 2: a[i].z = v
+    else: discard
+
+  template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
+    case j:
+    of 0: a[i].x = v
+    of 1: a[i].y = v
+    of 2: a[i].z = v
+    of 3: a[i].w = v
+    else: discard
+
+elif defined(vmathObjBased):
   type
     GVec2*[T] = object
       x*, y*: T
@@ -15,6 +131,251 @@ else:
       x*, y*, z*: T
     GVec4*[T] = object
       x*, y*, z*, w*: T
+    GVec34[T] = GVec3[T] | GVec4[T]
+    GVec234[T] = GVec2[T] | GVec3[T] | GVec4[T]
+
+  proc gvec2*[T](x, y: T): GVec2[T] =
+    GVec2[T](x: x, y: y)
+
+  proc gvec3*[T](x, y, z: T): GVec3[T] =
+    GVec3[T](x: x, y: y, z: z)
+
+  proc gvec4*[T](x, y, z, w: T): GVec4[T] =
+    GVec4[T](x: x, y: y, z: z, w: w)
+
+  template `[]`*[T](a: GVec2[T], i: int): T =
+    cast[array[2, T]](a)[i]
+
+  template `[]`*[T](a: GVec3[T], i: int): T =
+    cast[array[3, T]](a)[i]
+
+  template `[]`*[T](a: GVec4[T], i: int): T =
+    cast[array[4, T]](a)[i]
+
+  template `[]=`*[T](a: var GVec2[T], i: int, v: T) =
+    cast[ptr T](cast[uint64](a.addr) + i * sizeof(T))[] = v
+
+  template `[]=`*[T](a: var GVec3[T], i: int, v: T) =
+    cast[ptr T](cast[uint64](a.addr) + i * sizeof(T))[] = v
+
+  template `[]=`*[T](a: var GVec4[T], i: int, v: T) =
+    cast[ptr T](cast[uint64](a.addr) + i * sizeof(T))[] = v
+
+  type
+    GMat2*[T] = object
+      m00*, m01*: T
+      m10*, m11*: T
+    GMat3*[T] = object
+      m00*, m01*, m02*: T
+      m10*, m11*, m12*: T
+      m20*, m21*, m22*: T
+    GMat4*[T] = object
+      m00*, m01*, m02*, m03*: T
+      m10*, m11*, m12*, m13*: T
+      m20*, m21*, m22*, m23*: T
+      m30*, m31*, m32*, m33*: T
+
+  proc gmat2*[T](
+    m00, m01,
+    m10, m11: T
+  ): GMat2[T] =
+    result.m00 = m00; result.m01 = m01
+    result.m10 = m10; result.m11 = m11
+
+  proc gmat3*[T](
+    m00, m01, m02,
+    m10, m11, m12,
+    m20, m21, m22: T
+  ): GMat3[T] =
+    result.m00 = m00; result.m01 = m01; result.m02 = m02
+    result.m10 = m10; result.m11 = m11; result.m12 = m12
+    result.m20 = m20; result.m21 = m21; result.m22 = m22
+
+  proc gmat4*[T](
+    m00, m01, m02, m03,
+    m10, m11, m12, m13,
+    m20, m21, m22, m23,
+    m30, m31, m32, m33: T
+  ): GMat4[T] =
+    result.m00 = m00; result.m01 = m01; result.m02 = m02; result.m03 = m03
+    result.m10 = m10; result.m11 = m11; result.m12 = m12; result.m13 = m13
+    result.m20 = m20; result.m21 = m21; result.m22 = m22; result.m23 = m23
+    result.m30 = m30; result.m31 = m31; result.m32 = m32; result.m33 = m33
+
+  template `[]`*[T](a: GMat2[T], i, j: int): T =
+    cast[array[4, T]](a)[i * 2 + j]
+
+  template `[]`*[T](a: GMat3[T], i, j: int): T =
+    cast[array[9, T]](a)[i * 3 + j]
+
+  template `[]`*[T](a: GMat4[T], i, j: int): T =
+    cast[array[16, T]](a)[i * 4 + j]
+
+  template `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
+    cast[ptr T](cast[uint64](a.addr) + (i * 2 + j) * sizeof(T))[] = v
+
+  template `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
+    cast[ptr T](cast[uint64](a.addr) + (i * 3 + j) * sizeof(T))[] = v
+
+  template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
+    cast[ptr T](cast[uint64](a.addr) + (i * 4 + j) * sizeof(T))[] = v
+
+
+  template `[]`*[T](a: GMat2[T], i: int): GVec2[T] =
+    gvec2[T](
+      a[i, 0],
+      a[i, 1]
+    )
+
+  template `[]`*[T](a: GMat3[T], i: int): GVec3[T] =
+    gvec3[T](
+      a[i, 0],
+      a[i, 1],
+      a[i, 2]
+    )
+
+  template `[]`*[T](a: GMat4[T], i: int): GVec4[T] =
+    gvec4[T](
+      a[i, 0],
+      a[i, 1],
+      a[i, 2],
+      a[i, 3]
+    )
+
+else:
+  type
+    GVec2*[T] = object
+      arr: array[2, T]
+    GVec3*[T] = object
+      arr: array[3, T]
+    GVec4*[T] = object
+      arr: array[4, T]
+    GVec34[T] = GVec3[T] | GVec4[T]
+    GVec234[T] = GVec2[T] | GVec3[T] | GVec4[T]
+
+  proc gvec2*[T](x, y: T): GVec2[T] =
+    GVec2[T](arr:[x, y])
+
+  proc gvec3*[T](x, y, z: T): GVec3[T] =
+    GVec3[T](arr:[x, y, z])
+
+  proc gvec4*[T](x, y, z, w: T): GVec4[T] =
+    GVec4[T](arr:[x, y, z, w])
+
+  template x*[T](a: var GVec2[T]): var T = a.arr[0]
+  template y*[T](a: var GVec2[T]): var T = a.arr[1]
+
+  template x*[T](a: var GVec3[T]): var T = a.arr[0]
+  template y*[T](a: var GVec3[T]): var T = a.arr[1]
+  template z*[T](a: var GVec3[T]): var T = a.arr[2]
+
+  template x*[T](a: var GVec4[T]): var T = a.arr[0]
+  template y*[T](a: var GVec4[T]): var T = a.arr[1]
+  template z*[T](a: var GVec4[T]): var T = a.arr[2]
+  template w*[T](a: var GVec4[T]): var T = a.arr[3]
+
+  template x*[T](a: GVec2[T]): T = a.arr[0]
+  template x*[T](a: GVec3[T]): T = a.arr[0]
+  template x*[T](a: GVec4[T]): T = a.arr[0]
+
+  template y*[T](a: GVec2[T]): T = a.arr[1]
+  template y*[T](a: GVec3[T]): T = a.arr[1]
+  template y*[T](a: GVec4[T]): T = a.arr[1]
+
+  template z*[T](a: GVec3[T]): T = a.arr[2]
+  template z*[T](a: GVec4[T]): T = a.arr[2]
+  template w*[T](a: GVec4[T]): T = a.arr[3]
+
+  template `x=`*[T](a: var GVec234[T], value: T) = a.arr[0] = value
+  template `y=`*[T](a: var GVec234[T], value: T) = a.arr[1] = value
+  template `z=`*[T](a: var GVec34[T], value: T) = a.arr[2] = value
+  template `w=`*[T](a: var GVec4[T], value: T) = a.arr[3] = value
+
+  template `[]`*[T](a: GVec234[T], i: int): T =
+    a.arr[i]
+
+  template `[]=`*[T](a: var GVec234[T], i: int, v: T) =
+    a.arr[i] = v
+
+  type
+    GMat2*[T] = object
+      arr: array[4, T]
+    GMat3*[T] = object
+      arr: array[9, T]
+    GMat4*[T] = object
+      arr: array[16, T]
+
+  proc gmat2*[T](
+    m00, m01,
+    m10, m11: T
+  ): GMat2[T] =
+    GMat2[T](arr: [
+      m00, m01,
+      m10, m11
+    ])
+
+  proc gmat3*[T](
+    m00, m01, m02,
+    m10, m11, m12,
+    m20, m21, m22: T
+  ): GMat3[T] =
+    GMat3[T](arr: [
+      m00, m01, m02,
+      m10, m11, m12,
+      m20, m21, m22
+    ])
+
+  proc gmat4*[T](
+    m00, m01, m02, m03,
+    m10, m11, m12, m13,
+    m20, m21, m22, m23,
+    m30, m31, m32, m33: T
+  ): GMat4[T] =
+    GMat4[T](arr: [
+      m00, m01, m02, m03,
+      m10, m11, m12, m13,
+      m20, m21, m22, m23,
+      m30, m31, m32, m33
+    ])
+
+  template `[]`*[T](a: GMat2[T], i, j: int): T =
+    a.arr[i * 2 + j]
+
+  template `[]`*[T](a: GMat3[T], i, j: int): T =
+    a.arr[i * 3 + j]
+
+  template `[]`*[T](a: GMat4[T], i, j: int): T =
+    a.arr[i * 4 + j]
+
+  template `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
+    a.arr[i * 2 + j] = v
+
+  template `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
+    a.arr[i * 3 + j] = v
+
+  template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
+    a.arr[i * 4 + j] = v
+
+  template `[]`*[T](a: GMat2[T], i: int): GVec2[T] =
+    gvec2[T](
+      a[i, 0],
+      a[i, 1]
+    )
+
+  template `[]`*[T](a: GMat3[T], i: int): GVec3[T] =
+    gvec3[T](
+      a[i, 0],
+      a[i, 1],
+      a[i, 2]
+    )
+
+  template `[]`*[T](a: GMat4[T], i: int): GVec4[T] =
+    gvec4[T](
+      a[i, 0],
+      a[i, 1],
+      a[i, 2],
+      a[i, 3]
+    )
 
 type
   BVec2* = GVec2[bool]
@@ -36,13 +397,6 @@ type
   DVec2* = GVec2[float64]
   DVec3* = GVec3[float64]
   DVec4* = GVec4[float64]
-
-  GVec34[T] = GVec3[T] | GVec4[T]
-  GVec234[T] = GVec2[T] | GVec3[T] | GVec4[T]
-
-{.push inline.}
-when defined(release):
-  {.push noinit, checks: off.}
 
 proc `~=`*[T: SomeFloat](a, b: T): bool =
   ## Almost equal.
@@ -106,25 +460,6 @@ proc toRadians*[T: SomeFloat](deg: T): T =
 proc toDegrees*[T: SomeFloat](rad: T): T =
   return fixAngle(180.0 * rad / PI)
 
-when defined(vmathArrayBased):
-  proc gvec2*[T](x, y: T): GVec2[T] =
-    [x, y]
-
-  proc gvec3*[T](x, y, z: T): GVec3[T] =
-    [x, y, z]
-
-  proc gvec4*[T](x, y, z, w: T): GVec4[T] =
-    [x, y, z, w]
-else:
-  proc gvec2*[T](x, y: T): GVec2[T] =
-    GVec2[T](x: x, y: y)
-
-  proc gvec3*[T](x, y, z: T): GVec3[T] =
-    GVec3[T](x: x, y: y, z: z)
-
-  proc gvec4*[T](x, y, z, w: T): GVec4[T] =
-    GVec4[T](x: x, y: y, z: z, w: w)
-
 template genConstructor(lower, upper, typ: untyped) =
   proc `lower 2`*(x, y: typ): `upper 2` = gvec2[typ](x, y)
   proc `lower 3`*(x, y, z: typ): `upper 3` = gvec3[typ](x, y, z)
@@ -151,60 +486,6 @@ genConstructor(ivec, IVec, int32)
 genConstructor(uvec, UVec, uint32)
 genConstructor(vec, Vec, float32)
 genConstructor(dvec, DVec, float64)
-
-when defined(vmathArrayBased):
-  proc x*[T](a: var GVec2[T]): var T = a[0]
-  proc y*[T](a: var GVec2[T]): var T = a[1]
-
-  proc x*[T](a: var GVec3[T]): var T = a[0]
-  proc y*[T](a: var GVec3[T]): var T = a[1]
-  proc z*[T](a: var GVec3[T]): var T = a[2]
-
-  proc x*[T](a: var GVec4[T]): var T = a[0]
-  proc y*[T](a: var GVec4[T]): var T = a[1]
-  proc z*[T](a: var GVec4[T]): var T = a[2]
-  proc w*[T](a: var GVec4[T]): var T = a[3]
-
-  proc x*[T](a: GVec2[T]): T = a[0]
-  proc x*[T](a: GVec3[T]): T = a[0]
-  proc x*[T](a: GVec4[T]): T = a[0]
-
-  proc y*[T](a: GVec2[T]): T = a[1]
-  proc y*[T](a: GVec3[T]): T = a[1]
-  proc y*[T](a: GVec4[T]): T = a[1]
-
-  proc z*[T](a: GVec2[T]): T = {.error: "using .w on a Vec2".}
-  proc z*[T](a: GVec3[T]): T = a[2]
-  proc z*[T](a: GVec4[T]): T = a[2]
-
-  proc w*[T](a: GVec2[T]): T = {.error: "using .w on a Vec2".}
-  proc w*[T](a: GVec3[T]): T = {.error: "using .w on a Vec3".}
-  proc w*[T](a: GVec4[T]): T = a[3]
-
-  proc `x=`*[T](a: var GVec234[T], value: T) = a[0] = value
-  proc `y=`*[T](a: var GVec234[T], value: T) = a[1] = value
-  proc `z=`*[T](a: var GVec34[T], value: T) = a[2] = value
-  proc `w=`*[T](a: var GVec4[T], value: T) = a[3] = value
-
-else:
-
-  template `[]`*[T](a: GVec2[T], i: int): T =
-    cast[array[2, T]](a)[i]
-
-  template `[]`*[T](a: GVec3[T], i: int): T =
-    cast[array[3, T]](a)[i]
-
-  template `[]`*[T](a: GVec4[T], i: int): T =
-    cast[array[4, T]](a)[i]
-
-  template `[]=`*[T](a: var GVec2[T], i: int, v: T) =
-    cast[ptr T](cast[uint64](a.addr) + i * sizeof(T))[] = v
-
-  template `[]=`*[T](a: var GVec3[T], i: int, v: T) =
-    cast[ptr T](cast[uint64](a.addr) + i * sizeof(T))[] = v
-
-  template `[]=`*[T](a: var GVec4[T], i: int, v: T) =
-    cast[ptr T](cast[uint64](a.addr) + i * sizeof(T))[] = v
 
 proc xy*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.x, a.y)
 proc xz*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.x, a.z)
@@ -490,87 +771,6 @@ proc dir*[T](angle: T): GVec2[T] =
     sin(angle),
   ]
 
-when defined(vmathArrayBased):
-  type
-    GMat2*[T] = array[2, GVec2[T]]
-    GMat3*[T] = array[3, GVec3[T]]
-    GMat4*[T] = array[4, GVec4[T]]
-
-  proc gmat2*[T](
-    m00, m01,
-    m10, m11: T
-  ): GVec2[T] =
-    [
-      [m00, m01],
-      [m10, m11]
-    ]
-
-  proc gmat3*[T](
-    m00, m01, m02,
-    m10, m11, m12,
-    m20, m21, m22: T
-  ): GVec3[T] =
-    [
-      [m00, m01, m02],
-      [m10, m11, m12],
-      [m20, m21, m22]
-    ]
-
-  proc gmat4*[T](
-    m00, m01, m02, m03,
-    m10, m11, m12, m13,
-    m20, m21, m22, m23,
-    m30, m31, m32, m33: T
-  ): GVec4[T] =
-    [
-      [m00, m01, m02, m03],
-      [m10, m11, m12, m13],
-      [m20, m21, m22, m23],
-      [m30, m31, m32, m33]
-    ]
-
-else:
-  type
-    GMat2*[T] = object
-      m00*, m01*: T
-      m10*, m11*: T
-    GMat3*[T] = object
-      m00*, m01*, m02*: T
-      m10*, m11*, m12*: T
-      m20*, m21*, m22*: T
-    GMat4*[T] = object
-      m00*, m01*, m02*, m03*: T
-      m10*, m11*, m12*, m13*: T
-      m20*, m21*, m22*, m23*: T
-      m30*, m31*, m32*, m33*: T
-
-  proc gmat2*[T](
-    m00, m01,
-    m10, m11: T
-  ): GMat2[T] =
-    result.m00 = m00; result.m01 = m01
-    result.m10 = m10; result.m11 = m11
-
-  proc gmat3*[T](
-    m00, m01, m02,
-    m10, m11, m12,
-    m20, m21, m22: T
-  ): GMat3[T] =
-    result.m00 = m00; result.m01 = m01; result.m02 = m02
-    result.m10 = m10; result.m11 = m11; result.m12 = m12
-    result.m20 = m20; result.m21 = m21; result.m22 = m22
-
-  proc gmat4*[T](
-    m00, m01, m02, m03,
-    m10, m11, m12, m13,
-    m20, m21, m22, m23,
-    m30, m31, m32, m33: T
-  ): GMat4[T] =
-    result.m00 = m00; result.m01 = m01; result.m02 = m02; result.m03 = m03
-    result.m10 = m10; result.m11 = m11; result.m12 = m12; result.m13 = m13
-    result.m20 = m20; result.m21 = m21; result.m22 = m22; result.m23 = m23
-    result.m30 = m30; result.m31 = m31; result.m32 = m32; result.m33 = m33
-
 type
   Mat2* = GMat2[float32]
   Mat3* = GMat3[float32]
@@ -580,26 +780,23 @@ type
   DMat3* = GMat3[float64]
   DMat4* = GMat4[float64]
 
-  GMat234[T] = GMat2[T] | GMat3[T] | GMat4[T]
-  GMat34[T] = GMat3[T] | GMat4[T]
-
 template genMatConstructor(lower, upper, T: untyped) =
 
   proc `lower 2`*(
     m00, m01,
     m10, m11: T
   ): `upper 2` =
-    result.m00 = m00; result.m01 = m01
-    result.m10 = m10; result.m11 = m11
+    result[0, 0] = m00; result[0, 1] = m01
+    result[1, 0] = m10; result[1, 1] = m11
 
   proc `lower 3`*(
     m00, m01, m02,
     m10, m11, m12,
     m20, m21, m22: T
   ): `upper 3` =
-    result.m00 = m00; result.m01 = m01; result.m02 = m02
-    result.m10 = m10; result.m11 = m11; result.m12 = m12
-    result.m20 = m20; result.m21 = m21; result.m22 = m22
+    result[0, 0] = m00; result[0, 1] = m01; result[0, 2] = m02
+    result[1, 0] = m10; result[1, 1] = m11; result[1, 2] = m12
+    result[2, 0] = m20; result[2, 1] = m21; result[2, 2] = m22
 
   proc `lower 4`*(
     m00, m01, m02, m03,
@@ -607,10 +804,17 @@ template genMatConstructor(lower, upper, T: untyped) =
     m20, m21, m22, m23,
     m30, m31, m32, m33: T
   ): `upper 4` =
-    result.m00 = m00; result.m01 = m01; result.m02 = m02; result.m03 = m03
-    result.m10 = m10; result.m11 = m11; result.m12 = m12; result.m13 = m13
-    result.m20 = m20; result.m21 = m21; result.m22 = m22; result.m23 = m23
-    result.m30 = m30; result.m31 = m31; result.m32 = m32; result.m33 = m33
+    result[0, 0] = m00; result[0, 1] = m01
+    result[0, 2] = m02; result[0, 3] = m03
+
+    result[1, 0] = m10; result[1, 1] = m11
+    result[1, 2] = m12; result[1, 3] = m13
+
+    result[2, 0] = m20; result[2, 1] = m21
+    result[2, 2] = m22; result[2, 3] = m23
+
+    result[3, 0] = m30; result[3, 1] = m31
+    result[3, 2] = m32; result[3, 3] = m33
 
   proc `lower 2`*(a, b: GVec2[T]): `upper 2` =
     gmat2[T](
@@ -630,27 +834,6 @@ template genMatConstructor(lower, upper, T: untyped) =
       c.x, c.y, c.z, c.w,
       d.x, d.y, d.z, d.w,
     )
-
-  # proc `lower 2`*(m: GMat3[T]): `upper 2` =
-  #   gmat2(m[0].xy, m[1].xy)
-
-  # proc `lower 3`*(m: GMat4[T]): `upper 3` =
-  #   [m[0].xyz, m[1].xyz, gvec3[T](T(0), 0, 1)]
-
-  # proc `lower 3`*(m: GMat2[T]): `upper 3` =
-  #   [
-  #     gvec3[T](m[0][0], m[0][1], 0),
-  #     gvec3[T](m[1][0], m[1][1], 0),
-  #     gvec3[T](T(0), 0, 1)
-  #   ]
-
-  # proc `lower 4`*(m: GMat3[T]): `upper 4` =
-  #   [
-  #     gvec4[T](m[0][0], m[0][1], m[0][2], 0),
-  #     gvec4[T](m[1][0], m[1][1], m[1][2], 0),
-  #     gvec4[T](T(0), 0, 1, 0),
-  #     gvec4[T](m[2][0], m[2][1], m[2][2], 1),
-  #   ]
 
   proc `lower 2`*(): `upper 2` =
     gmat2[T](
@@ -673,80 +856,6 @@ template genMatConstructor(lower, upper, T: untyped) =
 
 genMatConstructor(mat, Mat, float32)
 genMatConstructor(dmat, DMat, float64)
-
-when defined(vmathArrayBased):
-  proc `[]`*[T](a: GMat234[T], i, j: int): T = a[i][j]
-  # proc `[]=`*[T](a: var GMat234[T], i, j: int, v: T) =
-  #   a[i][j] = v
-
-  # proc `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
-  #   cast[var array[2*2, T]](a)[i * 2 + j] = v
-  # proc `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
-  #   cast[var array[3*3, T]](a)[i * 3 + j] = v
-  # proc `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
-  #   cast[var array[4*4, T]](a)[i * 4 + j] = v
-
-  proc `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
-    case j:
-    of 0: a[i].x = v
-    of 1: a[i].y = v
-    else: discard
-
-  proc `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
-    case j:
-    of 0: a[i].x = v
-    of 1: a[i].y = v
-    of 2: a[i].z = v
-    else: discard
-
-  proc `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
-    case j:
-    of 0: a[i].x = v
-    of 1: a[i].y = v
-    of 2: a[i].z = v
-    of 3: a[i].w = v
-    else: discard
-
-else:
-  template `[]`*[T](a: GMat2[T], i, j: int): T =
-    cast[array[4, T]](a)[i * 2 + j]
-
-  template `[]`*[T](a: GMat3[T], i, j: int): T =
-    cast[array[9, T]](a)[i * 3 + j]
-
-  template `[]`*[T](a: GMat4[T], i, j: int): T =
-    cast[array[16, T]](a)[i * 4 + j]
-
-  template `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
-    cast[ptr T](cast[uint64](a.addr) + (i * 2 + j) * sizeof(T))[] = v
-
-  template `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
-    cast[ptr T](cast[uint64](a.addr) + (i * 3 + j) * sizeof(T))[] = v
-
-  template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
-    cast[ptr T](cast[uint64](a.addr) + (i * 4 + j) * sizeof(T))[] = v
-
-
-  template `[]`*[T](a: GMat2[T], i: int): GVec2[T] =
-    gvec2[T](
-      a[i, 0],
-      a[i, 1]
-    )
-
-  template `[]`*[T](a: GMat3[T], i: int): GVec3[T] =
-    gvec3[T](
-      a[i, 0],
-      a[i, 1],
-      a[i, 2]
-    )
-
-  template `[]`*[T](a: GMat4[T], i: int): GVec4[T] =
-    gvec4[T](
-      a[i, 0],
-      a[i, 1],
-      a[i, 2],
-      a[i, 3]
-    )
 
 proc `~=`*[T](a, b: GMat2[T]): bool =
   a[0] ~= b[0] and a[1] ~= b[1]
