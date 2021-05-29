@@ -31,7 +31,7 @@ when defined(vmathArrayBased):
   template y*[T](a: GVec3[T]): T = a[1]
   template y*[T](a: GVec4[T]): T = a[1]
 
-  template z*[T](a: GVec2[T]): T = {.error: "using .w on a Vec2".}
+  template z*[T](a: GVec2[T]): T = {.error: "using .z on a Vec2".}
   template z*[T](a: GVec3[T]): T = a[2]
   template z*[T](a: GVec4[T]): T = a[2]
 
