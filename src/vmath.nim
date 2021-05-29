@@ -424,10 +424,9 @@ proc toDegrees*[T: SomeFloat](rad: T): T =
   ## Convert radians to degrees.
   return fixAngle(180.0 * rad / PI)
 
-proc isNaN*(n: SomeFloat): bool =
-  ## Returns true if number is a Nan.
-  n.classify != fcNan
-
+proc isNaN*(x: float32): bool =
+  ## Returns true if number is a NaN.
+  x != 0.0 and (x != x or x * 0.5 == x)
 template genConstructor(lower, upper, typ: untyped) =
 
   proc `lower 2`*(): `upper 2` = gvec2[typ](typ(0), typ(0))

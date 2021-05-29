@@ -82,8 +82,27 @@ block:
   doAssert turnAngle(0.0, PI, 0.5) ~= 0.5
   doAssert turnAngle(0.5, PI, 3.5) ~= PI
 
-  var anum = 1.0 / 0.0
-  doAssert anum.isNan == true
+  proc isNaNSlow(f: SomeFloat): bool =
+    ## Returns true if number is a NaN.
+    f.classify notin {fcNormal, fcZero, fcSubnormal}
+
+  assert isNaNSlow(0.3) == false
+  assert isNaNSlow(0.0) == false
+  assert isNaNSlow(0.3/0.0) == true
+  assert isNaNSlow(-0.3/0.0) == true
+  assert isNaNSlow(5.0e-324) == false
+
+  assert isNan(float32(0.3)) == false
+  assert isNan(float32(0.0)) == false
+  assert isNan(float32(0.3/0.0)) == true
+  assert isNan(float32(-0.3/0.0)) == true
+  assert isNan(float32(5.0e-324)) == false
+
+  assert isNan(float64(0.3)) == false
+  assert isNan(float64(0.0)) == false
+  assert isNan(float64(0.3/0.0)) == true
+  assert isNan(float64(-0.3/0.0)) == true
+  assert isNan(float64(5.0e-324)) == false
 
 block:
   # Test vec2 cast.
