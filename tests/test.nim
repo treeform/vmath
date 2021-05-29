@@ -2,7 +2,6 @@ import random, vmath
 
 randomize(1234)
 
-
 block:
   # Test ~=.
   doAssert 1.0 ~= 1.0
@@ -82,6 +81,9 @@ block:
 
   doAssert turnAngle(0.0, PI, 0.5) ~= 0.5
   doAssert turnAngle(0.5, PI, 3.5) ~= PI
+
+  var anum = 1.0 / 0.0
+  doAssert anum.isNan == true
 
 block:
   # Test vec2 cast.
@@ -231,6 +233,32 @@ block:
     _ = dvec4()
 
 block:
+  # test $ string functions
+  doAssert $bvec2(true, false) == "bvec2(true, false)"
+  doAssert $bvec3(true, false, true) == "bvec3(true, false, true)"
+  doAssert $bvec4(true, false, true, false) == "bvec4(true, false, true, false)"
+
+  doAssert $ivec2(1, 2) == "ivec2(1, 2)"
+  doAssert $ivec3(1, 2, 3) == "ivec3(1, 2, 3)"
+  doAssert $ivec4(1, 2, 3, 4) == "ivec4(1, 2, 3, 4)"
+
+  doAssert $uvec2(1, 2) == "uvec2(1, 2)"
+  doAssert $uvec3(1, 2, 3) == "uvec3(1, 2, 3)"
+  doAssert $uvec4(1, 2, 3, 4) == "uvec4(1, 2, 3, 4)"
+
+  doAssert $vec2(1.0, 2.0) == "vec2(1.0, 2.0)"
+  doAssert $vec3(1.0, 2.0, 3.0) == "vec3(1.0, 2.0, 3.0)"
+  doAssert $vec4(1.0, 2.0, 3.0, 4.0) == "vec4(1.0, 2.0, 3.0, 4.0)"
+
+  doAssert $dvec2(1.0, 2.0) == "dvec2(1.0, 2.0)"
+  doAssert $dvec3(1.0, 2.0, 3.0) == "dvec3(1.0, 2.0, 3.0)"
+  doAssert $dvec4(1.0, 2.0, 3.0, 4.0) == "dvec4(1.0, 2.0, 3.0, 4.0)"
+
+  echo vec2(1.0, 2.0)
+  echo vec3(1.0, 2.0, 3.0)
+  echo vec4(1.0, 2.0, 3.0, 4.0)
+
+block:
   # Test basic mat constructors.
   block:
     let
@@ -255,6 +283,95 @@ block:
         0, 0, 1, 0,
         0, 0, 0, 1
       )
+
+  block:
+    # test $ string functions
+    echo mat2(
+      1, 0,
+      0, 1
+    )
+    echo mat3(
+      1, 0, 0,
+      0, 1, 0,
+      0, 0, 1
+    )
+    echo mat4(
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 1, 0,
+      0, 0, 0, 1
+    )
+
+    echo dmat2(
+      1, 0,
+      0, 1
+    )
+    echo dmat3(
+      1, 0, 0,
+      0, 1, 0,
+      0, 0, 1
+    )
+    echo dmat4(
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 1, 0,
+      0, 0, 0, 1
+    )
+
+    assert $mat2(
+      1, 3,
+      0, 1
+    ) == """mat2(
+  1.0, 3.0,
+  0.0, 1.0
+)"""
+    assert $mat3(
+      1, 3, 0,
+      0, 1, 0,
+      0, 3, 1
+    ) == """mat3(
+  1.0, 3.0, 0.0,
+  0.0, 1.0, 0.0,
+  0.0, 3.0, 1.0
+)"""
+    assert $mat4(
+      1, 3, 0, 0,
+      0, 1, 0, 0,
+      0, 3, 1, 0,
+      0, 3, 0, 1
+    ) == """mat4(
+  1.0, 3.0, 0.0, 0.0,
+  0.0, 1.0, 0.0, 0.0,
+  0.0, 3.0, 1.0, 0.0,
+  0.0, 3.0, 0.0, 1.0
+)"""
+    assert $dmat2(
+      1, 0,
+      4, 1
+    ) == """dmat2(
+  1.0, 0.0,
+  4.0, 1.0
+)"""
+    assert $dmat3(
+      1, 0, 0,
+      4, 1, 0,
+      4, 0, 1
+    ) == """dmat3(
+  1.0, 0.0, 0.0,
+  4.0, 1.0, 0.0,
+  4.0, 0.0, 1.0
+)"""
+    assert $dmat4(
+      1, 0, 0, 0,
+      4, 1, 0, 0,
+      4, 0, 1, 0,
+      4, 0, 0, 1
+    ) == """dmat4(
+  1.0, 0.0, 0.0, 0.0,
+  4.0, 1.0, 0.0, 0.0,
+  4.0, 0.0, 1.0, 0.0,
+  4.0, 0.0, 0.0, 1.0
+)"""
 
   block:
     let

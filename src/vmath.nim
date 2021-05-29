@@ -4,7 +4,7 @@
 ## default: ObjArray based
 ##
 
-import math
+import math, strutils
 export math
 
 {.push inline.}
@@ -394,12 +394,11 @@ proc lerp*[T: SomeFloat](a, b, v: T): T =
 
 proc fixAngle*[T: SomeFloat](angle: T): T =
   ## Make angle be from -PI to PI radians.
-  var angle = angle
-  while angle > PI:
-    angle -= PI * 2
-  while angle < -PI:
-    angle += PI * 2
-  angle
+  result = angle
+  while result > PI:
+    result -= PI * 2
+  while result < -PI:
+    result += PI * 2
 
 proc angleBetween*[T: SomeFloat](a, b: T): T =
   ## Angle between angle a and angle b.
@@ -424,6 +423,10 @@ proc toRadians*[T: SomeFloat](deg: T): T =
 proc toDegrees*[T: SomeFloat](rad: T): T =
   ## Convert radians to degrees.
   return fixAngle(180.0 * rad / PI)
+
+proc isNaN*(n: SomeFloat): bool =
+  ## Returns true if number is a Nan.
+  n.classify != fcNan
 
 template genConstructor(lower, upper, typ: untyped) =
 
@@ -450,6 +453,13 @@ template genConstructor(lower, upper, typ: untyped) =
     gvec3[typ](typ(x[0]), typ(x[1]), 0)
   proc `lower 4`*[T](x: GVec3[T]): `upper 4` =
     gvec4[typ](typ(x[0]), typ(x[1]), typ(x[2]), 0)
+
+  proc `$`*(a: `upper 2`): string =
+    ($type(a)).toLowerAscii() & "(" & $a.x & ", " & $a.y & ")"
+  proc `$`*(a: `upper 3`): string =
+    ($type(a)).toLowerAscii() & "(" & $a.x & ", " & $a.y & ", " & $a.z & ")"
+  proc `$`*(a: `upper 4`): string =
+    ($type(a)).toLowerAscii() & "(" & $a.x & ", " & $a.y & ", " & $a.z & ", " & $a.w & ")"
 
 genConstructor(bvec, BVec, bool)
 genConstructor(ivec, IVec, int32)
@@ -717,6 +727,17 @@ type
   DMat3* = GMat3[float64]
   DMat4* = GMat4[float64]
 
+proc matToString[T](a: T, n: int): string =
+  result.add ($type(a)).toLowerAscii() & "(\n"
+  for x in 0 ..< n:
+    result.add "  "
+    for y in 0 ..< n:
+      result.add $a[x, y] & ", "
+    result.setLen(result.len - 1)
+    result.add "\n"
+  result.setLen(result.len - 2)
+  result.add "\n)"
+
 template genMatConstructor(lower, upper, T: untyped) =
 
   proc `lower 2`*(
@@ -790,6 +811,10 @@ template genMatConstructor(lower, upper, T: untyped) =
       0.T, 0.T, 1.T, 0.T,
       0.T, 0.T, 0.T, 1.T
     )
+
+  proc `$`*(a: `upper 2`): string = matToString(a, 2)
+  proc `$`*(a: `upper 3`): string = matToString(a, 3)
+  proc `$`*(a: `upper 4`): string = matToString(a, 4)
 
 genMatConstructor(mat, Mat, float32)
 genMatConstructor(dmat, DMat, float64)
