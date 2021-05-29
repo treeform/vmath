@@ -33,7 +33,7 @@ float64 | double | DVec2 | DVec3 | DVec4 | DMat3 | DMat4 | DQuat |
 
 ## 2D & 3D Matrix math
 
-You can combine and create matrices 2d and 3d matrices by passing 2d or 3d vectors to matrix functions:
+You can combine and create 2d and 3d matrices by passing 2d or 3d vectors to matrix functions:
 
 ```nim
 let mat2d = translate(vec2(10, 20)) * rotate(45.toRadians) * scale(vec2(2))
@@ -42,16 +42,12 @@ let mat3d = translate(vec3(10, 20, 0)) * rotateZ(45.toRadians) * scale(vec3(2))
 
 ## Almost equal operator
 
-You can check if float point numbers are close, very useful for tests:
+You can check if float point numbers or vectors are close, very useful for tests:
 ```nim
 1.0 ~= 1.0
-0.0 ~= 0.0
--1.0 ~= -1.0
-not(0.1 ~= 0.2)
-not(0.01 ~= 0.02)
-not(0.001 ~= 0.002)
-not(0.0001 ~= 0.0002)
-not(0.00001 ~= 0.00002)
+vec2(1.0, 2.0) ~= vec2(1.0, 2.0)
+dvec2(1) ~= dvec2(1)
+quat(1.0, 2.0, 3.0, 4.0) ~= quat(1.0, 2.0, 3.0, 4.0)
 ```
 
 ## Number functions
