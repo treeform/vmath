@@ -418,11 +418,19 @@ proc turnAngle*[T: SomeFloat](a, b, speed: T): T =
 
 proc toRadians*[T: SomeFloat](deg: T): T =
   ## Convert degrees to radians.
-  return PI * deg / 180.0
+  PI * deg / 180.0
 
 proc toDegrees*[T: SomeFloat](rad: T): T =
   ## Convert radians to degrees.
-  return fixAngle(180.0 * rad / PI)
+  fixAngle(180.0 * rad / PI)
+
+proc toRadians*(deg: SomeInteger): float32 =
+  ## Convert degrees to radians.
+  deg.float32.toRadians
+
+proc toDegrees*(deg: SomeInteger): float32 =
+  ## Convert degrees to radians.
+  deg.float32.toDegrees
 
 proc isNaN*(x: float32): bool =
   ## Returns true if number is a NaN.

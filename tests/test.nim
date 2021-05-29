@@ -753,4 +753,8 @@ block:
       q = fromTwoVectors(a, b)
     doAssert q.mat4 * a ~= b
 
+block:
+  let mat2d = translate(vec2(10, 20)) * rotate(45.toRadians) * scale(vec2(2))
+  let mat3d = translate(vec3(10, 20, 0)) * rotateZ(45.toRadians) * scale(vec3(2))
+
 echo "test finished successfully"
