@@ -8,7 +8,7 @@ Your single stop for vector math routines for 2d and 3d graphics.
 
 * Pure nim no dependencies.
 * Tries to be similar to GLSL Shader Language but adds extra stuff.
-* Extensively Benchmarked.
+* Extensively [Benchmarked](tests\bench_raytracer.nim).
 * Docs: https://nimdocs.com/treeform/vmath
 
 ## Has vector functions for GLSL tyes:
@@ -67,6 +67,23 @@ not(0.00001 ~= 0.00002)
 * `fixAngle` - Make angle be from -PI to PI radians.
 * `angleBetween` - Angle between angle a and angle b.
 * `turnAngle` - Move from angle a to angle b with step of v.
+
+## Vector and Matrix representation and benchmarks.
+
+C compilers seem to optimize different representation differently. This is very surprising for us and vmath has 3 different ones:
+
+* `-d:vmathObjBased` - A vector is an object of 3 floats.
+* `-d:vmathArrayBased` - A vectors is an array of 3 floats.
+* `-d:vmathObjArrayBased` (default) - A vector is an object that has an array of 3 floats.
+
+```
+name ............................... min time      avg time    std dv   runs
+vmathObjBased ..................... 74.061 ms     74.297 ms    ±0.347   x100
+vmathArrayBased ................... 89.498 ms     89.911 ms    ±1.019   x100
+vmathObjArrayBased ................ 73.968 ms     74.292 ms    ±0.631   x100
+```
+
+See more: [Ray Trace Benchmark](tests\bench_raytracer.nim)
 
 # 0.x.x to 1.0.0 vmath breaking changes:
 
