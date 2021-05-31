@@ -4,14 +4,14 @@
 
 `nimble install vmath`
 
-Your single stop for vector math routines for 2d and 3d graphics.
+Your one stop shop for vector math routines for 2d and 3d graphics.
 
-* Pure nim no dependencies.
-* Tries to be similar to GLSL Shader Language but adds extra stuff.
-* Extensively [Benchmarked](tests\bench_raytracer.nim).
+* Pure Nim with no dependencies.
+* Very similar to GLSL Shader Language with extra stuff.
+* Extensively [benchmarked](tests\bench_raytracer.nim).
 * Docs: https://nimdocs.com/treeform/vmath
 
-## Has vector functions for GLSL tyes:
+## Has vector functions for GLSL types:
 
 Type  | Constructor | Description
 ------|-------------| ---------------------------------------------------
@@ -31,7 +31,7 @@ uint32  | uint   | UVec2 | UVec3 | UVec4 |       |       |       |
 float32 | float  | Vec2  | Vec3  | Vec4  | Mat3  | Mat4  | Quat  |
 float64 | double | DVec2 | DVec3 | DVec4 | DMat3 | DMat4 | DQuat |
 
-## 2D & 3D Matrix math
+## 2D & 3D matrix math
 
 You can combine and create 2d and 3d matrices by passing 2d or 3d vectors to matrix functions:
 
@@ -42,7 +42,7 @@ let mat3d = translate(vec3(10, 20, 0)) * rotateZ(45.toRadians) * scale(vec3(2))
 
 ## Almost equal operator
 
-You can check if float point numbers or vectors are close, very useful for tests:
+Easily check if floating point numbers are close, very useful for tests:
 ```nim
 1.0 ~= 1.0
 vec2(1.0, 2.0) ~= vec2(1.0, 2.0)
@@ -54,22 +54,22 @@ quat(1.0, 2.0, 3.0, 4.0) ~= quat(1.0, 2.0, 3.0, 4.0)
 
 * `between` - Returns true if value is between min and max or equal to them.
 * `sign` - Returns the sign of a number, -1 or 1.
-* `quantize` - Makes v be multiple of n. Rounding to integer quantize by 1.0.
+* `quantize` - Makes v be a multiple of n. Rounding to integer quantize by 1.0.
 * `fractional` - Returns fractional part of a number. 3.14 -> 0.14
 * `lerp` - Interpolates value between a and b.
 
 ## Angle functions
 
 * `fixAngle` - Make angle be from -PI to PI radians.
-* `angleBetween` - Angle between angle a and angle b.
+* `angleBetween` - Find the angle between angle a and angle b.
 * `turnAngle` - Move from angle a to angle b with step of v.
 
-## Vector and Matrix representation and benchmarks.
+## Vector and matrix representation and benchmarks.
 
-C compilers seem to optimize different representation differently. This is very surprising for us and vmath has 3 different ones:
+C compilers seem to optimize different representations differently. This is very surprising for us and vmath has 3 different implementations:
 
 * `-d:vmathObjBased` - A vector is an object of 3 floats.
-* `-d:vmathArrayBased` - A vectors is an array of 3 floats.
+* `-d:vmathArrayBased` - A vector is an array of 3 floats.
 * `-d:vmathObjArrayBased` (default) - A vector is an object that has an array of 3 floats.
 
 ```
