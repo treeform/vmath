@@ -2,6 +2,8 @@
 
 # VMath
 
+![Github Actions](https://github.com/treeform/vmath/workflows/Github%20Actions/badge.svg)
+
 `nimble install vmath`
 
 Your one stop shop for vector math routines for 2d and 3d graphics.
