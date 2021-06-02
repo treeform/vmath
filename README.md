@@ -1,7 +1,5 @@
 <img src="docs/banner.png">
 
-![Github Actions](https://github.com/treeform/vmath/workflows/Github%20Actions/badge.svg)
-
 # VMath
 
 ![Github Actions](https://github.com/treeform/vmath/workflows/Github%20Actions/badge.svg)
