@@ -14,3 +14,6 @@ jobs:
     - uses: jiro4989/setup-nim-action@v1
     - run: nimble test -y
     - run: nimble test --gc:orc -y
+    - run: nimble test -y -d:vmathObjBased
+    - run: nimble test -y -d:vmathArrayBased
+    - run: nim js -r tests/test.nim

@@ -1,4 +1,6 @@
 ## Based on the work of https://github.com/edin/raytracer
+## MIT License
+## Copyright (c) 2021 Edin Omeragic
 
 import chroma, math, times, pixie, vmath, benchy
 
