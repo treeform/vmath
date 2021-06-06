@@ -509,6 +509,24 @@ proc zzx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.z, a.x)
 proc zzy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.z, a.y)
 proc zzz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.z, a.z)
 
+proc `==`*[T](a, b: GVec2[T]): bool =
+  a.x == b.x and a.y == b.y
+
+proc `==`*[T](a, b: GVec3[T]): bool =
+  a.x == b.x and a.y == b.y and a.z == b.z
+
+proc `==`*[T](a, b: GVec4[T]): bool =
+  a.x == b.x and a.y == b.y and a.z == b.z and a.w == b.w
+
+proc `!=`*[T](a, b: GVec2[T]): bool =
+  a.x != b.x or a.y != b.y
+
+proc `!=`*[T](a, b: GVec3[T]): bool =
+  a.x != b.x or a.y != b.y or a.z != b.z
+
+proc `!=`*[T](a, b: GVec4[T]): bool =
+  a.x != b.x or a.y != b.y or a.z != b.z or a.w != b.w
+
 template genOp(op: untyped) =
   proc op*[T](a, b: GVec2[T]): GVec2[T] =
     gvec2[T](

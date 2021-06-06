@@ -86,23 +86,23 @@ block:
     ## Returns true if number is a NaN.
     f.classify notin {fcNormal, fcZero, fcSubnormal}
 
-  assert isNaNSlow(0.3) == false
-  assert isNaNSlow(0.0) == false
-  assert isNaNSlow(0.3/0.0) == true
-  assert isNaNSlow(-0.3/0.0) == true
-  assert isNaNSlow(5.0e-324) == false
+  doAssert isNaNSlow(0.3) == false
+  doAssert isNaNSlow(0.0) == false
+  doAssert isNaNSlow(0.3/0.0) == true
+  doAssert isNaNSlow(-0.3/0.0) == true
+  doAssert isNaNSlow(5.0e-324) == false
 
-  assert isNan(float32(0.3)) == false
-  assert isNan(float32(0.0)) == false
-  assert isNan(float32(0.3/0.0)) == true
-  assert isNan(float32(-0.3/0.0)) == true
-  assert isNan(float32(5.0e-324)) == false
+  doAssert isNan(float32(0.3)) == false
+  doAssert isNan(float32(0.0)) == false
+  doAssert isNan(float32(0.3/0.0)) == true
+  doAssert isNan(float32(-0.3/0.0)) == true
+  doAssert isNan(float32(5.0e-324)) == false
 
-  assert isNan(float64(0.3)) == false
-  assert isNan(float64(0.0)) == false
-  assert isNan(float64(0.3/0.0)) == true
-  assert isNan(float64(-0.3/0.0)) == true
-  assert isNan(float64(5.0e-324)) == false
+  doAssert isNan(float64(0.3)) == false
+  doAssert isNan(float64(0.0)) == false
+  doAssert isNan(float64(0.3/0.0)) == true
+  doAssert isNan(float64(-0.3/0.0)) == true
+  doAssert isNan(float64(5.0e-324)) == false
 
 block:
   when not defined(js):
@@ -338,14 +338,14 @@ block:
       0, 0, 0, 1
     )
 
-    assert $mat2(
+    doAssert $mat2(
       1, 3,
       0, 1
     ) == """mat2(
   1.0, 3.0,
   0.0, 1.0
 )"""
-    assert $mat3(
+    doAssert $mat3(
       1, 3, 0,
       0, 1, 0,
       0, 3, 1
@@ -354,7 +354,7 @@ block:
   0.0, 1.0, 0.0,
   0.0, 3.0, 1.0
 )"""
-    assert $mat4(
+    doAssert $mat4(
       1, 3, 0, 0,
       0, 1, 0, 0,
       0, 3, 1, 0,
@@ -365,14 +365,14 @@ block:
   0.0, 3.0, 1.0, 0.0,
   0.0, 3.0, 0.0, 1.0
 )"""
-    assert $dmat2(
+    doAssert $dmat2(
       1, 0,
       4, 1
     ) == """dmat2(
   1.0, 0.0,
   4.0, 1.0
 )"""
-    assert $dmat3(
+    doAssert $dmat3(
       1, 0, 0,
       4, 1, 0,
       4, 0, 1
@@ -381,7 +381,7 @@ block:
   4.0, 1.0, 0.0,
   4.0, 0.0, 1.0
 )"""
-    assert $dmat4(
+    doAssert $dmat4(
       1, 0, 0, 0,
       4, 1, 0, 0,
       4, 0, 1, 0,
@@ -762,3 +762,40 @@ block:
   let mat3d = translate(vec3(10, 20, 0)) * rotateZ(45.toRadians) * scale(vec3(2))
 
 echo "test finished successfully"
+
+block:
+  doAssert vec2(1, 1) == vec2(1, 1)
+  doAssert dvec2(2, 2) == dvec2(2, 2)
+  doAssert bvec2(true, true) == bvec2(true, true)
+  doAssert ivec2(3, 3) == ivec2(3, 3)
+  doAssert uvec2(3, 3) == uvec2(3, 3)
+
+  doAssert vec3(1, 1, 1) == vec3(1, 1, 1)
+  doAssert dvec3(2, 2, 2) == dvec3(2, 2, 2)
+  doAssert bvec3(true, true, true) == bvec3(true, true, true)
+  doAssert ivec3(3, 3, 3) == ivec3(3, 3, 3)
+  doAssert uvec3(3, 3, 3) == uvec3(3, 3, 3)
+
+  doAssert vec4(1, 1, 1, 1) == vec4(1, 1, 1, 1)
+  doAssert dvec4(2, 2, 2, 2) == dvec4(2, 2, 2, 2)
+  doAssert bvec4(true, true, true, false) == bvec4(true, true, true, false)
+  doAssert ivec4(3, 3, 3, 3) == ivec4(3, 3, 3, 3)
+  doAssert uvec4(3, 3, 3, 3) == uvec4(3, 3, 3, 3)
+
+  doAssert vec2(1, 1) != vec2(1, 2)
+  doAssert dvec2(2, 2) != dvec2(2, 3)
+  doAssert bvec2(true, true) != bvec2(true, false)
+  doAssert ivec2(3, 3) != ivec2(3, 4)
+  doAssert uvec2(3, 3) != uvec2(3, 4)
+
+  doAssert vec3(1, 1, 1) != vec3(1, 1, 2)
+  doAssert dvec3(2, 2, 2) != dvec3(2, 2, 3)
+  doAssert bvec3(true, true, true) != bvec3(true, true, false)
+  doAssert ivec3(3, 3, 3) != ivec3(3, 3, 4)
+  doAssert uvec3(3, 3, 3) != uvec3(3, 3, 4)
+
+  doAssert vec4(1, 1, 1, 1) != vec4(1, 1, 1, 2)
+  doAssert dvec4(2, 2, 2, 2) != dvec4(2, 2, 2, 3)
+  doAssert bvec4(true, true, true, false) != bvec4(true, true, true, true)
+  doAssert ivec4(3, 3, 3, 3) != ivec4(3, 3, 3, 4)
+  doAssert uvec4(3, 3, 3, 3) != uvec4(3, 3, 3, 4)
