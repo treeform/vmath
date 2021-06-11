@@ -761,6 +761,23 @@ block:
   let mat2d = translate(vec2(10, 20)) * rotate(45.toRadians) * scale(vec2(2))
   let mat3d = translate(vec3(10, 20, 0)) * rotateZ(45.toRadians) * scale(vec3(2))
 
+block:
+  let
+    a2 = vec2(10, -10)
+    b2 = vec2(-10, 10)
+    a3 = vec3(10, -10, 7)
+    b3 = vec3(-10, 10, 0)
+    a4 = vec4(10, -10, 7, -2)
+    b4 = vec4(-10, 10, 0, -1)
+
+  doAssert min(a2, b2) == vec2(-10, -10)
+  doAssert min(a3, b3) == vec3(-10, -10, 0)
+  doAssert min(a4, b4) == vec4(-10, -10, 0, -2)
+
+  doAssert max(a2, b2) == vec2(10, 10)
+  doAssert max(a3, b3) == vec3(10, 10, 7)
+  doAssert max(a4, b4) == vec4(10, 10, 7, -1)
+
 echo "test finished successfully"
 
 block:

@@ -743,6 +743,24 @@ proc dir*[T](angle: T): GVec2[T] =
     sin(angle),
   )
 
+proc min*(a, b: Vec2): Vec2 =
+  vec2(min(a.x, b.x), min(a.y, b.y))
+
+proc min*(a, b: Vec3): Vec3 =
+  vec3(min(a.x, b.x), min(a.y, b.y), min(a.z, b.z))
+
+proc min*(a, b: Vec4): Vec4 =
+  vec4(min(a.x, b.x), min(a.y, b.y), min(a.z, b.z), min(a.w, b.w))
+
+proc max*(a, b: Vec2): Vec2 =
+  vec2(max(a.x, b.x), max(a.y, b.y))
+
+proc max*(a, b: Vec3): Vec3 =
+  vec3(max(a.x, b.x), max(a.y, b.y), max(a.z, b.z))
+
+proc max*(a, b: Vec4): Vec4 =
+  vec4(max(a.x, b.x), max(a.y, b.y), max(a.z, b.z), max(a.w, b.w))
+
 type
   Mat2* = GMat2[float32]
   Mat3* = GMat3[float32]
