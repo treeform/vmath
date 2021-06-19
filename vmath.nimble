@@ -1,4 +1,4 @@
-version       = "1.0.8"
+version       = "1.0.9"
 author        = "treeform"
 description   = "Your single stop for vector math routines for 2d and 3d graphics."
 license       = "MIT"
