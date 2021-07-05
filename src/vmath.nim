@@ -891,6 +891,12 @@ proc `*`*[T](a, b: GMat3[T]): GMat3[T] =
   result[2, 1] = b[2, 0] * a[0, 1] + b[2, 1] * a[1, 1] + b[2, 2] * a[2, 1]
   result[2, 2] = b[2, 0] * a[0, 2] + b[2, 1] * a[1, 2] + b[2, 2] * a[2, 2]
 
+proc `*`*[T](a: GMat2[T], b: GVec2[T]): GVec2[T] =
+  gvec2[T](
+    a[0, 0] * b.x + a[1, 0] * b.y,
+    a[0, 1] * b.x + a[1, 1] * b.y
+  )
+
 proc `*`*[T](a: GMat3[T], b: GVec2[T]): GVec2[T] =
   gvec2[T](
     a[0, 0] * b.x + a[1, 0] * b.y + a[2, 0],
@@ -959,6 +965,14 @@ proc `*`*[T](a: GMat4[T], b: GVec3[T]): GVec3[T] =
     a[0, 0] * b.x + a[1, 0] * b.y + a[2, 0] * b.z + a[3, 0],
     a[0, 1] * b.x + a[1, 1] * b.y + a[2, 1] * b.z + a[3, 1],
     a[0, 2] * b.x + a[1, 2] * b.y + a[2, 2] * b.z + a[3, 2]
+  )
+
+proc `*`*[T](a: GMat4[T], b: GVec4[T]): GVec4[T] =
+  gvec4[T](
+    a[0, 0] * b.x + a[1, 0] * b.y + a[2, 0] * b.z + a[3, 0] * b.w,
+    a[0, 1] * b.x + a[1, 1] * b.y + a[2, 1] * b.z + a[3, 1] * b.w,
+    a[0, 2] * b.x + a[1, 2] * b.y + a[2, 2] * b.z + a[3, 2] * b.w,
+    a[0, 3] * b.x + a[1, 3] * b.y + a[2, 3] * b.z + a[3, 3] * b.w
   )
 
 proc transpose*[T](a: GMat3[T]): GMat3[T] =
