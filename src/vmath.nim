@@ -903,6 +903,13 @@ proc `*`*[T](a: GMat3[T], b: GVec2[T]): GVec2[T] =
     a[0, 1] * b.x + a[1, 1] * b.y + a[2, 1]
   )
 
+proc `*`*[T](a: GMat3[T], b: GVec3[T]): GVec3[T] =
+  gvec3[T](
+    a[0, 0] * b.x + a[1, 0] * b.y + a[2, 0] * b.z,
+    a[0, 1] * b.x + a[1, 1] * b.y + a[2, 1] * b.z,
+    a[0, 2] * b.x + a[1, 2] * b.y + a[2, 2] * b.z,
+  )
+
 proc `*`*[T](a, b: GMat4[T]): GMat4[T] =
   let
     a00 = a[0, 0]
