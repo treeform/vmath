@@ -508,9 +508,10 @@ macro `.`*(v: GVec234, fields: untyped): untyped =
   ## v.xyz, v.xxx, v.zyx ...
   ## v.rgb, v.rrr, v.bgr ...
   ## v.stp, v.sss, v.pts ...
-  let swizzle = fields.repr
-  let prefix = typePrefix(v.getType()[2][0].getType()[2].repr, v)
-  let vec = ident(prefix & "vec" & $swizzle.len)
+  let
+    swizzle = fields.repr
+    prefix = typePrefix(v.getType()[2][0].getType()[2].repr, v)
+    vec = ident(prefix & "vec" & $swizzle.len)
   if swizzle.len == 1:
     let a = num(swizzle[0], fields)
     result = quote do:
