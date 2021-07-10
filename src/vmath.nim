@@ -4,7 +4,7 @@
 ## default: ObjArray based
 ##
 
-import math, strutils
+import math, strutils, macros
 export math
 
 {.push inline.}
@@ -474,40 +474,103 @@ genConstructor(uvec, UVec, uint32)
 genConstructor(vec, Vec, float32)
 genConstructor(dvec, DVec, float64)
 
-proc xy*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.x, a.y)
-proc xz*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.x, a.z)
-proc yx*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.y, a.x)
-proc yz*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.y, a.z)
-proc zx*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.z, a.x)
-proc zy*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.z, a.y)
+{.experimental: "dotOperators".}
+proc num(letter: char, fields: NimNode): int =
+  ## Given a swizzle character gives back the location number.
+  case letter:
+  of 'x', 'r', 's': 0
+  of 'y', 'g', 't': 1
+  of 'z', 'b', 'p': 2
+  of 'w', 'a', 'q': 3
+  else:
+    error "invalid swizzle character: " & letter, fields
+    quit()
 
-proc xxx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.x, a.x)
-proc xxy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.x, a.y)
-proc xxz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.x, a.z)
-proc xyx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.y, a.x)
-proc xyy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.y, a.y)
-proc xyz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.y, a.z)
-proc xzx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.z, a.x)
-proc xzy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.z, a.y)
-proc xzz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.z, a.z)
-proc yxx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.x, a.x)
-proc yxy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.x, a.y)
-proc yxz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.x, a.z)
-proc yyx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.y, a.x)
-proc yyy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.y, a.y)
-proc yyz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.y, a.z)
-proc yzx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.z, a.x)
-proc yzy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.z, a.y)
-proc yzz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.z, a.z)
-proc zxx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.x, a.x)
-proc zxy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.x, a.y)
-proc zxz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.x, a.z)
-proc zyx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.y, a.x)
-proc zyy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.y, a.y)
-proc zyz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.y, a.z)
-proc zzx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.z, a.x)
-proc zzy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.z, a.y)
-proc zzz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.z, a.z)
+macro `.`*(v: GVec234, fields: untyped): untyped =
+  ## Adds support for swizzle getter.
+  ##  x y z w
+  ##  r g b a
+  ##  s t p q
+  ## v.xyz, v.xxx, v.zyx ...
+  ## v.rgb, v.rrr, v.bgr ...
+  ## v.stp, v.sss, v.pts ...
+  let swizzle = fields.repr
+  if swizzle.len == 1:
+    let a = num(swizzle[0], fields)
+    result = quote do:
+      `v`[`a`]
+  elif swizzle.len == 2:
+    let
+      a = num(swizzle[0], fields)
+      b = num(swizzle[1], fields)
+    result = quote do:
+      gvec2(`v`[`a`],`v`[`b`])
+  elif swizzle.len == 3:
+    let
+      a = num(swizzle[0], fields)
+      b = num(swizzle[1], fields)
+      c = num(swizzle[2], fields)
+    result = quote do:
+      gvec3(`v`[`a`], `v`[`b`], `v`[`c`])
+  elif swizzle.len == 4:
+    let
+      a = num(swizzle[0], fields)
+      b = num(swizzle[1], fields)
+      c = num(swizzle[2], fields)
+      d = num(swizzle[3], fields)
+    result = quote do:
+      gvec4(`v`[`a`], `v`[`b`], `v`[`c`], `v`[`d`])
+  else:
+    error "invalid number of swizzle characters: " & swizzle, fields
+
+macro `.=`*(v: GVec234, fields: untyped, e: untyped): untyped =
+  ## Adds support for swizzle setter.
+  ##  x y z w
+  ##  r g b a
+  ##  s t p q
+  ## v.xyz, v.xxx, v.zyx ...
+  ## v.rgb, v.rrr, v.bgr ...
+  ## v.stp, v.sss, v.pts ...
+  let swizzle = fields.repr
+  if swizzle.len == 1:
+    let a = num(swizzle[0], fields)
+    result = quote do:
+      `v`[`a`] = `e`
+  elif swizzle.len == 2:
+    let
+      a = num(swizzle[0], fields)
+      b = num(swizzle[1], fields)
+    result = quote do:
+      block:
+        let tmp = `e`
+        `v`[`a`] = tmp[0]
+        `v`[`b`] = tmp[1]
+  elif swizzle.len == 3:
+    let
+      a = num(swizzle[0], fields)
+      b = num(swizzle[1], fields)
+      c = num(swizzle[2], fields)
+    result = quote do:
+      block:
+        let tmp = `e`
+        `v`[`a`] = tmp[0]
+        `v`[`b`] = tmp[1]
+        `v`[`c`] = tmp[2]
+  elif swizzle.len == 4:
+    let
+      a = num(swizzle[0], fields)
+      b = num(swizzle[1], fields)
+      c = num(swizzle[2], fields)
+      d = num(swizzle[3], fields)
+    result = quote do:
+      block:
+        let tmp = `e`
+        `v`[`a`] = tmp[0]
+        `v`[`b`] = tmp[1]
+        `v`[`c`] = tmp[2]
+        `v`[`d`] = tmp[3]
+  else:
+    error "invalid number of swizzle characters: " & swizzle, fields
 
 proc `==`*[T](a, b: GVec2[T]): bool =
   a.x == b.x and a.y == b.y
