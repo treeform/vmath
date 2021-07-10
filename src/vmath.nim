@@ -489,6 +489,17 @@ proc num(letter: char, fields: NimNode): int =
     error "invalid swizzle character: " & letter, fields
     quit()
 
+proc typePrefix(typeName: string, node: NimNode): string =
+  case typeName:
+  of "bool": "b"
+  of "int32": "i"
+  of "uint32": "u"
+  of "float32": ""
+  of "float", "float64": "d"
+  else:
+    error "invalid vector type: " & typeName, node
+    quit()
+
 macro `.`*(v: GVec234, fields: untyped): untyped =
   ## Adds support for swizzle getter.
   ##  x y z w
@@ -498,6 +509,8 @@ macro `.`*(v: GVec234, fields: untyped): untyped =
   ## v.rgb, v.rrr, v.bgr ...
   ## v.stp, v.sss, v.pts ...
   let swizzle = fields.repr
+  let prefix = typePrefix(v.getType()[2][0].getType()[2].repr, v)
+  let vec = ident(prefix & "vec" & $swizzle.len)
   if swizzle.len == 1:
     let a = num(swizzle[0], fields)
     result = quote do:
@@ -507,14 +520,14 @@ macro `.`*(v: GVec234, fields: untyped): untyped =
       a = num(swizzle[0], fields)
       b = num(swizzle[1], fields)
     result = quote do:
-      gvec2(`v`[`a`],`v`[`b`])
+      `vec`(`v`[`a`],`v`[`b`])
   elif swizzle.len == 3:
     let
       a = num(swizzle[0], fields)
       b = num(swizzle[1], fields)
       c = num(swizzle[2], fields)
     result = quote do:
-      gvec3(`v`[`a`], `v`[`b`], `v`[`c`])
+      `vec`(`v`[`a`], `v`[`b`], `v`[`c`])
   elif swizzle.len == 4:
     let
       a = num(swizzle[0], fields)
@@ -522,7 +535,7 @@ macro `.`*(v: GVec234, fields: untyped): untyped =
       c = num(swizzle[2], fields)
       d = num(swizzle[3], fields)
     result = quote do:
-      gvec4(`v`[`a`], `v`[`b`], `v`[`c`], `v`[`d`])
+      `vec`(`v`[`a`], `v`[`b`], `v`[`c`], `v`[`d`])
   else:
     error "invalid number of swizzle characters: " & swizzle, fields
 

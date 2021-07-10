@@ -288,7 +288,7 @@ block:
   echo vec4(1.0, 2.0, 3.0, 4.0)
 
 block:
-  # test swizzle
+  # test swizzle vec
   var a = vec2(1, 2)
   doAssert a.x == 1.0
   doAssert a.y == 2.0
@@ -316,6 +316,36 @@ block:
 
   b.g = 123
   doAssert b == vec4(4.0, 123.0, 2.0, 1.0)
+
+block:
+  # test swizzle dvec float64
+  var a = dvec2(1, 2)
+  doAssert a.x == 1.0
+  doAssert a.y == 2.0
+  doAssert a.yx == dvec2(2, 1)
+  doAssert a.gr == dvec2(2, 1)
+  doAssert a.ts == dvec2(2, 1)
+  doAssert a.xxx == dvec3(1, 1, 1)
+
+  a.yx = dvec2(-1, -2)
+  doAssert a == dvec2(-2, -1)
+
+  a.xx = dvec2(-7, -3)
+  doAssert a == dvec2(-3, -1)
+
+  when compiles(a.xyzxyz):
+    doAssert false
+
+  when compiles(a.z = 123):
+    doAssert false
+
+  var b = dvec4(1, 2, 3, 4)
+  doAssert b == dvec4(1, 2, 3, 4)
+  b.wzyx = b
+  doAssert b == dvec4(4, 3, 2, 1)
+
+  b.g = 123
+  doAssert b == dvec4(4.0, 123.0, 2.0, 1.0)
 
 block:
   # Test basic mat constructors.
