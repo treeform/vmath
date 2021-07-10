@@ -160,7 +160,6 @@ proc `[]=`(a: var Vec3ObjArr, i: int, v: float32) {.inline.} =
 proc set(a: var Vec3Tuple, i: int, v: float32) {.inline.} =
   cast[ptr float32](cast[uint64](a.addr) + i.uint64 * sizeof(float32).uint64)[] = v
 
-
 timeIt "vec3Obj[static]=", 1000:
   var v = vec3Obj(1, 2, 3)
   for i in 0 .. 1000000:

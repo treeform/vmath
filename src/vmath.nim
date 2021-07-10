@@ -4,7 +4,8 @@
 ## default: ObjArray based
 ##
 
-import math, strutils, macros
+import macros, math, strutils
+
 export math
 
 {.push inline.}
@@ -230,13 +231,13 @@ elif true or defined(vmathObjArrayBased):
     GVec234[T] = GVec2[T] | GVec3[T] | GVec4[T]
 
   template gvec2*[T](x, y: T): GVec2[T] =
-    GVec2[T](arr:[T(x), T(y)])
+    GVec2[T](arr: [T(x), T(y)])
 
   template gvec3*[T](x, y, z: T): GVec3[T] =
-    GVec3[T](arr:[T(x), T(y), T(z)])
+    GVec3[T](arr: [T(x), T(y), T(z)])
 
   template gvec4*[T](x, y, z, w: T): GVec4[T] =
-    GVec4[T](arr:[T(x), T(y), T(z), T(w)])
+    GVec4[T](arr: [T(x), T(y), T(z), T(w)])
 
   template x*[T](a: var GVec2[T]): var T = a.arr[0]
   template y*[T](a: var GVec2[T]): var T = a.arr[1]
@@ -435,6 +436,10 @@ proc toDegrees*(deg: SomeInteger): float32 =
 proc isNaN*(x: float32): bool =
   ## Returns true if number is a NaN.
   x != 0.0 and (x != x or x * 0.5 == x)
+
+template lowerType(a: typed): string =
+  ($type(a)).toLowerAscii()
+
 template genConstructor(lower, upper, typ: untyped) =
 
   proc `lower 2`*(): `upper 2` = gvec2[typ](typ(0), typ(0))
@@ -465,11 +470,11 @@ template genConstructor(lower, upper, typ: untyped) =
     gvec4[typ](typ(a[0]), typ(a[1]), typ(b[0]), typ(b[1]))
 
   proc `$`*(a: `upper 2`): string =
-    ($type(a)).toLowerAscii() & "(" & $a.x & ", " & $a.y & ")"
+    lowerType(a) & "(" & $a.x & ", " & $a.y & ")"
   proc `$`*(a: `upper 3`): string =
-    ($type(a)).toLowerAscii() & "(" & $a.x & ", " & $a.y & ", " & $a.z & ")"
+    lowerType(a) & "(" & $a.x & ", " & $a.y & ", " & $a.z & ")"
   proc `$`*(a: `upper 4`): string =
-    ($type(a)).toLowerAscii() & "(" & $a.x & ", " & $a.y & ", " & $a.z & ", " & $a.w & ")"
+    lowerType(a) & "(" & $a.x & ", " & $a.y & ", " & $a.z & ", " & $a.w & ")"
 
 genConstructor(bvec, BVec, bool)
 genConstructor(ivec, IVec, int32)
@@ -521,7 +526,7 @@ macro `.`*(v: GVec234, fields: untyped): untyped =
       a = num(swizzle[0], fields)
       b = num(swizzle[1], fields)
     result = quote do:
-      `vec`(`v`[`a`],`v`[`b`])
+      `vec`(`v`[`a`], `v`[`b`])
   elif swizzle.len == 3:
     let
       a = num(swizzle[0], fields)
