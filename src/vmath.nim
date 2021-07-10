@@ -456,10 +456,13 @@ template genConstructor(lower, upper, typ: untyped) =
   proc `lower 4`*[T](x: GVec4[T]): `upper 4` =
     gvec4[typ](typ(x[0]), typ(x[1]), typ(x[2]), typ(x[3]))
 
-  proc `lower 3`*[T](x: GVec2[T]): `upper 3` =
-    gvec3[typ](typ(x[0]), typ(x[1]), 0)
-  proc `lower 4`*[T](x: GVec3[T]): `upper 4` =
-    gvec4[typ](typ(x[0]), typ(x[1]), typ(x[2]), 0)
+  proc `lower 3`*[T](x: GVec2[T], z: T = 0): `upper 3` =
+    gvec3[typ](typ(x[0]), typ(x[1]), z)
+  proc `lower 4`*[T](x: GVec3[T], w: T = 0): `upper 4` =
+    gvec4[typ](typ(x[0]), typ(x[1]), typ(x[2]), w)
+
+  proc `lower 4`*[T](a, b: GVec2[T]): `upper 4` =
+    gvec4[typ](typ(a[0]), typ(a[1]), typ(b[0]), typ(b[1]))
 
   proc `$`*(a: `upper 2`): string =
     ($type(a)).toLowerAscii() & "(" & $a.x & ", " & $a.y & ")"
