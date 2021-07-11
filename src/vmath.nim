@@ -493,7 +493,16 @@ proc num(letter: char, fields: NimNode): int =
     error "invalid swizzle character: " & letter, fields
     quit()
 
-proc typePrefix(typeName: string, node: NimNode): string =
+proc typePrefix(node: NimNode): string =
+  ## Given a node of type GVec234 gives its prefix type.
+  ## IVec2 -> "i", DVec4 -> "d", Vec3 -> ""
+  let typeName =
+    when defined(vmathArrayBased):
+      node.getType()[2].repr
+    elif defined(vmathObjBased):
+      node.getType()[2][0].getType().repr
+    elif true or defined(vmathObjArrayBased):
+      node.getType()[2][0].getType()[2].repr
   case typeName:
   of "bool": "b"
   of "int32": "i"
@@ -512,10 +521,8 @@ macro `.`*(v: GVec234, fields: untyped): untyped =
   ## v.xyz, v.xxx, v.zyx ...
   ## v.rgb, v.rrr, v.bgr ...
   ## v.stp, v.sss, v.pts ...
-  let
-    swizzle = fields.repr
-    prefix = typePrefix(v.getType()[2][0].getType()[2].repr, v)
-    vec = ident(prefix & "vec" & $swizzle.len)
+  let swizzle = fields.repr
+  let vec = ident(typePrefix(v) & "vec" & $swizzle.len)
   if swizzle.len == 1:
     let a = num(swizzle[0], fields)
     result = quote do:
