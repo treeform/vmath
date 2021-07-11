@@ -5,7 +5,7 @@
 ##
 
 import math, strutils
-export math
+export math except isNan
 
 {.push inline.}
 when defined(release):
@@ -432,9 +432,10 @@ proc toDegrees*(deg: SomeInteger): float32 =
   ## Convert degrees to radians.
   deg.float32.toDegrees
 
-proc isNaN*(x: float32): bool =
+proc isNan*(x: SomeFloat): bool =
   ## Returns true if number is a NaN.
   x != 0.0 and (x != x or x * 0.5 == x)
+
 template genConstructor(lower, upper, typ: untyped) =
 
   proc `lower 2`*(): `upper 2` = gvec2[typ](typ(0), typ(0))
