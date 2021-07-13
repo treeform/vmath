@@ -4,7 +4,7 @@
 ## default: ObjArray based
 ##
 
-import math, strutils
+import macros, math, strutils
 export math except isNan
 
 {.push inline.}
@@ -230,13 +230,13 @@ elif true or defined(vmathObjArrayBased):
     GVec234[T] = GVec2[T] | GVec3[T] | GVec4[T]
 
   template gvec2*[T](x, y: T): GVec2[T] =
-    GVec2[T](arr:[T(x), T(y)])
+    GVec2[T](arr: [T(x), T(y)])
 
   template gvec3*[T](x, y, z: T): GVec3[T] =
-    GVec3[T](arr:[T(x), T(y), T(z)])
+    GVec3[T](arr: [T(x), T(y), T(z)])
 
   template gvec4*[T](x, y, z, w: T): GVec4[T] =
-    GVec4[T](arr:[T(x), T(y), T(z), T(w)])
+    GVec4[T](arr: [T(x), T(y), T(z), T(w)])
 
   template x*[T](a: var GVec2[T]): var T = a.arr[0]
   template y*[T](a: var GVec2[T]): var T = a.arr[1]
@@ -436,6 +436,9 @@ proc isNan*(x: SomeFloat): bool =
   ## Returns true if number is a NaN.
   x != 0.0 and (x != x or x * 0.5 == x)
 
+template lowerType(a: typed): string =
+  ($type(a)).toLowerAscii()
+
 template genConstructor(lower, upper, typ: untyped) =
 
   proc `lower 2`*(): `upper 2` = gvec2[typ](typ(0), typ(0))
@@ -457,17 +460,20 @@ template genConstructor(lower, upper, typ: untyped) =
   proc `lower 4`*[T](x: GVec4[T]): `upper 4` =
     gvec4[typ](typ(x[0]), typ(x[1]), typ(x[2]), typ(x[3]))
 
-  proc `lower 3`*[T](x: GVec2[T]): `upper 3` =
-    gvec3[typ](typ(x[0]), typ(x[1]), 0)
-  proc `lower 4`*[T](x: GVec3[T]): `upper 4` =
-    gvec4[typ](typ(x[0]), typ(x[1]), typ(x[2]), 0)
+  proc `lower 3`*[T](x: GVec2[T], z: T = 0): `upper 3` =
+    gvec3[typ](typ(x[0]), typ(x[1]), z)
+  proc `lower 4`*[T](x: GVec3[T], w: T = 0): `upper 4` =
+    gvec4[typ](typ(x[0]), typ(x[1]), typ(x[2]), w)
+
+  proc `lower 4`*[T](a, b: GVec2[T]): `upper 4` =
+    gvec4[typ](typ(a[0]), typ(a[1]), typ(b[0]), typ(b[1]))
 
   proc `$`*(a: `upper 2`): string =
-    ($type(a)).toLowerAscii() & "(" & $a.x & ", " & $a.y & ")"
+    lowerType(a) & "(" & $a.x & ", " & $a.y & ")"
   proc `$`*(a: `upper 3`): string =
-    ($type(a)).toLowerAscii() & "(" & $a.x & ", " & $a.y & ", " & $a.z & ")"
+    lowerType(a) & "(" & $a.x & ", " & $a.y & ", " & $a.z & ")"
   proc `$`*(a: `upper 4`): string =
-    ($type(a)).toLowerAscii() & "(" & $a.x & ", " & $a.y & ", " & $a.z & ", " & $a.w & ")"
+    lowerType(a) & "(" & $a.x & ", " & $a.y & ", " & $a.z & ", " & $a.w & ")"
 
 genConstructor(bvec, BVec, bool)
 genConstructor(ivec, IVec, int32)
@@ -475,40 +481,124 @@ genConstructor(uvec, UVec, uint32)
 genConstructor(vec, Vec, float32)
 genConstructor(dvec, DVec, float64)
 
-proc xy*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.x, a.y)
-proc xz*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.x, a.z)
-proc yx*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.y, a.x)
-proc yz*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.y, a.z)
-proc zx*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.z, a.x)
-proc zy*[T](a: GVec234[T]): GVec2[T] = gvec2[T](a.z, a.y)
+{.experimental: "dotOperators".}
+proc num(letter: char, fields: NimNode): int =
+  ## Given a swizzle character gives back the location number.
+  case letter:
+  of 'x', 'r', 's': 0
+  of 'y', 'g', 't': 1
+  of 'z', 'b', 'p': 2
+  of 'w', 'a', 'q': 3
+  else:
+    error "invalid swizzle character: " & letter, fields
+    quit()
 
-proc xxx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.x, a.x)
-proc xxy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.x, a.y)
-proc xxz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.x, a.z)
-proc xyx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.y, a.x)
-proc xyy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.y, a.y)
-proc xyz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.y, a.z)
-proc xzx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.z, a.x)
-proc xzy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.z, a.y)
-proc xzz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.x, a.z, a.z)
-proc yxx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.x, a.x)
-proc yxy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.x, a.y)
-proc yxz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.x, a.z)
-proc yyx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.y, a.x)
-proc yyy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.y, a.y)
-proc yyz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.y, a.z)
-proc yzx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.z, a.x)
-proc yzy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.z, a.y)
-proc yzz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.y, a.z, a.z)
-proc zxx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.x, a.x)
-proc zxy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.x, a.y)
-proc zxz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.x, a.z)
-proc zyx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.y, a.x)
-proc zyy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.y, a.y)
-proc zyz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.y, a.z)
-proc zzx*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.z, a.x)
-proc zzy*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.z, a.y)
-proc zzz*[T](a: GVec34[T]): GVec3[T] = gvec3[T](a.z, a.z, a.z)
+proc typePrefix(node: NimNode): string =
+  ## Given a node of type GVec234 gives its prefix type.
+  ## IVec2 -> "i", DVec4 -> "d", Vec3 -> ""
+  let typeName =
+    when defined(vmathArrayBased):
+      node.getType()[2].repr
+    elif defined(vmathObjBased):
+      node.getType()[2][0].getType().repr
+    elif true or defined(vmathObjArrayBased):
+      node.getType()[2][0].getType()[2].repr
+  case typeName:
+  of "bool": "b"
+  of "int32": "i"
+  of "uint32": "u"
+  of "float32": ""
+  of "float", "float64": "d"
+  else:
+    error "invalid vector type: " & typeName, node
+    quit()
+
+macro `.`*(v: GVec234, fields: untyped): untyped =
+  ## Adds support for swizzle getter.
+  ##  x y z w
+  ##  r g b a
+  ##  s t p q
+  ## v.xyz, v.xxx, v.zyx ...
+  ## v.rgb, v.rrr, v.bgr ...
+  ## v.stp, v.sss, v.pts ...
+  let swizzle = fields.repr
+  let vec = ident(typePrefix(v) & "vec" & $swizzle.len)
+  if swizzle.len == 1:
+    let a = num(swizzle[0], fields)
+    result = quote do:
+      `v`[`a`]
+  elif swizzle.len == 2:
+    let
+      a = num(swizzle[0], fields)
+      b = num(swizzle[1], fields)
+    result = quote do:
+      `vec`(`v`[`a`], `v`[`b`])
+  elif swizzle.len == 3:
+    let
+      a = num(swizzle[0], fields)
+      b = num(swizzle[1], fields)
+      c = num(swizzle[2], fields)
+    result = quote do:
+      `vec`(`v`[`a`], `v`[`b`], `v`[`c`])
+  elif swizzle.len == 4:
+    let
+      a = num(swizzle[0], fields)
+      b = num(swizzle[1], fields)
+      c = num(swizzle[2], fields)
+      d = num(swizzle[3], fields)
+    result = quote do:
+      `vec`(`v`[`a`], `v`[`b`], `v`[`c`], `v`[`d`])
+  else:
+    error "invalid number of swizzle characters: " & swizzle, fields
+
+macro `.=`*(v: GVec234, fields: untyped, e: untyped): untyped =
+  ## Adds support for swizzle setter.
+  ##  x y z w
+  ##  r g b a
+  ##  s t p q
+  ## v.xyz, v.xxx, v.zyx ...
+  ## v.rgb, v.rrr, v.bgr ...
+  ## v.stp, v.sss, v.pts ...
+  let swizzle = fields.repr
+  if swizzle.len == 1:
+    let a = num(swizzle[0], fields)
+    result = quote do:
+      `v`[`a`] = `e`
+  elif swizzle.len == 2:
+    let
+      a = num(swizzle[0], fields)
+      b = num(swizzle[1], fields)
+    result = quote do:
+      block:
+        let tmp = `e`
+        `v`[`a`] = tmp[0]
+        `v`[`b`] = tmp[1]
+  elif swizzle.len == 3:
+    let
+      a = num(swizzle[0], fields)
+      b = num(swizzle[1], fields)
+      c = num(swizzle[2], fields)
+    result = quote do:
+      block:
+        let tmp = `e`
+        `v`[`a`] = tmp[0]
+        `v`[`b`] = tmp[1]
+        `v`[`c`] = tmp[2]
+  elif swizzle.len == 4:
+    let
+      a = num(swizzle[0], fields)
+      b = num(swizzle[1], fields)
+      c = num(swizzle[2], fields)
+      d = num(swizzle[3], fields)
+    result = quote do:
+      block:
+        let tmp = `e`
+        `v`[`a`] = tmp[0]
+        `v`[`b`] = tmp[1]
+        `v`[`c`] = tmp[2]
+        `v`[`d`] = tmp[3]
+  else:
+    error "invalid number of swizzle characters: " & swizzle, fields
 
 proc `==`*[T](a, b: GVec2[T]): bool =
   a.x == b.x and a.y == b.y
