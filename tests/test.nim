@@ -54,6 +54,13 @@ block:
   doAssert lerp(-10.0, 10.0, 0.25) ~= -5.0
   doAssert lerp(-100.0, 100.0, 0.25) ~= -50.0
 
+  doAssert mix(0.0, 1.0, 0.5) ~= 0.5
+  doAssert mix(0.0, 10.0, 0.5) ~= 5.0
+  doAssert mix(0.0, 100.0, 0.5) ~= 50.0
+  doAssert mix(-1.0, 1.0, 0.25) ~= -0.5
+  doAssert mix(-10.0, 10.0, 0.25) ~= -5.0
+  doAssert mix(-100.0, 100.0, 0.25) ~= -50.0
+
   doAssert fixAngle(0.1) ~= 0.1
   doAssert fixAngle(1.1) ~= 1.1
   doAssert fixAngle(2.1) ~= 2.1
@@ -283,10 +290,6 @@ block:
   doAssert $dvec3(1.0, 2.0, 3.0) == "dvec3(1.0, 2.0, 3.0)"
   doAssert $dvec4(1.0, 2.0, 3.0, 4.0) == "dvec4(1.0, 2.0, 3.0, 4.0)"
 
-  echo vec2(1.0, 2.0)
-  echo vec3(1.0, 2.0, 3.0)
-  echo vec4(1.0, 2.0, 3.0, 4.0)
-
 block:
   # test swizzle vec
   var a = vec2(1, 2)
@@ -375,38 +378,6 @@ block:
 
   block:
     # test $ string functions
-    echo mat2(
-      1, 0,
-      0, 1
-    )
-    echo mat3(
-      1, 0, 0,
-      0, 1, 0,
-      0, 0, 1
-    )
-    echo mat4(
-      1, 0, 0, 0,
-      0, 1, 0, 0,
-      0, 0, 1, 0,
-      0, 0, 0, 1
-    )
-
-    echo dmat2(
-      1, 0,
-      0, 1
-    )
-    echo dmat3(
-      1, 0, 0,
-      0, 1, 0,
-      0, 0, 1
-    )
-    echo dmat4(
-      1, 0, 0, 0,
-      0, 1, 0, 0,
-      0, 0, 1, 0,
-      0, 0, 0, 1
-    )
-
     doAssert $mat2(
       1, 3,
       0, 1
@@ -824,12 +795,25 @@ block:
       a = vec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
       b = vec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
       q = fromTwoVectors(a, b)
-    #doAssert q.mat4 * a ~= b
     doAssert dist(q.mat4 * a, b) < 1E5
 
 block:
   let mat2d = translate(vec2(10, 20)) * rotate(45.toRadians) * scale(vec2(2))
+
   let mat3d = translate(vec3(10, 20, 0)) * rotateZ(45.toRadians) * scale(vec3(2))
+
+  doAssert mat2d ~= mat3(
+    1.414213538169861, -1.414213538169861, 0.0,
+    1.414213538169861, 1.414213538169861, 0.0,
+    10.0, 20.0, 1.0
+  )
+
+  doAssert mat3d ~= mat4(
+    1.414213418960571, -1.41421365737915, 0.0, 0.0,
+    1.41421365737915, 1.414213418960571, 0.0, 0.0,
+    0.0, 0.0, 2.0, 0.0,
+    10.0, 20.0, 0.0, 1.0
+  )
 
 block:
   let
@@ -847,6 +831,21 @@ block:
   doAssert max(a2, b2) == vec2(10, 10)
   doAssert max(a3, b3) == vec3(10, 10, 7)
   doAssert max(a4, b4) == vec4(10, 10, 7, -1)
+
+  doAssert mix(10f, 7, 0.75) == 7.75
+  doAssert mix(a2, b2, 0.75) == vec2(-5.0, 5.0)
+  doAssert mix(a3, b3, 0.75) == vec3(-5.0, 5.0, 1.75)
+  doAssert mix(a4, b4, 0.75) == vec4(-5.0, 5.0, 1.75, -1.25)
+
+  doAssert `mod`(1, 2) == 1
+  doAssert `mod`(vec2(12, 6), vec2(6, 12)) == vec2(0, 6)
+  doAssert `mod`(vec3(12, 6, 18), vec3(6, 12, 7)) == vec3(0, 6, 4)
+  doAssert `mod`(vec4(12, 6, 18, 16), vec4(6, 12, 7, 15)) == vec4(0, 6, 4, 1)
+
+  doAssert `zmod`(1, 2) == 1
+  doAssert `zmod`(vec2(12, 6), vec2(6, 12)) == vec2(0, 6)
+  doAssert `zmod`(vec3(12, 6, 18), vec3(6, 12, 7)) == vec3(0, 6, 4)
+  doAssert `zmod`(vec4(12, 6, 18, 16), vec4(6, 12, 7, 15)) == vec4(0, 6, 4, 1)
 
 echo "test finished successfully"
 

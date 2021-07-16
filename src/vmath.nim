@@ -385,7 +385,7 @@ proc fractional*[T: SomeFloat](v: T): T =
   result = abs(v)
   result = result - floor(result)
 
-proc lerp*[T: SomeFloat](a, b, v: T): T =
+proc mix*[T: SomeFloat](a, b, v: T): T =
   ## Interpolates value between a and b.
   ## * 0 -> a
   ## * 1 -> b
@@ -435,6 +435,10 @@ proc toDegrees*(deg: SomeInteger): float32 =
 proc isNan*(x: SomeFloat): bool =
   ## Returns true if number is a NaN.
   x != 0.0 and (x != x or x * 0.5 == x)
+
+proc `zmod`*(a, b: float32): float32 =
+  ## Float point mod.
+  return a - b * floor(a/b)
 
 template lowerType(a: typed): string =
   ($type(a)).toLowerAscii()
@@ -688,6 +692,7 @@ genOp(`*`)
 genOp(`/`)
 genOp(`mod`)
 genOp(`div`)
+genOp(`zmod`)
 
 template genEqOp(op: untyped) =
   proc op*[T](a: var GVec2[T], b: GVec2[T]) =
@@ -800,8 +805,11 @@ proc lengthSq*[T](a: GVec4[T]): T =
 proc normalize*[T](a: GVec234[T]): type(a) =
   a / a.length
 
-proc lerp*[T: SomeFloat](a, b: GVec234[T], v: T): type(a) =
+proc mix*[T: SomeFloat](a, b: GVec234[T], v: T): type(a) =
   a * (1.0 - v) + b * v
+
+proc lerp*[V, T](a, b: V, v: T): type(a) {.deprecated: "use mix instead".} =
+  mix(a, b, v)
 
 proc dot*[T](a, b: GVec2[T]): T =
   a.x * b.x + a.y * b.y
