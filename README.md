@@ -10,7 +10,7 @@ Your one stop shop for vector math routines for 2d and 3d graphics.
 
 * Pure Nim with no dependencies.
 * Very similar to GLSL Shader Language with extra stuff.
-* Extensively [benchmarked](tests\bench_raytracer.nim).
+* Extensively [benchmarked](tests/bench_raytracer.nim).
 * Docs: https://nimdocs.com/treeform/vmath
 
 ## Has vector functions for GLSL types:
