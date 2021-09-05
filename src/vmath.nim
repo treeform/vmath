@@ -55,9 +55,9 @@ when defined(vmathArrayBased):
   template `w=`*[T](a: var GVec4[T], value: T) = a[3] = value
 
   type
-    GMat2*[T] = array[2, GVec2[T]]
-    GMat3*[T] = array[3, GVec3[T]]
-    GMat4*[T] = array[4, GVec4[T]]
+    GMat2*[T] {.bycopy.} = array[2, GVec2[T]]
+    GMat3*[T] {.bycopy.} = array[3, GVec3[T]]
+    GMat4*[T] {.bycopy.} = array[4, GVec4[T]]
 
     GMat234[T] = GMat2[T] | GMat3[T] | GMat4[T]
 
@@ -139,14 +139,14 @@ elif defined(vmathObjBased):
     cast[ptr T](cast[uint64](a.addr) + i * sizeof(T))[] = v
 
   type
-    GMat2*[T] = object
+    GMat2*[T] {.bycopy.} = object
       m00*, m01*: T
       m10*, m11*: T
-    GMat3*[T] = object
+    GMat3*[T] {.bycopy.} = object
       m00*, m01*, m02*: T
       m10*, m11*, m12*: T
       m20*, m21*, m22*: T
-    GMat4*[T] = object
+    GMat4*[T] {.bycopy.} = object
       m00*, m01*, m02*, m03*: T
       m10*, m11*, m12*, m13*: T
       m20*, m21*, m22*, m23*: T
@@ -271,11 +271,11 @@ elif true or defined(vmathObjArrayBased):
   template `[]=`*[T](a: var GVec234[T], i: int, v: T) = a.arr[i] = v
 
   type
-    GMat2*[T] = object
+    GMat2*[T] {.bycopy.} = object
       arr: array[4, T]
-    GMat3*[T] = object
+    GMat3*[T] {.bycopy.} = object
       arr: array[9, T]
-    GMat4*[T] = object
+    GMat4*[T] {.bycopy.} = object
       arr: array[16, T]
 
   proc gmat2*[T](
