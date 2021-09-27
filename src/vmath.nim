@@ -1473,17 +1473,18 @@ proc toAxisAngle*[T](q: GVec4[T]): (GVec3[T], T) =
 
 proc orthogonal*[T](v: GVec3[T]): GVec3[T] =
   ## Returns orthogonal vector to given vector.
-  let v = abs(v)
-  var other: type(v) =
-    if v.x < v.y:
-      if v.x < v.z:
-        gvec3(T(1), 0, 0) # X_AXIS
+  let
+    v = abs(v)
+    other: type(v) =
+      if v.x < v.y:
+        if v.x < v.z:
+          gvec3(T(1), 0, 0) # X_AXIS
+        else:
+          gvec3(T(0), 0, 1) # Z_AXIS
+      elif v.y < v.z:
+        gvec3(T(0), 1, 0)   # Y_AXIS
       else:
-        gvec3(T(0), 0, 1) # Z_AXIS
-    elif v.y < v.z:
-      gvec3(T(0), 1, 0)   # Y_AXIS
-    else:
-      gvec3(T(0), 0, 1)   # Z_AXIS
+        gvec3(T(0), 0, 1)   # Z_AXIS
   return cross(v, other)
 
 proc fromTwoVectors*[T](a, b: GVec3[T]): GVec4[T] =
@@ -1510,8 +1511,7 @@ proc fromTwoVectors*[T](a, b: GVec3[T]): GVec4[T] =
 
 proc nlerp*(a: Quat, b: Quat, v: float32): Quat =
   if dot(a, b) < 0:
-    var c = a
-    (-c * (1.0 - v) + b * v).normalize()
+    (-a * (1.0 - v) + b * v).normalize()
   else:
     (a * (1.0 - v) + b * v).normalize()
 
