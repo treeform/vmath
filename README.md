@@ -1,17 +1,22 @@
 <img src="docs/banner.png">
 
-# VMath
+# VMath - 2d and 3d vector math.
+
+`nimble install vmath`
 
 ![Github Actions](https://github.com/treeform/vmath/workflows/Github%20Actions/badge.svg)
 
-`nimble install vmath`
+[API reference](https://nimdocs.com/treeform/vmath)
+
+This library has no dependencies other than the Nim standard libarary.
+
+## About
 
 Your one stop shop for vector math routines for 2d and 3d graphics.
 
 * Pure Nim with no dependencies.
 * Very similar to GLSL Shader Language with extra stuff.
 * Extensively [benchmarked](tests/bench_raytracer.nim).
-* Docs: https://nimdocs.com/treeform/vmath
 
 ## Has vector functions for GLSL types:
 
