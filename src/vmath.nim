@@ -1098,6 +1098,14 @@ proc transpose*[T](a: GMat4[T]): GMat4[T] =
     a[0, 3], a[1, 3], a[2, 3], a[3, 3]
   )
 
+proc determinant*[T](a: GMat3[T]): T =
+  ## Compute a determinant of the matrix.
+  (
+    a[0, 0] * (a[1, 1] * a[2, 2] - a[2, 1] * a[1, 2]) -
+    a[0, 1] * (a[1, 0] * a[2, 2] - a[1, 2] * a[2, 0]) +
+    a[0, 2] * (a[1, 0] * a[2, 1] - a[1, 1] * a[2, 0])
+  )
+
 proc determinant*[T](a: GMat4[T]): T =
   ## Compute a determinant of the matrix.
   let
@@ -1129,12 +1137,7 @@ proc determinant*[T](a: GMat4[T]): T =
 proc inverse*[T](a: GMat3[T]): GMat3[T] =
   ## Return an inverse of the matrix.
   let
-    determinant = (
-      a[0, 0] * (a[1, 1] * a[2, 2] - a[2, 1] * a[1, 2]) -
-      a[0, 1] * (a[1, 0] * a[2, 2] - a[1, 2] * a[2, 0]) +
-      a[0, 2] * (a[1, 0] * a[2, 1] - a[1, 1] * a[2, 0])
-    )
-    invDet = 1 / determinant
+    invDet = 1 / a.determinant
 
   result[0, 0] = +(a[1, 1] * a[2, 2] - a[2, 1] * a[1, 2]) * invDet
   result[0, 1] = -(a[0, 1] * a[2, 2] - a[0, 2] * a[2, 1]) * invDet
@@ -1183,7 +1186,7 @@ proc inverse*[T](a: GMat4[T]): GMat4[T] =
     b11 = a22 * a33 - a23 * a32
 
   # Calculate the inverse determinant.
-  let invDet = T(1.0)/(b00*b11 - b01*b10 + b02*b09 + b03*b08 - b04*b07 + b05*b06)
+  let invDet = 1 / a.determinant
 
   result[0, 0] = (+a11 * b11 - a12 * b10 + a13 * b09) * invDet
   result[0, 1] = (-a01 * b11 + a02 * b10 - a03 * b09) * invDet
