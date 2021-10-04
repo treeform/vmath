@@ -55,9 +55,9 @@ when defined(vmathArrayBased):
   template `w=`*[T](a: var GVec4[T], value: T) = a[3] = value
 
   type
-    GMat2*[T] = array[2, GVec2[T]]
-    GMat3*[T] = array[3, GVec3[T]]
-    GMat4*[T] = array[4, GVec4[T]]
+    GMat2*[T] {.bycopy.} = array[2, GVec2[T]]
+    GMat3*[T] {.bycopy.} = array[3, GVec3[T]]
+    GMat4*[T] {.bycopy.} = array[4, GVec4[T]]
 
     GMat234[T] = GMat2[T] | GMat3[T] | GMat4[T]
 
@@ -139,14 +139,14 @@ elif defined(vmathObjBased):
     cast[ptr T](cast[uint64](a.addr) + i * sizeof(T))[] = v
 
   type
-    GMat2*[T] = object
+    GMat2*[T] {.bycopy.} = object
       m00*, m01*: T
       m10*, m11*: T
-    GMat3*[T] = object
+    GMat3*[T] {.bycopy.} = object
       m00*, m01*, m02*: T
       m10*, m11*, m12*: T
       m20*, m21*, m22*: T
-    GMat4*[T] = object
+    GMat4*[T] {.bycopy.} = object
       m00*, m01*, m02*, m03*: T
       m10*, m11*, m12*, m13*: T
       m20*, m21*, m22*, m23*: T
@@ -271,11 +271,11 @@ elif true or defined(vmathObjArrayBased):
   template `[]=`*[T](a: var GVec234[T], i: int, v: T) = a.arr[i] = v
 
   type
-    GMat2*[T] = object
+    GMat2*[T] {.bycopy.} = object
       arr: array[4, T]
-    GMat3*[T] = object
+    GMat3*[T] {.bycopy.} = object
       arr: array[9, T]
-    GMat4*[T] = object
+    GMat4*[T] {.bycopy.} = object
       arr: array[16, T]
 
   proc gmat2*[T](
@@ -1473,17 +1473,18 @@ proc toAxisAngle*[T](q: GVec4[T]): (GVec3[T], T) =
 
 proc orthogonal*[T](v: GVec3[T]): GVec3[T] =
   ## Returns orthogonal vector to given vector.
-  let v = abs(v)
-  var other: type(v) =
-    if v.x < v.y:
-      if v.x < v.z:
-        gvec3(T(1), 0, 0) # X_AXIS
+  let
+    v = abs(v)
+    other: type(v) =
+      if v.x < v.y:
+        if v.x < v.z:
+          gvec3(T(1), 0, 0) # X_AXIS
+        else:
+          gvec3(T(0), 0, 1) # Z_AXIS
+      elif v.y < v.z:
+        gvec3(T(0), 1, 0)   # Y_AXIS
       else:
-        gvec3(T(0), 0, 1) # Z_AXIS
-    elif v.y < v.z:
-      gvec3(T(0), 1, 0)   # Y_AXIS
-    else:
-      gvec3(T(0), 0, 1)   # Z_AXIS
+        gvec3(T(0), 0, 1)   # Z_AXIS
   return cross(v, other)
 
 proc fromTwoVectors*[T](a, b: GVec3[T]): GVec4[T] =
@@ -1510,8 +1511,7 @@ proc fromTwoVectors*[T](a, b: GVec3[T]): GVec4[T] =
 
 proc nlerp*(a: Quat, b: Quat, v: float32): Quat =
   if dot(a, b) < 0:
-    var c = a
-    (-c * (1.0 - v) + b * v).normalize()
+    (-a * (1.0 - v) + b * v).normalize()
   else:
     (a * (1.0 - v) + b * v).normalize()
 
