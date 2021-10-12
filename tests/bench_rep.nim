@@ -25,25 +25,25 @@ proc vec3Tuple(x, y, z: float32): Vec3Tuple {.inline.} =
 
 timeIt "create vec3Obj", 1000:
   var s = newSeq[Vec3Obj](100000)
-  for i in 0 .. 100000:
+  for i in 0 ..< 100000:
     s[i] = vec3Obj(i.float32, 0, 0)
   keep s
 
 timeIt "create vec3Arr", 1000:
   var s = newSeq[Vec3Arr](100000)
-  for i in 0 .. 100000:
+  for i in 0 ..< 100000:
     s[i] = vec3Arr(i.float32, 0, 0)
   keep s
 
 timeIt "create vec3ObjArr", 1000:
   var s = newSeq[Vec3ObjArr](100000)
-  for i in 0 .. 100000:
+  for i in 0 ..< 100000:
     s[i] = vec3ObjArr(i.float32, 0, 0)
   keep s
 
 timeIt "create vec3Tuple", 1000:
   var s = newSeq[Vec3Tuple](100000)
-  for i in 0 .. 100000:
+  for i in 0 ..< 100000:
     s[i] = vec3Tuple(i.float32, 0, 0)
   keep s
 
