@@ -977,6 +977,14 @@ proc `pos=`*[T](a: var GMat3[T], pos: GVec2[T]) =
   a[2, 0] = pos.x
   a[2, 1] = pos.y
 
+proc pos*[T](a: GMat4[T]): GVec3[T] =
+  gvec2[T](a[2].x, a[2].y, a[2].z)
+
+proc `pos=`*[T](a: var GMat4[T], pos: GVec3[T]) =
+  a[2, 0] = pos.x
+  a[2, 1] = pos.y
+  a[2, 2] = pos.z
+
 proc `*`*[T](a, b: GMat3[T]): GMat3[T] =
   result[0, 0] = b[0, 0] * a[0, 0] + b[0, 1] * a[1, 0] + b[0, 2] * a[2, 0]
   result[0, 1] = b[0, 0] * a[0, 1] + b[0, 1] * a[1, 1] + b[0, 2] * a[2, 1]
