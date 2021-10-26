@@ -885,3 +885,17 @@ block:
   doAssert bvec4(true, true, true, false) != bvec4(true, true, true, true)
   doAssert ivec4(3, 3, 3, 3) != ivec4(3, 3, 3, 4)
   doAssert uvec4(3, 3, 3, 3) != uvec4(3, 3, 3, 4)
+
+block:
+  doAssert vec2(ivec2(1, 1)) == vec2(1, 1)
+  doAssert vec2(uvec2(5, 5)) == vec2(5, 5)
+  doAssert ivec2(uvec2(23, 23)) == ivec2(23, 23)
+  doAssert uvec2(ivec2(12, 12)) == uvec2(12, 12)
+  doAssert vec3(ivec3(1, 2, 3)) == vec3(1, 2, 3)
+  doAssert vec3(uvec3(4, 5, 6)) == vec3(4, 5, 6)
+  doAssert ivec3(uvec3(7, 8, 9)) == ivec3(7, 8, 9)
+  doAssert uvec3(ivec3(10, 11, 12)) == uvec3(10, 11, 12)
+  doAssert vec4(ivec4(13, 14, 15, 16)) == vec4(13, 14, 15, 16)
+  doAssert vec4(uvec4(17, 18, 19, 20)) == vec4(17, 18, 19, 20)
+  doAssert ivec4(uvec4(21, 22, 23, 24)) == ivec4(21, 22, 23, 24)
+  doAssert uvec4(ivec4(25, 26, 27, 28)) == uvec4(25, 26, 27, 28)
