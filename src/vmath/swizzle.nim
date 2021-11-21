@@ -2,23 +2,23 @@
 
 # 1 x rgba
 template r*[T](a: GVec234[T]): T = a[0]
-func `r=`*[T](a: var GVec234[T], b: T) = a[0] = b
+template `r=`*[T](a: var GVec234[T], b: T) = a[0] = b
 template g*[T](a: GVec234[T]): T = a[1]
-func `g=`*[T](a: var GVec234[T], b: T) = a[1] = b
+template `g=`*[T](a: var GVec234[T], b: T) = a[1] = b
 template b*[T](a: GVec234[T]): T = a[2]
-func `b=`*[T](a: var GVec234[T], b: T) = a[2] = b
+template `b=`*[T](a: var GVec234[T], b: T) = a[2] = b
 template a*[T](a: GVec234[T]): T = a[3]
-func `a=`*[T](a: var GVec234[T], b: T) = a[3] = b
+template `a=`*[T](a: var GVec234[T], b: T) = a[3] = b
 
 # 1 x stpq
 template s*[T](a: GVec234[T]): T = a[0]
-func `s=`*[T](a: var GVec234[T], b: T) = a[0] = b
+template `s=`*[T](a: var GVec234[T], b: T) = a[0] = b
 template t*[T](a: GVec234[T]): T = a[1]
-func `t=`*[T](a: var GVec234[T], b: T) = a[1] = b
+template `t=`*[T](a: var GVec234[T], b: T) = a[1] = b
 template p*[T](a: GVec234[T]): T = a[2]
-func `p=`*[T](a: var GVec234[T], b: T) = a[2] = b
+template `p=`*[T](a: var GVec234[T], b: T) = a[2] = b
 template q*[T](a: GVec234[T]): T = a[3]
-func `q=`*[T](a: var GVec234[T], b: T) = a[3] = b
+template `q=`*[T](a: var GVec234[T], b: T) = a[3] = b
 
 # 2 x xyzw
 template xx*[T](a: GVec234[T]): GVec2[T] =

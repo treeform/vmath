@@ -8,7 +8,7 @@ for swizzle in swizzles[1 .. ^1]:
   echo "\n# 1 x ", swizzle
   for i1, s1 in swizzle:
     echo &"template {s1}*[T](a: GVec234[T]): T = a[{i1}]"
-    echo &"func `{s1}=`*[T](a: var GVec234[T], b: T) = a[{i1}] = b"
+    echo &"template `{s1}=`*[T](a: var GVec234[T], b: T) = a[{i1}] = b"
 
 for swizzle in swizzles:
   echo "\n# 2 x ", swizzle
