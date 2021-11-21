@@ -899,3 +899,8 @@ block:
   doAssert vec4(uvec4(17, 18, 19, 20)) == vec4(17, 18, 19, 20)
   doAssert ivec4(uvec4(21, 22, 23, 24)) == ivec4(21, 22, 23, 24)
   doAssert uvec4(ivec4(25, 26, 27, 28)) == uvec4(25, 26, 27, 28)
+
+block:
+  # Test for https://github.com/treeform/vmath/issues/44
+  doAssert PI.toDegrees() == 180
+  doAssert (PI*2).toDegrees() == 360

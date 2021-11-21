@@ -422,7 +422,7 @@ proc toRadians*[T: SomeFloat](deg: T): T =
 
 proc toDegrees*[T: SomeFloat](rad: T): T =
   ## Convert radians to degrees.
-  fixAngle(180.0 * rad / PI)
+  180.0 * rad / PI
 
 proc toRadians*(deg: SomeInteger): float32 =
   ## Convert degrees to radians.
