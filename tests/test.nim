@@ -904,3 +904,17 @@ block:
   # Test for https://github.com/treeform/vmath/issues/44
   doAssert PI.toDegrees() == 180
   doAssert (PI*2).toDegrees() == 360
+
+block:
+  # Test for https://github.com/treeform/vmath/issues/45
+  block:
+    let a = uvec2(10, 10)
+    var b: UVec2
+    when compiles(b = a / 2): doAssert false # type mismatch
+    b = a div 2
+
+  block:
+    let a = vec2(10, 10)
+    var b: Vec2
+    b = a / 2
+    when compiles(b = a div 2): doAssert false # type mismatch
