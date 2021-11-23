@@ -485,40 +485,40 @@ genConstructor(uvec, UVec, uint32)
 genConstructor(vec, Vec, float32)
 genConstructor(dvec, DVec, float64)
 
-proc vec2*(ivec2: Ivec2): Vec2 {.inline.} =
+proc vec2*(ivec2: Ivec2): Vec2 =
   vec2(ivec2.x.float32, ivec2.y.float32)
 
-proc vec2*(uvec2: Uvec2): Vec2 {.inline.} =
+proc vec2*(uvec2: Uvec2): Vec2 =
   vec2(uvec2.x.float32, uvec2.y.float32)
 
-proc ivec2*(uvec2: Uvec2): Ivec2 {.inline.} =
+proc ivec2*(uvec2: Uvec2): Ivec2 =
   ivec2(uvec2.x.int32, uvec2.y.int32)
 
-proc uvec2*(ivec2: Ivec2): Uvec2 {.inline.} =
+proc uvec2*(ivec2: Ivec2): Uvec2 =
   uvec2(ivec2.x.uint32, ivec2.y.uint32)
 
-proc vec3*(ivec3: Ivec3): Vec3 {.inline.} =
+proc vec3*(ivec3: Ivec3): Vec3 =
   vec3(ivec3.x.float32, ivec3.y.float32, ivec3.z.float32)
 
-proc vec3*(uvec3: Uvec3): Vec3 {.inline.} =
+proc vec3*(uvec3: Uvec3): Vec3 =
   vec3(uvec3.x.float32, uvec3.y.float32, uvec3.z.float32)
 
-proc ivec3*(uvec3: Uvec3): Ivec3 {.inline.} =
+proc ivec3*(uvec3: Uvec3): Ivec3 =
   ivec3(uvec3.x.int32, uvec3.y.int32, uvec3.z.int32)
 
-proc uvec3*(ivec3: Ivec3): Uvec3 {.inline.} =
+proc uvec3*(ivec3: Ivec3): Uvec3 =
   uvec3(ivec3.x.uint32, ivec3.y.uint32, ivec3.z.uint32)
 
-proc vec4*(ivec4: Ivec4): Vec4 {.inline.} =
+proc vec4*(ivec4: Ivec4): Vec4 =
   vec4(ivec4.x.float32, ivec4.y.float32, ivec4.z.float32, ivec4.w.float32)
 
-proc vec4*(uvec4: Uvec4): Vec4 {.inline.} =
+proc vec4*(uvec4: Uvec4): Vec4 =
   vec4(uvec4.x.float32, uvec4.y.float32, uvec4.z.float32, uvec4.w.float32)
 
-proc ivec4*(uvec4: Uvec4): Ivec4 {.inline.} =
+proc ivec4*(uvec4: Uvec4): Ivec4 =
   ivec4(uvec4.x.int32, uvec4.y.int32, uvec4.z.int32, uvec4.w.int32)
 
-proc uvec4*(ivec4: Ivec4): Uvec4 {.inline.} =
+proc uvec4*(ivec4: Ivec4): Uvec4 =
   uvec4(ivec4.x.uint32, ivec4.y.uint32, ivec4.z.uint32, ivec4.w.uint32)
 
 # TODO when https://github.com/nim-lang/Nim/issues/13063 is fixed use macros.
