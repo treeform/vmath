@@ -376,14 +376,14 @@ proc sign*[T](v: T): T =
 
 proc quantize*[T: SomeFloat](v, n: T): T =
   ## Makes v be multiple of n. Rounding to integer quantize by 1.0.
-  sign(v) * floor(abs(v) / n) * n
+  sign(v) * trunc(abs(v) / n) * n
 
 proc fractional*[T: SomeFloat](v: T): T =
   ## Returns fractional part of a number.
   ## 3.14 -> 0.14
   ## -3.14 -> 0.14
   result = abs(v)
-  result = result - floor(result)
+  result = result - trunc(result)
 
 proc mix*[T: SomeFloat](a, b, v: T): T =
   ## Interpolates value between a and b.
