@@ -2,7 +2,7 @@
 ## MIT License
 ## Copyright (c) 2021 Edin Omeragic
 
-import benchy, chroma, math, pixie, times, vmath
+import benchy, chroma, math, pixie, vmath
 
 {.push inline, noinit, checks: off.}
 
@@ -251,7 +251,7 @@ proc renderScene(scene: Scene, sceneImage: Image) =
     var pos = y * w
     for x in 0 ..< w:
       ray.dir = getPoint(x, y, scene.camera, h, w)
-      sceneImage.setRgbaUnsafe(x, y, scene.traceRay(ray, 0))
+      sceneImage.unsafe[x, y] = scene.traceRay(ray, 0).asRgbx()
       pos = pos + 1
 
 proc render(): Image =
