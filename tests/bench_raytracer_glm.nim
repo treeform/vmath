@@ -2,8 +2,8 @@
 ## MIT License
 ## Copyright (c) 2021 Edin Omeragic
 
-import benchy, chroma, math, times, glm
-from pixie import Image, newImage, writeFile, setRgbaUnsafe
+import benchy, chroma, math, glm
+from pixie import Image, newImage, writeFile, dataIndex
 
 type Vec3 = glm.Vec3[float32]
 
@@ -254,7 +254,7 @@ proc renderScene(scene: Scene, sceneImage: Image) =
     var pos = y * w
     for x in 0 ..< w:
       ray.dir = getPoint(x, y, scene.camera, h, w)
-      sceneImage.setRgbaUnsafe(x, y, scene.traceRay(ray, 0))
+      sceneImage.data[sceneImage.dataIndex(x, y)] = scene.traceRay(ray, 0).asRgbx()
       pos = pos + 1
 
 proc render(): Image =
