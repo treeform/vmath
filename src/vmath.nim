@@ -1,8 +1,36 @@
-##
-## -d:vmathObjBased
-## -d:vmathArrayBased
-## default: ObjArray based
-##
+##[
+
+This library has no dependencies other than the Nim standard libarary.
+
+Your one stop shop for vector math routines for 2d and 3d graphics.
+
+* Pure Nim with no dependencies.
+* Very similar to GLSL Shader Language with extra stuff.
+* Extensively benchmarked.
+
+====== =========== ===================================================
+Type   Constructor Description
+====== =========== ===================================================
+BVec#  bvec#       a vector of booleans
+IVec#  ivec#       a vector of signed integers
+UVec#  uvec#       a vector of unsigned integers
+Vec#   vec#        a vector of single-precision floating-point numbers
+DVec#  dvec#       a vector of double-precision floating-point numbers
+====== =========== ===================================================
+
+You can use these constructors to make them:
+
+======= ====== ===== ===== ===== ===== ===== =====
+NIM     GLSL   2     3     4     9     16    4
+======= ====== ===== ===== ===== ===== ===== =====
+bool    bool   BVec2 BVec3 BVec4
+int32   int    IVec2 IVec3 IVec4
+uint32  uint   UVec2 UVec3 UVec4
+float32 float  Vec2  Vec3  Vec4  Mat3  Mat4  Quat
+float64 double DVec2 DVec3 DVec4 DMat3 DMat4 DQuat
+======= ====== ===== ===== ===== ===== ===== =====
+
+]##
 
 import macros, math, strutils
 export math except isNan
@@ -521,8 +549,9 @@ proc ivec4*(uvec4: Uvec4): Ivec4 =
 proc uvec4*(ivec4: Ivec4): Uvec4 =
   uvec4(ivec4.x.uint32, ivec4.y.uint32, ivec4.z.uint32, ivec4.w.uint32)
 
-# TODO when https://github.com/nim-lang/Nim/issues/13063 is fixed use macros.
-include vmath/swizzle
+when not defined(nimdoc):
+  # TODO when https://github.com/nim-lang/Nim/issues/13063 is fixed use macros.
+  include vmath/swizzle
 
 proc `==`*[T](a, b: GVec2[T]): bool =
   a.x == b.x and a.y == b.y
