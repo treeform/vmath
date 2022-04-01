@@ -413,6 +413,10 @@ proc fractional*[T: SomeFloat](v: T): T =
   result = abs(v)
   result = result - trunc(result)
 
+proc inversesqrt*[T: float32|float64](v: T): T =
+  ## Returns inverse square root.
+  1/sqrt(v)
+
 proc mix*[T: SomeFloat](a, b, v: T): T =
   ## Interpolates value between a and b.
   ## * 0 -> a
@@ -721,6 +725,29 @@ genMathFn(floor)
 genMathFn(ceil)
 genMathFn(abs)
 
+template genBoolFn(fn, op: untyped) =
+  proc fn*[T](a, b: GVec2[T]): BVec2 =
+    result[0] = op(a[0], b[0])
+    result[1] = op(a[1], b[1])
+
+  proc fn*[T](a, b: GVec3[T]): BVec3 =
+    result[0] = op(a[0], b[0])
+    result[1] = op(a[1], b[1])
+    result[2] = op(a[2], b[2])
+
+  proc fn*[T](a, b: GVec4[T]): BVec4 =
+    result[0] = op(a[0], b[0])
+    result[1] = op(a[1], b[1])
+    result[2] = op(a[2], b[2])
+    result[3] = op(a[3], b[3])
+
+genBoolFn(lessThan, `<`)
+genBoolFn(lessThanEqual, `<=`)
+genBoolFn(greaterThan, `>`)
+genBoolFn(greaterThanEqual, `>=`)
+genBoolFn(equal, `==`)
+genBoolFn(notEqual, `!=`)
+
 proc `~=`*[T](a, b: GVec2[T]): bool =
   ## Almost equal.
   a.x ~= b.x and a.y ~= b.y
@@ -768,6 +795,21 @@ proc dot*[T](a, b: GVec3[T]): T =
 
 proc dot*[T](a, b: GVec4[T]): T =
   a.x * b.x + a.y * b.y + a.z * b.z + a.w * b.w
+
+proc mix*[T: SomeFloat](a, b, v: GVec2[T]): type(a) =
+  result.x = a.x * (1.0 - v.x) + b.x * v.x
+  result.y = a.y * (1.0 - v.y) + b.y * v.y
+
+proc mix*[T: SomeFloat](a, b, v: GVec3[T]): type(a) =
+  result.x = a.x * (1.0 - v.x) + b.x * v.x
+  result.y = a.y * (1.0 - v.y) + b.y * v.y
+  result.z = a.z * (1.0 - v.z) + b.z * v.z
+
+proc mix*[T: SomeFloat](a, b, v: GVec4[T]): type(a) =
+  result.x = a.x * (1.0 - v.x) + b.x * v.x
+  result.y = a.y * (1.0 - v.y) + b.y * v.y
+  result.z = a.z * (1.0 - v.z) + b.z * v.z
+  result.w = a.w * (1.0 - v.w) + b.w * v.w
 
 proc cross*[T](a, b: GVec3[T]): GVec3[T] =
   gvec3(
