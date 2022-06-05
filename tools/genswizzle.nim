@@ -15,10 +15,10 @@ for swizzle in swizzles:
   for i1, s1 in swizzle:
     for i2, s2 in swizzle:
       echo &"template {s1}{s2}*[T](a: GVec234[T]): GVec2[T] ="
-      echo &"  gvec2(a[{i1}], a[{i2}])"
-      echo &"template `{s1}{s2}=`*[T](a: var GVec234[T], b: GVec2[T]) ="
-      echo &"  let x = b.x; let y = b.y"
-      echo &"  a[0{i1}] = x; a[{i2}] = y"
+      echo &"  let a2 = a"
+      echo &"  gvec2(a2[{i1}], a2[{i2}])"
+      echo &"func `{s1}{s2}=`*[T](a: var GVec234[T], b: GVec2[T]) ="
+      echo &"  a[{i1}] = b.x; a[{i2}] = b.y"
 
 for swizzle in swizzles:
   echo "\n# 3 x ", swizzle
@@ -26,10 +26,10 @@ for swizzle in swizzles:
     for i2, s2 in swizzle:
       for i3, s3 in swizzle:
         echo &"template {s1}{s2}{s3}*[T](a: GVec234[T]): GVec3[T] ="
-        echo &"  gvec3(a[{i1}], a[{i2}], a[{i3}])"
-        echo &"template `{s1}{s2}{s3}=`*[T](a: var GVec234[T], b: GVec3[T]) ="
-        echo &"  let x = b.x; let y = b.y; let z = b.z"
-        echo &"  a[{i1}] = x; a[{i2}] = y; a[{i3}] = z"
+        echo &"  let a2 = a"
+        echo &"  gvec3(a2[{i1}], a2[{i2}], a2[{i3}])"
+        echo &"func `{s1}{s2}{s3}=`*[T](a: var GVec234[T], b: GVec3[T]) ="
+        echo &"  a[{i1}] = b.x; a[{i2}] = b.y; a[{i3}] = b.z"
 
 for swizzle in swizzles:
   echo "\n# 4 x ", swizzle
@@ -38,7 +38,7 @@ for swizzle in swizzles:
       for i3, s3 in swizzle:
         for i4, s4 in swizzle:
           echo &"template {s1}{s2}{s3}{s4}*[T](a: GVec234[T]): GVec4[T] ="
-          echo &"  gvec4(a [{i1}], a[{i2}], a[{i3}], a[{i4}])"
-          echo &"template `{s1}{s2}{s3}{s4}=`*[T](a: var GVec234[T], b: GVec4[T]) ="
-          echo &"  let x = b.x; let y = b.y; let z = b.z; let w = b.w"
-          echo &"  a[{i1}] = x; a[{i2}] = y; a[{i3}] = z; a[{i4}] = w"
+          echo &"  let a2 = a"
+          echo &"  gvec4(a2[{i1}], a2[{i2}], a2[{i3}], a2[{i4}])"
+          echo &"func `{s1}{s2}{s3}{s4}=`*[T](a: var GVec234[T], b: GVec4[T]) ="
+          echo &"  a[{i1}] = b.x; a[{i2}] = b.y; a[{i3}] = b.z; a[{i4}] = b.w"
