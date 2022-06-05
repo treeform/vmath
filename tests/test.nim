@@ -351,6 +351,75 @@ block:
   doAssert b == dvec4(4.0, 123.0, 2.0, 1.0)
 
 block:
+  # Test swizzle with complex expressions
+  var a = [
+    vec2(1, 2),
+    vec2(3, 4),
+    vec2(5, 6),
+    vec2(7, 8),
+  ]
+  var i = 0
+  proc f(): var Vec2 =
+    # function with side effects
+    result = a[i]
+    inc i
+  
+  doAssert f().yx == vec2(2, 1)
+  doAssert f().gr == vec2(4, 3)
+  doAssert f().ts == vec2(6, 5)
+  doAssert f().yx == vec2(8, 7)
+  doAssert i == 4
+
+  i = 0
+  f().yx = f()
+  doAssert a[0] == vec2(4, 3)
+  doAssert a[1] == vec2(3, 4)
+  doAssert i == 2
+
+  var b = [
+    vec3(1, 2, 3),
+    vec3(4, 5, 6),
+    vec3(7, 8, 9),
+  ]
+  i = 0
+  proc g(): var Vec3 =
+    # function with side effects
+    result = b[i]
+    inc i
+  
+  doAssert g().yxz == vec3(2, 1, 3)
+  doAssert g().bgr == vec3(6, 5, 4)
+  doAssert g().tps == vec3(8, 9, 7)
+  doAssert i == 3
+
+  i = 0
+  g().yxz = g()
+  doAssert b[0] == vec3(5, 4, 6)
+  doAssert b[1] == vec3(4, 5, 6)
+  doAssert i == 2
+
+  var c = [
+    vec4(1, 2, 3, 4),
+    vec4(5, 6, 7, 8),
+  ]
+  i = 0
+  proc h(): var Vec4 =
+    # function with side effects
+    result = c[i]
+    inc i
+  
+  doAssert h().yxzw == vec4(2, 1, 3, 4)
+  doAssert h().tqsp == vec4(6, 8, 5, 7)
+  doAssert i == 2
+
+  i = 0
+  h().wzyx = h()
+  doAssert c[0] == vec4(8, 7, 6, 5)
+  doAssert c[1] == vec4(5, 6, 7, 8)
+  doAssert i == 2
+
+
+block:
   # Test basic mat constructors.
   block:
     let
