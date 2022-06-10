@@ -404,7 +404,7 @@ proc sign*[T](v: T): T =
 
 proc quantize*[T: SomeFloat](v, n: T): T =
   ## Makes v be multiple of n. Rounding to integer quantize by 1.0.
-  sign(v) * trunc(abs(v) / n) * n
+  trunc(v / n) * n
 
 proc fractional*[T: SomeFloat](v: T): T =
   ## Returns fractional part of a number.
