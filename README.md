@@ -8,7 +8,7 @@
 
 [API reference](https://nimdocs.com/treeform/vmath)
 
-This library has no dependencies other than the Nim standard libarary.
+This library has no dependencies other than the Nim standard library.
 
 ## About
 
