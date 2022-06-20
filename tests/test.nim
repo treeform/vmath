@@ -37,9 +37,21 @@ block:
   doAssert sign(0.0) == 1.0
   doAssert sign(1.0) == 1.0
 
+  block:
+    proc quantize2(v, n: float32): float32 =
+      ## Makes v be multiple of n. Rounding to integer quantize by 1.0.
+      sign(v) * trunc(abs(v) / n) * n
+
+    let n = 1.float32 / 10
+
+    for _ in 0 ..< 10_000:
+      let f = rand(-100.float32 .. 100.float32)
+      doAssert quantize(f, n) == quantize2(f, n)
+
   doAssert quantize(1.23456789, 1.0) ~= 1
   doAssert quantize(1.23456789, 0.1) ~= 1.2
   doAssert quantize(1.23456789, 0.01) ~= 1.23
+  doAssert quantize(-1.23456789, 0.01) ~= -1.23
 
   doAssert fractional(0.0) ~= 0.0
   doAssert fractional(3.14) ~= 0.14
@@ -604,7 +616,7 @@ block:
 
     var translation = translate(vec3(1, 2, 3))
     translation.pos = vec3(3, 4, 5)
-    doAssert translation.pos == vec3(3, 4, 5) 
+    doAssert translation.pos == vec3(3, 4, 5)
 
 block:
   # Test basic vector mat4 and quat.
