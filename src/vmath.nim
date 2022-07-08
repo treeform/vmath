@@ -861,7 +861,8 @@ type
   DMat4* = GMat4[float64]
 
 proc matToString[T](a: T, n: int): string =
-  result.add ($type(a)).toLowerAscii() & "(\n"
+  result = ($type(a)).toLowerAscii()
+  result.add "(\n"
   for x in 0 ..< n:
     result.add "  "
     for y in 0 ..< n:

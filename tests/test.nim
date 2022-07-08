@@ -868,8 +868,6 @@ block:
   doAssert `zmod`(vec3(12, 6, 18), vec3(6, 12, 7)) == vec3(0, 6, 4)
   doAssert `zmod`(vec4(12, 6, 18, 16), vec4(6, 12, 7, 15)) == vec4(0, 6, 4, 1)
 
-echo "test finished successfully"
-
 block:
   doAssert vec2(1, 1) == vec2(1, 1)
   doAssert dvec2(2, 2) == dvec2(2, 2)
@@ -939,3 +937,5 @@ block:
     var b: Vec2
     b = a / 2
     when compiles(b = a div 2): doAssert false # type mismatch
+
+echo "test finished successfully"
