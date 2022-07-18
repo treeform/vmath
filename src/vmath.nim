@@ -553,7 +553,7 @@ proc ivec4*(uvec4: Uvec4): Ivec4 =
 proc uvec4*(ivec4: Ivec4): Uvec4 =
   uvec4(ivec4.x.uint32, ivec4.y.uint32, ivec4.z.uint32, ivec4.w.uint32)
 
-when not defined(nimdoc):
+when not defined(nimdoc) or not isMainModule:
   # TODO when https://github.com/nim-lang/Nim/issues/13063 is fixed use macros.
   include vmath/swizzle
 
