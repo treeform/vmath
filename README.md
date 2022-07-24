@@ -87,7 +87,7 @@ vmathObjArrayBased ................ 73.968 ms     74.292 ms    ±0.631   x100
 ```
 
 * [3d Ray Trace Benchmark](tests/bench_raytracer.nim)
-* [2d SVG Render Benchmark](https://github.com/treeform/pixie/blob/master/tests/benchmark_svg.nim)
+* [2d SVG Render Benchmark](https://github.com/treeform/pixie/blob/master/tests/bench_svg.nim)
 
 # 0.x.x to 1.0.0 vmath breaking changes:
 
