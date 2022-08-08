@@ -375,7 +375,7 @@ block:
   doAssert c == dvec4(4, 3, 2, 1)
 
 block:
-   # Test swizzle calls only once
+  # Test swizzle calls only once
   var callCount = 0
   proc countsCalls(): Vec2 =
     inc callCount
