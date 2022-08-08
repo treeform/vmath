@@ -356,11 +356,45 @@ block:
 
   var b = dvec4(1, 2, 3, 4)
   doAssert b == dvec4(1, 2, 3, 4)
-  b.wzyx = b
-  doAssert b == dvec4(4, 3, 2, 1)
 
   b.g = 123
-  doAssert b == dvec4(4.0, 123.0, 2.0, 1.0)
+  doAssert b == dvec4(1.0, 123.0, 3.0, 4.0)
+
+block:
+  # test swizzle self-assignment
+  var a = dvec2(1, 2)
+  a.yx = a
+  doAssert a == dvec2(2, 1)
+
+  var b = dvec3(1, 2, 3)
+  b.zyx = b
+  doAssert b == dvec3(3, 2, 1)
+
+  var c = dvec4(1, 2, 3, 4)
+  c.wzyx = c
+  doAssert c == dvec4(4, 3, 2, 1)
+
+block:
+   # Test swizzle calls only once
+  var callCount = 0
+  proc countsCalls(): Vec2 =
+    inc callCount
+
+  doAssert countsCalls().yx == vec2(0, 0)
+  doAssert callCount == 1
+
+  callCount = 0
+  doAssert vec2(0, 0) == countsCalls().yx
+  doAssert callCount == 1
+
+  var tmp: Vec2
+  proc countsCalls2(): var Vec2 =
+    inc callCount
+    return tmp
+
+  callCount = 0
+  countsCalls2().yx = vec2(0, 0)
+  doAssert callCount == 1
 
 block:
   # Test swizzle with complex expressions
@@ -375,7 +409,7 @@ block:
     # function with side effects
     result = a[i]
     inc i
-  
+
   doAssert f().yx == vec2(2, 1)
   doAssert f().gr == vec2(4, 3)
   doAssert f().ts == vec2(6, 5)
@@ -398,7 +432,7 @@ block:
     # function with side effects
     result = b[i]
     inc i
-  
+
   doAssert g().yxz == vec3(2, 1, 3)
   doAssert g().bgr == vec3(6, 5, 4)
   doAssert g().tps == vec3(8, 9, 7)
@@ -419,7 +453,7 @@ block:
     # function with side effects
     result = c[i]
     inc i
-  
+
   doAssert h().yxzw == vec4(2, 1, 3, 4)
   doAssert h().tqsp == vec4(6, 8, 5, 7)
   doAssert i == 2
