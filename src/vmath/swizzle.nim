@@ -22,5058 +22,6066 @@ template `q=`*[T](a: var GVec234[T], b: T) = a[3] = b
 
 # 2 x xyzw
 template xx*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[0], a[0])
-template `xx=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[00] = x; a[0] = y
+  let a2 = a
+  gvec2(a2[0], a2[0])
+func `xx=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y
 template xy*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[0], a[1])
-template `xy=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[00] = x; a[1] = y
+  let a2 = a
+  gvec2(a2[0], a2[1])
+func `xy=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y
 template xz*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[0], a[2])
-template `xz=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[00] = x; a[2] = y
+  let a2 = a
+  gvec2(a2[0], a2[2])
+func `xz=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y
 template xw*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[0], a[3])
-template `xw=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[00] = x; a[3] = y
+  let a2 = a
+  gvec2(a2[0], a2[3])
+func `xw=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y
 template yx*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[1], a[0])
-template `yx=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[01] = x; a[0] = y
+  let a2 = a
+  gvec2(a2[1], a2[0])
+func `yx=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y
 template yy*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[1], a[1])
-template `yy=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[01] = x; a[1] = y
+  let a2 = a
+  gvec2(a2[1], a2[1])
+func `yy=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y
 template yz*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[1], a[2])
-template `yz=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[01] = x; a[2] = y
+  let a2 = a
+  gvec2(a2[1], a2[2])
+func `yz=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y
 template yw*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[1], a[3])
-template `yw=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[01] = x; a[3] = y
+  let a2 = a
+  gvec2(a2[1], a2[3])
+func `yw=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y
 template zx*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[2], a[0])
-template `zx=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[02] = x; a[0] = y
+  let a2 = a
+  gvec2(a2[2], a2[0])
+func `zx=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y
 template zy*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[2], a[1])
-template `zy=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[02] = x; a[1] = y
+  let a2 = a
+  gvec2(a2[2], a2[1])
+func `zy=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y
 template zz*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[2], a[2])
-template `zz=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[02] = x; a[2] = y
+  let a2 = a
+  gvec2(a2[2], a2[2])
+func `zz=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y
 template zw*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[2], a[3])
-template `zw=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[02] = x; a[3] = y
+  let a2 = a
+  gvec2(a2[2], a2[3])
+func `zw=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y
 template wx*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[3], a[0])
-template `wx=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[03] = x; a[0] = y
+  let a2 = a
+  gvec2(a2[3], a2[0])
+func `wx=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y
 template wy*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[3], a[1])
-template `wy=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[03] = x; a[1] = y
+  let a2 = a
+  gvec2(a2[3], a2[1])
+func `wy=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y
 template wz*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[3], a[2])
-template `wz=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[03] = x; a[2] = y
+  let a2 = a
+  gvec2(a2[3], a2[2])
+func `wz=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y
 template ww*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[3], a[3])
-template `ww=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[03] = x; a[3] = y
+  let a2 = a
+  gvec2(a2[3], a2[3])
+func `ww=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y
 
 # 2 x rgba
 template rr*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[0], a[0])
-template `rr=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[00] = x; a[0] = y
+  let a2 = a
+  gvec2(a2[0], a2[0])
+func `rr=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y
 template rg*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[0], a[1])
-template `rg=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[00] = x; a[1] = y
+  let a2 = a
+  gvec2(a2[0], a2[1])
+func `rg=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y
 template rb*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[0], a[2])
-template `rb=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[00] = x; a[2] = y
+  let a2 = a
+  gvec2(a2[0], a2[2])
+func `rb=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y
 template ra*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[0], a[3])
-template `ra=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[00] = x; a[3] = y
+  let a2 = a
+  gvec2(a2[0], a2[3])
+func `ra=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y
 template gr*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[1], a[0])
-template `gr=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[01] = x; a[0] = y
+  let a2 = a
+  gvec2(a2[1], a2[0])
+func `gr=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y
 template gg*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[1], a[1])
-template `gg=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[01] = x; a[1] = y
+  let a2 = a
+  gvec2(a2[1], a2[1])
+func `gg=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y
 template gb*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[1], a[2])
-template `gb=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[01] = x; a[2] = y
+  let a2 = a
+  gvec2(a2[1], a2[2])
+func `gb=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y
 template ga*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[1], a[3])
-template `ga=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[01] = x; a[3] = y
+  let a2 = a
+  gvec2(a2[1], a2[3])
+func `ga=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y
 template br*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[2], a[0])
-template `br=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[02] = x; a[0] = y
+  let a2 = a
+  gvec2(a2[2], a2[0])
+func `br=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y
 template bg*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[2], a[1])
-template `bg=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[02] = x; a[1] = y
+  let a2 = a
+  gvec2(a2[2], a2[1])
+func `bg=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y
 template bb*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[2], a[2])
-template `bb=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[02] = x; a[2] = y
+  let a2 = a
+  gvec2(a2[2], a2[2])
+func `bb=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y
 template ba*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[2], a[3])
-template `ba=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[02] = x; a[3] = y
+  let a2 = a
+  gvec2(a2[2], a2[3])
+func `ba=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y
 template ar*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[3], a[0])
-template `ar=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[03] = x; a[0] = y
+  let a2 = a
+  gvec2(a2[3], a2[0])
+func `ar=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y
 template ag*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[3], a[1])
-template `ag=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[03] = x; a[1] = y
+  let a2 = a
+  gvec2(a2[3], a2[1])
+func `ag=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y
 template ab*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[3], a[2])
-template `ab=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[03] = x; a[2] = y
+  let a2 = a
+  gvec2(a2[3], a2[2])
+func `ab=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y
 template aa*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[3], a[3])
-template `aa=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[03] = x; a[3] = y
+  let a2 = a
+  gvec2(a2[3], a2[3])
+func `aa=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y
 
 # 2 x stpq
 template ss*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[0], a[0])
-template `ss=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[00] = x; a[0] = y
+  let a2 = a
+  gvec2(a2[0], a2[0])
+func `ss=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y
 template st*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[0], a[1])
-template `st=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[00] = x; a[1] = y
+  let a2 = a
+  gvec2(a2[0], a2[1])
+func `st=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y
 template sp*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[0], a[2])
-template `sp=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[00] = x; a[2] = y
+  let a2 = a
+  gvec2(a2[0], a2[2])
+func `sp=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y
 template sq*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[0], a[3])
-template `sq=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[00] = x; a[3] = y
+  let a2 = a
+  gvec2(a2[0], a2[3])
+func `sq=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y
 template ts*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[1], a[0])
-template `ts=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[01] = x; a[0] = y
+  let a2 = a
+  gvec2(a2[1], a2[0])
+func `ts=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y
 template tt*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[1], a[1])
-template `tt=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[01] = x; a[1] = y
+  let a2 = a
+  gvec2(a2[1], a2[1])
+func `tt=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y
 template tp*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[1], a[2])
-template `tp=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[01] = x; a[2] = y
+  let a2 = a
+  gvec2(a2[1], a2[2])
+func `tp=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y
 template tq*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[1], a[3])
-template `tq=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[01] = x; a[3] = y
+  let a2 = a
+  gvec2(a2[1], a2[3])
+func `tq=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y
 template ps*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[2], a[0])
-template `ps=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[02] = x; a[0] = y
+  let a2 = a
+  gvec2(a2[2], a2[0])
+func `ps=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y
 template pt*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[2], a[1])
-template `pt=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[02] = x; a[1] = y
+  let a2 = a
+  gvec2(a2[2], a2[1])
+func `pt=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y
 template pp*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[2], a[2])
-template `pp=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[02] = x; a[2] = y
+  let a2 = a
+  gvec2(a2[2], a2[2])
+func `pp=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y
 template pq*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[2], a[3])
-template `pq=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[02] = x; a[3] = y
+  let a2 = a
+  gvec2(a2[2], a2[3])
+func `pq=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y
 template qs*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[3], a[0])
-template `qs=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[03] = x; a[0] = y
+  let a2 = a
+  gvec2(a2[3], a2[0])
+func `qs=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y
 template qt*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[3], a[1])
-template `qt=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[03] = x; a[1] = y
+  let a2 = a
+  gvec2(a2[3], a2[1])
+func `qt=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y
 template qp*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[3], a[2])
-template `qp=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[03] = x; a[2] = y
+  let a2 = a
+  gvec2(a2[3], a2[2])
+func `qp=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y
 template qq*[T](a: GVec234[T]): GVec2[T] =
-  gvec2(a[3], a[3])
-template `qq=`*[T](a: var GVec234[T], b: GVec2[T]) =
-  let x = b.x; let y = b.y
-  a[03] = x; a[3] = y
+  let a2 = a
+  gvec2(a2[3], a2[3])
+func `qq=`*[T](a: var GVec234[T], b: GVec2[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y
 
 # 3 x xyzw
 template xxx*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[0], a[0])
-template `xxx=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[0] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[0], a2[0], a2[0])
+func `xxx=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[0] = b2.z
 template xxy*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[0], a[1])
-template `xxy=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[0] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[0], a2[0], a2[1])
+func `xxy=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[1] = b2.z
 template xxz*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[0], a[2])
-template `xxz=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[0] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[0], a2[0], a2[2])
+func `xxz=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[2] = b2.z
 template xxw*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[0], a[3])
-template `xxw=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[0] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[0], a2[0], a2[3])
+func `xxw=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[3] = b2.z
 template xyx*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[1], a[0])
-template `xyx=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[1] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[0], a2[1], a2[0])
+func `xyx=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[0] = b2.z
 template xyy*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[1], a[1])
-template `xyy=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[1] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[0], a2[1], a2[1])
+func `xyy=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[1] = b2.z
 template xyz*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[1], a[2])
-template `xyz=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[1] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[0], a2[1], a2[2])
+func `xyz=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[2] = b2.z
 template xyw*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[1], a[3])
-template `xyw=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[1] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[0], a2[1], a2[3])
+func `xyw=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[3] = b2.z
 template xzx*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[2], a[0])
-template `xzx=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[2] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[0], a2[2], a2[0])
+func `xzx=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[0] = b2.z
 template xzy*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[2], a[1])
-template `xzy=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[2] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[0], a2[2], a2[1])
+func `xzy=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[1] = b2.z
 template xzz*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[2], a[2])
-template `xzz=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[2] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[0], a2[2], a2[2])
+func `xzz=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[2] = b2.z
 template xzw*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[2], a[3])
-template `xzw=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[2] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[0], a2[2], a2[3])
+func `xzw=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[3] = b2.z
 template xwx*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[3], a[0])
-template `xwx=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[3] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[0], a2[3], a2[0])
+func `xwx=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[0] = b2.z
 template xwy*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[3], a[1])
-template `xwy=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[3] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[0], a2[3], a2[1])
+func `xwy=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[1] = b2.z
 template xwz*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[3], a[2])
-template `xwz=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[3] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[0], a2[3], a2[2])
+func `xwz=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[2] = b2.z
 template xww*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[3], a[3])
-template `xww=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[3] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[0], a2[3], a2[3])
+func `xww=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[3] = b2.z
 template yxx*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[0], a[0])
-template `yxx=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[0] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[1], a2[0], a2[0])
+func `yxx=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[0] = b2.z
 template yxy*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[0], a[1])
-template `yxy=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[0] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[1], a2[0], a2[1])
+func `yxy=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[1] = b2.z
 template yxz*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[0], a[2])
-template `yxz=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[0] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[1], a2[0], a2[2])
+func `yxz=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[2] = b2.z
 template yxw*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[0], a[3])
-template `yxw=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[0] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[1], a2[0], a2[3])
+func `yxw=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[3] = b2.z
 template yyx*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[1], a[0])
-template `yyx=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[1] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[1], a2[1], a2[0])
+func `yyx=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[0] = b2.z
 template yyy*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[1], a[1])
-template `yyy=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[1] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[1], a2[1], a2[1])
+func `yyy=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[1] = b2.z
 template yyz*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[1], a[2])
-template `yyz=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[1] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[1], a2[1], a2[2])
+func `yyz=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[2] = b2.z
 template yyw*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[1], a[3])
-template `yyw=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[1] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[1], a2[1], a2[3])
+func `yyw=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[3] = b2.z
 template yzx*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[2], a[0])
-template `yzx=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[2] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[1], a2[2], a2[0])
+func `yzx=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[0] = b2.z
 template yzy*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[2], a[1])
-template `yzy=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[2] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[1], a2[2], a2[1])
+func `yzy=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[1] = b2.z
 template yzz*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[2], a[2])
-template `yzz=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[2] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[1], a2[2], a2[2])
+func `yzz=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[2] = b2.z
 template yzw*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[2], a[3])
-template `yzw=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[2] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[1], a2[2], a2[3])
+func `yzw=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[3] = b2.z
 template ywx*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[3], a[0])
-template `ywx=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[3] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[1], a2[3], a2[0])
+func `ywx=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[0] = b2.z
 template ywy*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[3], a[1])
-template `ywy=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[3] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[1], a2[3], a2[1])
+func `ywy=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[1] = b2.z
 template ywz*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[3], a[2])
-template `ywz=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[3] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[1], a2[3], a2[2])
+func `ywz=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[2] = b2.z
 template yww*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[3], a[3])
-template `yww=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[3] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[1], a2[3], a2[3])
+func `yww=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[3] = b2.z
 template zxx*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[0], a[0])
-template `zxx=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[0] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[2], a2[0], a2[0])
+func `zxx=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[0] = b2.z
 template zxy*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[0], a[1])
-template `zxy=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[0] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[2], a2[0], a2[1])
+func `zxy=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[1] = b2.z
 template zxz*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[0], a[2])
-template `zxz=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[0] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[2], a2[0], a2[2])
+func `zxz=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[2] = b2.z
 template zxw*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[0], a[3])
-template `zxw=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[0] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[2], a2[0], a2[3])
+func `zxw=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[3] = b2.z
 template zyx*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[1], a[0])
-template `zyx=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[1] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[2], a2[1], a2[0])
+func `zyx=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[0] = b2.z
 template zyy*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[1], a[1])
-template `zyy=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[1] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[2], a2[1], a2[1])
+func `zyy=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[1] = b2.z
 template zyz*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[1], a[2])
-template `zyz=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[1] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[2], a2[1], a2[2])
+func `zyz=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[2] = b2.z
 template zyw*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[1], a[3])
-template `zyw=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[1] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[2], a2[1], a2[3])
+func `zyw=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[3] = b2.z
 template zzx*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[2], a[0])
-template `zzx=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[2] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[2], a2[2], a2[0])
+func `zzx=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[0] = b2.z
 template zzy*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[2], a[1])
-template `zzy=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[2] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[2], a2[2], a2[1])
+func `zzy=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[1] = b2.z
 template zzz*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[2], a[2])
-template `zzz=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[2] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[2], a2[2], a2[2])
+func `zzz=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[2] = b2.z
 template zzw*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[2], a[3])
-template `zzw=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[2] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[2], a2[2], a2[3])
+func `zzw=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[3] = b2.z
 template zwx*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[3], a[0])
-template `zwx=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[3] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[2], a2[3], a2[0])
+func `zwx=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[0] = b2.z
 template zwy*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[3], a[1])
-template `zwy=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[3] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[2], a2[3], a2[1])
+func `zwy=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[1] = b2.z
 template zwz*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[3], a[2])
-template `zwz=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[3] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[2], a2[3], a2[2])
+func `zwz=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[2] = b2.z
 template zww*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[3], a[3])
-template `zww=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[3] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[2], a2[3], a2[3])
+func `zww=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[3] = b2.z
 template wxx*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[0], a[0])
-template `wxx=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[0] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[3], a2[0], a2[0])
+func `wxx=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[0] = b2.z
 template wxy*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[0], a[1])
-template `wxy=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[0] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[3], a2[0], a2[1])
+func `wxy=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[1] = b2.z
 template wxz*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[0], a[2])
-template `wxz=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[0] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[3], a2[0], a2[2])
+func `wxz=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[2] = b2.z
 template wxw*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[0], a[3])
-template `wxw=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[0] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[3], a2[0], a2[3])
+func `wxw=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[3] = b2.z
 template wyx*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[1], a[0])
-template `wyx=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[1] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[3], a2[1], a2[0])
+func `wyx=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[0] = b2.z
 template wyy*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[1], a[1])
-template `wyy=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[1] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[3], a2[1], a2[1])
+func `wyy=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[1] = b2.z
 template wyz*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[1], a[2])
-template `wyz=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[1] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[3], a2[1], a2[2])
+func `wyz=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[2] = b2.z
 template wyw*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[1], a[3])
-template `wyw=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[1] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[3], a2[1], a2[3])
+func `wyw=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[3] = b2.z
 template wzx*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[2], a[0])
-template `wzx=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[2] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[3], a2[2], a2[0])
+func `wzx=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[0] = b2.z
 template wzy*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[2], a[1])
-template `wzy=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[2] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[3], a2[2], a2[1])
+func `wzy=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[1] = b2.z
 template wzz*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[2], a[2])
-template `wzz=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[2] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[3], a2[2], a2[2])
+func `wzz=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[2] = b2.z
 template wzw*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[2], a[3])
-template `wzw=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[2] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[3], a2[2], a2[3])
+func `wzw=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[3] = b2.z
 template wwx*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[3], a[0])
-template `wwx=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[3] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[3], a2[3], a2[0])
+func `wwx=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[0] = b2.z
 template wwy*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[3], a[1])
-template `wwy=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[3] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[3], a2[3], a2[1])
+func `wwy=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[1] = b2.z
 template wwz*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[3], a[2])
-template `wwz=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[3] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[3], a2[3], a2[2])
+func `wwz=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[2] = b2.z
 template www*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[3], a[3])
-template `www=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[3] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[3], a2[3], a2[3])
+func `www=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[3] = b2.z
 
 # 3 x rgba
 template rrr*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[0], a[0])
-template `rrr=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[0] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[0], a2[0], a2[0])
+func `rrr=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[0] = b2.z
 template rrg*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[0], a[1])
-template `rrg=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[0] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[0], a2[0], a2[1])
+func `rrg=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[1] = b2.z
 template rrb*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[0], a[2])
-template `rrb=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[0] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[0], a2[0], a2[2])
+func `rrb=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[2] = b2.z
 template rra*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[0], a[3])
-template `rra=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[0] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[0], a2[0], a2[3])
+func `rra=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[3] = b2.z
 template rgr*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[1], a[0])
-template `rgr=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[1] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[0], a2[1], a2[0])
+func `rgr=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[0] = b2.z
 template rgg*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[1], a[1])
-template `rgg=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[1] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[0], a2[1], a2[1])
+func `rgg=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[1] = b2.z
 template rgb*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[1], a[2])
-template `rgb=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[1] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[0], a2[1], a2[2])
+func `rgb=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[2] = b2.z
 template rga*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[1], a[3])
-template `rga=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[1] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[0], a2[1], a2[3])
+func `rga=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[3] = b2.z
 template rbr*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[2], a[0])
-template `rbr=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[2] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[0], a2[2], a2[0])
+func `rbr=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[0] = b2.z
 template rbg*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[2], a[1])
-template `rbg=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[2] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[0], a2[2], a2[1])
+func `rbg=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[1] = b2.z
 template rbb*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[2], a[2])
-template `rbb=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[2] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[0], a2[2], a2[2])
+func `rbb=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[2] = b2.z
 template rba*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[2], a[3])
-template `rba=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[2] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[0], a2[2], a2[3])
+func `rba=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[3] = b2.z
 template rar*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[3], a[0])
-template `rar=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[3] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[0], a2[3], a2[0])
+func `rar=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[0] = b2.z
 template rag*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[3], a[1])
-template `rag=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[3] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[0], a2[3], a2[1])
+func `rag=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[1] = b2.z
 template rab*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[3], a[2])
-template `rab=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[3] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[0], a2[3], a2[2])
+func `rab=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[2] = b2.z
 template raa*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[3], a[3])
-template `raa=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[3] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[0], a2[3], a2[3])
+func `raa=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[3] = b2.z
 template grr*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[0], a[0])
-template `grr=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[0] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[1], a2[0], a2[0])
+func `grr=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[0] = b2.z
 template grg*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[0], a[1])
-template `grg=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[0] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[1], a2[0], a2[1])
+func `grg=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[1] = b2.z
 template grb*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[0], a[2])
-template `grb=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[0] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[1], a2[0], a2[2])
+func `grb=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[2] = b2.z
 template gra*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[0], a[3])
-template `gra=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[0] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[1], a2[0], a2[3])
+func `gra=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[3] = b2.z
 template ggr*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[1], a[0])
-template `ggr=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[1] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[1], a2[1], a2[0])
+func `ggr=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[0] = b2.z
 template ggg*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[1], a[1])
-template `ggg=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[1] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[1], a2[1], a2[1])
+func `ggg=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[1] = b2.z
 template ggb*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[1], a[2])
-template `ggb=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[1] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[1], a2[1], a2[2])
+func `ggb=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[2] = b2.z
 template gga*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[1], a[3])
-template `gga=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[1] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[1], a2[1], a2[3])
+func `gga=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[3] = b2.z
 template gbr*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[2], a[0])
-template `gbr=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[2] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[1], a2[2], a2[0])
+func `gbr=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[0] = b2.z
 template gbg*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[2], a[1])
-template `gbg=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[2] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[1], a2[2], a2[1])
+func `gbg=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[1] = b2.z
 template gbb*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[2], a[2])
-template `gbb=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[2] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[1], a2[2], a2[2])
+func `gbb=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[2] = b2.z
 template gba*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[2], a[3])
-template `gba=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[2] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[1], a2[2], a2[3])
+func `gba=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[3] = b2.z
 template gar*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[3], a[0])
-template `gar=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[3] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[1], a2[3], a2[0])
+func `gar=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[0] = b2.z
 template gag*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[3], a[1])
-template `gag=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[3] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[1], a2[3], a2[1])
+func `gag=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[1] = b2.z
 template gab*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[3], a[2])
-template `gab=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[3] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[1], a2[3], a2[2])
+func `gab=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[2] = b2.z
 template gaa*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[3], a[3])
-template `gaa=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[3] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[1], a2[3], a2[3])
+func `gaa=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[3] = b2.z
 template brr*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[0], a[0])
-template `brr=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[0] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[2], a2[0], a2[0])
+func `brr=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[0] = b2.z
 template brg*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[0], a[1])
-template `brg=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[0] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[2], a2[0], a2[1])
+func `brg=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[1] = b2.z
 template brb*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[0], a[2])
-template `brb=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[0] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[2], a2[0], a2[2])
+func `brb=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[2] = b2.z
 template bra*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[0], a[3])
-template `bra=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[0] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[2], a2[0], a2[3])
+func `bra=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[3] = b2.z
 template bgr*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[1], a[0])
-template `bgr=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[1] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[2], a2[1], a2[0])
+func `bgr=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[0] = b2.z
 template bgg*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[1], a[1])
-template `bgg=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[1] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[2], a2[1], a2[1])
+func `bgg=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[1] = b2.z
 template bgb*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[1], a[2])
-template `bgb=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[1] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[2], a2[1], a2[2])
+func `bgb=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[2] = b2.z
 template bga*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[1], a[3])
-template `bga=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[1] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[2], a2[1], a2[3])
+func `bga=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[3] = b2.z
 template bbr*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[2], a[0])
-template `bbr=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[2] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[2], a2[2], a2[0])
+func `bbr=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[0] = b2.z
 template bbg*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[2], a[1])
-template `bbg=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[2] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[2], a2[2], a2[1])
+func `bbg=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[1] = b2.z
 template bbb*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[2], a[2])
-template `bbb=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[2] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[2], a2[2], a2[2])
+func `bbb=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[2] = b2.z
 template bba*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[2], a[3])
-template `bba=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[2] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[2], a2[2], a2[3])
+func `bba=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[3] = b2.z
 template bar*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[3], a[0])
-template `bar=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[3] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[2], a2[3], a2[0])
+func `bar=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[0] = b2.z
 template bag*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[3], a[1])
-template `bag=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[3] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[2], a2[3], a2[1])
+func `bag=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[1] = b2.z
 template bab*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[3], a[2])
-template `bab=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[3] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[2], a2[3], a2[2])
+func `bab=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[2] = b2.z
 template baa*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[3], a[3])
-template `baa=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[3] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[2], a2[3], a2[3])
+func `baa=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[3] = b2.z
 template arr*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[0], a[0])
-template `arr=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[0] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[3], a2[0], a2[0])
+func `arr=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[0] = b2.z
 template arg*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[0], a[1])
-template `arg=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[0] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[3], a2[0], a2[1])
+func `arg=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[1] = b2.z
 template arb*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[0], a[2])
-template `arb=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[0] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[3], a2[0], a2[2])
+func `arb=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[2] = b2.z
 template ara*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[0], a[3])
-template `ara=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[0] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[3], a2[0], a2[3])
+func `ara=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[3] = b2.z
 template agr*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[1], a[0])
-template `agr=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[1] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[3], a2[1], a2[0])
+func `agr=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[0] = b2.z
 template agg*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[1], a[1])
-template `agg=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[1] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[3], a2[1], a2[1])
+func `agg=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[1] = b2.z
 template agb*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[1], a[2])
-template `agb=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[1] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[3], a2[1], a2[2])
+func `agb=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[2] = b2.z
 template aga*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[1], a[3])
-template `aga=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[1] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[3], a2[1], a2[3])
+func `aga=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[3] = b2.z
 template abr*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[2], a[0])
-template `abr=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[2] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[3], a2[2], a2[0])
+func `abr=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[0] = b2.z
 template abg*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[2], a[1])
-template `abg=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[2] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[3], a2[2], a2[1])
+func `abg=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[1] = b2.z
 template abb*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[2], a[2])
-template `abb=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[2] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[3], a2[2], a2[2])
+func `abb=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[2] = b2.z
 template aba*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[2], a[3])
-template `aba=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[2] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[3], a2[2], a2[3])
+func `aba=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[3] = b2.z
 template aar*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[3], a[0])
-template `aar=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[3] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[3], a2[3], a2[0])
+func `aar=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[0] = b2.z
 template aag*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[3], a[1])
-template `aag=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[3] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[3], a2[3], a2[1])
+func `aag=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[1] = b2.z
 template aab*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[3], a[2])
-template `aab=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[3] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[3], a2[3], a2[2])
+func `aab=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[2] = b2.z
 template aaa*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[3], a[3])
-template `aaa=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[3] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[3], a2[3], a2[3])
+func `aaa=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[3] = b2.z
 
 # 3 x stpq
 template sss*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[0], a[0])
-template `sss=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[0] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[0], a2[0], a2[0])
+func `sss=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[0] = b2.z
 template sst*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[0], a[1])
-template `sst=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[0] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[0], a2[0], a2[1])
+func `sst=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[1] = b2.z
 template ssp*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[0], a[2])
-template `ssp=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[0] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[0], a2[0], a2[2])
+func `ssp=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[2] = b2.z
 template ssq*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[0], a[3])
-template `ssq=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[0] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[0], a2[0], a2[3])
+func `ssq=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[3] = b2.z
 template sts*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[1], a[0])
-template `sts=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[1] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[0], a2[1], a2[0])
+func `sts=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[0] = b2.z
 template stt*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[1], a[1])
-template `stt=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[1] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[0], a2[1], a2[1])
+func `stt=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[1] = b2.z
 template stp*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[1], a[2])
-template `stp=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[1] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[0], a2[1], a2[2])
+func `stp=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[2] = b2.z
 template stq*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[1], a[3])
-template `stq=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[1] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[0], a2[1], a2[3])
+func `stq=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[3] = b2.z
 template sps*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[2], a[0])
-template `sps=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[2] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[0], a2[2], a2[0])
+func `sps=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[0] = b2.z
 template spt*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[2], a[1])
-template `spt=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[2] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[0], a2[2], a2[1])
+func `spt=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[1] = b2.z
 template spp*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[2], a[2])
-template `spp=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[2] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[0], a2[2], a2[2])
+func `spp=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[2] = b2.z
 template spq*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[2], a[3])
-template `spq=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[2] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[0], a2[2], a2[3])
+func `spq=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[3] = b2.z
 template sqs*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[3], a[0])
-template `sqs=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[3] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[0], a2[3], a2[0])
+func `sqs=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[0] = b2.z
 template sqt*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[3], a[1])
-template `sqt=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[3] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[0], a2[3], a2[1])
+func `sqt=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[1] = b2.z
 template sqp*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[3], a[2])
-template `sqp=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[3] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[0], a2[3], a2[2])
+func `sqp=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[2] = b2.z
 template sqq*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[0], a[3], a[3])
-template `sqq=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[0] = x; a[3] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[0], a2[3], a2[3])
+func `sqq=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[3] = b2.z
 template tss*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[0], a[0])
-template `tss=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[0] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[1], a2[0], a2[0])
+func `tss=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[0] = b2.z
 template tst*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[0], a[1])
-template `tst=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[0] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[1], a2[0], a2[1])
+func `tst=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[1] = b2.z
 template tsp*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[0], a[2])
-template `tsp=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[0] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[1], a2[0], a2[2])
+func `tsp=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[2] = b2.z
 template tsq*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[0], a[3])
-template `tsq=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[0] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[1], a2[0], a2[3])
+func `tsq=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[3] = b2.z
 template tts*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[1], a[0])
-template `tts=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[1] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[1], a2[1], a2[0])
+func `tts=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[0] = b2.z
 template ttt*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[1], a[1])
-template `ttt=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[1] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[1], a2[1], a2[1])
+func `ttt=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[1] = b2.z
 template ttp*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[1], a[2])
-template `ttp=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[1] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[1], a2[1], a2[2])
+func `ttp=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[2] = b2.z
 template ttq*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[1], a[3])
-template `ttq=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[1] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[1], a2[1], a2[3])
+func `ttq=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[3] = b2.z
 template tps*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[2], a[0])
-template `tps=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[2] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[1], a2[2], a2[0])
+func `tps=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[0] = b2.z
 template tpt*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[2], a[1])
-template `tpt=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[2] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[1], a2[2], a2[1])
+func `tpt=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[1] = b2.z
 template tpp*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[2], a[2])
-template `tpp=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[2] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[1], a2[2], a2[2])
+func `tpp=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[2] = b2.z
 template tpq*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[2], a[3])
-template `tpq=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[2] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[1], a2[2], a2[3])
+func `tpq=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[3] = b2.z
 template tqs*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[3], a[0])
-template `tqs=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[3] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[1], a2[3], a2[0])
+func `tqs=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[0] = b2.z
 template tqt*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[3], a[1])
-template `tqt=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[3] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[1], a2[3], a2[1])
+func `tqt=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[1] = b2.z
 template tqp*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[3], a[2])
-template `tqp=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[3] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[1], a2[3], a2[2])
+func `tqp=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[2] = b2.z
 template tqq*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[1], a[3], a[3])
-template `tqq=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[1] = x; a[3] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[1], a2[3], a2[3])
+func `tqq=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[3] = b2.z
 template pss*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[0], a[0])
-template `pss=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[0] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[2], a2[0], a2[0])
+func `pss=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[0] = b2.z
 template pst*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[0], a[1])
-template `pst=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[0] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[2], a2[0], a2[1])
+func `pst=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[1] = b2.z
 template psp*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[0], a[2])
-template `psp=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[0] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[2], a2[0], a2[2])
+func `psp=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[2] = b2.z
 template psq*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[0], a[3])
-template `psq=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[0] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[2], a2[0], a2[3])
+func `psq=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[3] = b2.z
 template pts*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[1], a[0])
-template `pts=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[1] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[2], a2[1], a2[0])
+func `pts=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[0] = b2.z
 template ptt*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[1], a[1])
-template `ptt=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[1] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[2], a2[1], a2[1])
+func `ptt=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[1] = b2.z
 template ptp*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[1], a[2])
-template `ptp=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[1] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[2], a2[1], a2[2])
+func `ptp=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[2] = b2.z
 template ptq*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[1], a[3])
-template `ptq=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[1] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[2], a2[1], a2[3])
+func `ptq=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[3] = b2.z
 template pps*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[2], a[0])
-template `pps=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[2] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[2], a2[2], a2[0])
+func `pps=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[0] = b2.z
 template ppt*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[2], a[1])
-template `ppt=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[2] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[2], a2[2], a2[1])
+func `ppt=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[1] = b2.z
 template ppp*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[2], a[2])
-template `ppp=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[2] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[2], a2[2], a2[2])
+func `ppp=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[2] = b2.z
 template ppq*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[2], a[3])
-template `ppq=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[2] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[2], a2[2], a2[3])
+func `ppq=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[3] = b2.z
 template pqs*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[3], a[0])
-template `pqs=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[3] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[2], a2[3], a2[0])
+func `pqs=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[0] = b2.z
 template pqt*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[3], a[1])
-template `pqt=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[3] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[2], a2[3], a2[1])
+func `pqt=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[1] = b2.z
 template pqp*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[3], a[2])
-template `pqp=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[3] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[2], a2[3], a2[2])
+func `pqp=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[2] = b2.z
 template pqq*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[2], a[3], a[3])
-template `pqq=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[2] = x; a[3] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[2], a2[3], a2[3])
+func `pqq=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[3] = b2.z
 template qss*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[0], a[0])
-template `qss=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[0] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[3], a2[0], a2[0])
+func `qss=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[0] = b2.z
 template qst*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[0], a[1])
-template `qst=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[0] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[3], a2[0], a2[1])
+func `qst=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[1] = b2.z
 template qsp*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[0], a[2])
-template `qsp=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[0] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[3], a2[0], a2[2])
+func `qsp=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[2] = b2.z
 template qsq*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[0], a[3])
-template `qsq=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[0] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[3], a2[0], a2[3])
+func `qsq=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[3] = b2.z
 template qts*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[1], a[0])
-template `qts=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[1] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[3], a2[1], a2[0])
+func `qts=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[0] = b2.z
 template qtt*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[1], a[1])
-template `qtt=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[1] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[3], a2[1], a2[1])
+func `qtt=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[1] = b2.z
 template qtp*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[1], a[2])
-template `qtp=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[1] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[3], a2[1], a2[2])
+func `qtp=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[2] = b2.z
 template qtq*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[1], a[3])
-template `qtq=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[1] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[3], a2[1], a2[3])
+func `qtq=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[3] = b2.z
 template qps*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[2], a[0])
-template `qps=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[2] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[3], a2[2], a2[0])
+func `qps=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[0] = b2.z
 template qpt*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[2], a[1])
-template `qpt=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[2] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[3], a2[2], a2[1])
+func `qpt=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[1] = b2.z
 template qpp*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[2], a[2])
-template `qpp=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[2] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[3], a2[2], a2[2])
+func `qpp=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[2] = b2.z
 template qpq*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[2], a[3])
-template `qpq=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[2] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[3], a2[2], a2[3])
+func `qpq=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[3] = b2.z
 template qqs*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[3], a[0])
-template `qqs=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[3] = y; a[0] = z
+  let a2 = a
+  gvec3(a2[3], a2[3], a2[0])
+func `qqs=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[0] = b2.z
 template qqt*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[3], a[1])
-template `qqt=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[3] = y; a[1] = z
+  let a2 = a
+  gvec3(a2[3], a2[3], a2[1])
+func `qqt=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[1] = b2.z
 template qqp*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[3], a[2])
-template `qqp=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[3] = y; a[2] = z
+  let a2 = a
+  gvec3(a2[3], a2[3], a2[2])
+func `qqp=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[2] = b2.z
 template qqq*[T](a: GVec234[T]): GVec3[T] =
-  gvec3(a[3], a[3], a[3])
-template `qqq=`*[T](a: var GVec234[T], b: GVec3[T]) =
-  let x = b.x; let y = b.y; let z = b.z
-  a[3] = x; a[3] = y; a[3] = z
+  let a2 = a
+  gvec3(a2[3], a2[3], a2[3])
+func `qqq=`*[T](a: var GVec234[T], b: GVec3[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[3] = b2.z
 
 # 4 x xyzw
 template xxxx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[0], a[0])
-template `xxxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[0], a2[0])
+func `xxxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[0] = b2.z; a[0] = b2.w
 template xxxy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[0], a[1])
-template `xxxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[0], a2[1])
+func `xxxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[0] = b2.z; a[1] = b2.w
 template xxxz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[0], a[2])
-template `xxxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[0], a2[2])
+func `xxxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[0] = b2.z; a[2] = b2.w
 template xxxw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[0], a[3])
-template `xxxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[0], a2[3])
+func `xxxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[0] = b2.z; a[3] = b2.w
 template xxyx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[1], a[0])
-template `xxyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[1], a2[0])
+func `xxyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[1] = b2.z; a[0] = b2.w
 template xxyy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[1], a[1])
-template `xxyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[1], a2[1])
+func `xxyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[1] = b2.z; a[1] = b2.w
 template xxyz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[1], a[2])
-template `xxyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[1], a2[2])
+func `xxyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[1] = b2.z; a[2] = b2.w
 template xxyw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[1], a[3])
-template `xxyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[1], a2[3])
+func `xxyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[1] = b2.z; a[3] = b2.w
 template xxzx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[2], a[0])
-template `xxzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[2], a2[0])
+func `xxzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[2] = b2.z; a[0] = b2.w
 template xxzy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[2], a[1])
-template `xxzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[2], a2[1])
+func `xxzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[2] = b2.z; a[1] = b2.w
 template xxzz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[2], a[2])
-template `xxzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[2], a2[2])
+func `xxzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[2] = b2.z; a[2] = b2.w
 template xxzw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[2], a[3])
-template `xxzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[2], a2[3])
+func `xxzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[2] = b2.z; a[3] = b2.w
 template xxwx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[3], a[0])
-template `xxwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[3], a2[0])
+func `xxwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[3] = b2.z; a[0] = b2.w
 template xxwy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[3], a[1])
-template `xxwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[3], a2[1])
+func `xxwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[3] = b2.z; a[1] = b2.w
 template xxwz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[3], a[2])
-template `xxwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[3], a2[2])
+func `xxwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[3] = b2.z; a[2] = b2.w
 template xxww*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[3], a[3])
-template `xxww=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[3], a2[3])
+func `xxww=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[3] = b2.z; a[3] = b2.w
 template xyxx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[0], a[0])
-template `xyxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[0], a2[0])
+func `xyxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[0] = b2.z; a[0] = b2.w
 template xyxy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[0], a[1])
-template `xyxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[0], a2[1])
+func `xyxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[0] = b2.z; a[1] = b2.w
 template xyxz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[0], a[2])
-template `xyxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[0], a2[2])
+func `xyxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[0] = b2.z; a[2] = b2.w
 template xyxw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[0], a[3])
-template `xyxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[0], a2[3])
+func `xyxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[0] = b2.z; a[3] = b2.w
 template xyyx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[1], a[0])
-template `xyyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[1], a2[0])
+func `xyyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[1] = b2.z; a[0] = b2.w
 template xyyy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[1], a[1])
-template `xyyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[1], a2[1])
+func `xyyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[1] = b2.z; a[1] = b2.w
 template xyyz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[1], a[2])
-template `xyyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[1], a2[2])
+func `xyyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[1] = b2.z; a[2] = b2.w
 template xyyw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[1], a[3])
-template `xyyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[1], a2[3])
+func `xyyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[1] = b2.z; a[3] = b2.w
 template xyzx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[2], a[0])
-template `xyzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[2], a2[0])
+func `xyzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[2] = b2.z; a[0] = b2.w
 template xyzy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[2], a[1])
-template `xyzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[2], a2[1])
+func `xyzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[2] = b2.z; a[1] = b2.w
 template xyzz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[2], a[2])
-template `xyzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[2], a2[2])
+func `xyzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[2] = b2.z; a[2] = b2.w
 template xyzw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[2], a[3])
-template `xyzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[2], a2[3])
+func `xyzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[2] = b2.z; a[3] = b2.w
 template xywx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[3], a[0])
-template `xywx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[3], a2[0])
+func `xywx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[3] = b2.z; a[0] = b2.w
 template xywy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[3], a[1])
-template `xywy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[3], a2[1])
+func `xywy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[3] = b2.z; a[1] = b2.w
 template xywz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[3], a[2])
-template `xywz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[3], a2[2])
+func `xywz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[3] = b2.z; a[2] = b2.w
 template xyww*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[3], a[3])
-template `xyww=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[3], a2[3])
+func `xyww=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[3] = b2.z; a[3] = b2.w
 template xzxx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[0], a[0])
-template `xzxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[0], a2[0])
+func `xzxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[0] = b2.z; a[0] = b2.w
 template xzxy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[0], a[1])
-template `xzxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[0], a2[1])
+func `xzxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[0] = b2.z; a[1] = b2.w
 template xzxz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[0], a[2])
-template `xzxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[0], a2[2])
+func `xzxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[0] = b2.z; a[2] = b2.w
 template xzxw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[0], a[3])
-template `xzxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[0], a2[3])
+func `xzxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[0] = b2.z; a[3] = b2.w
 template xzyx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[1], a[0])
-template `xzyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[1], a2[0])
+func `xzyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[1] = b2.z; a[0] = b2.w
 template xzyy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[1], a[1])
-template `xzyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[1], a2[1])
+func `xzyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[1] = b2.z; a[1] = b2.w
 template xzyz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[1], a[2])
-template `xzyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[1], a2[2])
+func `xzyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[1] = b2.z; a[2] = b2.w
 template xzyw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[1], a[3])
-template `xzyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[1], a2[3])
+func `xzyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[1] = b2.z; a[3] = b2.w
 template xzzx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[2], a[0])
-template `xzzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[2], a2[0])
+func `xzzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[2] = b2.z; a[0] = b2.w
 template xzzy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[2], a[1])
-template `xzzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[2], a2[1])
+func `xzzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[2] = b2.z; a[1] = b2.w
 template xzzz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[2], a[2])
-template `xzzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[2], a2[2])
+func `xzzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[2] = b2.z; a[2] = b2.w
 template xzzw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[2], a[3])
-template `xzzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[2], a2[3])
+func `xzzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[2] = b2.z; a[3] = b2.w
 template xzwx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[3], a[0])
-template `xzwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[3], a2[0])
+func `xzwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[3] = b2.z; a[0] = b2.w
 template xzwy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[3], a[1])
-template `xzwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[3], a2[1])
+func `xzwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[3] = b2.z; a[1] = b2.w
 template xzwz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[3], a[2])
-template `xzwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[3], a2[2])
+func `xzwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[3] = b2.z; a[2] = b2.w
 template xzww*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[3], a[3])
-template `xzww=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[3], a2[3])
+func `xzww=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[3] = b2.z; a[3] = b2.w
 template xwxx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[0], a[0])
-template `xwxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[0], a2[0])
+func `xwxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[0] = b2.z; a[0] = b2.w
 template xwxy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[0], a[1])
-template `xwxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[0], a2[1])
+func `xwxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[0] = b2.z; a[1] = b2.w
 template xwxz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[0], a[2])
-template `xwxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[0], a2[2])
+func `xwxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[0] = b2.z; a[2] = b2.w
 template xwxw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[0], a[3])
-template `xwxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[0], a2[3])
+func `xwxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[0] = b2.z; a[3] = b2.w
 template xwyx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[1], a[0])
-template `xwyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[1], a2[0])
+func `xwyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[1] = b2.z; a[0] = b2.w
 template xwyy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[1], a[1])
-template `xwyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[1], a2[1])
+func `xwyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[1] = b2.z; a[1] = b2.w
 template xwyz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[1], a[2])
-template `xwyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[1], a2[2])
+func `xwyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[1] = b2.z; a[2] = b2.w
 template xwyw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[1], a[3])
-template `xwyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[1], a2[3])
+func `xwyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[1] = b2.z; a[3] = b2.w
 template xwzx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[2], a[0])
-template `xwzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[2], a2[0])
+func `xwzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[2] = b2.z; a[0] = b2.w
 template xwzy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[2], a[1])
-template `xwzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[2], a2[1])
+func `xwzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[2] = b2.z; a[1] = b2.w
 template xwzz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[2], a[2])
-template `xwzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[2], a2[2])
+func `xwzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[2] = b2.z; a[2] = b2.w
 template xwzw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[2], a[3])
-template `xwzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[2], a2[3])
+func `xwzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[2] = b2.z; a[3] = b2.w
 template xwwx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[3], a[0])
-template `xwwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[3], a2[0])
+func `xwwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[3] = b2.z; a[0] = b2.w
 template xwwy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[3], a[1])
-template `xwwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[3], a2[1])
+func `xwwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[3] = b2.z; a[1] = b2.w
 template xwwz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[3], a[2])
-template `xwwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[3], a2[2])
+func `xwwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[3] = b2.z; a[2] = b2.w
 template xwww*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[3], a[3])
-template `xwww=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[3], a2[3])
+func `xwww=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[3] = b2.z; a[3] = b2.w
 template yxxx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[0], a[0])
-template `yxxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[0], a2[0])
+func `yxxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[0] = b2.z; a[0] = b2.w
 template yxxy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[0], a[1])
-template `yxxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[0], a2[1])
+func `yxxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[0] = b2.z; a[1] = b2.w
 template yxxz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[0], a[2])
-template `yxxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[0], a2[2])
+func `yxxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[0] = b2.z; a[2] = b2.w
 template yxxw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[0], a[3])
-template `yxxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[0], a2[3])
+func `yxxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[0] = b2.z; a[3] = b2.w
 template yxyx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[1], a[0])
-template `yxyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[1], a2[0])
+func `yxyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[1] = b2.z; a[0] = b2.w
 template yxyy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[1], a[1])
-template `yxyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[1], a2[1])
+func `yxyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[1] = b2.z; a[1] = b2.w
 template yxyz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[1], a[2])
-template `yxyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[1], a2[2])
+func `yxyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[1] = b2.z; a[2] = b2.w
 template yxyw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[1], a[3])
-template `yxyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[1], a2[3])
+func `yxyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[1] = b2.z; a[3] = b2.w
 template yxzx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[2], a[0])
-template `yxzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[2], a2[0])
+func `yxzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[2] = b2.z; a[0] = b2.w
 template yxzy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[2], a[1])
-template `yxzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[2], a2[1])
+func `yxzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[2] = b2.z; a[1] = b2.w
 template yxzz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[2], a[2])
-template `yxzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[2], a2[2])
+func `yxzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[2] = b2.z; a[2] = b2.w
 template yxzw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[2], a[3])
-template `yxzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[2], a2[3])
+func `yxzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[2] = b2.z; a[3] = b2.w
 template yxwx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[3], a[0])
-template `yxwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[3], a2[0])
+func `yxwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[3] = b2.z; a[0] = b2.w
 template yxwy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[3], a[1])
-template `yxwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[3], a2[1])
+func `yxwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[3] = b2.z; a[1] = b2.w
 template yxwz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[3], a[2])
-template `yxwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[3], a2[2])
+func `yxwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[3] = b2.z; a[2] = b2.w
 template yxww*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[3], a[3])
-template `yxww=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[3], a2[3])
+func `yxww=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[3] = b2.z; a[3] = b2.w
 template yyxx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[0], a[0])
-template `yyxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[0], a2[0])
+func `yyxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[0] = b2.z; a[0] = b2.w
 template yyxy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[0], a[1])
-template `yyxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[0], a2[1])
+func `yyxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[0] = b2.z; a[1] = b2.w
 template yyxz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[0], a[2])
-template `yyxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[0], a2[2])
+func `yyxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[0] = b2.z; a[2] = b2.w
 template yyxw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[0], a[3])
-template `yyxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[0], a2[3])
+func `yyxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[0] = b2.z; a[3] = b2.w
 template yyyx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[1], a[0])
-template `yyyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[1], a2[0])
+func `yyyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[1] = b2.z; a[0] = b2.w
 template yyyy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[1], a[1])
-template `yyyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[1], a2[1])
+func `yyyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[1] = b2.z; a[1] = b2.w
 template yyyz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[1], a[2])
-template `yyyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[1], a2[2])
+func `yyyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[1] = b2.z; a[2] = b2.w
 template yyyw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[1], a[3])
-template `yyyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[1], a2[3])
+func `yyyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[1] = b2.z; a[3] = b2.w
 template yyzx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[2], a[0])
-template `yyzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[2], a2[0])
+func `yyzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[2] = b2.z; a[0] = b2.w
 template yyzy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[2], a[1])
-template `yyzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[2], a2[1])
+func `yyzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[2] = b2.z; a[1] = b2.w
 template yyzz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[2], a[2])
-template `yyzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[2], a2[2])
+func `yyzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[2] = b2.z; a[2] = b2.w
 template yyzw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[2], a[3])
-template `yyzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[2], a2[3])
+func `yyzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[2] = b2.z; a[3] = b2.w
 template yywx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[3], a[0])
-template `yywx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[3], a2[0])
+func `yywx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[3] = b2.z; a[0] = b2.w
 template yywy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[3], a[1])
-template `yywy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[3], a2[1])
+func `yywy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[3] = b2.z; a[1] = b2.w
 template yywz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[3], a[2])
-template `yywz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[3], a2[2])
+func `yywz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[3] = b2.z; a[2] = b2.w
 template yyww*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[3], a[3])
-template `yyww=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[3], a2[3])
+func `yyww=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[3] = b2.z; a[3] = b2.w
 template yzxx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[0], a[0])
-template `yzxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[0], a2[0])
+func `yzxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[0] = b2.z; a[0] = b2.w
 template yzxy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[0], a[1])
-template `yzxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[0], a2[1])
+func `yzxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[0] = b2.z; a[1] = b2.w
 template yzxz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[0], a[2])
-template `yzxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[0], a2[2])
+func `yzxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[0] = b2.z; a[2] = b2.w
 template yzxw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[0], a[3])
-template `yzxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[0], a2[3])
+func `yzxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[0] = b2.z; a[3] = b2.w
 template yzyx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[1], a[0])
-template `yzyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[1], a2[0])
+func `yzyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[1] = b2.z; a[0] = b2.w
 template yzyy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[1], a[1])
-template `yzyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[1], a2[1])
+func `yzyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[1] = b2.z; a[1] = b2.w
 template yzyz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[1], a[2])
-template `yzyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[1], a2[2])
+func `yzyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[1] = b2.z; a[2] = b2.w
 template yzyw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[1], a[3])
-template `yzyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[1], a2[3])
+func `yzyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[1] = b2.z; a[3] = b2.w
 template yzzx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[2], a[0])
-template `yzzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[2], a2[0])
+func `yzzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[2] = b2.z; a[0] = b2.w
 template yzzy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[2], a[1])
-template `yzzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[2], a2[1])
+func `yzzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[2] = b2.z; a[1] = b2.w
 template yzzz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[2], a[2])
-template `yzzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[2], a2[2])
+func `yzzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[2] = b2.z; a[2] = b2.w
 template yzzw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[2], a[3])
-template `yzzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[2], a2[3])
+func `yzzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[2] = b2.z; a[3] = b2.w
 template yzwx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[3], a[0])
-template `yzwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[3], a2[0])
+func `yzwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[3] = b2.z; a[0] = b2.w
 template yzwy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[3], a[1])
-template `yzwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[3], a2[1])
+func `yzwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[3] = b2.z; a[1] = b2.w
 template yzwz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[3], a[2])
-template `yzwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[3], a2[2])
+func `yzwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[3] = b2.z; a[2] = b2.w
 template yzww*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[3], a[3])
-template `yzww=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[3], a2[3])
+func `yzww=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[3] = b2.z; a[3] = b2.w
 template ywxx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[0], a[0])
-template `ywxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[0], a2[0])
+func `ywxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[0] = b2.z; a[0] = b2.w
 template ywxy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[0], a[1])
-template `ywxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[0], a2[1])
+func `ywxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[0] = b2.z; a[1] = b2.w
 template ywxz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[0], a[2])
-template `ywxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[0], a2[2])
+func `ywxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[0] = b2.z; a[2] = b2.w
 template ywxw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[0], a[3])
-template `ywxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[0], a2[3])
+func `ywxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[0] = b2.z; a[3] = b2.w
 template ywyx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[1], a[0])
-template `ywyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[1], a2[0])
+func `ywyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[1] = b2.z; a[0] = b2.w
 template ywyy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[1], a[1])
-template `ywyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[1], a2[1])
+func `ywyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[1] = b2.z; a[1] = b2.w
 template ywyz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[1], a[2])
-template `ywyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[1], a2[2])
+func `ywyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[1] = b2.z; a[2] = b2.w
 template ywyw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[1], a[3])
-template `ywyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[1], a2[3])
+func `ywyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[1] = b2.z; a[3] = b2.w
 template ywzx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[2], a[0])
-template `ywzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[2], a2[0])
+func `ywzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[2] = b2.z; a[0] = b2.w
 template ywzy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[2], a[1])
-template `ywzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[2], a2[1])
+func `ywzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[2] = b2.z; a[1] = b2.w
 template ywzz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[2], a[2])
-template `ywzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[2], a2[2])
+func `ywzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[2] = b2.z; a[2] = b2.w
 template ywzw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[2], a[3])
-template `ywzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[2], a2[3])
+func `ywzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[2] = b2.z; a[3] = b2.w
 template ywwx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[3], a[0])
-template `ywwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[3], a2[0])
+func `ywwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[3] = b2.z; a[0] = b2.w
 template ywwy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[3], a[1])
-template `ywwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[3], a2[1])
+func `ywwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[3] = b2.z; a[1] = b2.w
 template ywwz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[3], a[2])
-template `ywwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[3], a2[2])
+func `ywwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[3] = b2.z; a[2] = b2.w
 template ywww*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[3], a[3])
-template `ywww=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[3], a2[3])
+func `ywww=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[3] = b2.z; a[3] = b2.w
 template zxxx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[0], a[0])
-template `zxxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[0], a2[0])
+func `zxxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[0] = b2.z; a[0] = b2.w
 template zxxy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[0], a[1])
-template `zxxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[0], a2[1])
+func `zxxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[0] = b2.z; a[1] = b2.w
 template zxxz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[0], a[2])
-template `zxxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[0], a2[2])
+func `zxxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[0] = b2.z; a[2] = b2.w
 template zxxw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[0], a[3])
-template `zxxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[0], a2[3])
+func `zxxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[0] = b2.z; a[3] = b2.w
 template zxyx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[1], a[0])
-template `zxyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[1], a2[0])
+func `zxyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[1] = b2.z; a[0] = b2.w
 template zxyy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[1], a[1])
-template `zxyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[1], a2[1])
+func `zxyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[1] = b2.z; a[1] = b2.w
 template zxyz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[1], a[2])
-template `zxyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[1], a2[2])
+func `zxyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[1] = b2.z; a[2] = b2.w
 template zxyw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[1], a[3])
-template `zxyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[1], a2[3])
+func `zxyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[1] = b2.z; a[3] = b2.w
 template zxzx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[2], a[0])
-template `zxzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[2], a2[0])
+func `zxzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[2] = b2.z; a[0] = b2.w
 template zxzy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[2], a[1])
-template `zxzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[2], a2[1])
+func `zxzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[2] = b2.z; a[1] = b2.w
 template zxzz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[2], a[2])
-template `zxzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[2], a2[2])
+func `zxzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[2] = b2.z; a[2] = b2.w
 template zxzw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[2], a[3])
-template `zxzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[2], a2[3])
+func `zxzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[2] = b2.z; a[3] = b2.w
 template zxwx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[3], a[0])
-template `zxwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[3], a2[0])
+func `zxwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[3] = b2.z; a[0] = b2.w
 template zxwy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[3], a[1])
-template `zxwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[3], a2[1])
+func `zxwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[3] = b2.z; a[1] = b2.w
 template zxwz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[3], a[2])
-template `zxwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[3], a2[2])
+func `zxwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[3] = b2.z; a[2] = b2.w
 template zxww*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[3], a[3])
-template `zxww=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[3], a2[3])
+func `zxww=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[3] = b2.z; a[3] = b2.w
 template zyxx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[0], a[0])
-template `zyxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[0], a2[0])
+func `zyxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[0] = b2.z; a[0] = b2.w
 template zyxy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[0], a[1])
-template `zyxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[0], a2[1])
+func `zyxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[0] = b2.z; a[1] = b2.w
 template zyxz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[0], a[2])
-template `zyxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[0], a2[2])
+func `zyxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[0] = b2.z; a[2] = b2.w
 template zyxw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[0], a[3])
-template `zyxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[0], a2[3])
+func `zyxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[0] = b2.z; a[3] = b2.w
 template zyyx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[1], a[0])
-template `zyyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[1], a2[0])
+func `zyyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[1] = b2.z; a[0] = b2.w
 template zyyy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[1], a[1])
-template `zyyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[1], a2[1])
+func `zyyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[1] = b2.z; a[1] = b2.w
 template zyyz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[1], a[2])
-template `zyyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[1], a2[2])
+func `zyyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[1] = b2.z; a[2] = b2.w
 template zyyw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[1], a[3])
-template `zyyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[1], a2[3])
+func `zyyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[1] = b2.z; a[3] = b2.w
 template zyzx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[2], a[0])
-template `zyzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[2], a2[0])
+func `zyzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[2] = b2.z; a[0] = b2.w
 template zyzy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[2], a[1])
-template `zyzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[2], a2[1])
+func `zyzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[2] = b2.z; a[1] = b2.w
 template zyzz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[2], a[2])
-template `zyzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[2], a2[2])
+func `zyzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[2] = b2.z; a[2] = b2.w
 template zyzw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[2], a[3])
-template `zyzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[2], a2[3])
+func `zyzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[2] = b2.z; a[3] = b2.w
 template zywx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[3], a[0])
-template `zywx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[3], a2[0])
+func `zywx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[3] = b2.z; a[0] = b2.w
 template zywy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[3], a[1])
-template `zywy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[3], a2[1])
+func `zywy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[3] = b2.z; a[1] = b2.w
 template zywz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[3], a[2])
-template `zywz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[3], a2[2])
+func `zywz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[3] = b2.z; a[2] = b2.w
 template zyww*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[3], a[3])
-template `zyww=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[3], a2[3])
+func `zyww=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[3] = b2.z; a[3] = b2.w
 template zzxx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[0], a[0])
-template `zzxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[0], a2[0])
+func `zzxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[0] = b2.z; a[0] = b2.w
 template zzxy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[0], a[1])
-template `zzxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[0], a2[1])
+func `zzxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[0] = b2.z; a[1] = b2.w
 template zzxz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[0], a[2])
-template `zzxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[0], a2[2])
+func `zzxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[0] = b2.z; a[2] = b2.w
 template zzxw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[0], a[3])
-template `zzxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[0], a2[3])
+func `zzxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[0] = b2.z; a[3] = b2.w
 template zzyx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[1], a[0])
-template `zzyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[1], a2[0])
+func `zzyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[1] = b2.z; a[0] = b2.w
 template zzyy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[1], a[1])
-template `zzyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[1], a2[1])
+func `zzyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[1] = b2.z; a[1] = b2.w
 template zzyz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[1], a[2])
-template `zzyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[1], a2[2])
+func `zzyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[1] = b2.z; a[2] = b2.w
 template zzyw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[1], a[3])
-template `zzyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[1], a2[3])
+func `zzyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[1] = b2.z; a[3] = b2.w
 template zzzx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[2], a[0])
-template `zzzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[2], a2[0])
+func `zzzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[2] = b2.z; a[0] = b2.w
 template zzzy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[2], a[1])
-template `zzzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[2], a2[1])
+func `zzzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[2] = b2.z; a[1] = b2.w
 template zzzz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[2], a[2])
-template `zzzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[2], a2[2])
+func `zzzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[2] = b2.z; a[2] = b2.w
 template zzzw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[2], a[3])
-template `zzzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[2], a2[3])
+func `zzzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[2] = b2.z; a[3] = b2.w
 template zzwx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[3], a[0])
-template `zzwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[3], a2[0])
+func `zzwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[3] = b2.z; a[0] = b2.w
 template zzwy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[3], a[1])
-template `zzwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[3], a2[1])
+func `zzwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[3] = b2.z; a[1] = b2.w
 template zzwz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[3], a[2])
-template `zzwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[3], a2[2])
+func `zzwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[3] = b2.z; a[2] = b2.w
 template zzww*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[3], a[3])
-template `zzww=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[3], a2[3])
+func `zzww=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[3] = b2.z; a[3] = b2.w
 template zwxx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[0], a[0])
-template `zwxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[0], a2[0])
+func `zwxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[0] = b2.z; a[0] = b2.w
 template zwxy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[0], a[1])
-template `zwxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[0], a2[1])
+func `zwxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[0] = b2.z; a[1] = b2.w
 template zwxz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[0], a[2])
-template `zwxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[0], a2[2])
+func `zwxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[0] = b2.z; a[2] = b2.w
 template zwxw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[0], a[3])
-template `zwxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[0], a2[3])
+func `zwxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[0] = b2.z; a[3] = b2.w
 template zwyx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[1], a[0])
-template `zwyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[1], a2[0])
+func `zwyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[1] = b2.z; a[0] = b2.w
 template zwyy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[1], a[1])
-template `zwyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[1], a2[1])
+func `zwyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[1] = b2.z; a[1] = b2.w
 template zwyz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[1], a[2])
-template `zwyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[1], a2[2])
+func `zwyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[1] = b2.z; a[2] = b2.w
 template zwyw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[1], a[3])
-template `zwyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[1], a2[3])
+func `zwyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[1] = b2.z; a[3] = b2.w
 template zwzx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[2], a[0])
-template `zwzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[2], a2[0])
+func `zwzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[2] = b2.z; a[0] = b2.w
 template zwzy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[2], a[1])
-template `zwzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[2], a2[1])
+func `zwzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[2] = b2.z; a[1] = b2.w
 template zwzz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[2], a[2])
-template `zwzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[2], a2[2])
+func `zwzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[2] = b2.z; a[2] = b2.w
 template zwzw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[2], a[3])
-template `zwzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[2], a2[3])
+func `zwzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[2] = b2.z; a[3] = b2.w
 template zwwx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[3], a[0])
-template `zwwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[3], a2[0])
+func `zwwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[3] = b2.z; a[0] = b2.w
 template zwwy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[3], a[1])
-template `zwwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[3], a2[1])
+func `zwwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[3] = b2.z; a[1] = b2.w
 template zwwz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[3], a[2])
-template `zwwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[3], a2[2])
+func `zwwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[3] = b2.z; a[2] = b2.w
 template zwww*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[3], a[3])
-template `zwww=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[3], a2[3])
+func `zwww=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[3] = b2.z; a[3] = b2.w
 template wxxx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[0], a[0])
-template `wxxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[0], a2[0])
+func `wxxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[0] = b2.z; a[0] = b2.w
 template wxxy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[0], a[1])
-template `wxxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[0], a2[1])
+func `wxxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[0] = b2.z; a[1] = b2.w
 template wxxz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[0], a[2])
-template `wxxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[0], a2[2])
+func `wxxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[0] = b2.z; a[2] = b2.w
 template wxxw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[0], a[3])
-template `wxxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[0], a2[3])
+func `wxxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[0] = b2.z; a[3] = b2.w
 template wxyx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[1], a[0])
-template `wxyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[1], a2[0])
+func `wxyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[1] = b2.z; a[0] = b2.w
 template wxyy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[1], a[1])
-template `wxyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[1], a2[1])
+func `wxyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[1] = b2.z; a[1] = b2.w
 template wxyz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[1], a[2])
-template `wxyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[1], a2[2])
+func `wxyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[1] = b2.z; a[2] = b2.w
 template wxyw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[1], a[3])
-template `wxyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[1], a2[3])
+func `wxyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[1] = b2.z; a[3] = b2.w
 template wxzx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[2], a[0])
-template `wxzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[2], a2[0])
+func `wxzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[2] = b2.z; a[0] = b2.w
 template wxzy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[2], a[1])
-template `wxzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[2], a2[1])
+func `wxzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[2] = b2.z; a[1] = b2.w
 template wxzz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[2], a[2])
-template `wxzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[2], a2[2])
+func `wxzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[2] = b2.z; a[2] = b2.w
 template wxzw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[2], a[3])
-template `wxzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[2], a2[3])
+func `wxzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[2] = b2.z; a[3] = b2.w
 template wxwx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[3], a[0])
-template `wxwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[3], a2[0])
+func `wxwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[3] = b2.z; a[0] = b2.w
 template wxwy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[3], a[1])
-template `wxwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[3], a2[1])
+func `wxwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[3] = b2.z; a[1] = b2.w
 template wxwz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[3], a[2])
-template `wxwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[3], a2[2])
+func `wxwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[3] = b2.z; a[2] = b2.w
 template wxww*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[3], a[3])
-template `wxww=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[3], a2[3])
+func `wxww=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[3] = b2.z; a[3] = b2.w
 template wyxx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[0], a[0])
-template `wyxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[0], a2[0])
+func `wyxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[0] = b2.z; a[0] = b2.w
 template wyxy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[0], a[1])
-template `wyxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[0], a2[1])
+func `wyxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[0] = b2.z; a[1] = b2.w
 template wyxz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[0], a[2])
-template `wyxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[0], a2[2])
+func `wyxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[0] = b2.z; a[2] = b2.w
 template wyxw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[0], a[3])
-template `wyxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[0], a2[3])
+func `wyxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[0] = b2.z; a[3] = b2.w
 template wyyx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[1], a[0])
-template `wyyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[1], a2[0])
+func `wyyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[1] = b2.z; a[0] = b2.w
 template wyyy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[1], a[1])
-template `wyyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[1], a2[1])
+func `wyyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[1] = b2.z; a[1] = b2.w
 template wyyz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[1], a[2])
-template `wyyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[1], a2[2])
+func `wyyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[1] = b2.z; a[2] = b2.w
 template wyyw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[1], a[3])
-template `wyyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[1], a2[3])
+func `wyyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[1] = b2.z; a[3] = b2.w
 template wyzx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[2], a[0])
-template `wyzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[2], a2[0])
+func `wyzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[2] = b2.z; a[0] = b2.w
 template wyzy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[2], a[1])
-template `wyzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[2], a2[1])
+func `wyzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[2] = b2.z; a[1] = b2.w
 template wyzz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[2], a[2])
-template `wyzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[2], a2[2])
+func `wyzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[2] = b2.z; a[2] = b2.w
 template wyzw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[2], a[3])
-template `wyzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[2], a2[3])
+func `wyzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[2] = b2.z; a[3] = b2.w
 template wywx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[3], a[0])
-template `wywx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[3], a2[0])
+func `wywx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[3] = b2.z; a[0] = b2.w
 template wywy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[3], a[1])
-template `wywy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[3], a2[1])
+func `wywy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[3] = b2.z; a[1] = b2.w
 template wywz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[3], a[2])
-template `wywz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[3], a2[2])
+func `wywz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[3] = b2.z; a[2] = b2.w
 template wyww*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[3], a[3])
-template `wyww=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[3], a2[3])
+func `wyww=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[3] = b2.z; a[3] = b2.w
 template wzxx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[0], a[0])
-template `wzxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[0], a2[0])
+func `wzxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[0] = b2.z; a[0] = b2.w
 template wzxy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[0], a[1])
-template `wzxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[0], a2[1])
+func `wzxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[0] = b2.z; a[1] = b2.w
 template wzxz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[0], a[2])
-template `wzxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[0], a2[2])
+func `wzxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[0] = b2.z; a[2] = b2.w
 template wzxw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[0], a[3])
-template `wzxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[0], a2[3])
+func `wzxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[0] = b2.z; a[3] = b2.w
 template wzyx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[1], a[0])
-template `wzyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[1], a2[0])
+func `wzyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[1] = b2.z; a[0] = b2.w
 template wzyy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[1], a[1])
-template `wzyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[1], a2[1])
+func `wzyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[1] = b2.z; a[1] = b2.w
 template wzyz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[1], a[2])
-template `wzyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[1], a2[2])
+func `wzyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[1] = b2.z; a[2] = b2.w
 template wzyw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[1], a[3])
-template `wzyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[1], a2[3])
+func `wzyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[1] = b2.z; a[3] = b2.w
 template wzzx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[2], a[0])
-template `wzzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[2], a2[0])
+func `wzzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[2] = b2.z; a[0] = b2.w
 template wzzy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[2], a[1])
-template `wzzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[2], a2[1])
+func `wzzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[2] = b2.z; a[1] = b2.w
 template wzzz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[2], a[2])
-template `wzzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[2], a2[2])
+func `wzzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[2] = b2.z; a[2] = b2.w
 template wzzw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[2], a[3])
-template `wzzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[2], a2[3])
+func `wzzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[2] = b2.z; a[3] = b2.w
 template wzwx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[3], a[0])
-template `wzwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[3], a2[0])
+func `wzwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[3] = b2.z; a[0] = b2.w
 template wzwy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[3], a[1])
-template `wzwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[3], a2[1])
+func `wzwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[3] = b2.z; a[1] = b2.w
 template wzwz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[3], a[2])
-template `wzwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[3], a2[2])
+func `wzwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[3] = b2.z; a[2] = b2.w
 template wzww*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[3], a[3])
-template `wzww=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[3], a2[3])
+func `wzww=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[3] = b2.z; a[3] = b2.w
 template wwxx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[0], a[0])
-template `wwxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[0], a2[0])
+func `wwxx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[0] = b2.z; a[0] = b2.w
 template wwxy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[0], a[1])
-template `wwxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[0], a2[1])
+func `wwxy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[0] = b2.z; a[1] = b2.w
 template wwxz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[0], a[2])
-template `wwxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[0], a2[2])
+func `wwxz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[0] = b2.z; a[2] = b2.w
 template wwxw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[0], a[3])
-template `wwxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[0], a2[3])
+func `wwxw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[0] = b2.z; a[3] = b2.w
 template wwyx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[1], a[0])
-template `wwyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[1], a2[0])
+func `wwyx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[1] = b2.z; a[0] = b2.w
 template wwyy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[1], a[1])
-template `wwyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[1], a2[1])
+func `wwyy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[1] = b2.z; a[1] = b2.w
 template wwyz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[1], a[2])
-template `wwyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[1], a2[2])
+func `wwyz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[1] = b2.z; a[2] = b2.w
 template wwyw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[1], a[3])
-template `wwyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[1], a2[3])
+func `wwyw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[1] = b2.z; a[3] = b2.w
 template wwzx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[2], a[0])
-template `wwzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[2], a2[0])
+func `wwzx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[2] = b2.z; a[0] = b2.w
 template wwzy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[2], a[1])
-template `wwzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[2], a2[1])
+func `wwzy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[2] = b2.z; a[1] = b2.w
 template wwzz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[2], a[2])
-template `wwzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[2], a2[2])
+func `wwzz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[2] = b2.z; a[2] = b2.w
 template wwzw*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[2], a[3])
-template `wwzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[2], a2[3])
+func `wwzw=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[2] = b2.z; a[3] = b2.w
 template wwwx*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[3], a[0])
-template `wwwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[3], a2[0])
+func `wwwx=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[3] = b2.z; a[0] = b2.w
 template wwwy*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[3], a[1])
-template `wwwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[3], a2[1])
+func `wwwy=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[3] = b2.z; a[1] = b2.w
 template wwwz*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[3], a[2])
-template `wwwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[3], a2[2])
+func `wwwz=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[3] = b2.z; a[2] = b2.w
 template wwww*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[3], a[3])
-template `wwww=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[3], a2[3])
+func `wwww=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[3] = b2.z; a[3] = b2.w
 
 # 4 x rgba
 template rrrr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[0], a[0])
-template `rrrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[0], a2[0])
+func `rrrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[0] = b2.z; a[0] = b2.w
 template rrrg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[0], a[1])
-template `rrrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[0], a2[1])
+func `rrrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[0] = b2.z; a[1] = b2.w
 template rrrb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[0], a[2])
-template `rrrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[0], a2[2])
+func `rrrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[0] = b2.z; a[2] = b2.w
 template rrra*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[0], a[3])
-template `rrra=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[0], a2[3])
+func `rrra=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[0] = b2.z; a[3] = b2.w
 template rrgr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[1], a[0])
-template `rrgr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[1], a2[0])
+func `rrgr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[1] = b2.z; a[0] = b2.w
 template rrgg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[1], a[1])
-template `rrgg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[1], a2[1])
+func `rrgg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[1] = b2.z; a[1] = b2.w
 template rrgb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[1], a[2])
-template `rrgb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[1], a2[2])
+func `rrgb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[1] = b2.z; a[2] = b2.w
 template rrga*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[1], a[3])
-template `rrga=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[1], a2[3])
+func `rrga=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[1] = b2.z; a[3] = b2.w
 template rrbr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[2], a[0])
-template `rrbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[2], a2[0])
+func `rrbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[2] = b2.z; a[0] = b2.w
 template rrbg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[2], a[1])
-template `rrbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[2], a2[1])
+func `rrbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[2] = b2.z; a[1] = b2.w
 template rrbb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[2], a[2])
-template `rrbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[2], a2[2])
+func `rrbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[2] = b2.z; a[2] = b2.w
 template rrba*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[2], a[3])
-template `rrba=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[2], a2[3])
+func `rrba=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[2] = b2.z; a[3] = b2.w
 template rrar*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[3], a[0])
-template `rrar=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[3], a2[0])
+func `rrar=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[3] = b2.z; a[0] = b2.w
 template rrag*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[3], a[1])
-template `rrag=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[3], a2[1])
+func `rrag=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[3] = b2.z; a[1] = b2.w
 template rrab*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[3], a[2])
-template `rrab=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[3], a2[2])
+func `rrab=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[3] = b2.z; a[2] = b2.w
 template rraa*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[3], a[3])
-template `rraa=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[3], a2[3])
+func `rraa=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[3] = b2.z; a[3] = b2.w
 template rgrr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[0], a[0])
-template `rgrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[0], a2[0])
+func `rgrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[0] = b2.z; a[0] = b2.w
 template rgrg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[0], a[1])
-template `rgrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[0], a2[1])
+func `rgrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[0] = b2.z; a[1] = b2.w
 template rgrb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[0], a[2])
-template `rgrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[0], a2[2])
+func `rgrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[0] = b2.z; a[2] = b2.w
 template rgra*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[0], a[3])
-template `rgra=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[0], a2[3])
+func `rgra=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[0] = b2.z; a[3] = b2.w
 template rggr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[1], a[0])
-template `rggr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[1], a2[0])
+func `rggr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[1] = b2.z; a[0] = b2.w
 template rggg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[1], a[1])
-template `rggg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[1], a2[1])
+func `rggg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[1] = b2.z; a[1] = b2.w
 template rggb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[1], a[2])
-template `rggb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[1], a2[2])
+func `rggb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[1] = b2.z; a[2] = b2.w
 template rgga*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[1], a[3])
-template `rgga=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[1], a2[3])
+func `rgga=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[1] = b2.z; a[3] = b2.w
 template rgbr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[2], a[0])
-template `rgbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[2], a2[0])
+func `rgbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[2] = b2.z; a[0] = b2.w
 template rgbg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[2], a[1])
-template `rgbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[2], a2[1])
+func `rgbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[2] = b2.z; a[1] = b2.w
 template rgbb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[2], a[2])
-template `rgbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[2], a2[2])
+func `rgbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[2] = b2.z; a[2] = b2.w
 template rgba*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[2], a[3])
-template `rgba=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[2], a2[3])
+func `rgba=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[2] = b2.z; a[3] = b2.w
 template rgar*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[3], a[0])
-template `rgar=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[3], a2[0])
+func `rgar=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[3] = b2.z; a[0] = b2.w
 template rgag*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[3], a[1])
-template `rgag=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[3], a2[1])
+func `rgag=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[3] = b2.z; a[1] = b2.w
 template rgab*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[3], a[2])
-template `rgab=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[3], a2[2])
+func `rgab=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[3] = b2.z; a[2] = b2.w
 template rgaa*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[3], a[3])
-template `rgaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[3], a2[3])
+func `rgaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[3] = b2.z; a[3] = b2.w
 template rbrr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[0], a[0])
-template `rbrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[0], a2[0])
+func `rbrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[0] = b2.z; a[0] = b2.w
 template rbrg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[0], a[1])
-template `rbrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[0], a2[1])
+func `rbrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[0] = b2.z; a[1] = b2.w
 template rbrb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[0], a[2])
-template `rbrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[0], a2[2])
+func `rbrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[0] = b2.z; a[2] = b2.w
 template rbra*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[0], a[3])
-template `rbra=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[0], a2[3])
+func `rbra=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[0] = b2.z; a[3] = b2.w
 template rbgr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[1], a[0])
-template `rbgr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[1], a2[0])
+func `rbgr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[1] = b2.z; a[0] = b2.w
 template rbgg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[1], a[1])
-template `rbgg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[1], a2[1])
+func `rbgg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[1] = b2.z; a[1] = b2.w
 template rbgb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[1], a[2])
-template `rbgb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[1], a2[2])
+func `rbgb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[1] = b2.z; a[2] = b2.w
 template rbga*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[1], a[3])
-template `rbga=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[1], a2[3])
+func `rbga=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[1] = b2.z; a[3] = b2.w
 template rbbr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[2], a[0])
-template `rbbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[2], a2[0])
+func `rbbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[2] = b2.z; a[0] = b2.w
 template rbbg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[2], a[1])
-template `rbbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[2], a2[1])
+func `rbbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[2] = b2.z; a[1] = b2.w
 template rbbb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[2], a[2])
-template `rbbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[2], a2[2])
+func `rbbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[2] = b2.z; a[2] = b2.w
 template rbba*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[2], a[3])
-template `rbba=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[2], a2[3])
+func `rbba=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[2] = b2.z; a[3] = b2.w
 template rbar*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[3], a[0])
-template `rbar=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[3], a2[0])
+func `rbar=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[3] = b2.z; a[0] = b2.w
 template rbag*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[3], a[1])
-template `rbag=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[3], a2[1])
+func `rbag=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[3] = b2.z; a[1] = b2.w
 template rbab*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[3], a[2])
-template `rbab=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[3], a2[2])
+func `rbab=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[3] = b2.z; a[2] = b2.w
 template rbaa*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[3], a[3])
-template `rbaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[3], a2[3])
+func `rbaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[3] = b2.z; a[3] = b2.w
 template rarr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[0], a[0])
-template `rarr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[0], a2[0])
+func `rarr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[0] = b2.z; a[0] = b2.w
 template rarg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[0], a[1])
-template `rarg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[0], a2[1])
+func `rarg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[0] = b2.z; a[1] = b2.w
 template rarb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[0], a[2])
-template `rarb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[0], a2[2])
+func `rarb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[0] = b2.z; a[2] = b2.w
 template rara*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[0], a[3])
-template `rara=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[0], a2[3])
+func `rara=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[0] = b2.z; a[3] = b2.w
 template ragr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[1], a[0])
-template `ragr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[1], a2[0])
+func `ragr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[1] = b2.z; a[0] = b2.w
 template ragg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[1], a[1])
-template `ragg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[1], a2[1])
+func `ragg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[1] = b2.z; a[1] = b2.w
 template ragb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[1], a[2])
-template `ragb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[1], a2[2])
+func `ragb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[1] = b2.z; a[2] = b2.w
 template raga*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[1], a[3])
-template `raga=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[1], a2[3])
+func `raga=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[1] = b2.z; a[3] = b2.w
 template rabr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[2], a[0])
-template `rabr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[2], a2[0])
+func `rabr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[2] = b2.z; a[0] = b2.w
 template rabg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[2], a[1])
-template `rabg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[2], a2[1])
+func `rabg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[2] = b2.z; a[1] = b2.w
 template rabb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[2], a[2])
-template `rabb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[2], a2[2])
+func `rabb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[2] = b2.z; a[2] = b2.w
 template raba*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[2], a[3])
-template `raba=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[2], a2[3])
+func `raba=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[2] = b2.z; a[3] = b2.w
 template raar*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[3], a[0])
-template `raar=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[3], a2[0])
+func `raar=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[3] = b2.z; a[0] = b2.w
 template raag*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[3], a[1])
-template `raag=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[3], a2[1])
+func `raag=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[3] = b2.z; a[1] = b2.w
 template raab*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[3], a[2])
-template `raab=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[3], a2[2])
+func `raab=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[3] = b2.z; a[2] = b2.w
 template raaa*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[3], a[3])
-template `raaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[3], a2[3])
+func `raaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[3] = b2.z; a[3] = b2.w
 template grrr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[0], a[0])
-template `grrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[0], a2[0])
+func `grrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[0] = b2.z; a[0] = b2.w
 template grrg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[0], a[1])
-template `grrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[0], a2[1])
+func `grrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[0] = b2.z; a[1] = b2.w
 template grrb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[0], a[2])
-template `grrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[0], a2[2])
+func `grrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[0] = b2.z; a[2] = b2.w
 template grra*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[0], a[3])
-template `grra=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[0], a2[3])
+func `grra=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[0] = b2.z; a[3] = b2.w
 template grgr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[1], a[0])
-template `grgr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[1], a2[0])
+func `grgr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[1] = b2.z; a[0] = b2.w
 template grgg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[1], a[1])
-template `grgg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[1], a2[1])
+func `grgg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[1] = b2.z; a[1] = b2.w
 template grgb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[1], a[2])
-template `grgb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[1], a2[2])
+func `grgb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[1] = b2.z; a[2] = b2.w
 template grga*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[1], a[3])
-template `grga=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[1], a2[3])
+func `grga=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[1] = b2.z; a[3] = b2.w
 template grbr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[2], a[0])
-template `grbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[2], a2[0])
+func `grbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[2] = b2.z; a[0] = b2.w
 template grbg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[2], a[1])
-template `grbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[2], a2[1])
+func `grbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[2] = b2.z; a[1] = b2.w
 template grbb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[2], a[2])
-template `grbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[2], a2[2])
+func `grbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[2] = b2.z; a[2] = b2.w
 template grba*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[2], a[3])
-template `grba=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[2], a2[3])
+func `grba=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[2] = b2.z; a[3] = b2.w
 template grar*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[3], a[0])
-template `grar=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[3], a2[0])
+func `grar=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[3] = b2.z; a[0] = b2.w
 template grag*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[3], a[1])
-template `grag=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[3], a2[1])
+func `grag=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[3] = b2.z; a[1] = b2.w
 template grab*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[3], a[2])
-template `grab=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[3], a2[2])
+func `grab=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[3] = b2.z; a[2] = b2.w
 template graa*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[3], a[3])
-template `graa=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[3], a2[3])
+func `graa=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[3] = b2.z; a[3] = b2.w
 template ggrr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[0], a[0])
-template `ggrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[0], a2[0])
+func `ggrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[0] = b2.z; a[0] = b2.w
 template ggrg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[0], a[1])
-template `ggrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[0], a2[1])
+func `ggrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[0] = b2.z; a[1] = b2.w
 template ggrb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[0], a[2])
-template `ggrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[0], a2[2])
+func `ggrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[0] = b2.z; a[2] = b2.w
 template ggra*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[0], a[3])
-template `ggra=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[0], a2[3])
+func `ggra=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[0] = b2.z; a[3] = b2.w
 template gggr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[1], a[0])
-template `gggr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[1], a2[0])
+func `gggr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[1] = b2.z; a[0] = b2.w
 template gggg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[1], a[1])
-template `gggg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[1], a2[1])
+func `gggg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[1] = b2.z; a[1] = b2.w
 template gggb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[1], a[2])
-template `gggb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[1], a2[2])
+func `gggb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[1] = b2.z; a[2] = b2.w
 template ggga*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[1], a[3])
-template `ggga=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[1], a2[3])
+func `ggga=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[1] = b2.z; a[3] = b2.w
 template ggbr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[2], a[0])
-template `ggbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[2], a2[0])
+func `ggbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[2] = b2.z; a[0] = b2.w
 template ggbg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[2], a[1])
-template `ggbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[2], a2[1])
+func `ggbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[2] = b2.z; a[1] = b2.w
 template ggbb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[2], a[2])
-template `ggbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[2], a2[2])
+func `ggbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[2] = b2.z; a[2] = b2.w
 template ggba*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[2], a[3])
-template `ggba=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[2], a2[3])
+func `ggba=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[2] = b2.z; a[3] = b2.w
 template ggar*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[3], a[0])
-template `ggar=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[3], a2[0])
+func `ggar=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[3] = b2.z; a[0] = b2.w
 template ggag*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[3], a[1])
-template `ggag=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[3], a2[1])
+func `ggag=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[3] = b2.z; a[1] = b2.w
 template ggab*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[3], a[2])
-template `ggab=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[3], a2[2])
+func `ggab=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[3] = b2.z; a[2] = b2.w
 template ggaa*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[3], a[3])
-template `ggaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[3], a2[3])
+func `ggaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[3] = b2.z; a[3] = b2.w
 template gbrr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[0], a[0])
-template `gbrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[0], a2[0])
+func `gbrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[0] = b2.z; a[0] = b2.w
 template gbrg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[0], a[1])
-template `gbrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[0], a2[1])
+func `gbrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[0] = b2.z; a[1] = b2.w
 template gbrb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[0], a[2])
-template `gbrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[0], a2[2])
+func `gbrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[0] = b2.z; a[2] = b2.w
 template gbra*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[0], a[3])
-template `gbra=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[0], a2[3])
+func `gbra=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[0] = b2.z; a[3] = b2.w
 template gbgr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[1], a[0])
-template `gbgr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[1], a2[0])
+func `gbgr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[1] = b2.z; a[0] = b2.w
 template gbgg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[1], a[1])
-template `gbgg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[1], a2[1])
+func `gbgg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[1] = b2.z; a[1] = b2.w
 template gbgb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[1], a[2])
-template `gbgb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[1], a2[2])
+func `gbgb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[1] = b2.z; a[2] = b2.w
 template gbga*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[1], a[3])
-template `gbga=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[1], a2[3])
+func `gbga=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[1] = b2.z; a[3] = b2.w
 template gbbr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[2], a[0])
-template `gbbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[2], a2[0])
+func `gbbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[2] = b2.z; a[0] = b2.w
 template gbbg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[2], a[1])
-template `gbbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[2], a2[1])
+func `gbbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[2] = b2.z; a[1] = b2.w
 template gbbb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[2], a[2])
-template `gbbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[2], a2[2])
+func `gbbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[2] = b2.z; a[2] = b2.w
 template gbba*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[2], a[3])
-template `gbba=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[2], a2[3])
+func `gbba=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[2] = b2.z; a[3] = b2.w
 template gbar*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[3], a[0])
-template `gbar=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[3], a2[0])
+func `gbar=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[3] = b2.z; a[0] = b2.w
 template gbag*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[3], a[1])
-template `gbag=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[3], a2[1])
+func `gbag=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[3] = b2.z; a[1] = b2.w
 template gbab*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[3], a[2])
-template `gbab=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[3], a2[2])
+func `gbab=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[3] = b2.z; a[2] = b2.w
 template gbaa*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[3], a[3])
-template `gbaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[3], a2[3])
+func `gbaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[3] = b2.z; a[3] = b2.w
 template garr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[0], a[0])
-template `garr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[0], a2[0])
+func `garr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[0] = b2.z; a[0] = b2.w
 template garg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[0], a[1])
-template `garg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[0], a2[1])
+func `garg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[0] = b2.z; a[1] = b2.w
 template garb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[0], a[2])
-template `garb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[0], a2[2])
+func `garb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[0] = b2.z; a[2] = b2.w
 template gara*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[0], a[3])
-template `gara=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[0], a2[3])
+func `gara=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[0] = b2.z; a[3] = b2.w
 template gagr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[1], a[0])
-template `gagr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[1], a2[0])
+func `gagr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[1] = b2.z; a[0] = b2.w
 template gagg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[1], a[1])
-template `gagg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[1], a2[1])
+func `gagg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[1] = b2.z; a[1] = b2.w
 template gagb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[1], a[2])
-template `gagb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[1], a2[2])
+func `gagb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[1] = b2.z; a[2] = b2.w
 template gaga*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[1], a[3])
-template `gaga=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[1], a2[3])
+func `gaga=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[1] = b2.z; a[3] = b2.w
 template gabr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[2], a[0])
-template `gabr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[2], a2[0])
+func `gabr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[2] = b2.z; a[0] = b2.w
 template gabg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[2], a[1])
-template `gabg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[2], a2[1])
+func `gabg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[2] = b2.z; a[1] = b2.w
 template gabb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[2], a[2])
-template `gabb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[2], a2[2])
+func `gabb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[2] = b2.z; a[2] = b2.w
 template gaba*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[2], a[3])
-template `gaba=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[2], a2[3])
+func `gaba=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[2] = b2.z; a[3] = b2.w
 template gaar*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[3], a[0])
-template `gaar=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[3], a2[0])
+func `gaar=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[3] = b2.z; a[0] = b2.w
 template gaag*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[3], a[1])
-template `gaag=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[3], a2[1])
+func `gaag=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[3] = b2.z; a[1] = b2.w
 template gaab*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[3], a[2])
-template `gaab=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[3], a2[2])
+func `gaab=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[3] = b2.z; a[2] = b2.w
 template gaaa*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[3], a[3])
-template `gaaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[3], a2[3])
+func `gaaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[3] = b2.z; a[3] = b2.w
 template brrr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[0], a[0])
-template `brrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[0], a2[0])
+func `brrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[0] = b2.z; a[0] = b2.w
 template brrg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[0], a[1])
-template `brrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[0], a2[1])
+func `brrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[0] = b2.z; a[1] = b2.w
 template brrb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[0], a[2])
-template `brrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[0], a2[2])
+func `brrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[0] = b2.z; a[2] = b2.w
 template brra*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[0], a[3])
-template `brra=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[0], a2[3])
+func `brra=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[0] = b2.z; a[3] = b2.w
 template brgr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[1], a[0])
-template `brgr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[1], a2[0])
+func `brgr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[1] = b2.z; a[0] = b2.w
 template brgg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[1], a[1])
-template `brgg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[1], a2[1])
+func `brgg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[1] = b2.z; a[1] = b2.w
 template brgb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[1], a[2])
-template `brgb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[1], a2[2])
+func `brgb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[1] = b2.z; a[2] = b2.w
 template brga*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[1], a[3])
-template `brga=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[1], a2[3])
+func `brga=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[1] = b2.z; a[3] = b2.w
 template brbr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[2], a[0])
-template `brbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[2], a2[0])
+func `brbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[2] = b2.z; a[0] = b2.w
 template brbg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[2], a[1])
-template `brbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[2], a2[1])
+func `brbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[2] = b2.z; a[1] = b2.w
 template brbb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[2], a[2])
-template `brbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[2], a2[2])
+func `brbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[2] = b2.z; a[2] = b2.w
 template brba*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[2], a[3])
-template `brba=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[2], a2[3])
+func `brba=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[2] = b2.z; a[3] = b2.w
 template brar*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[3], a[0])
-template `brar=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[3], a2[0])
+func `brar=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[3] = b2.z; a[0] = b2.w
 template brag*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[3], a[1])
-template `brag=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[3], a2[1])
+func `brag=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[3] = b2.z; a[1] = b2.w
 template brab*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[3], a[2])
-template `brab=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[3], a2[2])
+func `brab=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[3] = b2.z; a[2] = b2.w
 template braa*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[3], a[3])
-template `braa=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[3], a2[3])
+func `braa=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[3] = b2.z; a[3] = b2.w
 template bgrr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[0], a[0])
-template `bgrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[0], a2[0])
+func `bgrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[0] = b2.z; a[0] = b2.w
 template bgrg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[0], a[1])
-template `bgrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[0], a2[1])
+func `bgrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[0] = b2.z; a[1] = b2.w
 template bgrb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[0], a[2])
-template `bgrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[0], a2[2])
+func `bgrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[0] = b2.z; a[2] = b2.w
 template bgra*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[0], a[3])
-template `bgra=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[0], a2[3])
+func `bgra=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[0] = b2.z; a[3] = b2.w
 template bggr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[1], a[0])
-template `bggr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[1], a2[0])
+func `bggr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[1] = b2.z; a[0] = b2.w
 template bggg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[1], a[1])
-template `bggg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[1], a2[1])
+func `bggg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[1] = b2.z; a[1] = b2.w
 template bggb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[1], a[2])
-template `bggb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[1], a2[2])
+func `bggb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[1] = b2.z; a[2] = b2.w
 template bgga*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[1], a[3])
-template `bgga=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[1], a2[3])
+func `bgga=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[1] = b2.z; a[3] = b2.w
 template bgbr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[2], a[0])
-template `bgbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[2], a2[0])
+func `bgbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[2] = b2.z; a[0] = b2.w
 template bgbg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[2], a[1])
-template `bgbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[2], a2[1])
+func `bgbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[2] = b2.z; a[1] = b2.w
 template bgbb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[2], a[2])
-template `bgbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[2], a2[2])
+func `bgbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[2] = b2.z; a[2] = b2.w
 template bgba*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[2], a[3])
-template `bgba=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[2], a2[3])
+func `bgba=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[2] = b2.z; a[3] = b2.w
 template bgar*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[3], a[0])
-template `bgar=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[3], a2[0])
+func `bgar=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[3] = b2.z; a[0] = b2.w
 template bgag*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[3], a[1])
-template `bgag=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[3], a2[1])
+func `bgag=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[3] = b2.z; a[1] = b2.w
 template bgab*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[3], a[2])
-template `bgab=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[3], a2[2])
+func `bgab=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[3] = b2.z; a[2] = b2.w
 template bgaa*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[3], a[3])
-template `bgaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[3], a2[3])
+func `bgaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[3] = b2.z; a[3] = b2.w
 template bbrr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[0], a[0])
-template `bbrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[0], a2[0])
+func `bbrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[0] = b2.z; a[0] = b2.w
 template bbrg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[0], a[1])
-template `bbrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[0], a2[1])
+func `bbrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[0] = b2.z; a[1] = b2.w
 template bbrb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[0], a[2])
-template `bbrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[0], a2[2])
+func `bbrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[0] = b2.z; a[2] = b2.w
 template bbra*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[0], a[3])
-template `bbra=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[0], a2[3])
+func `bbra=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[0] = b2.z; a[3] = b2.w
 template bbgr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[1], a[0])
-template `bbgr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[1], a2[0])
+func `bbgr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[1] = b2.z; a[0] = b2.w
 template bbgg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[1], a[1])
-template `bbgg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[1], a2[1])
+func `bbgg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[1] = b2.z; a[1] = b2.w
 template bbgb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[1], a[2])
-template `bbgb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[1], a2[2])
+func `bbgb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[1] = b2.z; a[2] = b2.w
 template bbga*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[1], a[3])
-template `bbga=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[1], a2[3])
+func `bbga=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[1] = b2.z; a[3] = b2.w
 template bbbr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[2], a[0])
-template `bbbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[2], a2[0])
+func `bbbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[2] = b2.z; a[0] = b2.w
 template bbbg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[2], a[1])
-template `bbbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[2], a2[1])
+func `bbbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[2] = b2.z; a[1] = b2.w
 template bbbb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[2], a[2])
-template `bbbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[2], a2[2])
+func `bbbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[2] = b2.z; a[2] = b2.w
 template bbba*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[2], a[3])
-template `bbba=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[2], a2[3])
+func `bbba=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[2] = b2.z; a[3] = b2.w
 template bbar*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[3], a[0])
-template `bbar=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[3], a2[0])
+func `bbar=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[3] = b2.z; a[0] = b2.w
 template bbag*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[3], a[1])
-template `bbag=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[3], a2[1])
+func `bbag=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[3] = b2.z; a[1] = b2.w
 template bbab*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[3], a[2])
-template `bbab=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[3], a2[2])
+func `bbab=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[3] = b2.z; a[2] = b2.w
 template bbaa*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[3], a[3])
-template `bbaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[3], a2[3])
+func `bbaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[3] = b2.z; a[3] = b2.w
 template barr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[0], a[0])
-template `barr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[0], a2[0])
+func `barr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[0] = b2.z; a[0] = b2.w
 template barg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[0], a[1])
-template `barg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[0], a2[1])
+func `barg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[0] = b2.z; a[1] = b2.w
 template barb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[0], a[2])
-template `barb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[0], a2[2])
+func `barb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[0] = b2.z; a[2] = b2.w
 template bara*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[0], a[3])
-template `bara=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[0], a2[3])
+func `bara=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[0] = b2.z; a[3] = b2.w
 template bagr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[1], a[0])
-template `bagr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[1], a2[0])
+func `bagr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[1] = b2.z; a[0] = b2.w
 template bagg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[1], a[1])
-template `bagg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[1], a2[1])
+func `bagg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[1] = b2.z; a[1] = b2.w
 template bagb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[1], a[2])
-template `bagb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[1], a2[2])
+func `bagb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[1] = b2.z; a[2] = b2.w
 template baga*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[1], a[3])
-template `baga=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[1], a2[3])
+func `baga=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[1] = b2.z; a[3] = b2.w
 template babr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[2], a[0])
-template `babr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[2], a2[0])
+func `babr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[2] = b2.z; a[0] = b2.w
 template babg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[2], a[1])
-template `babg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[2], a2[1])
+func `babg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[2] = b2.z; a[1] = b2.w
 template babb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[2], a[2])
-template `babb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[2], a2[2])
+func `babb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[2] = b2.z; a[2] = b2.w
 template baba*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[2], a[3])
-template `baba=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[2], a2[3])
+func `baba=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[2] = b2.z; a[3] = b2.w
 template baar*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[3], a[0])
-template `baar=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[3], a2[0])
+func `baar=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[3] = b2.z; a[0] = b2.w
 template baag*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[3], a[1])
-template `baag=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[3], a2[1])
+func `baag=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[3] = b2.z; a[1] = b2.w
 template baab*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[3], a[2])
-template `baab=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[3], a2[2])
+func `baab=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[3] = b2.z; a[2] = b2.w
 template baaa*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[3], a[3])
-template `baaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[3], a2[3])
+func `baaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[3] = b2.z; a[3] = b2.w
 template arrr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[0], a[0])
-template `arrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[0], a2[0])
+func `arrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[0] = b2.z; a[0] = b2.w
 template arrg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[0], a[1])
-template `arrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[0], a2[1])
+func `arrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[0] = b2.z; a[1] = b2.w
 template arrb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[0], a[2])
-template `arrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[0], a2[2])
+func `arrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[0] = b2.z; a[2] = b2.w
 template arra*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[0], a[3])
-template `arra=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[0], a2[3])
+func `arra=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[0] = b2.z; a[3] = b2.w
 template argr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[1], a[0])
-template `argr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[1], a2[0])
+func `argr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[1] = b2.z; a[0] = b2.w
 template argg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[1], a[1])
-template `argg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[1], a2[1])
+func `argg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[1] = b2.z; a[1] = b2.w
 template argb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[1], a[2])
-template `argb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[1], a2[2])
+func `argb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[1] = b2.z; a[2] = b2.w
 template arga*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[1], a[3])
-template `arga=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[1], a2[3])
+func `arga=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[1] = b2.z; a[3] = b2.w
 template arbr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[2], a[0])
-template `arbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[2], a2[0])
+func `arbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[2] = b2.z; a[0] = b2.w
 template arbg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[2], a[1])
-template `arbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[2], a2[1])
+func `arbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[2] = b2.z; a[1] = b2.w
 template arbb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[2], a[2])
-template `arbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[2], a2[2])
+func `arbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[2] = b2.z; a[2] = b2.w
 template arba*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[2], a[3])
-template `arba=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[2], a2[3])
+func `arba=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[2] = b2.z; a[3] = b2.w
 template arar*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[3], a[0])
-template `arar=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[3], a2[0])
+func `arar=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[3] = b2.z; a[0] = b2.w
 template arag*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[3], a[1])
-template `arag=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[3], a2[1])
+func `arag=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[3] = b2.z; a[1] = b2.w
 template arab*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[3], a[2])
-template `arab=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[3], a2[2])
+func `arab=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[3] = b2.z; a[2] = b2.w
 template araa*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[3], a[3])
-template `araa=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[3], a2[3])
+func `araa=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[3] = b2.z; a[3] = b2.w
 template agrr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[0], a[0])
-template `agrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[0], a2[0])
+func `agrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[0] = b2.z; a[0] = b2.w
 template agrg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[0], a[1])
-template `agrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[0], a2[1])
+func `agrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[0] = b2.z; a[1] = b2.w
 template agrb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[0], a[2])
-template `agrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[0], a2[2])
+func `agrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[0] = b2.z; a[2] = b2.w
 template agra*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[0], a[3])
-template `agra=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[0], a2[3])
+func `agra=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[0] = b2.z; a[3] = b2.w
 template aggr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[1], a[0])
-template `aggr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[1], a2[0])
+func `aggr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[1] = b2.z; a[0] = b2.w
 template aggg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[1], a[1])
-template `aggg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[1], a2[1])
+func `aggg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[1] = b2.z; a[1] = b2.w
 template aggb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[1], a[2])
-template `aggb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[1], a2[2])
+func `aggb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[1] = b2.z; a[2] = b2.w
 template agga*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[1], a[3])
-template `agga=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[1], a2[3])
+func `agga=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[1] = b2.z; a[3] = b2.w
 template agbr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[2], a[0])
-template `agbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[2], a2[0])
+func `agbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[2] = b2.z; a[0] = b2.w
 template agbg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[2], a[1])
-template `agbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[2], a2[1])
+func `agbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[2] = b2.z; a[1] = b2.w
 template agbb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[2], a[2])
-template `agbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[2], a2[2])
+func `agbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[2] = b2.z; a[2] = b2.w
 template agba*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[2], a[3])
-template `agba=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[2], a2[3])
+func `agba=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[2] = b2.z; a[3] = b2.w
 template agar*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[3], a[0])
-template `agar=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[3], a2[0])
+func `agar=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[3] = b2.z; a[0] = b2.w
 template agag*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[3], a[1])
-template `agag=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[3], a2[1])
+func `agag=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[3] = b2.z; a[1] = b2.w
 template agab*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[3], a[2])
-template `agab=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[3], a2[2])
+func `agab=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[3] = b2.z; a[2] = b2.w
 template agaa*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[3], a[3])
-template `agaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[3], a2[3])
+func `agaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[3] = b2.z; a[3] = b2.w
 template abrr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[0], a[0])
-template `abrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[0], a2[0])
+func `abrr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[0] = b2.z; a[0] = b2.w
 template abrg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[0], a[1])
-template `abrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[0], a2[1])
+func `abrg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[0] = b2.z; a[1] = b2.w
 template abrb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[0], a[2])
-template `abrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[0], a2[2])
+func `abrb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[0] = b2.z; a[2] = b2.w
 template abra*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[0], a[3])
-template `abra=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[0], a2[3])
+func `abra=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[0] = b2.z; a[3] = b2.w
 template abgr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[1], a[0])
-template `abgr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[1], a2[0])
+func `abgr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[1] = b2.z; a[0] = b2.w
 template abgg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[1], a[1])
-template `abgg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[1], a2[1])
+func `abgg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[1] = b2.z; a[1] = b2.w
 template abgb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[1], a[2])
-template `abgb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[1], a2[2])
+func `abgb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[1] = b2.z; a[2] = b2.w
 template abga*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[1], a[3])
-template `abga=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[1], a2[3])
+func `abga=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[1] = b2.z; a[3] = b2.w
 template abbr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[2], a[0])
-template `abbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[2], a2[0])
+func `abbr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[2] = b2.z; a[0] = b2.w
 template abbg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[2], a[1])
-template `abbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[2], a2[1])
+func `abbg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[2] = b2.z; a[1] = b2.w
 template abbb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[2], a[2])
-template `abbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[2], a2[2])
+func `abbb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[2] = b2.z; a[2] = b2.w
 template abba*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[2], a[3])
-template `abba=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[2], a2[3])
+func `abba=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[2] = b2.z; a[3] = b2.w
 template abar*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[3], a[0])
-template `abar=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[3], a2[0])
+func `abar=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[3] = b2.z; a[0] = b2.w
 template abag*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[3], a[1])
-template `abag=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[3], a2[1])
+func `abag=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[3] = b2.z; a[1] = b2.w
 template abab*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[3], a[2])
-template `abab=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[3], a2[2])
+func `abab=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[3] = b2.z; a[2] = b2.w
 template abaa*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[3], a[3])
-template `abaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[3], a2[3])
+func `abaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[3] = b2.z; a[3] = b2.w
 template aarr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[0], a[0])
-template `aarr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[0], a2[0])
+func `aarr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[0] = b2.z; a[0] = b2.w
 template aarg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[0], a[1])
-template `aarg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[0], a2[1])
+func `aarg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[0] = b2.z; a[1] = b2.w
 template aarb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[0], a[2])
-template `aarb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[0], a2[2])
+func `aarb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[0] = b2.z; a[2] = b2.w
 template aara*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[0], a[3])
-template `aara=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[0], a2[3])
+func `aara=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[0] = b2.z; a[3] = b2.w
 template aagr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[1], a[0])
-template `aagr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[1], a2[0])
+func `aagr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[1] = b2.z; a[0] = b2.w
 template aagg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[1], a[1])
-template `aagg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[1], a2[1])
+func `aagg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[1] = b2.z; a[1] = b2.w
 template aagb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[1], a[2])
-template `aagb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[1], a2[2])
+func `aagb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[1] = b2.z; a[2] = b2.w
 template aaga*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[1], a[3])
-template `aaga=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[1], a2[3])
+func `aaga=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[1] = b2.z; a[3] = b2.w
 template aabr*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[2], a[0])
-template `aabr=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[2], a2[0])
+func `aabr=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[2] = b2.z; a[0] = b2.w
 template aabg*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[2], a[1])
-template `aabg=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[2], a2[1])
+func `aabg=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[2] = b2.z; a[1] = b2.w
 template aabb*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[2], a[2])
-template `aabb=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[2], a2[2])
+func `aabb=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[2] = b2.z; a[2] = b2.w
 template aaba*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[2], a[3])
-template `aaba=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[2], a2[3])
+func `aaba=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[2] = b2.z; a[3] = b2.w
 template aaar*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[3], a[0])
-template `aaar=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[3], a2[0])
+func `aaar=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[3] = b2.z; a[0] = b2.w
 template aaag*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[3], a[1])
-template `aaag=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[3], a2[1])
+func `aaag=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[3] = b2.z; a[1] = b2.w
 template aaab*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[3], a[2])
-template `aaab=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[3], a2[2])
+func `aaab=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[3] = b2.z; a[2] = b2.w
 template aaaa*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[3], a[3])
-template `aaaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[3], a2[3])
+func `aaaa=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[3] = b2.z; a[3] = b2.w
 
 # 4 x stpq
 template ssss*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[0], a[0])
-template `ssss=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[0], a2[0])
+func `ssss=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[0] = b2.z; a[0] = b2.w
 template ssst*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[0], a[1])
-template `ssst=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[0], a2[1])
+func `ssst=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[0] = b2.z; a[1] = b2.w
 template sssp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[0], a[2])
-template `sssp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[0], a2[2])
+func `sssp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[0] = b2.z; a[2] = b2.w
 template sssq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[0], a[3])
-template `sssq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[0], a2[3])
+func `sssq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[0] = b2.z; a[3] = b2.w
 template ssts*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[1], a[0])
-template `ssts=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[1], a2[0])
+func `ssts=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[1] = b2.z; a[0] = b2.w
 template sstt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[1], a[1])
-template `sstt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[1], a2[1])
+func `sstt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[1] = b2.z; a[1] = b2.w
 template sstp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[1], a[2])
-template `sstp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[1], a2[2])
+func `sstp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[1] = b2.z; a[2] = b2.w
 template sstq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[1], a[3])
-template `sstq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[1], a2[3])
+func `sstq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[1] = b2.z; a[3] = b2.w
 template ssps*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[2], a[0])
-template `ssps=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[2], a2[0])
+func `ssps=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[2] = b2.z; a[0] = b2.w
 template sspt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[2], a[1])
-template `sspt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[2], a2[1])
+func `sspt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[2] = b2.z; a[1] = b2.w
 template sspp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[2], a[2])
-template `sspp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[2], a2[2])
+func `sspp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[2] = b2.z; a[2] = b2.w
 template sspq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[2], a[3])
-template `sspq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[2], a2[3])
+func `sspq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[2] = b2.z; a[3] = b2.w
 template ssqs*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[3], a[0])
-template `ssqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[3], a2[0])
+func `ssqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[3] = b2.z; a[0] = b2.w
 template ssqt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[3], a[1])
-template `ssqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[3], a2[1])
+func `ssqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[3] = b2.z; a[1] = b2.w
 template ssqp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[3], a[2])
-template `ssqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[3], a2[2])
+func `ssqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[3] = b2.z; a[2] = b2.w
 template ssqq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[0], a[3], a[3])
-template `ssqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[0] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[0], a2[3], a2[3])
+func `ssqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[0] = b2.y; a[3] = b2.z; a[3] = b2.w
 template stss*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[0], a[0])
-template `stss=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[0], a2[0])
+func `stss=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[0] = b2.z; a[0] = b2.w
 template stst*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[0], a[1])
-template `stst=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[0], a2[1])
+func `stst=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[0] = b2.z; a[1] = b2.w
 template stsp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[0], a[2])
-template `stsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[0], a2[2])
+func `stsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[0] = b2.z; a[2] = b2.w
 template stsq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[0], a[3])
-template `stsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[0], a2[3])
+func `stsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[0] = b2.z; a[3] = b2.w
 template stts*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[1], a[0])
-template `stts=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[1], a2[0])
+func `stts=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[1] = b2.z; a[0] = b2.w
 template sttt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[1], a[1])
-template `sttt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[1], a2[1])
+func `sttt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[1] = b2.z; a[1] = b2.w
 template sttp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[1], a[2])
-template `sttp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[1], a2[2])
+func `sttp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[1] = b2.z; a[2] = b2.w
 template sttq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[1], a[3])
-template `sttq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[1], a2[3])
+func `sttq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[1] = b2.z; a[3] = b2.w
 template stps*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[2], a[0])
-template `stps=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[2], a2[0])
+func `stps=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[2] = b2.z; a[0] = b2.w
 template stpt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[2], a[1])
-template `stpt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[2], a2[1])
+func `stpt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[2] = b2.z; a[1] = b2.w
 template stpp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[2], a[2])
-template `stpp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[2], a2[2])
+func `stpp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[2] = b2.z; a[2] = b2.w
 template stpq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[2], a[3])
-template `stpq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[2], a2[3])
+func `stpq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[2] = b2.z; a[3] = b2.w
 template stqs*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[3], a[0])
-template `stqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[3], a2[0])
+func `stqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[3] = b2.z; a[0] = b2.w
 template stqt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[3], a[1])
-template `stqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[3], a2[1])
+func `stqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[3] = b2.z; a[1] = b2.w
 template stqp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[3], a[2])
-template `stqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[3], a2[2])
+func `stqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[3] = b2.z; a[2] = b2.w
 template stqq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[1], a[3], a[3])
-template `stqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[1] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[1], a2[3], a2[3])
+func `stqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[1] = b2.y; a[3] = b2.z; a[3] = b2.w
 template spss*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[0], a[0])
-template `spss=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[0], a2[0])
+func `spss=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[0] = b2.z; a[0] = b2.w
 template spst*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[0], a[1])
-template `spst=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[0], a2[1])
+func `spst=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[0] = b2.z; a[1] = b2.w
 template spsp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[0], a[2])
-template `spsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[0], a2[2])
+func `spsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[0] = b2.z; a[2] = b2.w
 template spsq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[0], a[3])
-template `spsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[0], a2[3])
+func `spsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[0] = b2.z; a[3] = b2.w
 template spts*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[1], a[0])
-template `spts=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[1], a2[0])
+func `spts=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[1] = b2.z; a[0] = b2.w
 template sptt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[1], a[1])
-template `sptt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[1], a2[1])
+func `sptt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[1] = b2.z; a[1] = b2.w
 template sptp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[1], a[2])
-template `sptp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[1], a2[2])
+func `sptp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[1] = b2.z; a[2] = b2.w
 template sptq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[1], a[3])
-template `sptq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[1], a2[3])
+func `sptq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[1] = b2.z; a[3] = b2.w
 template spps*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[2], a[0])
-template `spps=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[2], a2[0])
+func `spps=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[2] = b2.z; a[0] = b2.w
 template sppt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[2], a[1])
-template `sppt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[2], a2[1])
+func `sppt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[2] = b2.z; a[1] = b2.w
 template sppp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[2], a[2])
-template `sppp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[2], a2[2])
+func `sppp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[2] = b2.z; a[2] = b2.w
 template sppq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[2], a[3])
-template `sppq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[2], a2[3])
+func `sppq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[2] = b2.z; a[3] = b2.w
 template spqs*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[3], a[0])
-template `spqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[3], a2[0])
+func `spqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[3] = b2.z; a[0] = b2.w
 template spqt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[3], a[1])
-template `spqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[3], a2[1])
+func `spqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[3] = b2.z; a[1] = b2.w
 template spqp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[3], a[2])
-template `spqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[3], a2[2])
+func `spqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[3] = b2.z; a[2] = b2.w
 template spqq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[2], a[3], a[3])
-template `spqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[2] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[2], a2[3], a2[3])
+func `spqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[2] = b2.y; a[3] = b2.z; a[3] = b2.w
 template sqss*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[0], a[0])
-template `sqss=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[0], a2[0])
+func `sqss=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[0] = b2.z; a[0] = b2.w
 template sqst*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[0], a[1])
-template `sqst=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[0], a2[1])
+func `sqst=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[0] = b2.z; a[1] = b2.w
 template sqsp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[0], a[2])
-template `sqsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[0], a2[2])
+func `sqsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[0] = b2.z; a[2] = b2.w
 template sqsq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[0], a[3])
-template `sqsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[0], a2[3])
+func `sqsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[0] = b2.z; a[3] = b2.w
 template sqts*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[1], a[0])
-template `sqts=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[1], a2[0])
+func `sqts=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[1] = b2.z; a[0] = b2.w
 template sqtt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[1], a[1])
-template `sqtt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[1], a2[1])
+func `sqtt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[1] = b2.z; a[1] = b2.w
 template sqtp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[1], a[2])
-template `sqtp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[1], a2[2])
+func `sqtp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[1] = b2.z; a[2] = b2.w
 template sqtq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[1], a[3])
-template `sqtq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[1], a2[3])
+func `sqtq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[1] = b2.z; a[3] = b2.w
 template sqps*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[2], a[0])
-template `sqps=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[2], a2[0])
+func `sqps=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[2] = b2.z; a[0] = b2.w
 template sqpt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[2], a[1])
-template `sqpt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[2], a2[1])
+func `sqpt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[2] = b2.z; a[1] = b2.w
 template sqpp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[2], a[2])
-template `sqpp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[2], a2[2])
+func `sqpp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[2] = b2.z; a[2] = b2.w
 template sqpq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[2], a[3])
-template `sqpq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[2], a2[3])
+func `sqpq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[2] = b2.z; a[3] = b2.w
 template sqqs*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[3], a[0])
-template `sqqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[3], a2[0])
+func `sqqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[3] = b2.z; a[0] = b2.w
 template sqqt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[3], a[1])
-template `sqqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[3], a2[1])
+func `sqqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[3] = b2.z; a[1] = b2.w
 template sqqp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[3], a[2])
-template `sqqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[3], a2[2])
+func `sqqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[3] = b2.z; a[2] = b2.w
 template sqqq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [0], a[3], a[3], a[3])
-template `sqqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[0] = x; a[3] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[0], a2[3], a2[3], a2[3])
+func `sqqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[0] = b2.x; a[3] = b2.y; a[3] = b2.z; a[3] = b2.w
 template tsss*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[0], a[0])
-template `tsss=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[0], a2[0])
+func `tsss=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[0] = b2.z; a[0] = b2.w
 template tsst*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[0], a[1])
-template `tsst=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[0], a2[1])
+func `tsst=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[0] = b2.z; a[1] = b2.w
 template tssp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[0], a[2])
-template `tssp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[0], a2[2])
+func `tssp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[0] = b2.z; a[2] = b2.w
 template tssq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[0], a[3])
-template `tssq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[0], a2[3])
+func `tssq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[0] = b2.z; a[3] = b2.w
 template tsts*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[1], a[0])
-template `tsts=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[1], a2[0])
+func `tsts=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[1] = b2.z; a[0] = b2.w
 template tstt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[1], a[1])
-template `tstt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[1], a2[1])
+func `tstt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[1] = b2.z; a[1] = b2.w
 template tstp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[1], a[2])
-template `tstp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[1], a2[2])
+func `tstp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[1] = b2.z; a[2] = b2.w
 template tstq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[1], a[3])
-template `tstq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[1], a2[3])
+func `tstq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[1] = b2.z; a[3] = b2.w
 template tsps*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[2], a[0])
-template `tsps=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[2], a2[0])
+func `tsps=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[2] = b2.z; a[0] = b2.w
 template tspt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[2], a[1])
-template `tspt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[2], a2[1])
+func `tspt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[2] = b2.z; a[1] = b2.w
 template tspp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[2], a[2])
-template `tspp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[2], a2[2])
+func `tspp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[2] = b2.z; a[2] = b2.w
 template tspq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[2], a[3])
-template `tspq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[2], a2[3])
+func `tspq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[2] = b2.z; a[3] = b2.w
 template tsqs*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[3], a[0])
-template `tsqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[3], a2[0])
+func `tsqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[3] = b2.z; a[0] = b2.w
 template tsqt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[3], a[1])
-template `tsqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[3], a2[1])
+func `tsqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[3] = b2.z; a[1] = b2.w
 template tsqp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[3], a[2])
-template `tsqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[3], a2[2])
+func `tsqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[3] = b2.z; a[2] = b2.w
 template tsqq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[0], a[3], a[3])
-template `tsqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[0] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[0], a2[3], a2[3])
+func `tsqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[0] = b2.y; a[3] = b2.z; a[3] = b2.w
 template ttss*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[0], a[0])
-template `ttss=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[0], a2[0])
+func `ttss=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[0] = b2.z; a[0] = b2.w
 template ttst*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[0], a[1])
-template `ttst=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[0], a2[1])
+func `ttst=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[0] = b2.z; a[1] = b2.w
 template ttsp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[0], a[2])
-template `ttsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[0], a2[2])
+func `ttsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[0] = b2.z; a[2] = b2.w
 template ttsq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[0], a[3])
-template `ttsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[0], a2[3])
+func `ttsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[0] = b2.z; a[3] = b2.w
 template ttts*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[1], a[0])
-template `ttts=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[1], a2[0])
+func `ttts=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[1] = b2.z; a[0] = b2.w
 template tttt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[1], a[1])
-template `tttt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[1], a2[1])
+func `tttt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[1] = b2.z; a[1] = b2.w
 template tttp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[1], a[2])
-template `tttp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[1], a2[2])
+func `tttp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[1] = b2.z; a[2] = b2.w
 template tttq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[1], a[3])
-template `tttq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[1], a2[3])
+func `tttq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[1] = b2.z; a[3] = b2.w
 template ttps*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[2], a[0])
-template `ttps=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[2], a2[0])
+func `ttps=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[2] = b2.z; a[0] = b2.w
 template ttpt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[2], a[1])
-template `ttpt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[2], a2[1])
+func `ttpt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[2] = b2.z; a[1] = b2.w
 template ttpp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[2], a[2])
-template `ttpp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[2], a2[2])
+func `ttpp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[2] = b2.z; a[2] = b2.w
 template ttpq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[2], a[3])
-template `ttpq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[2], a2[3])
+func `ttpq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[2] = b2.z; a[3] = b2.w
 template ttqs*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[3], a[0])
-template `ttqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[3], a2[0])
+func `ttqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[3] = b2.z; a[0] = b2.w
 template ttqt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[3], a[1])
-template `ttqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[3], a2[1])
+func `ttqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[3] = b2.z; a[1] = b2.w
 template ttqp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[3], a[2])
-template `ttqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[3], a2[2])
+func `ttqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[3] = b2.z; a[2] = b2.w
 template ttqq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[1], a[3], a[3])
-template `ttqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[1] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[1], a2[3], a2[3])
+func `ttqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[1] = b2.y; a[3] = b2.z; a[3] = b2.w
 template tpss*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[0], a[0])
-template `tpss=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[0], a2[0])
+func `tpss=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[0] = b2.z; a[0] = b2.w
 template tpst*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[0], a[1])
-template `tpst=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[0], a2[1])
+func `tpst=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[0] = b2.z; a[1] = b2.w
 template tpsp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[0], a[2])
-template `tpsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[0], a2[2])
+func `tpsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[0] = b2.z; a[2] = b2.w
 template tpsq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[0], a[3])
-template `tpsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[0], a2[3])
+func `tpsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[0] = b2.z; a[3] = b2.w
 template tpts*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[1], a[0])
-template `tpts=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[1], a2[0])
+func `tpts=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[1] = b2.z; a[0] = b2.w
 template tptt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[1], a[1])
-template `tptt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[1], a2[1])
+func `tptt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[1] = b2.z; a[1] = b2.w
 template tptp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[1], a[2])
-template `tptp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[1], a2[2])
+func `tptp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[1] = b2.z; a[2] = b2.w
 template tptq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[1], a[3])
-template `tptq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[1], a2[3])
+func `tptq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[1] = b2.z; a[3] = b2.w
 template tpps*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[2], a[0])
-template `tpps=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[2], a2[0])
+func `tpps=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[2] = b2.z; a[0] = b2.w
 template tppt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[2], a[1])
-template `tppt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[2], a2[1])
+func `tppt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[2] = b2.z; a[1] = b2.w
 template tppp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[2], a[2])
-template `tppp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[2], a2[2])
+func `tppp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[2] = b2.z; a[2] = b2.w
 template tppq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[2], a[3])
-template `tppq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[2], a2[3])
+func `tppq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[2] = b2.z; a[3] = b2.w
 template tpqs*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[3], a[0])
-template `tpqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[3], a2[0])
+func `tpqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[3] = b2.z; a[0] = b2.w
 template tpqt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[3], a[1])
-template `tpqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[3], a2[1])
+func `tpqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[3] = b2.z; a[1] = b2.w
 template tpqp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[3], a[2])
-template `tpqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[3], a2[2])
+func `tpqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[3] = b2.z; a[2] = b2.w
 template tpqq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[2], a[3], a[3])
-template `tpqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[2] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[2], a2[3], a2[3])
+func `tpqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[2] = b2.y; a[3] = b2.z; a[3] = b2.w
 template tqss*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[0], a[0])
-template `tqss=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[0], a2[0])
+func `tqss=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[0] = b2.z; a[0] = b2.w
 template tqst*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[0], a[1])
-template `tqst=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[0], a2[1])
+func `tqst=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[0] = b2.z; a[1] = b2.w
 template tqsp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[0], a[2])
-template `tqsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[0], a2[2])
+func `tqsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[0] = b2.z; a[2] = b2.w
 template tqsq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[0], a[3])
-template `tqsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[0], a2[3])
+func `tqsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[0] = b2.z; a[3] = b2.w
 template tqts*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[1], a[0])
-template `tqts=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[1], a2[0])
+func `tqts=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[1] = b2.z; a[0] = b2.w
 template tqtt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[1], a[1])
-template `tqtt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[1], a2[1])
+func `tqtt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[1] = b2.z; a[1] = b2.w
 template tqtp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[1], a[2])
-template `tqtp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[1], a2[2])
+func `tqtp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[1] = b2.z; a[2] = b2.w
 template tqtq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[1], a[3])
-template `tqtq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[1], a2[3])
+func `tqtq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[1] = b2.z; a[3] = b2.w
 template tqps*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[2], a[0])
-template `tqps=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[2], a2[0])
+func `tqps=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[2] = b2.z; a[0] = b2.w
 template tqpt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[2], a[1])
-template `tqpt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[2], a2[1])
+func `tqpt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[2] = b2.z; a[1] = b2.w
 template tqpp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[2], a[2])
-template `tqpp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[2], a2[2])
+func `tqpp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[2] = b2.z; a[2] = b2.w
 template tqpq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[2], a[3])
-template `tqpq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[2], a2[3])
+func `tqpq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[2] = b2.z; a[3] = b2.w
 template tqqs*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[3], a[0])
-template `tqqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[3], a2[0])
+func `tqqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[3] = b2.z; a[0] = b2.w
 template tqqt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[3], a[1])
-template `tqqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[3], a2[1])
+func `tqqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[3] = b2.z; a[1] = b2.w
 template tqqp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[3], a[2])
-template `tqqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[3], a2[2])
+func `tqqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[3] = b2.z; a[2] = b2.w
 template tqqq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [1], a[3], a[3], a[3])
-template `tqqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[1] = x; a[3] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[1], a2[3], a2[3], a2[3])
+func `tqqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[1] = b2.x; a[3] = b2.y; a[3] = b2.z; a[3] = b2.w
 template psss*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[0], a[0])
-template `psss=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[0], a2[0])
+func `psss=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[0] = b2.z; a[0] = b2.w
 template psst*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[0], a[1])
-template `psst=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[0], a2[1])
+func `psst=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[0] = b2.z; a[1] = b2.w
 template pssp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[0], a[2])
-template `pssp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[0], a2[2])
+func `pssp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[0] = b2.z; a[2] = b2.w
 template pssq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[0], a[3])
-template `pssq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[0], a2[3])
+func `pssq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[0] = b2.z; a[3] = b2.w
 template psts*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[1], a[0])
-template `psts=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[1], a2[0])
+func `psts=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[1] = b2.z; a[0] = b2.w
 template pstt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[1], a[1])
-template `pstt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[1], a2[1])
+func `pstt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[1] = b2.z; a[1] = b2.w
 template pstp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[1], a[2])
-template `pstp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[1], a2[2])
+func `pstp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[1] = b2.z; a[2] = b2.w
 template pstq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[1], a[3])
-template `pstq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[1], a2[3])
+func `pstq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[1] = b2.z; a[3] = b2.w
 template psps*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[2], a[0])
-template `psps=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[2], a2[0])
+func `psps=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[2] = b2.z; a[0] = b2.w
 template pspt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[2], a[1])
-template `pspt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[2], a2[1])
+func `pspt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[2] = b2.z; a[1] = b2.w
 template pspp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[2], a[2])
-template `pspp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[2], a2[2])
+func `pspp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[2] = b2.z; a[2] = b2.w
 template pspq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[2], a[3])
-template `pspq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[2], a2[3])
+func `pspq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[2] = b2.z; a[3] = b2.w
 template psqs*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[3], a[0])
-template `psqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[3], a2[0])
+func `psqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[3] = b2.z; a[0] = b2.w
 template psqt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[3], a[1])
-template `psqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[3], a2[1])
+func `psqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[3] = b2.z; a[1] = b2.w
 template psqp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[3], a[2])
-template `psqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[3], a2[2])
+func `psqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[3] = b2.z; a[2] = b2.w
 template psqq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[0], a[3], a[3])
-template `psqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[0] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[0], a2[3], a2[3])
+func `psqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[0] = b2.y; a[3] = b2.z; a[3] = b2.w
 template ptss*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[0], a[0])
-template `ptss=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[0], a2[0])
+func `ptss=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[0] = b2.z; a[0] = b2.w
 template ptst*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[0], a[1])
-template `ptst=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[0], a2[1])
+func `ptst=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[0] = b2.z; a[1] = b2.w
 template ptsp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[0], a[2])
-template `ptsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[0], a2[2])
+func `ptsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[0] = b2.z; a[2] = b2.w
 template ptsq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[0], a[3])
-template `ptsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[0], a2[3])
+func `ptsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[0] = b2.z; a[3] = b2.w
 template ptts*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[1], a[0])
-template `ptts=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[1], a2[0])
+func `ptts=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[1] = b2.z; a[0] = b2.w
 template pttt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[1], a[1])
-template `pttt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[1], a2[1])
+func `pttt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[1] = b2.z; a[1] = b2.w
 template pttp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[1], a[2])
-template `pttp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[1], a2[2])
+func `pttp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[1] = b2.z; a[2] = b2.w
 template pttq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[1], a[3])
-template `pttq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[1], a2[3])
+func `pttq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[1] = b2.z; a[3] = b2.w
 template ptps*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[2], a[0])
-template `ptps=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[2], a2[0])
+func `ptps=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[2] = b2.z; a[0] = b2.w
 template ptpt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[2], a[1])
-template `ptpt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[2], a2[1])
+func `ptpt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[2] = b2.z; a[1] = b2.w
 template ptpp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[2], a[2])
-template `ptpp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[2], a2[2])
+func `ptpp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[2] = b2.z; a[2] = b2.w
 template ptpq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[2], a[3])
-template `ptpq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[2], a2[3])
+func `ptpq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[2] = b2.z; a[3] = b2.w
 template ptqs*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[3], a[0])
-template `ptqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[3], a2[0])
+func `ptqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[3] = b2.z; a[0] = b2.w
 template ptqt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[3], a[1])
-template `ptqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[3], a2[1])
+func `ptqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[3] = b2.z; a[1] = b2.w
 template ptqp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[3], a[2])
-template `ptqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[3], a2[2])
+func `ptqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[3] = b2.z; a[2] = b2.w
 template ptqq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[1], a[3], a[3])
-template `ptqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[1] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[1], a2[3], a2[3])
+func `ptqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[1] = b2.y; a[3] = b2.z; a[3] = b2.w
 template ppss*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[0], a[0])
-template `ppss=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[0], a2[0])
+func `ppss=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[0] = b2.z; a[0] = b2.w
 template ppst*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[0], a[1])
-template `ppst=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[0], a2[1])
+func `ppst=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[0] = b2.z; a[1] = b2.w
 template ppsp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[0], a[2])
-template `ppsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[0], a2[2])
+func `ppsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[0] = b2.z; a[2] = b2.w
 template ppsq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[0], a[3])
-template `ppsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[0], a2[3])
+func `ppsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[0] = b2.z; a[3] = b2.w
 template ppts*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[1], a[0])
-template `ppts=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[1], a2[0])
+func `ppts=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[1] = b2.z; a[0] = b2.w
 template pptt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[1], a[1])
-template `pptt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[1], a2[1])
+func `pptt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[1] = b2.z; a[1] = b2.w
 template pptp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[1], a[2])
-template `pptp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[1], a2[2])
+func `pptp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[1] = b2.z; a[2] = b2.w
 template pptq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[1], a[3])
-template `pptq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[1], a2[3])
+func `pptq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[1] = b2.z; a[3] = b2.w
 template ppps*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[2], a[0])
-template `ppps=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[2], a2[0])
+func `ppps=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[2] = b2.z; a[0] = b2.w
 template pppt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[2], a[1])
-template `pppt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[2], a2[1])
+func `pppt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[2] = b2.z; a[1] = b2.w
 template pppp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[2], a[2])
-template `pppp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[2], a2[2])
+func `pppp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[2] = b2.z; a[2] = b2.w
 template pppq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[2], a[3])
-template `pppq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[2], a2[3])
+func `pppq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[2] = b2.z; a[3] = b2.w
 template ppqs*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[3], a[0])
-template `ppqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[3], a2[0])
+func `ppqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[3] = b2.z; a[0] = b2.w
 template ppqt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[3], a[1])
-template `ppqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[3], a2[1])
+func `ppqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[3] = b2.z; a[1] = b2.w
 template ppqp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[3], a[2])
-template `ppqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[3], a2[2])
+func `ppqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[3] = b2.z; a[2] = b2.w
 template ppqq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[2], a[3], a[3])
-template `ppqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[2] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[2], a2[3], a2[3])
+func `ppqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[2] = b2.y; a[3] = b2.z; a[3] = b2.w
 template pqss*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[0], a[0])
-template `pqss=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[0], a2[0])
+func `pqss=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[0] = b2.z; a[0] = b2.w
 template pqst*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[0], a[1])
-template `pqst=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[0], a2[1])
+func `pqst=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[0] = b2.z; a[1] = b2.w
 template pqsp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[0], a[2])
-template `pqsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[0], a2[2])
+func `pqsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[0] = b2.z; a[2] = b2.w
 template pqsq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[0], a[3])
-template `pqsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[0], a2[3])
+func `pqsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[0] = b2.z; a[3] = b2.w
 template pqts*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[1], a[0])
-template `pqts=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[1], a2[0])
+func `pqts=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[1] = b2.z; a[0] = b2.w
 template pqtt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[1], a[1])
-template `pqtt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[1], a2[1])
+func `pqtt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[1] = b2.z; a[1] = b2.w
 template pqtp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[1], a[2])
-template `pqtp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[1], a2[2])
+func `pqtp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[1] = b2.z; a[2] = b2.w
 template pqtq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[1], a[3])
-template `pqtq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[1], a2[3])
+func `pqtq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[1] = b2.z; a[3] = b2.w
 template pqps*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[2], a[0])
-template `pqps=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[2], a2[0])
+func `pqps=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[2] = b2.z; a[0] = b2.w
 template pqpt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[2], a[1])
-template `pqpt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[2], a2[1])
+func `pqpt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[2] = b2.z; a[1] = b2.w
 template pqpp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[2], a[2])
-template `pqpp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[2], a2[2])
+func `pqpp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[2] = b2.z; a[2] = b2.w
 template pqpq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[2], a[3])
-template `pqpq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[2], a2[3])
+func `pqpq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[2] = b2.z; a[3] = b2.w
 template pqqs*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[3], a[0])
-template `pqqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[3], a2[0])
+func `pqqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[3] = b2.z; a[0] = b2.w
 template pqqt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[3], a[1])
-template `pqqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[3], a2[1])
+func `pqqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[3] = b2.z; a[1] = b2.w
 template pqqp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[3], a[2])
-template `pqqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[3], a2[2])
+func `pqqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[3] = b2.z; a[2] = b2.w
 template pqqq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [2], a[3], a[3], a[3])
-template `pqqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[2] = x; a[3] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[2], a2[3], a2[3], a2[3])
+func `pqqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[2] = b2.x; a[3] = b2.y; a[3] = b2.z; a[3] = b2.w
 template qsss*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[0], a[0])
-template `qsss=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[0], a2[0])
+func `qsss=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[0] = b2.z; a[0] = b2.w
 template qsst*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[0], a[1])
-template `qsst=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[0], a2[1])
+func `qsst=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[0] = b2.z; a[1] = b2.w
 template qssp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[0], a[2])
-template `qssp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[0], a2[2])
+func `qssp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[0] = b2.z; a[2] = b2.w
 template qssq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[0], a[3])
-template `qssq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[0], a2[3])
+func `qssq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[0] = b2.z; a[3] = b2.w
 template qsts*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[1], a[0])
-template `qsts=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[1], a2[0])
+func `qsts=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[1] = b2.z; a[0] = b2.w
 template qstt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[1], a[1])
-template `qstt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[1], a2[1])
+func `qstt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[1] = b2.z; a[1] = b2.w
 template qstp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[1], a[2])
-template `qstp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[1], a2[2])
+func `qstp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[1] = b2.z; a[2] = b2.w
 template qstq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[1], a[3])
-template `qstq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[1], a2[3])
+func `qstq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[1] = b2.z; a[3] = b2.w
 template qsps*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[2], a[0])
-template `qsps=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[2], a2[0])
+func `qsps=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[2] = b2.z; a[0] = b2.w
 template qspt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[2], a[1])
-template `qspt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[2], a2[1])
+func `qspt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[2] = b2.z; a[1] = b2.w
 template qspp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[2], a[2])
-template `qspp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[2], a2[2])
+func `qspp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[2] = b2.z; a[2] = b2.w
 template qspq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[2], a[3])
-template `qspq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[2], a2[3])
+func `qspq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[2] = b2.z; a[3] = b2.w
 template qsqs*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[3], a[0])
-template `qsqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[3], a2[0])
+func `qsqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[3] = b2.z; a[0] = b2.w
 template qsqt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[3], a[1])
-template `qsqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[3], a2[1])
+func `qsqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[3] = b2.z; a[1] = b2.w
 template qsqp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[3], a[2])
-template `qsqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[3], a2[2])
+func `qsqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[3] = b2.z; a[2] = b2.w
 template qsqq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[0], a[3], a[3])
-template `qsqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[0] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[0], a2[3], a2[3])
+func `qsqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[0] = b2.y; a[3] = b2.z; a[3] = b2.w
 template qtss*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[0], a[0])
-template `qtss=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[0], a2[0])
+func `qtss=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[0] = b2.z; a[0] = b2.w
 template qtst*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[0], a[1])
-template `qtst=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[0], a2[1])
+func `qtst=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[0] = b2.z; a[1] = b2.w
 template qtsp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[0], a[2])
-template `qtsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[0], a2[2])
+func `qtsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[0] = b2.z; a[2] = b2.w
 template qtsq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[0], a[3])
-template `qtsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[0], a2[3])
+func `qtsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[0] = b2.z; a[3] = b2.w
 template qtts*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[1], a[0])
-template `qtts=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[1], a2[0])
+func `qtts=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[1] = b2.z; a[0] = b2.w
 template qttt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[1], a[1])
-template `qttt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[1], a2[1])
+func `qttt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[1] = b2.z; a[1] = b2.w
 template qttp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[1], a[2])
-template `qttp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[1], a2[2])
+func `qttp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[1] = b2.z; a[2] = b2.w
 template qttq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[1], a[3])
-template `qttq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[1], a2[3])
+func `qttq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[1] = b2.z; a[3] = b2.w
 template qtps*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[2], a[0])
-template `qtps=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[2], a2[0])
+func `qtps=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[2] = b2.z; a[0] = b2.w
 template qtpt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[2], a[1])
-template `qtpt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[2], a2[1])
+func `qtpt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[2] = b2.z; a[1] = b2.w
 template qtpp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[2], a[2])
-template `qtpp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[2], a2[2])
+func `qtpp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[2] = b2.z; a[2] = b2.w
 template qtpq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[2], a[3])
-template `qtpq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[2], a2[3])
+func `qtpq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[2] = b2.z; a[3] = b2.w
 template qtqs*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[3], a[0])
-template `qtqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[3], a2[0])
+func `qtqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[3] = b2.z; a[0] = b2.w
 template qtqt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[3], a[1])
-template `qtqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[3], a2[1])
+func `qtqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[3] = b2.z; a[1] = b2.w
 template qtqp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[3], a[2])
-template `qtqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[3], a2[2])
+func `qtqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[3] = b2.z; a[2] = b2.w
 template qtqq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[1], a[3], a[3])
-template `qtqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[1] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[1], a2[3], a2[3])
+func `qtqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[1] = b2.y; a[3] = b2.z; a[3] = b2.w
 template qpss*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[0], a[0])
-template `qpss=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[0], a2[0])
+func `qpss=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[0] = b2.z; a[0] = b2.w
 template qpst*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[0], a[1])
-template `qpst=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[0], a2[1])
+func `qpst=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[0] = b2.z; a[1] = b2.w
 template qpsp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[0], a[2])
-template `qpsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[0], a2[2])
+func `qpsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[0] = b2.z; a[2] = b2.w
 template qpsq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[0], a[3])
-template `qpsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[0], a2[3])
+func `qpsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[0] = b2.z; a[3] = b2.w
 template qpts*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[1], a[0])
-template `qpts=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[1], a2[0])
+func `qpts=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[1] = b2.z; a[0] = b2.w
 template qptt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[1], a[1])
-template `qptt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[1], a2[1])
+func `qptt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[1] = b2.z; a[1] = b2.w
 template qptp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[1], a[2])
-template `qptp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[1], a2[2])
+func `qptp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[1] = b2.z; a[2] = b2.w
 template qptq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[1], a[3])
-template `qptq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[1], a2[3])
+func `qptq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[1] = b2.z; a[3] = b2.w
 template qpps*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[2], a[0])
-template `qpps=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[2], a2[0])
+func `qpps=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[2] = b2.z; a[0] = b2.w
 template qppt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[2], a[1])
-template `qppt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[2], a2[1])
+func `qppt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[2] = b2.z; a[1] = b2.w
 template qppp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[2], a[2])
-template `qppp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[2], a2[2])
+func `qppp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[2] = b2.z; a[2] = b2.w
 template qppq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[2], a[3])
-template `qppq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[2], a2[3])
+func `qppq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[2] = b2.z; a[3] = b2.w
 template qpqs*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[3], a[0])
-template `qpqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[3], a2[0])
+func `qpqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[3] = b2.z; a[0] = b2.w
 template qpqt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[3], a[1])
-template `qpqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[3], a2[1])
+func `qpqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[3] = b2.z; a[1] = b2.w
 template qpqp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[3], a[2])
-template `qpqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[3], a2[2])
+func `qpqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[3] = b2.z; a[2] = b2.w
 template qpqq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[2], a[3], a[3])
-template `qpqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[2] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[2], a2[3], a2[3])
+func `qpqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[2] = b2.y; a[3] = b2.z; a[3] = b2.w
 template qqss*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[0], a[0])
-template `qqss=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[0] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[0], a2[0])
+func `qqss=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[0] = b2.z; a[0] = b2.w
 template qqst*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[0], a[1])
-template `qqst=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[0] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[0], a2[1])
+func `qqst=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[0] = b2.z; a[1] = b2.w
 template qqsp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[0], a[2])
-template `qqsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[0] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[0], a2[2])
+func `qqsp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[0] = b2.z; a[2] = b2.w
 template qqsq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[0], a[3])
-template `qqsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[0] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[0], a2[3])
+func `qqsq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[0] = b2.z; a[3] = b2.w
 template qqts*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[1], a[0])
-template `qqts=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[1] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[1], a2[0])
+func `qqts=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[1] = b2.z; a[0] = b2.w
 template qqtt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[1], a[1])
-template `qqtt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[1] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[1], a2[1])
+func `qqtt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[1] = b2.z; a[1] = b2.w
 template qqtp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[1], a[2])
-template `qqtp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[1] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[1], a2[2])
+func `qqtp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[1] = b2.z; a[2] = b2.w
 template qqtq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[1], a[3])
-template `qqtq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[1] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[1], a2[3])
+func `qqtq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[1] = b2.z; a[3] = b2.w
 template qqps*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[2], a[0])
-template `qqps=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[2] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[2], a2[0])
+func `qqps=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[2] = b2.z; a[0] = b2.w
 template qqpt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[2], a[1])
-template `qqpt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[2] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[2], a2[1])
+func `qqpt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[2] = b2.z; a[1] = b2.w
 template qqpp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[2], a[2])
-template `qqpp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[2] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[2], a2[2])
+func `qqpp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[2] = b2.z; a[2] = b2.w
 template qqpq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[2], a[3])
-template `qqpq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[2] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[2], a2[3])
+func `qqpq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[2] = b2.z; a[3] = b2.w
 template qqqs*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[3], a[0])
-template `qqqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[3] = z; a[0] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[3], a2[0])
+func `qqqs=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[3] = b2.z; a[0] = b2.w
 template qqqt*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[3], a[1])
-template `qqqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[3] = z; a[1] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[3], a2[1])
+func `qqqt=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[3] = b2.z; a[1] = b2.w
 template qqqp*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[3], a[2])
-template `qqqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[3] = z; a[2] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[3], a2[2])
+func `qqqp=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[3] = b2.z; a[2] = b2.w
 template qqqq*[T](a: GVec234[T]): GVec4[T] =
-  gvec4(a [3], a[3], a[3], a[3])
-template `qqqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
-  let x = b.x; let y = b.y; let z = b.z; let w = b.w
-  a[3] = x; a[3] = y; a[3] = z; a[3] = w
+  let a2 = a
+  gvec4(a2[3], a2[3], a2[3], a2[3])
+func `qqqq=`*[T](a: var GVec234[T], b: GVec4[T]) =
+  let b2 = b
+  a[3] = b2.x; a[3] = b2.y; a[3] = b2.z; a[3] = b2.w
