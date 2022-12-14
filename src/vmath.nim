@@ -125,13 +125,13 @@ when defined(vmathArrayBased):
   template `[]`*[T](a: GMat234[T], i, j: int): T = a[i][j]
 
   template `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
-    cast[ptr T](cast[uint64](a.addr) + (i * 2 + j) * sizeof(T))[] = v
+    cast[ptr T](cast[ByteAddress](a.addr) + (i * 2 + j) * sizeof(T))[] = v
 
   template `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
-    cast[ptr T](cast[uint64](a.addr) + (i * 3 + j) * sizeof(T))[] = v
+    cast[ptr T](cast[ByteAddress](a.addr) + (i * 3 + j) * sizeof(T))[] = v
 
   template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
-    cast[ptr T](cast[uint64](a.addr) + (i * 4 + j) * sizeof(T))[] = v
+    cast[ptr T](cast[ByteAddress](a.addr) + (i * 4 + j) * sizeof(T))[] = v
 
 elif defined(vmathObjBased):
   type
@@ -158,13 +158,13 @@ elif defined(vmathObjBased):
   template `[]`*[T](a: GVec4[T], i: int): T = cast[array[4, T]](a)[i]
 
   template `[]=`*[T](a: var GVec2[T], i: int, v: T) =
-    cast[ptr T](cast[uint64](a.addr) + i * sizeof(T))[] = v
+    cast[ptr T](cast[ByteAddress](a.addr) + i * sizeof(T))[] = v
 
   template `[]=`*[T](a: var GVec3[T], i: int, v: T) =
-    cast[ptr T](cast[uint64](a.addr) + i * sizeof(T))[] = v
+    cast[ptr T](cast[ByteAddress](a.addr) + i * sizeof(T))[] = v
 
   template `[]=`*[T](a: var GVec4[T], i: int, v: T) =
-    cast[ptr T](cast[uint64](a.addr) + i * sizeof(T))[] = v
+    cast[ptr T](cast[ByteAddress](a.addr) + i * sizeof(T))[] = v
 
   type
     GMat2*[T] {.bycopy.} = object
@@ -217,13 +217,13 @@ elif defined(vmathObjBased):
     cast[array[16, T]](a)[i * 4 + j]
 
   template `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
-    cast[ptr T](cast[uint64](a.addr) + (i * 2 + j) * sizeof(T))[] = v
+    cast[ptr T](cast[ByteAddress](a.addr) + (i * 2 + j) * sizeof(T))[] = v
 
   template `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
-    cast[ptr T](cast[uint64](a.addr) + (i * 3 + j) * sizeof(T))[] = v
+    cast[ptr T](cast[ByteAddress](a.addr) + (i * 3 + j) * sizeof(T))[] = v
 
   template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
-    cast[ptr T](cast[uint64](a.addr) + (i * 4 + j) * sizeof(T))[] = v
+    cast[ptr T](cast[ByteAddress](a.addr) + (i * 4 + j) * sizeof(T))[] = v
 
   template `[]`*[T](a: GMat2[T], i: int): GVec2[T] =
     gvec2[T](
