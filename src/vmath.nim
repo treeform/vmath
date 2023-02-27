@@ -475,7 +475,8 @@ proc `zmod`*(a, b: float32): float32 =
 template lowerType(a: typed): string =
   ($type(a)).toLowerAscii()
 
-template genConstructor(lower, upper, typ: untyped) =
+template genVecConstructor*(lower, upper, typ: untyped) =
+  ## Generate vector constructor for your own type.
 
   proc `lower 2`*(): `upper 2` = gvec2[typ](typ(0), typ(0))
   proc `lower 3`*(): `upper 3` = gvec3[typ](typ(0), typ(0), typ(0))
@@ -511,11 +512,11 @@ template genConstructor(lower, upper, typ: untyped) =
   proc `$`*(a: `upper 4`): string =
     lowerType(a) & "(" & $a.x & ", " & $a.y & ", " & $a.z & ", " & $a.w & ")"
 
-genConstructor(bvec, BVec, bool)
-genConstructor(ivec, IVec, int32)
-genConstructor(uvec, UVec, uint32)
-genConstructor(vec, Vec, float32)
-genConstructor(dvec, DVec, float64)
+genVecConstructor(bvec, BVec, bool)
+genVecConstructor(ivec, IVec, int32)
+genVecConstructor(uvec, UVec, uint32)
+genVecConstructor(vec, Vec, float32)
+genVecConstructor(dvec, DVec, float64)
 
 proc vec2*(ivec2: Ivec2): Vec2 =
   vec2(ivec2.x.float32, ivec2.y.float32)
@@ -872,8 +873,8 @@ proc matToString[T](a: T, n: int): string =
   result.setLen(result.len - 2)
   result.add "\n)"
 
-template genMatConstructor(lower, upper, T: untyped) =
-
+template genMatConstructor*(lower, upper, T: untyped) =
+  ## Generate matrix constructor for your own type.
   proc `lower 2`*(
     m00, m01,
     m10, m11: T
@@ -1434,7 +1435,8 @@ type
   Quat* = GVec4[float32]
   DQuat* = GVec4[float64]
 
-template genQuatConstructor(lower, upper, typ: untyped) =
+template genQuatConstructor*(lower, upper, typ: untyped) =
+  ## Generate quaternion constructor for your own type.
   proc `lower`*(): `upper` = gvec4[typ](0, 0, 0, 1)
   proc `lower`*(x, y, z, w: typ): `upper` = gvec4[typ](x, y, z, w)
   proc `lower`*(x: typ): `upper` = gvec4[typ](x, x, x, x)
