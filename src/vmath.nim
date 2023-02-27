@@ -1345,7 +1345,7 @@ proc lookAt*[T](eye, center, up: GVec3[T]): GMat4[T] =
     centerz = center[2]
 
   if eyex == centerx and eyey == centery and eyez == centerz:
-    return mat4[T]()
+    return GMat4[T]()
 
   var
     # vec3.direction(eye, center, z)

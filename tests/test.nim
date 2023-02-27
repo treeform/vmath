@@ -882,6 +882,10 @@ block:
     )
   doAssert lookAt(vec3(0, 0, 1), vec3(0, 0, 0)).quat ~= quat(0.0, 0.0, 0.0, 1.0)
 
+  let
+    a = lookAt(vec3(1, 2, 3), vec3(0, 0, 0))
+    b = lookAt(dvec3(1, 2, 3), dvec3(0, 0, 0))
+
   doAssert ortho[float32](-1, 1, 1, -1, -1000, 1000) ~= mat4(
     1.0, 0.0, 0.0, 0.0,
     0.0, -1.0, 0.0, 0.0,
