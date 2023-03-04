@@ -1023,7 +1023,7 @@ block:
     b = a / 2
     when compiles(b = a div 2): doAssert false # type mismatch
 
-proc closeAngles(a, b: Vec3): bool =
+proc eq(a, b: Vec3): bool =
   const epsilon = 0.001
   return abs(angleBetween(a.x, b.x)) < epsilon and
     abs(angleBetween(a.y, b.y)) < epsilon and
@@ -1033,44 +1033,44 @@ const PI = PI.float32
 
 block:
   # test Euler angles from a vector
-  doAssert vec3(0, 0, 0).toAngles.closeAngles vec3(0f, 0f, 0f)
-  doAssert vec3(0, 0, 1).toAngles.closeAngles vec3(0f, 0f, 0f) # forward
-  doAssert vec3(0, 0, -1).toAngles.closeAngles vec3(0f, PI, 0f) # back
-  doAssert vec3(-1, 0, 0).toAngles.closeAngles vec3(0f, PI/2, 0f) # right
-  doAssert vec3(1, 0, 0).toAngles.closeAngles vec3(0f, -PI/2, 0f) # left
-  doAssert vec3(0, 1, 0).toAngles.closeAngles vec3(PI/2, 0f, 0f) # up
-  doAssert vec3(0, -1, 0).toAngles.closeAngles vec3(-PI/2, 0f, 0f) # down
+  doAssert vec3(0, 0, 0).toAngles.eq vec3(0f, 0f, 0f)
+  doAssert vec3(0, 0, 1).toAngles.eq vec3(0f, 0f, 0f) # forward
+  doAssert vec3(0, 0, -1).toAngles.eq vec3(0f, PI, 0f) # back
+  doAssert vec3(-1, 0, 0).toAngles.eq vec3(0f, PI/2, 0f) # right
+  doAssert vec3(1, 0, 0).toAngles.eq vec3(0f, -PI/2, 0f) # left
+  doAssert vec3(0, 1, 0).toAngles.eq vec3(PI/2, 0f, 0f) # up
+  doAssert vec3(0, -1, 0).toAngles.eq vec3(-PI/2, 0f, 0f) # down
 
 block:
   # test Euler angles from a matrix
-  doAssert translate(vec3(0, 0, 0)).toAngles.closeAngles vec3(0f, 0f, 0f)
-  doAssert rotateX(0f).toAngles.closeAngles vec3(0f, 0f, 0f) # forward
-  doAssert rotateY(PI).toAngles.closeAngles vec3(0f, -PI, 0f) # back
-  doAssert rotateY(PI/2).toAngles.closeAngles vec3(0f, PI/2, 0f) # back
-  doAssert rotateY(-PI/2).toAngles.closeAngles vec3(0f, -PI/2, 0f) # back
-  doAssert rotateX(PI/2).toAngles.closeAngles vec3(PI/2, 0f, 0f) # up
-  doAssert rotateX(-PI/2).toAngles.closeAngles vec3(-PI/2, 0f, 0f) # down
-  doAssert rotateZ(PI/2).toAngles.closeAngles vec3(0f, 0f, PI/2) # tilt right
-  doAssert rotateZ(-PI/2).toAngles.closeAngles vec3(0f, 0f, -PI/2) # tilt left
+  doAssert translate(vec3(0, 0, 0)).toAngles.eq vec3(0f, 0f, 0f)
+  doAssert rotateX(0f).toAngles.eq vec3(0f, 0f, 0f) # forward
+  doAssert rotateY(PI).toAngles.eq vec3(0f, -PI, 0f) # back
+  doAssert rotateY(PI/2).toAngles.eq vec3(0f, PI/2, 0f) # back
+  doAssert rotateY(-PI/2).toAngles.eq vec3(0f, -PI/2, 0f) # back
+  doAssert rotateX(PI/2).toAngles.eq vec3(PI/2, 0f, 0f) # up
+  doAssert rotateX(-PI/2).toAngles.eq vec3(-PI/2, 0f, 0f) # down
+  doAssert rotateZ(PI/2).toAngles.eq vec3(0f, 0f, PI/2) # tilt right
+  doAssert rotateZ(-PI/2).toAngles.eq vec3(0f, 0f, -PI/2) # tilt left
 
-  doAssert mat4().toAngles.closeAngles vec3(0, 0, 0)
+  doAssert mat4().toAngles.eq vec3(0, 0, 0)
 
-  doAssert rotateX(10.toRadians()).toAngles.closeAngles vec3(10.toRadians(), 0, 0)
-  doAssert rotateY(10.toRadians()).toAngles.closeAngles vec3(0, 10.toRadians(), 0)
-  doAssert rotateZ(10.toRadians()).toAngles.closeAngles vec3(0, 0, 10.toRadians())
-  doAssert rotateX(89.toRadians()).toAngles.closeAngles vec3(89.toRadians(), 0, 0)
-  doAssert rotateY(89.toRadians()).toAngles.closeAngles vec3(0, 89.toRadians(), 0)
-  doAssert rotateZ(89.toRadians()).toAngles.closeAngles vec3(0, 0, 89.toRadians())
-  doAssert rotateX(90.toRadians()).toAngles.closeAngles vec3(90.toRadians(), 0, 0)
-  doAssert rotateY(90.toRadians()).toAngles.closeAngles vec3(0, 90.toRadians(), 0)
-  doAssert rotateZ(90.toRadians()).toAngles.closeAngles vec3(0, 0, 90.toRadians())
-  doAssert rotateX(90.toRadians()).toAngles.closeAngles vec3(90.toRadians(), 0, 0)
-  doAssert rotateY(90.toRadians()).toAngles.closeAngles vec3(0, 90.toRadians(), 0)
-  doAssert rotateZ(-90.toRadians()).toAngles.closeAngles vec3(0, 0, -90.toRadians())
-  doAssert rotateY(180.toRadians()).toAngles.closeAngles vec3(0, -180.toRadians(), 0)
-  doAssert rotateZ(180.toRadians()).toAngles.closeAngles vec3(0, 0, 180.toRadians())
-  doAssert rotateY(-180.toRadians()).toAngles.closeAngles vec3(0, 180.toRadians(), 0)
-  doAssert rotateZ(-180.toRadians()).toAngles.closeAngles vec3(0, 0, 180.toRadians())
+  doAssert rotateX(10.toRadians()).toAngles.eq vec3(10.toRadians(), 0, 0)
+  doAssert rotateY(10.toRadians()).toAngles.eq vec3(0, 10.toRadians(), 0)
+  doAssert rotateZ(10.toRadians()).toAngles.eq vec3(0, 0, 10.toRadians())
+  doAssert rotateX(89.toRadians()).toAngles.eq vec3(89.toRadians(), 0, 0)
+  doAssert rotateY(89.toRadians()).toAngles.eq vec3(0, 89.toRadians(), 0)
+  doAssert rotateZ(89.toRadians()).toAngles.eq vec3(0, 0, 89.toRadians())
+  doAssert rotateX(90.toRadians()).toAngles.eq vec3(90.toRadians(), 0, 0)
+  doAssert rotateY(90.toRadians()).toAngles.eq vec3(0, 90.toRadians(), 0)
+  doAssert rotateZ(90.toRadians()).toAngles.eq vec3(0, 0, 90.toRadians())
+  doAssert rotateX(90.toRadians()).toAngles.eq vec3(90.toRadians(), 0, 0)
+  doAssert rotateY(90.toRadians()).toAngles.eq vec3(0, 90.toRadians(), 0)
+  doAssert rotateZ(-90.toRadians()).toAngles.eq vec3(0, 0, -90.toRadians())
+  doAssert rotateY(180.toRadians()).toAngles.eq vec3(0, -180.toRadians(), 0)
+  doAssert rotateZ(180.toRadians()).toAngles.eq vec3(0, 0, 180.toRadians())
+  doAssert rotateY(-180.toRadians()).toAngles.eq vec3(0, 180.toRadians(), 0)
+  doAssert rotateZ(-180.toRadians()).toAngles.eq vec3(0, 0, 180.toRadians())
 
 block:
   # Euler angles fuzzing tests.
@@ -1115,7 +1115,7 @@ block:
       b = vec3(xr, yr, zr)
       m = fromAngles(b)
       a = m.toAngles()
-    doAssert a.closeAngles(b)
+    doAssert a.eq(b)
 
   # Test non-polar cases
   for i in 0 .. 1000:
@@ -1126,7 +1126,7 @@ block:
       b = vec3(xr, yr, zr)
       m = fromAngles(b)
       a = m.toAngles()
-    doAssert a.closeAngles(b)
+    doAssert a.eq(b)
 
   # Test polar and non-rotated cases
   for i in 0 .. 1000:
@@ -1137,7 +1137,7 @@ block:
       b = vec3(xr, yr, zr)
       m = fromAngles(b)
       a = m.toAngles()
-    doAssert a.closeAngles(b)
+    doAssert a.eq(b)
 
   # Test polar and crazy rotated cases
   for i in 0 .. 1000:
