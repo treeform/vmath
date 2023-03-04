@@ -89,6 +89,44 @@ vmathObjArrayBased ................ 73.968 ms     74.292 ms    ±0.631   x100
 * [3d Ray Trace Benchmark](tests/bench_raytracer.nim)
 * [2d SVG Render Benchmark](https://github.com/treeform/pixie/blob/master/tests/bench_svg.nim)
 
+## Zmod - GLSL mod
+
+GLSL uses a different type of float point mod. Because mod is a Nim keyword please use `zmod` when you need GLSL `mod` behavior.
+
+## Coordinate System
+
+Right-hand z-forward coordinate system
+
+This is the same system used in the GLTF file format.
+
+> glTF uses a right-handed coordinate system.
+> glTF defines +Y as up, +Z as forward, and -X as right;
+> the front of a glTF asset faces +Z.
+
+[glTF Spec 2.0](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#coordinate-system-and-units)
+
+## OpenGL matrix column-major notation.
+
+> [9.005](https://www.opengl.org/archives/resources/faq/technical/transformations.htm) For programming purposes, OpenGL matrices are 16-value arrays with base vectors laid out contiguously in memory. The translation components occupy the 13th, 14th, and 15th elements of the 16-element matrix, where indices are numbered from 1 to 16 as described in section 2.11.2 of the [OpenGL 2.1 Specification](https://registry.khronos.org/OpenGL/specs/gl/glspec21.pdf).
+>
+> Sadly, the use of column-major format in the spec and blue book has resulted in endless confusion in the OpenGL programming community. Column-major notation suggests that matrices are not laid out in memory as a programmer would expect.
+
+OpenGL/GLSL/vmath vs Math/Specification notation:
+```
+        mat4([
+          a, b, c, 0,              | a d g x |
+          d, e, f, 0,              | b e h y |
+          g, h, i, 0,              | c f i z |
+          x, y, z, 1               | 0 0 0 1 |
+        ])
+```
+
+# 1.x.x to 2.0.0 vmath breaking changes:
+* New right-hand-z-forward cordate system and functions that care about
+coordinate system where moved there.
+* deprecated `lookAt()` please use `toAngles()`/`fromAngles()` instead.
+* deprecated `fractional()` use `frac()` instead.
+
 # 0.x.x to 1.0.0 vmath breaking changes:
 
 * `vec3(v)` no longer works please use `vec3(v.x, v.y, 0)` instead.
