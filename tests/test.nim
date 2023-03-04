@@ -53,18 +53,18 @@ block:
   doAssert quantize(1.23456789, 0.01) ~= 1.23
   doAssert quantize(-1.23456789, 0.01) ~= -1.23
 
-  doAssert fractional(0.0) ~= 0.0
-  doAssert fractional(3.14) ~= 0.14
-  doAssert fractional(-3.14) ~= 0.14
-  doAssert fractional(1.23456789) ~= 0.23456789
-  doAssert fractional(-1.23456789) ~= 0.23456789
+  doAssert frac(0.0) ~= 0.0
+  doAssert frac(3.14) ~= 0.14
+  doAssert frac(-3.14) ~= 0.14
+  doAssert frac(1.23456789) ~= 0.23456789
+  doAssert frac(-1.23456789) ~= 0.23456789
 
-  doAssert lerp(0.0, 1.0, 0.5) ~= 0.5
-  doAssert lerp(0.0, 10.0, 0.5) ~= 5.0
-  doAssert lerp(0.0, 100.0, 0.5) ~= 50.0
-  doAssert lerp(-1.0, 1.0, 0.25) ~= -0.5
-  doAssert lerp(-10.0, 10.0, 0.25) ~= -5.0
-  doAssert lerp(-100.0, 100.0, 0.25) ~= -50.0
+  doAssert mix(0.0, 1.0, 0.5) ~= 0.5
+  doAssert mix(0.0, 10.0, 0.5) ~= 5.0
+  doAssert mix(0.0, 100.0, 0.5) ~= 50.0
+  doAssert mix(-1.0, 1.0, 0.25) ~= -0.5
+  doAssert mix(-10.0, 10.0, 0.25) ~= -5.0
+  doAssert mix(-100.0, 100.0, 0.25) ~= -50.0
 
   doAssert mix(0.0, 1.0, 0.5) ~= 0.5
   doAssert mix(0.0, 10.0, 0.5) ~= 5.0
@@ -1053,7 +1053,7 @@ block:
   doAssert rotateZ(PI/2).toAngles.closeAngles vec3(0f, 0f, PI/2) # tilt right
   doAssert rotateZ(-PI/2).toAngles.closeAngles vec3(0f, 0f, -PI/2) # tilt left
 
-  doAssert Mat4().toAngles.closeAngles vec3(0, 0, 0)
+  doAssert mat4().toAngles.closeAngles vec3(0, 0, 0)
 
   doAssert rotateX(10.toRadians()).toAngles.closeAngles vec3(10.toRadians(), 0, 0)
   doAssert rotateY(10.toRadians()).toAngles.closeAngles vec3(0, 10.toRadians(), 0)

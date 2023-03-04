@@ -30,8 +30,6 @@ float32 float  Vec2  Vec3  Vec4  Mat3  Mat4  Quat
 float64 double DVec2 DVec3 DVec4 DMat3 DMat4 DQuat
 ======= ====== ===== ===== ===== ===== ===== =====
 
-
-
 ]##
 
 import macros, math, strutils
@@ -423,26 +421,26 @@ proc inversesqrt*[T: float32|float64](v: T): T =
   ## Returns inverse square root.
   1/sqrt(v)
 
-proc mix*[T: SomeFloat](a, b, v: T): T =
+proc mix*[T](a, b, v: T): T =
   ## Interpolates value between a and b.
   ## * 0 -> a
   ## * 1 -> b
   ## * 0.5 -> between a and b
   v * (b - a) + a
 
-proc fixAngle*[T: SomeFloat](angle: T): T =
-  ## Normalize the angle be from -PI to PI radians.
+proc fixAngle*[T](angle: T): T =
+  ## Normalize the angle to be from -PI to PI radians.
   result = angle
-  while result > PI:
-    result -= PI * 2
-  while result <= -PI:
-    result += PI * 2
+  while result > T(PI):
+    result -= T(PI) * 2
+  while result <= -T(PI):
+    result += T(PI) * 2
 
-proc angleBetween*[T: SomeFloat](a, b: T): T =
+proc angleBetween*[T](a, b: T): T =
   ## Angle between angle a and angle b.
   fixAngle(b - a)
 
-proc turnAngle*[T: SomeFloat](a, b, speed: T): T =
+proc turnAngle*[T](a, b, speed: T): T =
   ## Move from angle a to angle b with step of v.
   var
     turn = fixAngle(b - a)
@@ -1370,11 +1368,11 @@ proc rotateZ*[T](angle: T): GMat4[T] =
   result[3, 3] = 1
 
 proc toAngles*[T](a: GVec3[T]): GVec3[T] =
-  ## Given a 3d vector, computes euler angles: pitch and yaw
+  ## Given a 3d vector, computes Euler angles: pitch and yaw
   ##   pitch (x rotation)
   ##   yaw (y rotation)
   ##   roll (z rotation) - always 0 in vector case
-  if a == vec3(0, 0, 0):
+  if a == gvec3[T](T(0), T(0), T(0)):
     return
   let
     yaw = -arctan2(a.x, a.z)
@@ -1383,14 +1381,14 @@ proc toAngles*[T](a: GVec3[T]): GVec3[T] =
   result.y = yaw.fixAngle
 
 proc toAngles*[T](origin, target: GVec3[T]): GVec3[T] =
-  ## Gives euler angles from origin to target
+  ## Gives Euler angles from origin to target
   ##   pitch (x rotation)
   ##   yaw (y rotation)
   ##   roll (z rotation) - always 0 in vector case
   toAngles(target - origin)
 
 proc toAngles*[T](m: GMat4[T]): GVec3[T] =
-  ## Decomposes the matrix into euler angles:
+  ## Decomposes the matrix into Euler angles:
   ##   pitch (x rotation)
   ##   yaw (y rotation)
   ##   roll (z rotation)
@@ -1408,7 +1406,7 @@ proc toAngles*[T](m: GMat4[T]): GVec3[T] =
     result.z = -arctan2(m[0, 1], m[1, 1])
 
 proc fromAngles*[T](a: GVec3[T]): GMat4[T] =
-  ## Takes a vector containing euler angles and returns a matrix.
+  ## Takes a vector containing Euler angles and returns a matrix.
   rotateY(a.y) * rotateX(a.x) * rotateZ(a.z)
 
 proc frustum*[T](left, right, bottom, top, near, far: T): GMat4[T] =
@@ -1583,7 +1581,7 @@ type
 
 template genQuatConstructor*(lower, upper, typ: untyped) =
   ## Generate quaternion constructor for your own type.
-  proc `lower`*(): `upper` = gvec4[typ](0, 0, 0, 1)
+  proc `lower`*(): `upper` = gvec4[typ](typ(0), typ(0), typ(0), typ(1))
   proc `lower`*(x, y, z, w: typ): `upper` = gvec4[typ](x, y, z, w)
   proc `lower`*(x: typ): `upper` = gvec4[typ](x, x, x, x)
   proc `lower`*[T](x: GVec4[T]): `upper` =
