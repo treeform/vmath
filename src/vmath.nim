@@ -421,26 +421,26 @@ proc inversesqrt*[T: float32|float64](v: T): T =
   ## Returns inverse square root.
   1/sqrt(v)
 
-proc mix*[T](a, b, v: T): T =
+proc mix*[T: SomeFloat](a, b, v: T): T =
   ## Interpolates value between a and b.
   ## * 0 -> a
   ## * 1 -> b
   ## * 0.5 -> between a and b
   v * (b - a) + a
 
-proc fixAngle*[T](angle: T): T =
+proc fixAngle*[T: SomeFloat](angle: T): T =
   ## Normalize the angle to be from -PI to PI radians.
   result = angle
-  while result > T(PI):
-    result -= T(PI) * 2
-  while result <= -T(PI):
-    result += T(PI) * 2
+  while result > PI:
+    result -= PI * 2
+  while result <= -PI:
+    result += PI * 2
 
-proc angleBetween*[T](a, b: T): T =
+proc angleBetween*[T: SomeFloat](a, b: T): T =
   ## Angle between angle a and angle b.
   fixAngle(b - a)
 
-proc turnAngle*[T](a, b, speed: T): T =
+proc turnAngle*[T: SomeFloat](a, b, speed: T): T =
   ## Move from angle a to angle b with step of v.
   var
     turn = fixAngle(b - a)
@@ -1581,7 +1581,7 @@ type
 
 template genQuatConstructor*(lower, upper, typ: untyped) =
   ## Generate quaternion constructor for your own type.
-  proc `lower`*(): `upper` = gvec4[typ](typ(0), typ(0), typ(0), typ(1))
+  proc `lower`*(): `upper` = gvec4[typ](0, 0, 0, 1)
   proc `lower`*(x, y, z, w: typ): `upper` = gvec4[typ](x, y, z, w)
   proc `lower`*(x: typ): `upper` = gvec4[typ](x, x, x, x)
   proc `lower`*[T](x: GVec4[T]): `upper` =
