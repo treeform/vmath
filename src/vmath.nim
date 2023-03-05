@@ -406,7 +406,7 @@ proc quantize*[T: SomeFloat](v, n: T): T =
   ## Makes v be multiple of n. Rounding to integer quantize by 1.0.
   trunc(v / n) * n
 
-proc frac*[T: SomeFloat](v: T): T =
+proc fract*[T: SomeFloat](v: T): T =
   ## Returns fractional part of a number.
   ## 3.14 -> 0.14
   ## -3.14 -> 0.14
@@ -415,7 +415,7 @@ proc frac*[T: SomeFloat](v: T): T =
 
 proc fractional*[T: SomeFloat](v: T): T {.deprecated: "Use frac() insetad"} =
   ## Returns fractional part of a number.
-  frac(v)
+  fract(v)
 
 proc inversesqrt*[T: float32|float64](v: T): T =
   ## Returns inverse square root.
@@ -730,7 +730,7 @@ genMathFn(floor)
 genMathFn(ceil)
 genMathFn(abs)
 genMathFn(trunc)
-genMathFn(frac)
+genMathFn(fract)
 genMathFn(quantize)
 genMathFn(toRadians)
 genMathFn(toDegrees)

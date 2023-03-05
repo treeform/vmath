@@ -53,11 +53,11 @@ block:
   doAssert quantize(1.23456789, 0.01) ~= 1.23
   doAssert quantize(-1.23456789, 0.01) ~= -1.23
 
-  doAssert frac(0.0) ~= 0.0
-  doAssert frac(3.14) ~= 0.14
-  doAssert frac(-3.14) ~= 0.14
-  doAssert frac(1.23456789) ~= 0.23456789
-  doAssert frac(-1.23456789) ~= 0.23456789
+  doAssert fract(0.0) ~= 0.0
+  doAssert fract(3.14) ~= 0.14
+  doAssert fract(-3.14) ~= 0.14
+  doAssert fract(1.23456789) ~= 0.23456789
+  doAssert fract(-1.23456789) ~= 0.23456789
 
   doAssert mix(0.0, 1.0, 0.5) ~= 0.5
   doAssert mix(0.0, 10.0, 0.5) ~= 5.0
