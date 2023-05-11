@@ -6,7 +6,7 @@
 
 ![Github Actions](https://github.com/treeform/vmath/workflows/Github%20Actions/badge.svg)
 
-[API reference](https://treeform.github.io/treeform/vmath)
+[API reference](https://treeform.github.io/vmath)
 
 This library has no dependencies other than the Nim standard library.
 
