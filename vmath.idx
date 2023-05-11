@@ -1,0 +1,463 @@
+GVec2	vmath.html#GVec2	vmath: GVec2	
+GVec3	vmath.html#GVec3	vmath: GVec3	
+GVec4	vmath.html#GVec4	vmath: GVec4	
+gvec2	vmath.html#gvec2.t,T,T	vmath: gvec2[T](x, y: T): GVec2[T]	
+gvec3	vmath.html#gvec3.t,T,T,T	vmath: gvec3[T](x, y, z: T): GVec3[T]	
+gvec4	vmath.html#gvec4.t,T,T,T,T	vmath: gvec4[T](x, y, z, w: T): GVec4[T]	
+x	vmath.html#x.t,GVec2[T]	vmath: x[T](a: var GVec2[T]): var T	
+y	vmath.html#y.t,GVec2[T]	vmath: y[T](a: var GVec2[T]): var T	
+x	vmath.html#x.t,GVec3[T]	vmath: x[T](a: var GVec3[T]): var T	
+y	vmath.html#y.t,GVec3[T]	vmath: y[T](a: var GVec3[T]): var T	
+z	vmath.html#z.t,GVec3[T]	vmath: z[T](a: var GVec3[T]): var T	
+x	vmath.html#x.t,GVec4[T]	vmath: x[T](a: var GVec4[T]): var T	
+y	vmath.html#y.t,GVec4[T]	vmath: y[T](a: var GVec4[T]): var T	
+z	vmath.html#z.t,GVec4[T]	vmath: z[T](a: var GVec4[T]): var T	
+w	vmath.html#w.t,GVec4[T]	vmath: w[T](a: var GVec4[T]): var T	
+x	vmath.html#x.t,GVec2[T]_2	vmath: x[T](a: GVec2[T]): T	
+x	vmath.html#x.t,GVec3[T]_2	vmath: x[T](a: GVec3[T]): T	
+x	vmath.html#x.t,GVec4[T]_2	vmath: x[T](a: GVec4[T]): T	
+y	vmath.html#y.t,GVec2[T]_2	vmath: y[T](a: GVec2[T]): T	
+y	vmath.html#y.t,GVec3[T]_2	vmath: y[T](a: GVec3[T]): T	
+y	vmath.html#y.t,GVec4[T]_2	vmath: y[T](a: GVec4[T]): T	
+z	vmath.html#z.t,GVec3[T]_2	vmath: z[T](a: GVec3[T]): T	
+z	vmath.html#z.t,GVec4[T]_2	vmath: z[T](a: GVec4[T]): T	
+w	vmath.html#w.t,GVec4[T]_2	vmath: w[T](a: GVec4[T]): T	
+x=	vmath.html#x=.t,GVec234[T],T	vmath: x=[T](a: var GVec234[T]; value: T)	
+y=	vmath.html#y=.t,GVec234[T],T	vmath: y=[T](a: var GVec234[T]; value: T)	
+z=	vmath.html#z=.t,GVec34[T],T	vmath: z=[T](a: var GVec34[T]; value: T)	
+w=	vmath.html#w=.t,GVec4[T],T	vmath: w=[T](a: var GVec4[T]; value: T)	
+`[]`	vmath.html#[].t,GVec234[T],int	vmath: `[]`[T](a: GVec234[T]; i: int): T	
+`[]=`	vmath.html#[]=.t,GVec234[T],int,T	vmath: `[]=`[T](a: var GVec234[T]; i: int; v: T)	
+GMat2	vmath.html#GMat2	vmath: GMat2	
+GMat3	vmath.html#GMat3	vmath: GMat3	
+GMat4	vmath.html#GMat4	vmath: GMat4	
+gmat2	vmath.html#gmat2,T,T,T,T	vmath: gmat2[T](m00, m01, m10, m11: T): GMat2[T]	
+gmat3	vmath.html#gmat3,T,T,T,T,T,T,T,T,T	vmath: gmat3[T](m00, m01, m02, m10, m11, m12, m20, m21, m22: T): GMat3[T]	
+gmat4	vmath.html#gmat4,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T,T	vmath: gmat4[T](m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31,\n         m32, m33: T): GMat4[T]	
+`[]`	vmath.html#[].t,GMat2[T],int,int	vmath: `[]`[T](a: GMat2[T]; i, j: int): T	
+`[]`	vmath.html#[].t,GMat3[T],int,int	vmath: `[]`[T](a: GMat3[T]; i, j: int): T	
+`[]`	vmath.html#[].t,GMat4[T],int,int	vmath: `[]`[T](a: GMat4[T]; i, j: int): T	
+`[]=`	vmath.html#[]=.t,GMat2[T],int,int,T	vmath: `[]=`[T](a: var GMat2[T]; i, j: int; v: T)	
+`[]=`	vmath.html#[]=.t,GMat3[T],int,int,T	vmath: `[]=`[T](a: var GMat3[T]; i, j: int; v: T)	
+`[]=`	vmath.html#[]=.t,GMat4[T],int,int,T	vmath: `[]=`[T](a: var GMat4[T]; i, j: int; v: T)	
+`[]`	vmath.html#[].t,GMat2[T],int	vmath: `[]`[T](a: GMat2[T]; i: int): GVec2[T]	
+`[]`	vmath.html#[].t,GMat3[T],int	vmath: `[]`[T](a: GMat3[T]; i: int): GVec3[T]	
+`[]`	vmath.html#[].t,GMat4[T],int	vmath: `[]`[T](a: GMat4[T]; i: int): GVec4[T]	
+BVec2	vmath.html#BVec2	vmath: BVec2	
+BVec3	vmath.html#BVec3	vmath: BVec3	
+BVec4	vmath.html#BVec4	vmath: BVec4	
+IVec2	vmath.html#IVec2	vmath: IVec2	
+IVec3	vmath.html#IVec3	vmath: IVec3	
+IVec4	vmath.html#IVec4	vmath: IVec4	
+UVec2	vmath.html#UVec2	vmath: UVec2	
+UVec3	vmath.html#UVec3	vmath: UVec3	
+UVec4	vmath.html#UVec4	vmath: UVec4	
+Vec2	vmath.html#Vec2	vmath: Vec2	
+Vec3	vmath.html#Vec3	vmath: Vec3	
+Vec4	vmath.html#Vec4	vmath: Vec4	
+DVec2	vmath.html#DVec2	vmath: DVec2	
+DVec3	vmath.html#DVec3	vmath: DVec3	
+DVec4	vmath.html#DVec4	vmath: DVec4	
+`~=`	vmath.html#~=,T,T	vmath: `~=`[T: SomeFloat](a, b: T): bool	
+between	vmath.html#between,T,T,T	vmath: between[T](value, min, max: T): bool	
+sign	vmath.html#sign,T	vmath: sign[T](v: T): T	
+quantize	vmath.html#quantize,T,T	vmath: quantize[T: SomeFloat](v, n: T): T	
+fractional	vmath.html#fractional,T	vmath: fractional[T: SomeFloat](v: T): T	
+inversesqrt	vmath.html#inversesqrt,T	vmath: inversesqrt[T: float32 | float64](v: T): T	
+mix	vmath.html#mix,T,T,T	vmath: mix[T: SomeFloat](a, b, v: T): T	
+fixAngle	vmath.html#fixAngle,T	vmath: fixAngle[T: SomeFloat](angle: T): T	
+angleBetween	vmath.html#angleBetween,T,T	vmath: angleBetween[T: SomeFloat](a, b: T): T	
+turnAngle	vmath.html#turnAngle,T,T,T	vmath: turnAngle[T: SomeFloat](a, b, speed: T): T	
+toRadians	vmath.html#toRadians,T	vmath: toRadians[T: SomeFloat](deg: T): T	
+toDegrees	vmath.html#toDegrees,T	vmath: toDegrees[T: SomeFloat](rad: T): T	
+toRadians	vmath.html#toRadians,SomeInteger	vmath: toRadians(deg: SomeInteger): float32	
+toDegrees	vmath.html#toDegrees,SomeInteger	vmath: toDegrees(deg: SomeInteger): float32	
+isNan	vmath.html#isNan,SomeFloat	vmath: isNan(x: SomeFloat): bool	
+zmod	vmath.html#zmod,float32,float32	vmath: zmod(a, b: float32): float32	
+genVecConstructor	vmath.html#genVecConstructor.t,untyped,untyped,untyped	vmath: genVecConstructor(lower, upper, typ: untyped)	
+bvec2	vmath.html#bvec2_2	vmath: bvec2(): BVec2	
+bvec3	vmath.html#bvec3_2	vmath: bvec3(): BVec3	
+bvec4	vmath.html#bvec4_2	vmath: bvec4(): BVec4	
+bvec2	vmath.html#bvec2,bool,bool	vmath: bvec2(x`gensym6, y`gensym6: bool): BVec2	
+bvec3	vmath.html#bvec3,bool,bool,bool	vmath: bvec3(x`gensym6, y`gensym6, z`gensym6: bool): BVec3	
+bvec4	vmath.html#bvec4,bool,bool,bool,bool	vmath: bvec4(x`gensym6, y`gensym6, z`gensym6, w`gensym6: bool): BVec4	
+bvec2	vmath.html#bvec2,bool	vmath: bvec2(x`gensym6: bool): BVec2	
+bvec3	vmath.html#bvec3,bool	vmath: bvec3(x`gensym6: bool): BVec3	
+bvec4	vmath.html#bvec4,bool	vmath: bvec4(x`gensym6: bool): BVec4	
+bvec2	vmath.html#bvec2_3	vmath: bvec2[T](x`gensym6: GVec2[T]): BVec2	
+bvec3	vmath.html#bvec3_3	vmath: bvec3[T](x`gensym6: GVec3[T]): BVec3	
+bvec4	vmath.html#bvec4_3	vmath: bvec4[T](x`gensym6: GVec4[T]): BVec4	
+bvec3	vmath.html#bvec3,,T	vmath: bvec3[T](x`gensym6: GVec2[T]; z`gensym6: T = 0): BVec3	
+bvec4	vmath.html#bvec4,,T	vmath: bvec4[T](x`gensym6: GVec3[T]; w`gensym6: T = 0): BVec4	
+bvec4	vmath.html#bvec4,,	vmath: bvec4[T](a`gensym6, b`gensym6: GVec2[T]): BVec4	
+`$`	vmath.html#$,BVec2	vmath: `$`(a`gensym6: BVec2): string	
+`$`	vmath.html#$,BVec3	vmath: `$`(a`gensym6: BVec3): string	
+`$`	vmath.html#$,BVec4	vmath: `$`(a`gensym6: BVec4): string	
+ivec2	vmath.html#ivec2_2	vmath: ivec2(): IVec2	
+ivec3	vmath.html#ivec3_2	vmath: ivec3(): IVec3	
+ivec4	vmath.html#ivec4_2	vmath: ivec4(): IVec4	
+ivec2	vmath.html#ivec2,int32,int32	vmath: ivec2(x`gensym28, y`gensym28: int32): IVec2	
+ivec3	vmath.html#ivec3,int32,int32,int32	vmath: ivec3(x`gensym28, y`gensym28, z`gensym28: int32): IVec3	
+ivec4	vmath.html#ivec4,int32,int32,int32,int32	vmath: ivec4(x`gensym28, y`gensym28, z`gensym28, w`gensym28: int32): IVec4	
+ivec2	vmath.html#ivec2,int32	vmath: ivec2(x`gensym28: int32): IVec2	
+ivec3	vmath.html#ivec3,int32	vmath: ivec3(x`gensym28: int32): IVec3	
+ivec4	vmath.html#ivec4,int32	vmath: ivec4(x`gensym28: int32): IVec4	
+ivec2	vmath.html#ivec2_3	vmath: ivec2[T](x`gensym28: GVec2[T]): IVec2	
+ivec3	vmath.html#ivec3_3	vmath: ivec3[T](x`gensym28: GVec3[T]): IVec3	
+ivec4	vmath.html#ivec4_3	vmath: ivec4[T](x`gensym28: GVec4[T]): IVec4	
+ivec3	vmath.html#ivec3,,T	vmath: ivec3[T](x`gensym28: GVec2[T]; z`gensym28: T = 0): IVec3	
+ivec4	vmath.html#ivec4,,T	vmath: ivec4[T](x`gensym28: GVec3[T]; w`gensym28: T = 0): IVec4	
+ivec4	vmath.html#ivec4,,	vmath: ivec4[T](a`gensym28, b`gensym28: GVec2[T]): IVec4	
+`$`	vmath.html#$,IVec2	vmath: `$`(a`gensym28: IVec2): string	
+`$`	vmath.html#$,IVec3	vmath: `$`(a`gensym28: IVec3): string	
+`$`	vmath.html#$,IVec4	vmath: `$`(a`gensym28: IVec4): string	
+uvec2	vmath.html#uvec2_2	vmath: uvec2(): UVec2	
+uvec3	vmath.html#uvec3_2	vmath: uvec3(): UVec3	
+uvec4	vmath.html#uvec4_2	vmath: uvec4(): UVec4	
+uvec2	vmath.html#uvec2,uint32,uint32	vmath: uvec2(x`gensym50, y`gensym50: uint32): UVec2	
+uvec3	vmath.html#uvec3,uint32,uint32,uint32	vmath: uvec3(x`gensym50, y`gensym50, z`gensym50: uint32): UVec3	
+uvec4	vmath.html#uvec4,uint32,uint32,uint32,uint32	vmath: uvec4(x`gensym50, y`gensym50, z`gensym50, w`gensym50: uint32): UVec4	
+uvec2	vmath.html#uvec2,uint32	vmath: uvec2(x`gensym50: uint32): UVec2	
+uvec3	vmath.html#uvec3,uint32	vmath: uvec3(x`gensym50: uint32): UVec3	
+uvec4	vmath.html#uvec4,uint32	vmath: uvec4(x`gensym50: uint32): UVec4	
+uvec2	vmath.html#uvec2_3	vmath: uvec2[T](x`gensym50: GVec2[T]): UVec2	
+uvec3	vmath.html#uvec3_3	vmath: uvec3[T](x`gensym50: GVec3[T]): UVec3	
+uvec4	vmath.html#uvec4_3	vmath: uvec4[T](x`gensym50: GVec4[T]): UVec4	
+uvec3	vmath.html#uvec3,,T	vmath: uvec3[T](x`gensym50: GVec2[T]; z`gensym50: T = 0): UVec3	
+uvec4	vmath.html#uvec4,,T	vmath: uvec4[T](x`gensym50: GVec3[T]; w`gensym50: T = 0): UVec4	
+uvec4	vmath.html#uvec4,,	vmath: uvec4[T](a`gensym50, b`gensym50: GVec2[T]): UVec4	
+`$`	vmath.html#$,UVec2	vmath: `$`(a`gensym50: UVec2): string	
+`$`	vmath.html#$,UVec3	vmath: `$`(a`gensym50: UVec3): string	
+`$`	vmath.html#$,UVec4	vmath: `$`(a`gensym50: UVec4): string	
+vec2	vmath.html#vec2_2	vmath: vec2(): Vec2	
+vec3	vmath.html#vec3_2	vmath: vec3(): Vec3	
+vec4	vmath.html#vec4_2	vmath: vec4(): Vec4	
+vec2	vmath.html#vec2,float32,float32	vmath: vec2(x`gensym72, y`gensym72: float32): Vec2	
+vec3	vmath.html#vec3,float32,float32,float32	vmath: vec3(x`gensym72, y`gensym72, z`gensym72: float32): Vec3	
+vec4	vmath.html#vec4,float32,float32,float32,float32	vmath: vec4(x`gensym72, y`gensym72, z`gensym72, w`gensym72: float32): Vec4	
+vec2	vmath.html#vec2,float32	vmath: vec2(x`gensym72: float32): Vec2	
+vec3	vmath.html#vec3,float32	vmath: vec3(x`gensym72: float32): Vec3	
+vec4	vmath.html#vec4,float32	vmath: vec4(x`gensym72: float32): Vec4	
+vec2	vmath.html#vec2_3	vmath: vec2[T](x`gensym72: GVec2[T]): Vec2	
+vec3	vmath.html#vec3_3	vmath: vec3[T](x`gensym72: GVec3[T]): Vec3	
+vec4	vmath.html#vec4_3	vmath: vec4[T](x`gensym72: GVec4[T]): Vec4	
+vec3	vmath.html#vec3,,T	vmath: vec3[T](x`gensym72: GVec2[T]; z`gensym72: T = 0): Vec3	
+vec4	vmath.html#vec4,,T	vmath: vec4[T](x`gensym72: GVec3[T]; w`gensym72: T = 0): Vec4	
+vec4	vmath.html#vec4,,	vmath: vec4[T](a`gensym72, b`gensym72: GVec2[T]): Vec4	
+`$`	vmath.html#$,Vec2	vmath: `$`(a`gensym72: Vec2): string	
+`$`	vmath.html#$,Vec3	vmath: `$`(a`gensym72: Vec3): string	
+`$`	vmath.html#$,Vec4	vmath: `$`(a`gensym72: Vec4): string	
+dvec2	vmath.html#dvec2_2	vmath: dvec2(): DVec2	
+dvec3	vmath.html#dvec3_2	vmath: dvec3(): DVec3	
+dvec4	vmath.html#dvec4_2	vmath: dvec4(): DVec4	
+dvec2	vmath.html#dvec2,float64,float64	vmath: dvec2(x`gensym94, y`gensym94: float64): DVec2	
+dvec3	vmath.html#dvec3,float64,float64,float64	vmath: dvec3(x`gensym94, y`gensym94, z`gensym94: float64): DVec3	
+dvec4	vmath.html#dvec4,float64,float64,float64,float64	vmath: dvec4(x`gensym94, y`gensym94, z`gensym94, w`gensym94: float64): DVec4	
+dvec2	vmath.html#dvec2,float64	vmath: dvec2(x`gensym94: float64): DVec2	
+dvec3	vmath.html#dvec3,float64	vmath: dvec3(x`gensym94: float64): DVec3	
+dvec4	vmath.html#dvec4,float64	vmath: dvec4(x`gensym94: float64): DVec4	
+dvec2	vmath.html#dvec2_3	vmath: dvec2[T](x`gensym94: GVec2[T]): DVec2	
+dvec3	vmath.html#dvec3_3	vmath: dvec3[T](x`gensym94: GVec3[T]): DVec3	
+dvec4	vmath.html#dvec4_3	vmath: dvec4[T](x`gensym94: GVec4[T]): DVec4	
+dvec3	vmath.html#dvec3,,T	vmath: dvec3[T](x`gensym94: GVec2[T]; z`gensym94: T = 0): DVec3	
+dvec4	vmath.html#dvec4,,T	vmath: dvec4[T](x`gensym94: GVec3[T]; w`gensym94: T = 0): DVec4	
+dvec4	vmath.html#dvec4,,	vmath: dvec4[T](a`gensym94, b`gensym94: GVec2[T]): DVec4	
+`$`	vmath.html#$,DVec2	vmath: `$`(a`gensym94: DVec2): string	
+`$`	vmath.html#$,DVec3	vmath: `$`(a`gensym94: DVec3): string	
+`$`	vmath.html#$,DVec4	vmath: `$`(a`gensym94: DVec4): string	
+vec2	vmath.html#vec2,IVec2	vmath: vec2(ivec2: IVec2): Vec2	
+vec2	vmath.html#vec2,UVec2	vmath: vec2(uvec2: UVec2): Vec2	
+ivec2	vmath.html#ivec2,UVec2	vmath: ivec2(uvec2: UVec2): IVec2	
+uvec2	vmath.html#uvec2,IVec2	vmath: uvec2(ivec2: IVec2): UVec2	
+vec3	vmath.html#vec3,IVec3	vmath: vec3(ivec3: IVec3): Vec3	
+vec3	vmath.html#vec3,UVec3	vmath: vec3(uvec3: UVec3): Vec3	
+ivec3	vmath.html#ivec3,UVec3	vmath: ivec3(uvec3: UVec3): IVec3	
+uvec3	vmath.html#uvec3,IVec3	vmath: uvec3(ivec3: IVec3): UVec3	
+vec4	vmath.html#vec4,IVec4	vmath: vec4(ivec4: IVec4): Vec4	
+vec4	vmath.html#vec4,UVec4	vmath: vec4(uvec4: UVec4): Vec4	
+ivec4	vmath.html#ivec4,UVec4	vmath: ivec4(uvec4: UVec4): IVec4	
+uvec4	vmath.html#uvec4,IVec4	vmath: uvec4(ivec4: IVec4): UVec4	
+`==`	vmath.html#==,GVec2[T],GVec2[T]	vmath: `==`[T](a, b: GVec2[T]): bool	
+`==`	vmath.html#==,GVec3[T],GVec3[T]	vmath: `==`[T](a, b: GVec3[T]): bool	
+`==`	vmath.html#==,GVec4[T],GVec4[T]	vmath: `==`[T](a, b: GVec4[T]): bool	
+`!=`	vmath.html#!=,GVec2[T],GVec2[T]	vmath: `!=`[T](a, b: GVec2[T]): bool	
+`!=`	vmath.html#!=,GVec3[T],GVec3[T]	vmath: `!=`[T](a, b: GVec3[T]): bool	
+`!=`	vmath.html#!=,GVec4[T],GVec4[T]	vmath: `!=`[T](a, b: GVec4[T]): bool	
+`+`	vmath.html#+,,	vmath: `+`[T](a`gensym152, b`gensym152: GVec2[T]): GVec2[T]	
+`+`	vmath.html#+,,_2	vmath: `+`[T](a`gensym152, b`gensym152: GVec3[T]): GVec3[T]	
+`+`	vmath.html#+,,_3	vmath: `+`[T](a`gensym152, b`gensym152: GVec4[T]): GVec4[T]	
+`+`	vmath.html#+,,T	vmath: `+`[T](a`gensym152: GVec2[T]; b`gensym152: T): GVec2[T]	
+`+`	vmath.html#+,,T_2	vmath: `+`[T](a`gensym152: GVec3[T]; b`gensym152: T): GVec3[T]	
+`+`	vmath.html#+,,T_3	vmath: `+`[T](a`gensym152: GVec4[T]; b`gensym152: T): GVec4[T]	
+`+`	vmath.html#+,T,	vmath: `+`[T](a`gensym152: T; b`gensym152: GVec2[T]): GVec2[T]	
+`+`	vmath.html#+,T,_2	vmath: `+`[T](a`gensym152: T; b`gensym152: GVec3[T]): GVec3[T]	
+`+`	vmath.html#+,T,_3	vmath: `+`[T](a`gensym152: T; b`gensym152: GVec4[T]): GVec4[T]	
+`-`	vmath.html#-,,	vmath: `-`[T](a`gensym153, b`gensym153: GVec2[T]): GVec2[T]	
+`-`	vmath.html#-,,_2	vmath: `-`[T](a`gensym153, b`gensym153: GVec3[T]): GVec3[T]	
+`-`	vmath.html#-,,_3	vmath: `-`[T](a`gensym153, b`gensym153: GVec4[T]): GVec4[T]	
+`-`	vmath.html#-,,T	vmath: `-`[T](a`gensym153: GVec2[T]; b`gensym153: T): GVec2[T]	
+`-`	vmath.html#-,,T_2	vmath: `-`[T](a`gensym153: GVec3[T]; b`gensym153: T): GVec3[T]	
+`-`	vmath.html#-,,T_3	vmath: `-`[T](a`gensym153: GVec4[T]; b`gensym153: T): GVec4[T]	
+`-`	vmath.html#-,T,	vmath: `-`[T](a`gensym153: T; b`gensym153: GVec2[T]): GVec2[T]	
+`-`	vmath.html#-,T,_2	vmath: `-`[T](a`gensym153: T; b`gensym153: GVec3[T]): GVec3[T]	
+`-`	vmath.html#-,T,_3	vmath: `-`[T](a`gensym153: T; b`gensym153: GVec4[T]): GVec4[T]	
+`*`	vmath.html#*,,	vmath: `*`[T](a`gensym154, b`gensym154: GVec2[T]): GVec2[T]	
+`*`	vmath.html#*,,_2	vmath: `*`[T](a`gensym154, b`gensym154: GVec3[T]): GVec3[T]	
+`*`	vmath.html#*,,_3	vmath: `*`[T](a`gensym154, b`gensym154: GVec4[T]): GVec4[T]	
+`*`	vmath.html#*,,T	vmath: `*`[T](a`gensym154: GVec2[T]; b`gensym154: T): GVec2[T]	
+`*`	vmath.html#*,,T_2	vmath: `*`[T](a`gensym154: GVec3[T]; b`gensym154: T): GVec3[T]	
+`*`	vmath.html#*,,T_3	vmath: `*`[T](a`gensym154: GVec4[T]; b`gensym154: T): GVec4[T]	
+`*`	vmath.html#*,T,	vmath: `*`[T](a`gensym154: T; b`gensym154: GVec2[T]): GVec2[T]	
+`*`	vmath.html#*,T,_2	vmath: `*`[T](a`gensym154: T; b`gensym154: GVec3[T]): GVec3[T]	
+`*`	vmath.html#*,T,_3	vmath: `*`[T](a`gensym154: T; b`gensym154: GVec4[T]): GVec4[T]	
+`/`	vmath.html#/,,	vmath: `/`[T](a`gensym155, b`gensym155: GVec2[T]): GVec2[T]	
+`/`	vmath.html#/,,_2	vmath: `/`[T](a`gensym155, b`gensym155: GVec3[T]): GVec3[T]	
+`/`	vmath.html#/,,_3	vmath: `/`[T](a`gensym155, b`gensym155: GVec4[T]): GVec4[T]	
+`/`	vmath.html#/,,T	vmath: `/`[T](a`gensym155: GVec2[T]; b`gensym155: T): GVec2[T]	
+`/`	vmath.html#/,,T_2	vmath: `/`[T](a`gensym155: GVec3[T]; b`gensym155: T): GVec3[T]	
+`/`	vmath.html#/,,T_3	vmath: `/`[T](a`gensym155: GVec4[T]; b`gensym155: T): GVec4[T]	
+`/`	vmath.html#/,T,	vmath: `/`[T](a`gensym155: T; b`gensym155: GVec2[T]): GVec2[T]	
+`/`	vmath.html#/,T,_2	vmath: `/`[T](a`gensym155: T; b`gensym155: GVec3[T]): GVec3[T]	
+`/`	vmath.html#/,T,_3	vmath: `/`[T](a`gensym155: T; b`gensym155: GVec4[T]): GVec4[T]	
+`mod`	vmath.html#mod,,	vmath: `mod`[T](a`gensym156, b`gensym156: GVec2[T]): GVec2[T]	
+`mod`	vmath.html#mod,,_2	vmath: `mod`[T](a`gensym156, b`gensym156: GVec3[T]): GVec3[T]	
+`mod`	vmath.html#mod,,_3	vmath: `mod`[T](a`gensym156, b`gensym156: GVec4[T]): GVec4[T]	
+`mod`	vmath.html#mod,,T	vmath: `mod`[T](a`gensym156: GVec2[T]; b`gensym156: T): GVec2[T]	
+`mod`	vmath.html#mod,,T_2	vmath: `mod`[T](a`gensym156: GVec3[T]; b`gensym156: T): GVec3[T]	
+`mod`	vmath.html#mod,,T_3	vmath: `mod`[T](a`gensym156: GVec4[T]; b`gensym156: T): GVec4[T]	
+`mod`	vmath.html#mod,T,	vmath: `mod`[T](a`gensym156: T; b`gensym156: GVec2[T]): GVec2[T]	
+`mod`	vmath.html#mod,T,_2	vmath: `mod`[T](a`gensym156: T; b`gensym156: GVec3[T]): GVec3[T]	
+`mod`	vmath.html#mod,T,_3	vmath: `mod`[T](a`gensym156: T; b`gensym156: GVec4[T]): GVec4[T]	
+`div`	vmath.html#div,,	vmath: `div`[T](a`gensym157, b`gensym157: GVec2[T]): GVec2[T]	
+`div`	vmath.html#div,,_2	vmath: `div`[T](a`gensym157, b`gensym157: GVec3[T]): GVec3[T]	
+`div`	vmath.html#div,,_3	vmath: `div`[T](a`gensym157, b`gensym157: GVec4[T]): GVec4[T]	
+`div`	vmath.html#div,,T	vmath: `div`[T](a`gensym157: GVec2[T]; b`gensym157: T): GVec2[T]	
+`div`	vmath.html#div,,T_2	vmath: `div`[T](a`gensym157: GVec3[T]; b`gensym157: T): GVec3[T]	
+`div`	vmath.html#div,,T_3	vmath: `div`[T](a`gensym157: GVec4[T]; b`gensym157: T): GVec4[T]	
+`div`	vmath.html#div,T,	vmath: `div`[T](a`gensym157: T; b`gensym157: GVec2[T]): GVec2[T]	
+`div`	vmath.html#div,T,_2	vmath: `div`[T](a`gensym157: T; b`gensym157: GVec3[T]): GVec3[T]	
+`div`	vmath.html#div,T,_3	vmath: `div`[T](a`gensym157: T; b`gensym157: GVec4[T]): GVec4[T]	
+zmod	vmath.html#zmod,,	vmath: zmod[T](a`gensym158, b`gensym158: GVec2[T]): GVec2[T]	
+zmod	vmath.html#zmod,,_2	vmath: zmod[T](a`gensym158, b`gensym158: GVec3[T]): GVec3[T]	
+zmod	vmath.html#zmod,,_3	vmath: zmod[T](a`gensym158, b`gensym158: GVec4[T]): GVec4[T]	
+zmod	vmath.html#zmod,,T	vmath: zmod[T](a`gensym158: GVec2[T]; b`gensym158: T): GVec2[T]	
+zmod	vmath.html#zmod,,T_2	vmath: zmod[T](a`gensym158: GVec3[T]; b`gensym158: T): GVec3[T]	
+zmod	vmath.html#zmod,,T_3	vmath: zmod[T](a`gensym158: GVec4[T]; b`gensym158: T): GVec4[T]	
+zmod	vmath.html#zmod,T,	vmath: zmod[T](a`gensym158: T; b`gensym158: GVec2[T]): GVec2[T]	
+zmod	vmath.html#zmod,T,_2	vmath: zmod[T](a`gensym158: T; b`gensym158: GVec3[T]): GVec3[T]	
+zmod	vmath.html#zmod,T,_3	vmath: zmod[T](a`gensym158: T; b`gensym158: GVec4[T]): GVec4[T]	
+`+=`	vmath.html#+=,,	vmath: `+=`[T](a`gensym159: var GVec2[T]; b`gensym159: GVec2[T])	
+`+=`	vmath.html#+=,,_2	vmath: `+=`[T](a`gensym159: var GVec3[T]; b`gensym159: GVec3[T])	
+`+=`	vmath.html#+=,,_3	vmath: `+=`[T](a`gensym159: var GVec4[T]; b`gensym159: GVec4[T])	
+`+=`	vmath.html#+=,,T	vmath: `+=`[T](a`gensym159: var GVec2[T]; b`gensym159: T)	
+`+=`	vmath.html#+=,,T_2	vmath: `+=`[T](a`gensym159: var GVec3[T]; b`gensym159: T)	
+`+=`	vmath.html#+=,,T_3	vmath: `+=`[T](a`gensym159: var GVec4[T]; b`gensym159: T)	
+`-=`	vmath.html#-=,,	vmath: `-=`[T](a`gensym160: var GVec2[T]; b`gensym160: GVec2[T])	
+`-=`	vmath.html#-=,,_2	vmath: `-=`[T](a`gensym160: var GVec3[T]; b`gensym160: GVec3[T])	
+`-=`	vmath.html#-=,,_3	vmath: `-=`[T](a`gensym160: var GVec4[T]; b`gensym160: GVec4[T])	
+`-=`	vmath.html#-=,,T	vmath: `-=`[T](a`gensym160: var GVec2[T]; b`gensym160: T)	
+`-=`	vmath.html#-=,,T_2	vmath: `-=`[T](a`gensym160: var GVec3[T]; b`gensym160: T)	
+`-=`	vmath.html#-=,,T_3	vmath: `-=`[T](a`gensym160: var GVec4[T]; b`gensym160: T)	
+`*=`	vmath.html#*=,,	vmath: `*=`[T](a`gensym161: var GVec2[T]; b`gensym161: GVec2[T])	
+`*=`	vmath.html#*=,,_2	vmath: `*=`[T](a`gensym161: var GVec3[T]; b`gensym161: GVec3[T])	
+`*=`	vmath.html#*=,,_3	vmath: `*=`[T](a`gensym161: var GVec4[T]; b`gensym161: GVec4[T])	
+`*=`	vmath.html#*=,,T	vmath: `*=`[T](a`gensym161: var GVec2[T]; b`gensym161: T)	
+`*=`	vmath.html#*=,,T_2	vmath: `*=`[T](a`gensym161: var GVec3[T]; b`gensym161: T)	
+`*=`	vmath.html#*=,,T_3	vmath: `*=`[T](a`gensym161: var GVec4[T]; b`gensym161: T)	
+`/=`	vmath.html#/=,,	vmath: `/=`[T](a`gensym162: var GVec2[T]; b`gensym162: GVec2[T])	
+`/=`	vmath.html#/=,,_2	vmath: `/=`[T](a`gensym162: var GVec3[T]; b`gensym162: GVec3[T])	
+`/=`	vmath.html#/=,,_3	vmath: `/=`[T](a`gensym162: var GVec4[T]; b`gensym162: GVec4[T])	
+`/=`	vmath.html#/=,,T	vmath: `/=`[T](a`gensym162: var GVec2[T]; b`gensym162: T)	
+`/=`	vmath.html#/=,,T_2	vmath: `/=`[T](a`gensym162: var GVec3[T]; b`gensym162: T)	
+`/=`	vmath.html#/=,,T_3	vmath: `/=`[T](a`gensym162: var GVec4[T]; b`gensym162: T)	
+`-`	vmath.html#-	vmath: `-`[T](v`gensym163: GVec2[T]): GVec2[T]	
+`-`	vmath.html#-_2	vmath: `-`[T](v`gensym163: GVec3[T]): GVec3[T]	
+`-`	vmath.html#-_3	vmath: `-`[T](v`gensym163: GVec4[T]): GVec4[T]	
+sin	vmath.html#sin	vmath: sin[T](v`gensym164: GVec2[T]): GVec2[T]	
+sin	vmath.html#sin_2	vmath: sin[T](v`gensym164: GVec3[T]): GVec3[T]	
+sin	vmath.html#sin_3	vmath: sin[T](v`gensym164: GVec4[T]): GVec4[T]	
+cos	vmath.html#cos	vmath: cos[T](v`gensym165: GVec2[T]): GVec2[T]	
+cos	vmath.html#cos_2	vmath: cos[T](v`gensym165: GVec3[T]): GVec3[T]	
+cos	vmath.html#cos_3	vmath: cos[T](v`gensym165: GVec4[T]): GVec4[T]	
+tan	vmath.html#tan	vmath: tan[T](v`gensym166: GVec2[T]): GVec2[T]	
+tan	vmath.html#tan_2	vmath: tan[T](v`gensym166: GVec3[T]): GVec3[T]	
+tan	vmath.html#tan_3	vmath: tan[T](v`gensym166: GVec4[T]): GVec4[T]	
+arcsin	vmath.html#arcsin	vmath: arcsin[T](v`gensym167: GVec2[T]): GVec2[T]	
+arcsin	vmath.html#arcsin_2	vmath: arcsin[T](v`gensym167: GVec3[T]): GVec3[T]	
+arcsin	vmath.html#arcsin_3	vmath: arcsin[T](v`gensym167: GVec4[T]): GVec4[T]	
+arccos	vmath.html#arccos	vmath: arccos[T](v`gensym168: GVec2[T]): GVec2[T]	
+arccos	vmath.html#arccos_2	vmath: arccos[T](v`gensym168: GVec3[T]): GVec3[T]	
+arccos	vmath.html#arccos_3	vmath: arccos[T](v`gensym168: GVec4[T]): GVec4[T]	
+arctan	vmath.html#arctan	vmath: arctan[T](v`gensym169: GVec2[T]): GVec2[T]	
+arctan	vmath.html#arctan_2	vmath: arctan[T](v`gensym169: GVec3[T]): GVec3[T]	
+arctan	vmath.html#arctan_3	vmath: arctan[T](v`gensym169: GVec4[T]): GVec4[T]	
+sinh	vmath.html#sinh	vmath: sinh[T](v`gensym170: GVec2[T]): GVec2[T]	
+sinh	vmath.html#sinh_2	vmath: sinh[T](v`gensym170: GVec3[T]): GVec3[T]	
+sinh	vmath.html#sinh_3	vmath: sinh[T](v`gensym170: GVec4[T]): GVec4[T]	
+cosh	vmath.html#cosh	vmath: cosh[T](v`gensym171: GVec2[T]): GVec2[T]	
+cosh	vmath.html#cosh_2	vmath: cosh[T](v`gensym171: GVec3[T]): GVec3[T]	
+cosh	vmath.html#cosh_3	vmath: cosh[T](v`gensym171: GVec4[T]): GVec4[T]	
+tanh	vmath.html#tanh	vmath: tanh[T](v`gensym172: GVec2[T]): GVec2[T]	
+tanh	vmath.html#tanh_2	vmath: tanh[T](v`gensym172: GVec3[T]): GVec3[T]	
+tanh	vmath.html#tanh_3	vmath: tanh[T](v`gensym172: GVec4[T]): GVec4[T]	
+exp2	vmath.html#exp2	vmath: exp2[T](v`gensym173: GVec2[T]): GVec2[T]	
+exp2	vmath.html#exp2_2	vmath: exp2[T](v`gensym173: GVec3[T]): GVec3[T]	
+exp2	vmath.html#exp2_3	vmath: exp2[T](v`gensym173: GVec4[T]): GVec4[T]	
+inversesqrt	vmath.html#inversesqrt	vmath: inversesqrt[T](v`gensym174: GVec2[T]): GVec2[T]	
+inversesqrt	vmath.html#inversesqrt_2	vmath: inversesqrt[T](v`gensym174: GVec3[T]): GVec3[T]	
+inversesqrt	vmath.html#inversesqrt_3	vmath: inversesqrt[T](v`gensym174: GVec4[T]): GVec4[T]	
+exp	vmath.html#exp	vmath: exp[T](v`gensym175: GVec2[T]): GVec2[T]	
+exp	vmath.html#exp_2	vmath: exp[T](v`gensym175: GVec3[T]): GVec3[T]	
+exp	vmath.html#exp_3	vmath: exp[T](v`gensym175: GVec4[T]): GVec4[T]	
+ln	vmath.html#ln	vmath: ln[T](v`gensym176: GVec2[T]): GVec2[T]	
+ln	vmath.html#ln_2	vmath: ln[T](v`gensym176: GVec3[T]): GVec3[T]	
+ln	vmath.html#ln_3	vmath: ln[T](v`gensym176: GVec4[T]): GVec4[T]	
+log2	vmath.html#log2	vmath: log2[T](v`gensym177: GVec2[T]): GVec2[T]	
+log2	vmath.html#log2_2	vmath: log2[T](v`gensym177: GVec3[T]): GVec3[T]	
+log2	vmath.html#log2_3	vmath: log2[T](v`gensym177: GVec4[T]): GVec4[T]	
+sqrt	vmath.html#sqrt	vmath: sqrt[T](v`gensym178: GVec2[T]): GVec2[T]	
+sqrt	vmath.html#sqrt_2	vmath: sqrt[T](v`gensym178: GVec3[T]): GVec3[T]	
+sqrt	vmath.html#sqrt_3	vmath: sqrt[T](v`gensym178: GVec4[T]): GVec4[T]	
+floor	vmath.html#floor	vmath: floor[T](v`gensym179: GVec2[T]): GVec2[T]	
+floor	vmath.html#floor_2	vmath: floor[T](v`gensym179: GVec3[T]): GVec3[T]	
+floor	vmath.html#floor_3	vmath: floor[T](v`gensym179: GVec4[T]): GVec4[T]	
+ceil	vmath.html#ceil	vmath: ceil[T](v`gensym180: GVec2[T]): GVec2[T]	
+ceil	vmath.html#ceil_2	vmath: ceil[T](v`gensym180: GVec3[T]): GVec3[T]	
+ceil	vmath.html#ceil_3	vmath: ceil[T](v`gensym180: GVec4[T]): GVec4[T]	
+abs	vmath.html#abs	vmath: abs[T](v`gensym181: GVec2[T]): GVec2[T]	
+abs	vmath.html#abs_2	vmath: abs[T](v`gensym181: GVec3[T]): GVec3[T]	
+abs	vmath.html#abs_3	vmath: abs[T](v`gensym181: GVec4[T]): GVec4[T]	
+lessThan	vmath.html#lessThan,,	vmath: lessThan[T](a`gensym182, b`gensym182: GVec2[T]): BVec2	
+lessThan	vmath.html#lessThan,,_2	vmath: lessThan[T](a`gensym182, b`gensym182: GVec3[T]): BVec3	
+lessThan	vmath.html#lessThan,,_3	vmath: lessThan[T](a`gensym182, b`gensym182: GVec4[T]): BVec4	
+lessThanEqual	vmath.html#lessThanEqual,,	vmath: lessThanEqual[T](a`gensym183, b`gensym183: GVec2[T]): BVec2	
+lessThanEqual	vmath.html#lessThanEqual,,_2	vmath: lessThanEqual[T](a`gensym183, b`gensym183: GVec3[T]): BVec3	
+lessThanEqual	vmath.html#lessThanEqual,,_3	vmath: lessThanEqual[T](a`gensym183, b`gensym183: GVec4[T]): BVec4	
+greaterThan	vmath.html#greaterThan,,	vmath: greaterThan[T](a`gensym184, b`gensym184: GVec2[T]): BVec2	
+greaterThan	vmath.html#greaterThan,,_2	vmath: greaterThan[T](a`gensym184, b`gensym184: GVec3[T]): BVec3	
+greaterThan	vmath.html#greaterThan,,_3	vmath: greaterThan[T](a`gensym184, b`gensym184: GVec4[T]): BVec4	
+greaterThanEqual	vmath.html#greaterThanEqual,,	vmath: greaterThanEqual[T](a`gensym194, b`gensym194: GVec2[T]): BVec2	
+greaterThanEqual	vmath.html#greaterThanEqual,,_2	vmath: greaterThanEqual[T](a`gensym194, b`gensym194: GVec3[T]): BVec3	
+greaterThanEqual	vmath.html#greaterThanEqual,,_3	vmath: greaterThanEqual[T](a`gensym194, b`gensym194: GVec4[T]): BVec4	
+equal	vmath.html#equal,,	vmath: equal[T](a`gensym204, b`gensym204: GVec2[T]): BVec2	
+equal	vmath.html#equal,,_2	vmath: equal[T](a`gensym204, b`gensym204: GVec3[T]): BVec3	
+equal	vmath.html#equal,,_3	vmath: equal[T](a`gensym204, b`gensym204: GVec4[T]): BVec4	
+notEqual	vmath.html#notEqual,,	vmath: notEqual[T](a`gensym205, b`gensym205: GVec2[T]): BVec2	
+notEqual	vmath.html#notEqual,,_2	vmath: notEqual[T](a`gensym205, b`gensym205: GVec3[T]): BVec3	
+notEqual	vmath.html#notEqual,,_3	vmath: notEqual[T](a`gensym205, b`gensym205: GVec4[T]): BVec4	
+`~=`	vmath.html#~=,GVec2[T],GVec2[T]	vmath: `~=`[T](a, b: GVec2[T]): bool	
+`~=`	vmath.html#~=,GVec3[T],GVec3[T]	vmath: `~=`[T](a, b: GVec3[T]): bool	
+`~=`	vmath.html#~=,GVec4[T],GVec4[T]	vmath: `~=`[T](a, b: GVec4[T]): bool	
+length	vmath.html#length,GVec2[T]	vmath: length[T](a: GVec2[T]): T	
+length	vmath.html#length,GVec3[T]	vmath: length[T](a: GVec3[T]): T	
+length	vmath.html#length,GVec4[T]	vmath: length[T](a: GVec4[T]): T	
+lengthSq	vmath.html#lengthSq,GVec2[T]	vmath: lengthSq[T](a: GVec2[T]): T	
+lengthSq	vmath.html#lengthSq,GVec3[T]	vmath: lengthSq[T](a: GVec3[T]): T	
+lengthSq	vmath.html#lengthSq,GVec4[T]	vmath: lengthSq[T](a: GVec4[T]): T	
+normalize	vmath.html#normalize,GVec234[T]	vmath: normalize[T](a: GVec234[T]): type(a)	
+mix	vmath.html#mix,GVec234[T: SomeFloat],GVec234[T: SomeFloat],T	vmath: mix[T: SomeFloat](a, b: GVec234[T]; v: T): type(a)	
+lerp	vmath.html#lerp,V,V,T	vmath: lerp[V, T](a, b: V; v: T): type(a)	
+dot	vmath.html#dot,GVec2[T],GVec2[T]	vmath: dot[T](a, b: GVec2[T]): T	
+dot	vmath.html#dot,GVec3[T],GVec3[T]	vmath: dot[T](a, b: GVec3[T]): T	
+dot	vmath.html#dot,GVec4[T],GVec4[T]	vmath: dot[T](a, b: GVec4[T]): T	
+mix	vmath.html#mix,GVec2[T: SomeFloat],GVec2[T: SomeFloat],GVec2[T: SomeFloat]	vmath: mix[T: SomeFloat](a, b, v: GVec2[T]): type(a)	
+mix	vmath.html#mix,GVec3[T: SomeFloat],GVec3[T: SomeFloat],GVec3[T: SomeFloat]	vmath: mix[T: SomeFloat](a, b, v: GVec3[T]): type(a)	
+mix	vmath.html#mix,GVec4[T: SomeFloat],GVec4[T: SomeFloat],GVec4[T: SomeFloat]	vmath: mix[T: SomeFloat](a, b, v: GVec4[T]): type(a)	
+cross	vmath.html#cross,GVec3[T],GVec3[T]	vmath: cross[T](a, b: GVec3[T]): GVec3[T]	
+dist	vmath.html#dist,GVec234[T],GVec234[T]	vmath: dist[T](at, to: GVec234[T]): T	
+distSq	vmath.html#distSq,GVec234[T],GVec234[T]	vmath: distSq[T](at, to: GVec234[T]): T	
+dir	vmath.html#dir,GVec234[T],GVec234[T]	vmath: dir[T](at, to: GVec234[T]): type(to)	
+dir	vmath.html#dir,T	vmath: dir[T](angle: T): GVec2[T]	
+min	vmath.html#min,Vec2,Vec2	vmath: min(a, b: Vec2): Vec2	
+min	vmath.html#min,Vec3,Vec3	vmath: min(a, b: Vec3): Vec3	
+min	vmath.html#min,Vec4,Vec4	vmath: min(a, b: Vec4): Vec4	
+max	vmath.html#max,Vec2,Vec2	vmath: max(a, b: Vec2): Vec2	
+max	vmath.html#max,Vec3,Vec3	vmath: max(a, b: Vec3): Vec3	
+max	vmath.html#max,Vec4,Vec4	vmath: max(a, b: Vec4): Vec4	
+Mat2	vmath.html#Mat2	vmath: Mat2	
+Mat3	vmath.html#Mat3	vmath: Mat3	
+Mat4	vmath.html#Mat4	vmath: Mat4	
+DMat2	vmath.html#DMat2	vmath: DMat2	
+DMat3	vmath.html#DMat3	vmath: DMat3	
+DMat4	vmath.html#DMat4	vmath: DMat4	
+genMatConstructor	vmath.html#genMatConstructor.t,untyped,untyped,untyped	vmath: genMatConstructor(lower, upper, T: untyped)	
+mat2	vmath.html#mat2,float32,float32,float32,float32	vmath: mat2(m00`gensym242, m01`gensym242, m10`gensym242, m11`gensym242: float32): Mat2	
+mat3	vmath.html#mat3,float32,float32,float32,float32,float32,float32,float32,float32,float32	vmath: mat3(m00`gensym242, m01`gensym242, m02`gensym242, m10`gensym242, m11`gensym242,\n     m12`gensym242, m20`gensym242, m21`gensym242, m22`gensym242: float32): Mat3	
+mat4	vmath.html#mat4,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32	vmath: mat4(m00`gensym242, m01`gensym242, m02`gensym242, m03`gensym242, m10`gensym242,\n     m11`gensym242, m12`gensym242, m13`gensym242, m20`gensym242, m21`gensym242,\n     m22`gensym242, m23`gensym242, m30`gensym242, m31`gensym242, m32`gensym242,\n     m33`gensym242: float32): Mat4	
+mat2	vmath.html#mat2,,	vmath: mat2(a`gensym242, b`gensym242: GVec2[float32]): Mat2	
+mat3	vmath.html#mat3,,,	vmath: mat3(a`gensym242, b`gensym242, c`gensym242: GVec3[float32]): Mat3	
+mat4	vmath.html#mat4,,,,	vmath: mat4(a`gensym242, b`gensym242, c`gensym242, d`gensym242: GVec4[float32]): Mat4	
+mat2	vmath.html#mat2_2	vmath: mat2(): Mat2	
+mat3	vmath.html#mat3_2	vmath: mat3(): Mat3	
+mat4	vmath.html#mat4_2	vmath: mat4(): Mat4	
+`$`	vmath.html#$,Mat2	vmath: `$`(a`gensym242: Mat2): string	
+`$`	vmath.html#$,Mat3	vmath: `$`(a`gensym242: Mat3): string	
+`$`	vmath.html#$,Mat4	vmath: `$`(a`gensym242: Mat4): string	
+dmat2	vmath.html#dmat2,float64,float64,float64,float64	vmath: dmat2(m00`gensym304, m01`gensym304, m10`gensym304, m11`gensym304: float64): DMat2	
+dmat3	vmath.html#dmat3,float64,float64,float64,float64,float64,float64,float64,float64,float64	vmath: dmat3(m00`gensym304, m01`gensym304, m02`gensym304, m10`gensym304, m11`gensym304,\n      m12`gensym304, m20`gensym304, m21`gensym304, m22`gensym304: float64): DMat3	
+dmat4	vmath.html#dmat4,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64	vmath: dmat4(m00`gensym304, m01`gensym304, m02`gensym304, m03`gensym304, m10`gensym304,\n      m11`gensym304, m12`gensym304, m13`gensym304, m20`gensym304, m21`gensym304,\n      m22`gensym304, m23`gensym304, m30`gensym304, m31`gensym304, m32`gensym304,\n      m33`gensym304: float64): DMat4	
+dmat2	vmath.html#dmat2,,	vmath: dmat2(a`gensym304, b`gensym304: GVec2[float64]): DMat2	
+dmat3	vmath.html#dmat3,,,	vmath: dmat3(a`gensym304, b`gensym304, c`gensym304: GVec3[float64]): DMat3	
+dmat4	vmath.html#dmat4,,,,	vmath: dmat4(a`gensym304, b`gensym304, c`gensym304, d`gensym304: GVec4[float64]): DMat4	
+dmat2	vmath.html#dmat2_2	vmath: dmat2(): DMat2	
+dmat3	vmath.html#dmat3_2	vmath: dmat3(): DMat3	
+dmat4	vmath.html#dmat4_2	vmath: dmat4(): DMat4	
+`$`	vmath.html#$,DMat2	vmath: `$`(a`gensym304: DMat2): string	
+`$`	vmath.html#$,DMat3	vmath: `$`(a`gensym304: DMat3): string	
+`$`	vmath.html#$,DMat4	vmath: `$`(a`gensym304: DMat4): string	
+`~=`	vmath.html#~=,GMat2[T],GMat2[T]	vmath: `~=`[T](a, b: GMat2[T]): bool	
+`~=`	vmath.html#~=,GMat3[T],GMat3[T]	vmath: `~=`[T](a, b: GMat3[T]): bool	
+`~=`	vmath.html#~=,GMat4[T],GMat4[T]	vmath: `~=`[T](a, b: GMat4[T]): bool	
+pos	vmath.html#pos,GMat3[T]	vmath: pos[T](a: GMat3[T]): GVec2[T]	
+pos=	vmath.html#pos=,GMat3[T],GVec2[T]	vmath: pos=[T](a: var GMat3[T]; pos: GVec2[T])	
+pos	vmath.html#pos,GMat4[T]	vmath: pos[T](a: GMat4[T]): GVec3[T]	
+pos=	vmath.html#pos=,GMat4[T],GVec3[T]	vmath: pos=[T](a: var GMat4[T]; pos: GVec3[T])	
+`*`	vmath.html#*,GMat3[T],GMat3[T]	vmath: `*`[T](a, b: GMat3[T]): GMat3[T]	
+`*`	vmath.html#*,GMat2[T],GVec2[T]	vmath: `*`[T](a: GMat2[T]; b: GVec2[T]): GVec2[T]	
+`*`	vmath.html#*,GMat3[T],GVec2[T]	vmath: `*`[T](a: GMat3[T]; b: GVec2[T]): GVec2[T]	
+`*`	vmath.html#*,GMat3[T],GVec3[T]	vmath: `*`[T](a: GMat3[T]; b: GVec3[T]): GVec3[T]	
+`*`	vmath.html#*,GMat4[T],GMat4[T]	vmath: `*`[T](a, b: GMat4[T]): GMat4[T]	
+`*`	vmath.html#*,GMat4[T],GVec3[T]	vmath: `*`[T](a: GMat4[T]; b: GVec3[T]): GVec3[T]	
+`*`	vmath.html#*,GMat4[T],GVec4[T]	vmath: `*`[T](a: GMat4[T]; b: GVec4[T]): GVec4[T]	
+transpose	vmath.html#transpose,GMat3[T]	vmath: transpose[T](a: GMat3[T]): GMat3[T]	
+transpose	vmath.html#transpose,GMat4[T]	vmath: transpose[T](a: GMat4[T]): GMat4[T]	
+determinant	vmath.html#determinant,GMat3[T]	vmath: determinant[T](a: GMat3[T]): T	
+determinant	vmath.html#determinant,GMat4[T]	vmath: determinant[T](a: GMat4[T]): T	
+inverse	vmath.html#inverse,GMat3[T]	vmath: inverse[T](a: GMat3[T]): GMat3[T]	
+inverse	vmath.html#inverse,GMat4[T]	vmath: inverse[T](a: GMat4[T]): GMat4[T]	
+scale	vmath.html#scale,GVec2[T]	vmath: scale[T](v: GVec2[T]): GMat3[T]	
+scale	vmath.html#scale,GVec3[T]	vmath: scale[T](v: GVec3[T]): GMat4[T]	
+translate	vmath.html#translate,GVec2[T]	vmath: translate[T](v: GVec2[T]): GMat3[T]	
+translate	vmath.html#translate,GVec3[T]	vmath: translate[T](v: GVec3[T]): GMat4[T]	
+rotate	vmath.html#rotate,T	vmath: rotate[T](angle: T): GMat3[T]	
+hrp	vmath.html#hrp,GMat4[T]	vmath: hrp[T](m: GMat4[T]): GVec3[T]	
+frustum	vmath.html#frustum,T,T,T,T,T,T	vmath: frustum[T](left, right, bottom, top, near, far: T): GMat4[T]	
+perspective	vmath.html#perspective,T,T,T,T	vmath: perspective[T](fovy, aspect, near, far: T): GMat4[T]	
+ortho	vmath.html#ortho,T,T,T,T,T,T	vmath: ortho[T](left, right, bottom, top, near, far: T): GMat4[T]	
+lookAt	vmath.html#lookAt,GVec3[T],GVec3[T],GVec3[T]	vmath: lookAt[T](eye, center, up: GVec3[T]): GMat4[T]	
+lookAt	vmath.html#lookAt,GVec3[T],GVec3[T]	vmath: lookAt[T](eye, center: GVec3[T]): GMat4[T]	
+angle	vmath.html#angle,GVec2[T]	vmath: angle[T](a: GVec2[T]): T	
+angle	vmath.html#angle,GVec2[T],GVec2[T]	vmath: angle[T](a, b: GVec2[T]): T	
+angle	vmath.html#angle,GVec3[T],GVec3[T]	vmath: angle[T](a, b: GVec3[T]): T	
+Quat	vmath.html#Quat	vmath: Quat	
+DQuat	vmath.html#DQuat	vmath: DQuat	
+genQuatConstructor	vmath.html#genQuatConstructor.t,untyped,untyped,untyped	vmath: genQuatConstructor(lower, upper, typ: untyped)	
+quat	vmath.html#quat_2	vmath: quat(): Quat	
+quat	vmath.html#quat,float32,float32,float32,float32	vmath: quat(x`gensym367, y`gensym367, z`gensym367, w`gensym367: float32): Quat	
+quat	vmath.html#quat,float32	vmath: quat(x`gensym367: float32): Quat	
+quat	vmath.html#quat_3	vmath: quat[T](x`gensym367: GVec4[T]): Quat	
+dquat	vmath.html#dquat_2	vmath: dquat(): DQuat	
+dquat	vmath.html#dquat,float64,float64,float64,float64	vmath: dquat(x`gensym371, y`gensym371, z`gensym371, w`gensym371: float64): DQuat	
+dquat	vmath.html#dquat,float64	vmath: dquat(x`gensym371: float64): DQuat	
+dquat	vmath.html#dquat_3	vmath: dquat[T](x`gensym371: GVec4[T]): DQuat	
+fromAxisAngle	vmath.html#fromAxisAngle,GVec3[T],T	vmath: fromAxisAngle[T](axis: GVec3[T]; angle: T): GVec4[T]	
+toAxisAngle	vmath.html#toAxisAngle,GVec4[T]	vmath: toAxisAngle[T](q: GVec4[T]): (GVec3[T], T)	
+orthogonal	vmath.html#orthogonal,GVec3[T]	vmath: orthogonal[T](v: GVec3[T]): GVec3[T]	
+fromTwoVectors	vmath.html#fromTwoVectors,GVec3[T],GVec3[T]	vmath: fromTwoVectors[T](a, b: GVec3[T]): GVec4[T]	
+nlerp	vmath.html#nlerp,Quat,Quat,float32	vmath: nlerp(a: Quat; b: Quat; v: float32): Quat	
+quat	vmath.html#quat,GMat4[T]	vmath: quat[T](m: GMat4[T]): GVec4[T]	
+mat4	vmath.html#mat4,GVec4[T]	vmath: mat4[T](q: GVec4[T]): GMat4[T]	
+rotate	vmath.html#rotate,T,GVec3[T]	vmath: rotate[T](angle: T; axis: GVec3[T]): GMat4[T]	
+rotateX	vmath.html#rotateX,T	vmath: rotateX[T](angle: T): GMat4[T]	
+rotateY	vmath.html#rotateY,T	vmath: rotateY[T](angle: T): GMat4[T]	
+rotateZ	vmath.html#rotateZ,T	vmath: rotateZ[T](angle: T): GMat4[T]	
