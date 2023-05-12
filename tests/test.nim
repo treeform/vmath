@@ -53,18 +53,18 @@ block:
   doAssert quantize(1.23456789, 0.01) ~= 1.23
   doAssert quantize(-1.23456789, 0.01) ~= -1.23
 
-  doAssert fractional(0.0) ~= 0.0
-  doAssert fractional(3.14) ~= 0.14
-  doAssert fractional(-3.14) ~= 0.14
-  doAssert fractional(1.23456789) ~= 0.23456789
-  doAssert fractional(-1.23456789) ~= 0.23456789
+  doAssert fract(0.0) ~= 0.0
+  doAssert fract(3.14) ~= 0.14
+  doAssert fract(-3.14) ~= 0.14
+  doAssert fract(1.23456789) ~= 0.23456789
+  doAssert fract(-1.23456789) ~= 0.23456789
 
-  doAssert lerp(0.0, 1.0, 0.5) ~= 0.5
-  doAssert lerp(0.0, 10.0, 0.5) ~= 5.0
-  doAssert lerp(0.0, 100.0, 0.5) ~= 50.0
-  doAssert lerp(-1.0, 1.0, 0.25) ~= -0.5
-  doAssert lerp(-10.0, 10.0, 0.25) ~= -5.0
-  doAssert lerp(-100.0, 100.0, 0.25) ~= -50.0
+  doAssert mix(0.0, 1.0, 0.5) ~= 0.5
+  doAssert mix(0.0, 10.0, 0.5) ~= 5.0
+  doAssert mix(0.0, 100.0, 0.5) ~= 50.0
+  doAssert mix(-1.0, 1.0, 0.25) ~= -0.5
+  doAssert mix(-10.0, 10.0, 0.25) ~= -5.0
+  doAssert mix(-100.0, 100.0, 0.25) ~= -50.0
 
   doAssert mix(0.0, 1.0, 0.5) ~= 0.5
   doAssert mix(0.0, 10.0, 0.5) ~= 5.0
@@ -863,29 +863,7 @@ block:
     )
 
 block:
-  # test quat and matrix lookat
-  doAssert lookAt(vec3(1, 2, 3), vec3(0, 0, 0)).quat ~=
-    quat(
-      0.07232953608036041,
-      0.3063928484916687,
-      0.9237624406814575,
-      0.2180707305669785
-    )
-  doAssert lookAt(vec3(0, 0, 0), vec3(0, 0, 0)).quat ~= quat(0.0, 0.0, 0.0, 1.0)
-  doAssert lookAt(vec3(1, 0, 0), vec3(0, 0, 0)).quat ~= quat(0.5, 0.5, 0.5, 0.5)
-  doAssert lookAt(vec3(0, 1, 0), vec3(0, 0, 0)).quat ~=
-    quat(
-      0.0,
-      0.7071067690849304,
-      0.7071067690849304,
-      0.0
-    )
-  doAssert lookAt(vec3(0, 0, 1), vec3(0, 0, 0)).quat ~= quat(0.0, 0.0, 0.0, 1.0)
-
-  let
-    a = lookAt(vec3(1, 2, 3), vec3(0, 0, 0))
-    b = lookAt(dvec3(1, 2, 3), dvec3(0, 0, 0))
-
+  # test quat and matrix
   doAssert ortho[float32](-1, 1, 1, -1, -1000, 1000) ~= mat4(
     1.0, 0.0, 0.0, 0.0,
     0.0, -1.0, 0.0, 0.0,
@@ -1044,5 +1022,137 @@ block:
     var b: Vec2
     b = a / 2
     when compiles(b = a div 2): doAssert false # type mismatch
+
+proc eq(a, b: Vec3): bool =
+  const epsilon = 0.001
+  return abs(angleBetween(a.x, b.x)) < epsilon and
+    abs(angleBetween(a.y, b.y)) < epsilon and
+    abs(angleBetween(a.z, b.z)) < epsilon
+
+const PI = PI.float32
+
+block:
+  # test Euler angles from a vector
+  doAssert vec3(0, 0, 0).toAngles.eq vec3(0f, 0f, 0f)
+  doAssert vec3(0, 0, 1).toAngles.eq vec3(0f, 0f, 0f) # forward
+  doAssert vec3(0, 0, -1).toAngles.eq vec3(0f, PI, 0f) # back
+  doAssert vec3(-1, 0, 0).toAngles.eq vec3(0f, PI/2, 0f) # right
+  doAssert vec3(1, 0, 0).toAngles.eq vec3(0f, -PI/2, 0f) # left
+  doAssert vec3(0, 1, 0).toAngles.eq vec3(PI/2, 0f, 0f) # up
+  doAssert vec3(0, -1, 0).toAngles.eq vec3(-PI/2, 0f, 0f) # down
+
+block:
+  # test Euler angles from a matrix
+  doAssert translate(vec3(0, 0, 0)).toAngles.eq vec3(0f, 0f, 0f)
+  doAssert rotateX(0f).toAngles.eq vec3(0f, 0f, 0f) # forward
+  doAssert rotateY(PI).toAngles.eq vec3(0f, -PI, 0f) # back
+  doAssert rotateY(PI/2).toAngles.eq vec3(0f, PI/2, 0f) # back
+  doAssert rotateY(-PI/2).toAngles.eq vec3(0f, -PI/2, 0f) # back
+  doAssert rotateX(PI/2).toAngles.eq vec3(PI/2, 0f, 0f) # up
+  doAssert rotateX(-PI/2).toAngles.eq vec3(-PI/2, 0f, 0f) # down
+  doAssert rotateZ(PI/2).toAngles.eq vec3(0f, 0f, PI/2) # tilt right
+  doAssert rotateZ(-PI/2).toAngles.eq vec3(0f, 0f, -PI/2) # tilt left
+
+  doAssert mat4().toAngles.eq vec3(0, 0, 0)
+
+  doAssert rotateX(10.toRadians()).toAngles.eq vec3(10.toRadians(), 0, 0)
+  doAssert rotateY(10.toRadians()).toAngles.eq vec3(0, 10.toRadians(), 0)
+  doAssert rotateZ(10.toRadians()).toAngles.eq vec3(0, 0, 10.toRadians())
+  doAssert rotateX(89.toRadians()).toAngles.eq vec3(89.toRadians(), 0, 0)
+  doAssert rotateY(89.toRadians()).toAngles.eq vec3(0, 89.toRadians(), 0)
+  doAssert rotateZ(89.toRadians()).toAngles.eq vec3(0, 0, 89.toRadians())
+  doAssert rotateX(90.toRadians()).toAngles.eq vec3(90.toRadians(), 0, 0)
+  doAssert rotateY(90.toRadians()).toAngles.eq vec3(0, 90.toRadians(), 0)
+  doAssert rotateZ(90.toRadians()).toAngles.eq vec3(0, 0, 90.toRadians())
+  doAssert rotateX(90.toRadians()).toAngles.eq vec3(90.toRadians(), 0, 0)
+  doAssert rotateY(90.toRadians()).toAngles.eq vec3(0, 90.toRadians(), 0)
+  doAssert rotateZ(-90.toRadians()).toAngles.eq vec3(0, 0, -90.toRadians())
+  doAssert rotateY(180.toRadians()).toAngles.eq vec3(0, -180.toRadians(), 0)
+  doAssert rotateZ(180.toRadians()).toAngles.eq vec3(0, 0, 180.toRadians())
+  doAssert rotateY(-180.toRadians()).toAngles.eq vec3(0, 180.toRadians(), 0)
+  doAssert rotateZ(-180.toRadians()).toAngles.eq vec3(0, 0, 180.toRadians())
+
+block:
+  # Euler angles fuzzing tests.
+
+  # Test fromAngles with and without roll have same forward
+  for i in 0 .. 1000:
+    let
+      xr = rand(-89.9f .. 89.9f).toRadians
+      yr = rand(-180 .. 180).toRadians
+      zr = rand(-180 .. 180).toRadians
+      a = vec3(xr, yr, zr)
+      b = vec3(xr, yr, 0f)
+      ma = fromAngles(a)
+      mb = fromAngles(b)
+
+    doAssert ma.forward() ~= mb.forward()
+
+  # Test forward/back, right/left, up/down combos
+  for i in 0 .. 1000:
+    let
+      xr = rand(-89.9f .. 89.9f).toRadians
+      yr = rand(-180 .. 180).toRadians
+      zr = rand(-180 .. 180).toRadians
+      b = vec3(xr, yr, zr)
+      m = fromAngles(b)
+
+    doAssert m.forward() ~= m * vec3(0, 0, 1)
+    doAssert m.back() ~= m * vec3(0, 0, -1)
+
+    doAssert m.right() ~= m * vec3(-1, 0, 0)
+    doAssert m.left() ~= m * vec3(1, 0, 0)
+
+    doAssert m.up() ~= m * vec3(0, 1, 0)
+    doAssert m.down() ~= m * vec3(0, -1, 0)
+
+  # Test non-polar and non-rotated cases
+  for i in 0 .. 1000:
+    let
+      xr = rand(-89.9f .. 89.9f).toRadians
+      yr = rand(-180 .. 180).toRadians
+      zr = 0f
+      b = vec3(xr, yr, zr)
+      m = fromAngles(b)
+      a = m.toAngles()
+    doAssert a.eq(b)
+
+  # Test non-polar cases
+  for i in 0 .. 1000:
+    let
+      xr = rand(-89.9f .. 89.9f).toRadians
+      yr = rand(-180 .. 180).toRadians
+      zr = rand(-180 .. 180).toRadians
+      b = vec3(xr, yr, zr)
+      m = fromAngles(b)
+      a = m.toAngles()
+    doAssert a.eq(b)
+
+  # Test polar and non-rotated cases
+  for i in 0 .. 1000:
+    let
+      xr = sample([-90, 90]).toRadians
+      yr = rand(-180 .. 180).toRadians
+      zr = 0f
+      b = vec3(xr, yr, zr)
+      m = fromAngles(b)
+      a = m.toAngles()
+    doAssert a.eq(b)
+
+  # Test polar and crazy rotated cases
+  for i in 0 .. 1000:
+    let
+      xr = sample([-90, 90]).toRadians
+      yr = rand(-180 .. 180).toRadians
+      zr = rand(-180 .. 180).toRadians
+      b = vec3(xr, yr, zr)
+      m = fromAngles(b)
+      a = m.toAngles()
+
+    doAssert abs(angleBetween(a.x, b.x)) < 0.001
+    if xr > 0:
+      doAssert abs(angleBetween(a.y, b.y + b.z)) < 0.001
+    else:
+      doAssert abs(angleBetween(a.y, b.y - b.z)) < 0.001
 
 echo "test finished successfully"

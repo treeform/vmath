@@ -1,22 +1,20 @@
 ##[
 
-This library has no dependencies other than the Nim standard libarary.
-
 Your one stop shop for vector math routines for 2d and 3d graphics.
 
 * Pure Nim with no dependencies.
 * Very similar to GLSL Shader Language with extra stuff.
 * Extensively benchmarked.
 
-====== =========== ===================================================
+====== =========== =================================================
 Type   Constructor Description
-====== =========== ===================================================
-BVec#  bvec#       a vector of booleans
-IVec#  ivec#       a vector of signed integers
-UVec#  uvec#       a vector of unsigned integers
-Vec#   vec#        a vector of single-precision floating-point numbers
-DVec#  dvec#       a vector of double-precision floating-point numbers
-====== =========== ===================================================
+====== =========== =================================================
+BVec#  bvec#       vector of booleans
+IVec#  ivec#       vector of signed integers
+UVec#  uvec#       vector of unsigned integers
+Vec#   vec#        vector of single-precision floating-point numbers
+DVec#  dvec#       vector of double-precision floating-point numbers
+====== =========== =================================================
 
 You can use these constructors to make them:
 
@@ -406,12 +404,16 @@ proc quantize*[T: SomeFloat](v, n: T): T =
   ## Makes v be multiple of n. Rounding to integer quantize by 1.0.
   trunc(v / n) * n
 
-proc fractional*[T: SomeFloat](v: T): T =
+proc fract*[T: SomeFloat](v: T): T =
   ## Returns fractional part of a number.
   ## 3.14 -> 0.14
   ## -3.14 -> 0.14
   result = abs(v)
   result = result - trunc(result)
+
+proc fractional*[T: SomeFloat](v: T): T {.deprecated: "Use frac() insetad"} =
+  ## Returns fractional part of a number.
+  fract(v)
 
 proc inversesqrt*[T: float32|float64](v: T): T =
   ## Returns inverse square root.
@@ -425,19 +427,21 @@ proc mix*[T: SomeFloat](a, b, v: T): T =
   v * (b - a) + a
 
 proc fixAngle*[T: SomeFloat](angle: T): T =
-  ## Make angle be from -PI to PI radians.
+  ## Normalize the angle to be from -PI to PI radians.
   result = angle
   while result > PI:
     result -= PI * 2
-  while result < -PI:
+  while result <= -PI:
     result += PI * 2
 
 proc angleBetween*[T: SomeFloat](a, b: T): T =
   ## Angle between angle a and angle b.
+  ## All angles assume radians.
   fixAngle(b - a)
 
 proc turnAngle*[T: SomeFloat](a, b, speed: T): T =
   ## Move from angle a to angle b with step of v.
+  ## All angles assume radians.
   var
     turn = fixAngle(b - a)
   if abs(turn) < speed:
@@ -725,6 +729,11 @@ genMathFn(sqrt)
 genMathFn(floor)
 genMathFn(ceil)
 genMathFn(abs)
+genMathFn(trunc)
+genMathFn(fract)
+genMathFn(quantize)
+genMathFn(toRadians)
+genMathFn(toDegrees)
 
 template genBoolFn(fn, op: untyped) =
   proc fn*[T](a, b: GVec2[T]): BVec2 =
@@ -970,10 +979,42 @@ proc `pos=`*[T](a: var GMat3[T], pos: GVec2[T]) =
   a[2, 0] = pos.x
   a[2, 1] = pos.y
 
+proc forward*[T](a: GMat4[T]): GVec3[T] {.inline.} =
+  ## Vector facing +Z.
+  result.x = a[2, 0]
+  result.y = a[2, 1]
+  result.z = a[2, 2]
+
+proc back*[T](a: GMat4[T]): GVec3[T] {.inline.} =
+  ## Vector facing -Z.
+  -a.forward()
+
+proc left*[T](a: GMat4[T]): GVec3[T] {.inline.} =
+  ## Vector facing +X.
+  result.x = a[0, 0]
+  result.y = a[0, 1]
+  result.z = a[0, 2]
+
+proc right*[T](a: GMat4[T]): GVec3[T] {.inline.} =
+  ## Vector facing -X.
+  -a.left()
+
+proc up*[T](a: GMat4[T]): GVec3[T] {.inline.} =
+  ## Vector facing +Y.
+  result.x = a[1, 0]
+  result.y = a[1, 1]
+  result.z = a[1, 2]
+
+proc down*[T](a: GMat4[T]): GVec3[T] {.inline.} =
+  ## Vector facing -X.
+  -a.up()
+
 proc pos*[T](a: GMat4[T]): GVec3[T] =
+  ## Position of the matrix.
   gvec3[T](a[3].x, a[3].y, a[3].z)
 
 proc `pos=`*[T](a: var GMat4[T], pos: GVec3[T]) =
+  ## See the position of the matrix.
   a[3, 0] = pos.x
   a[3, 1] = pos.y
   a[3, 2] = pos.z
@@ -1244,7 +1285,8 @@ proc translate*[T](v: GVec3[T]): GMat4[T] =
   )
 
 proc rotate*[T](angle: T): GMat3[T] =
-  ## Create a rotation matrix by an angle.
+  ## Create a 2D rotation matrix by an angle.
+  ## All angles assume radians.
   let
     sin = sin(angle)
     cos = cos(angle)
@@ -1254,22 +1296,126 @@ proc rotate*[T](angle: T): GMat3[T] =
     0, 0, 1
   )
 
-proc hrp*[T](m: GMat4[T]): GVec3[T] =
-  ## Return heading, rotation and pivot of a matrix.
-  var heading, pitch, roll: float32
-  if m[1] > 0.998: # singularity at north pole
-    heading = arctan2(m[2], m[10])
-    pitch = PI / 2
-    roll = 0
-  elif m[1] < -0.998: # singularity at south pole
-    heading = arctan2(m[2], m[10])
-    pitch = -PI / 2
-    roll = 0
+proc rotationOnly*[T](a: GMat4[T]): GMat4[T] {.inline.} =
+  ## Clears the positional component and returns rotation only.
+  ## Assumes matrix has not been scaled.
+  result = a
+  result.pos = gvec3(0, 0, 0)
+
+proc rotateX*[T](angle: T): GMat4[T] =
+  ## Return a rotation matrix around X with angle.
+  ## All angles assume radians.
+  result[0, 0] = 1
+  result[0, 1] = 0
+  result[0, 2] = 0
+  result[0, 3] = 0
+
+  result[1, 0] = 0
+  result[1, 1] = cos(angle)
+  result[1, 2] = -sin(angle)
+  result[1, 3] = 0
+
+  result[2, 0] = 0
+  result[2, 1] = sin(angle)
+  result[2, 2] = cos(angle)
+  result[2, 3] = 0
+
+  result[3, 0] = 0
+  result[3, 1] = 0
+  result[3, 2] = 0
+  result[3, 3] = 1
+
+proc rotateY*[T](angle: T): GMat4[T] =
+  ## Return a rotation matrix around Y with angle.
+  ## All angles assume radians.
+  result[0, 0] = cos(angle)
+  result[0, 1] = 0
+  result[0, 2] = sin(angle)
+  result[0, 3] = 0
+
+  result[1, 0] = 0
+  result[1, 1] = 1
+  result[1, 2] = 0
+  result[1, 3] = 0
+
+  result[2, 0] = -sin(angle)
+  result[2, 1] = 0
+  result[2, 2] = cos(angle)
+  result[2, 3] = 0
+
+  result[3, 0] = 0
+  result[3, 1] = 0
+  result[3, 2] = 0
+  result[3, 3] = 1
+
+proc rotateZ*[T](angle: T): GMat4[T] =
+  ## Return a rotation matrix around Z with angle.
+  ## All angles assume radians.
+  result[0, 0] = cos(angle)
+  result[0, 1] = -sin(angle)
+  result[0, 2] = 0
+  result[0, 3] = 0
+
+  result[1, 0] = sin(angle)
+  result[1, 1] = cos(angle)
+  result[1, 2] = 0
+  result[1, 3] = 0
+
+  result[2, 0] = 0
+  result[2, 1] = 0
+  result[2, 2] = 1
+  result[2, 3] = 0
+
+  result[3, 0] = 0
+  result[3, 1] = 0
+  result[3, 2] = 0
+  result[3, 3] = 1
+
+proc toAngles*[T](a: GVec3[T]): GVec3[T] =
+  ## Given a 3d vector, computes Euler angles: pitch and yaw
+  ##   pitch (x rotation)
+  ##   yaw (y rotation)
+  ##   roll (z rotation) - always 0 in vector case
+  ## All angles assume radians.
+  if a == gvec3[T](T(0), T(0), T(0)):
+    return
+  let
+    yaw = -arctan2(a.x, a.z)
+    pitch = -arctan2(sqrt(a.x*a.x + a.z*a.z), a.y) + T(PI/2)
+  result.x = pitch.fixAngle
+  result.y = yaw.fixAngle
+
+proc toAngles*[T](origin, target: GVec3[T]): GVec3[T] =
+  ## Gives Euler angles from origin to target
+  ##   pitch (x rotation)
+  ##   yaw (y rotation)
+  ##   roll (z rotation) - always 0 in vector case
+  ## All angles assume radians.
+  toAngles(target - origin)
+
+proc toAngles*[T](m: GMat4[T]): GVec3[T] =
+  ## Decomposes the matrix into Euler angles:
+  ##   pitch (x rotation)
+  ##   yaw (y rotation)
+  ##   roll (z rotation)
+  ## Assumes matrix has not been scaled.
+  ## All angles assume radians.
+  result.x = arcsin(m[2,1])
+  if result.x > PI/2:
+    # Degenerate case over north pole.
+    result.y = arctan2(m[0, 2], m[0, 0])
+  elif result.x < -PI/2:
+    # Degenerate case over south pole.
+    result.y = arctan2(m[0, 2], m[0, 0])
   else:
-    heading = arctan2(-m[8], m[0])
-    pitch = arctan2(-m[6], m[5])
-    roll = arcsin(m[4])
-  gvec3[T](heading, pitch, roll)
+    # Normal case.
+    result.y = -arctan2(m[2, 0], m[2, 2])
+    result.z = -arctan2(m[0, 1], m[1, 1])
+
+proc fromAngles*[T](a: GVec3[T]): GMat4[T] =
+  ## Takes a vector containing Euler angles and returns a matrix.
+  ## All angles assume radians.
+  rotateY(a.y) * rotateX(a.x) * rotateZ(a.z)
 
 proc frustum*[T](left, right, bottom, top, near, far: T): GMat4[T] =
   ## Create a frustum matrix.
@@ -1332,7 +1478,10 @@ proc ortho*[T](left, right, bottom, top, near, far: T): GMat4[T] =
   result[3, 2] = T(-(far + near) / fn)
   result[3, 3] = 1
 
-proc lookAt*[T](eye, center, up: GVec3[T]): GMat4[T] =
+proc lookAt*[T](eye, center, up: GVec3[T]): GMat4[T]
+  {.deprecated: "Wrong coordinate system. " &
+    "Use toAngles(eye, center).fromAngles() instead to get " &
+    "right-handed-z-forward coordinate system".} =
   ## Create a matrix that would convert eye pos to looking at center.
   let
     eyex = eye[0]
@@ -1413,7 +1562,10 @@ proc lookAt*[T](eye, center, up: GVec3[T]): GMat4[T] =
   result[3, 2] = -(z0 * eyex + z1 * eyey + z2 * eyez)
   result[3, 3] = 1
 
-proc lookAt*[T](eye, center: GVec3[T]): GMat4[T] =
+proc lookAt*[T](eye, center: GVec3[T]): GMat4[T]
+  {.deprecated: "Wrong coordinate system. " &
+    "Use toAngles(eye, center).fromAngles() instead to get " &
+    "right-handed-z-forward coordinate system".} =
   ## Look center from eye with default UP vector.
   lookAt(eye, center, gvec3(T(0), 0, 1))
 
@@ -1597,18 +1749,6 @@ proc mat4*[T](q: GVec4[T]): GMat4[T] =
 proc rotate*[T](angle: T, axis: GVec3[T]): GMat4[T] =
   ## Return a rotation matrix with axis and angle.
   fromAxisAngle(axis, angle).mat4()
-
-proc rotateX*[T](angle: T): GMat4[T] =
-  ## Return a rotation matrix around X with angle.
-  fromAxisAngle(gvec3[T](1, 0, 0), angle).mat4()
-
-proc rotateY*[T](angle: T): GMat4[T] =
-  ## Return a rotation matrix around Y with angle.
-  fromAxisAngle(gvec3[T](0, 1, 0), angle).mat4()
-
-proc rotateZ*[T](angle: T): GMat4[T] =
-  ## Return a rotation matrix around Z with angle.
-  fromAxisAngle(gvec3[T](0, 0, 1), angle).mat4()
 
 when defined(release):
   {.pop.}
