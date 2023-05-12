@@ -1,6 +1,6 @@
 <img src="docs/banner.png">
 
-# VMath - 2d and 3d vector math.
+# VMath - 2D and 3D vector math.
 
 `nimble install vmath`
 
@@ -9,6 +9,8 @@
 [API reference](https://treeform.github.io/vmath)
 
 This library has no dependencies other than the Nim standard library.
+
+Supports c, cpp and js backend.
 
 ## About
 
