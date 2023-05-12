@@ -62,6 +62,7 @@ DVec4	vmath.html#DVec4	vmath: DVec4
 between	vmath.html#between,T,T,T	vmath: between[T](value, min, max: T): bool	
 sign	vmath.html#sign,T	vmath: sign[T](v: T): T	
 quantize	vmath.html#quantize,T,T	vmath: quantize[T: SomeFloat](v, n: T): T	
+fract	vmath.html#fract,T	vmath: fract[T: SomeFloat](v: T): T	
 fractional	vmath.html#fractional,T	vmath: fractional[T: SomeFloat](v: T): T	
 inversesqrt	vmath.html#inversesqrt,T	vmath: inversesqrt[T: float32 | float64](v: T): T	
 mix	vmath.html#mix,T,T,T	vmath: mix[T: SomeFloat](a, b, v: T): T	
@@ -327,24 +328,39 @@ ceil	vmath.html#ceil_3	vmath: ceil[T](v`gensym180: GVec4[T]): GVec4[T]
 abs	vmath.html#abs	vmath: abs[T](v`gensym181: GVec2[T]): GVec2[T]	
 abs	vmath.html#abs_2	vmath: abs[T](v`gensym181: GVec3[T]): GVec3[T]	
 abs	vmath.html#abs_3	vmath: abs[T](v`gensym181: GVec4[T]): GVec4[T]	
-lessThan	vmath.html#lessThan,,	vmath: lessThan[T](a`gensym182, b`gensym182: GVec2[T]): BVec2	
-lessThan	vmath.html#lessThan,,_2	vmath: lessThan[T](a`gensym182, b`gensym182: GVec3[T]): BVec3	
-lessThan	vmath.html#lessThan,,_3	vmath: lessThan[T](a`gensym182, b`gensym182: GVec4[T]): BVec4	
-lessThanEqual	vmath.html#lessThanEqual,,	vmath: lessThanEqual[T](a`gensym183, b`gensym183: GVec2[T]): BVec2	
-lessThanEqual	vmath.html#lessThanEqual,,_2	vmath: lessThanEqual[T](a`gensym183, b`gensym183: GVec3[T]): BVec3	
-lessThanEqual	vmath.html#lessThanEqual,,_3	vmath: lessThanEqual[T](a`gensym183, b`gensym183: GVec4[T]): BVec4	
-greaterThan	vmath.html#greaterThan,,	vmath: greaterThan[T](a`gensym184, b`gensym184: GVec2[T]): BVec2	
-greaterThan	vmath.html#greaterThan,,_2	vmath: greaterThan[T](a`gensym184, b`gensym184: GVec3[T]): BVec3	
-greaterThan	vmath.html#greaterThan,,_3	vmath: greaterThan[T](a`gensym184, b`gensym184: GVec4[T]): BVec4	
-greaterThanEqual	vmath.html#greaterThanEqual,,	vmath: greaterThanEqual[T](a`gensym194, b`gensym194: GVec2[T]): BVec2	
-greaterThanEqual	vmath.html#greaterThanEqual,,_2	vmath: greaterThanEqual[T](a`gensym194, b`gensym194: GVec3[T]): BVec3	
-greaterThanEqual	vmath.html#greaterThanEqual,,_3	vmath: greaterThanEqual[T](a`gensym194, b`gensym194: GVec4[T]): BVec4	
-equal	vmath.html#equal,,	vmath: equal[T](a`gensym204, b`gensym204: GVec2[T]): BVec2	
-equal	vmath.html#equal,,_2	vmath: equal[T](a`gensym204, b`gensym204: GVec3[T]): BVec3	
-equal	vmath.html#equal,,_3	vmath: equal[T](a`gensym204, b`gensym204: GVec4[T]): BVec4	
-notEqual	vmath.html#notEqual,,	vmath: notEqual[T](a`gensym205, b`gensym205: GVec2[T]): BVec2	
-notEqual	vmath.html#notEqual,,_2	vmath: notEqual[T](a`gensym205, b`gensym205: GVec3[T]): BVec3	
-notEqual	vmath.html#notEqual,,_3	vmath: notEqual[T](a`gensym205, b`gensym205: GVec4[T]): BVec4	
+trunc	vmath.html#trunc	vmath: trunc[T](v`gensym182: GVec2[T]): GVec2[T]	
+trunc	vmath.html#trunc_2	vmath: trunc[T](v`gensym182: GVec3[T]): GVec3[T]	
+trunc	vmath.html#trunc_3	vmath: trunc[T](v`gensym182: GVec4[T]): GVec4[T]	
+fract	vmath.html#fract	vmath: fract[T](v`gensym183: GVec2[T]): GVec2[T]	
+fract	vmath.html#fract_2	vmath: fract[T](v`gensym183: GVec3[T]): GVec3[T]	
+fract	vmath.html#fract_3	vmath: fract[T](v`gensym183: GVec4[T]): GVec4[T]	
+quantize	vmath.html#quantize	vmath: quantize[T](v`gensym184: GVec2[T]): GVec2[T]	
+quantize	vmath.html#quantize_2	vmath: quantize[T](v`gensym184: GVec3[T]): GVec3[T]	
+quantize	vmath.html#quantize_3	vmath: quantize[T](v`gensym184: GVec4[T]): GVec4[T]	
+toRadians	vmath.html#toRadians	vmath: toRadians[T](v`gensym185: GVec2[T]): GVec2[T]	
+toRadians	vmath.html#toRadians_2	vmath: toRadians[T](v`gensym185: GVec3[T]): GVec3[T]	
+toRadians	vmath.html#toRadians_3	vmath: toRadians[T](v`gensym185: GVec4[T]): GVec4[T]	
+toDegrees	vmath.html#toDegrees	vmath: toDegrees[T](v`gensym186: GVec2[T]): GVec2[T]	
+toDegrees	vmath.html#toDegrees_2	vmath: toDegrees[T](v`gensym186: GVec3[T]): GVec3[T]	
+toDegrees	vmath.html#toDegrees_3	vmath: toDegrees[T](v`gensym186: GVec4[T]): GVec4[T]	
+lessThan	vmath.html#lessThan,,	vmath: lessThan[T](a`gensym187, b`gensym187: GVec2[T]): BVec2	
+lessThan	vmath.html#lessThan,,_2	vmath: lessThan[T](a`gensym187, b`gensym187: GVec3[T]): BVec3	
+lessThan	vmath.html#lessThan,,_3	vmath: lessThan[T](a`gensym187, b`gensym187: GVec4[T]): BVec4	
+lessThanEqual	vmath.html#lessThanEqual,,	vmath: lessThanEqual[T](a`gensym188, b`gensym188: GVec2[T]): BVec2	
+lessThanEqual	vmath.html#lessThanEqual,,_2	vmath: lessThanEqual[T](a`gensym188, b`gensym188: GVec3[T]): BVec3	
+lessThanEqual	vmath.html#lessThanEqual,,_3	vmath: lessThanEqual[T](a`gensym188, b`gensym188: GVec4[T]): BVec4	
+greaterThan	vmath.html#greaterThan,,	vmath: greaterThan[T](a`gensym189, b`gensym189: GVec2[T]): BVec2	
+greaterThan	vmath.html#greaterThan,,_2	vmath: greaterThan[T](a`gensym189, b`gensym189: GVec3[T]): BVec3	
+greaterThan	vmath.html#greaterThan,,_3	vmath: greaterThan[T](a`gensym189, b`gensym189: GVec4[T]): BVec4	
+greaterThanEqual	vmath.html#greaterThanEqual,,	vmath: greaterThanEqual[T](a`gensym199, b`gensym199: GVec2[T]): BVec2	
+greaterThanEqual	vmath.html#greaterThanEqual,,_2	vmath: greaterThanEqual[T](a`gensym199, b`gensym199: GVec3[T]): BVec3	
+greaterThanEqual	vmath.html#greaterThanEqual,,_3	vmath: greaterThanEqual[T](a`gensym199, b`gensym199: GVec4[T]): BVec4	
+equal	vmath.html#equal,,	vmath: equal[T](a`gensym209, b`gensym209: GVec2[T]): BVec2	
+equal	vmath.html#equal,,_2	vmath: equal[T](a`gensym209, b`gensym209: GVec3[T]): BVec3	
+equal	vmath.html#equal,,_3	vmath: equal[T](a`gensym209, b`gensym209: GVec4[T]): BVec4	
+notEqual	vmath.html#notEqual,,	vmath: notEqual[T](a`gensym210, b`gensym210: GVec2[T]): BVec2	
+notEqual	vmath.html#notEqual,,_2	vmath: notEqual[T](a`gensym210, b`gensym210: GVec3[T]): BVec3	
+notEqual	vmath.html#notEqual,,_3	vmath: notEqual[T](a`gensym210, b`gensym210: GVec4[T]): BVec4	
 `~=`	vmath.html#~=,GVec2[T],GVec2[T]	vmath: `~=`[T](a, b: GVec2[T]): bool	
 `~=`	vmath.html#~=,GVec3[T],GVec3[T]	vmath: `~=`[T](a, b: GVec3[T]): bool	
 `~=`	vmath.html#~=,GVec4[T],GVec4[T]	vmath: `~=`[T](a, b: GVec4[T]): bool	
@@ -381,35 +397,41 @@ DMat2	vmath.html#DMat2	vmath: DMat2
 DMat3	vmath.html#DMat3	vmath: DMat3	
 DMat4	vmath.html#DMat4	vmath: DMat4	
 genMatConstructor	vmath.html#genMatConstructor.t,untyped,untyped,untyped	vmath: genMatConstructor(lower, upper, T: untyped)	
-mat2	vmath.html#mat2,float32,float32,float32,float32	vmath: mat2(m00`gensym242, m01`gensym242, m10`gensym242, m11`gensym242: float32): Mat2	
-mat3	vmath.html#mat3,float32,float32,float32,float32,float32,float32,float32,float32,float32	vmath: mat3(m00`gensym242, m01`gensym242, m02`gensym242, m10`gensym242, m11`gensym242,\n     m12`gensym242, m20`gensym242, m21`gensym242, m22`gensym242: float32): Mat3	
-mat4	vmath.html#mat4,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32	vmath: mat4(m00`gensym242, m01`gensym242, m02`gensym242, m03`gensym242, m10`gensym242,\n     m11`gensym242, m12`gensym242, m13`gensym242, m20`gensym242, m21`gensym242,\n     m22`gensym242, m23`gensym242, m30`gensym242, m31`gensym242, m32`gensym242,\n     m33`gensym242: float32): Mat4	
-mat2	vmath.html#mat2,,	vmath: mat2(a`gensym242, b`gensym242: GVec2[float32]): Mat2	
-mat3	vmath.html#mat3,,,	vmath: mat3(a`gensym242, b`gensym242, c`gensym242: GVec3[float32]): Mat3	
-mat4	vmath.html#mat4,,,,	vmath: mat4(a`gensym242, b`gensym242, c`gensym242, d`gensym242: GVec4[float32]): Mat4	
+mat2	vmath.html#mat2,float32,float32,float32,float32	vmath: mat2(m00`gensym247, m01`gensym247, m10`gensym247, m11`gensym247: float32): Mat2	
+mat3	vmath.html#mat3,float32,float32,float32,float32,float32,float32,float32,float32,float32	vmath: mat3(m00`gensym247, m01`gensym247, m02`gensym247, m10`gensym247, m11`gensym247,\n     m12`gensym247, m20`gensym247, m21`gensym247, m22`gensym247: float32): Mat3	
+mat4	vmath.html#mat4,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32	vmath: mat4(m00`gensym247, m01`gensym247, m02`gensym247, m03`gensym247, m10`gensym247,\n     m11`gensym247, m12`gensym247, m13`gensym247, m20`gensym247, m21`gensym247,\n     m22`gensym247, m23`gensym247, m30`gensym247, m31`gensym247, m32`gensym247,\n     m33`gensym247: float32): Mat4	
+mat2	vmath.html#mat2,,	vmath: mat2(a`gensym247, b`gensym247: GVec2[float32]): Mat2	
+mat3	vmath.html#mat3,,,	vmath: mat3(a`gensym247, b`gensym247, c`gensym247: GVec3[float32]): Mat3	
+mat4	vmath.html#mat4,,,,	vmath: mat4(a`gensym247, b`gensym247, c`gensym247, d`gensym247: GVec4[float32]): Mat4	
 mat2	vmath.html#mat2_2	vmath: mat2(): Mat2	
 mat3	vmath.html#mat3_2	vmath: mat3(): Mat3	
 mat4	vmath.html#mat4_2	vmath: mat4(): Mat4	
-`$`	vmath.html#$,Mat2	vmath: `$`(a`gensym242: Mat2): string	
-`$`	vmath.html#$,Mat3	vmath: `$`(a`gensym242: Mat3): string	
-`$`	vmath.html#$,Mat4	vmath: `$`(a`gensym242: Mat4): string	
-dmat2	vmath.html#dmat2,float64,float64,float64,float64	vmath: dmat2(m00`gensym304, m01`gensym304, m10`gensym304, m11`gensym304: float64): DMat2	
-dmat3	vmath.html#dmat3,float64,float64,float64,float64,float64,float64,float64,float64,float64	vmath: dmat3(m00`gensym304, m01`gensym304, m02`gensym304, m10`gensym304, m11`gensym304,\n      m12`gensym304, m20`gensym304, m21`gensym304, m22`gensym304: float64): DMat3	
-dmat4	vmath.html#dmat4,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64	vmath: dmat4(m00`gensym304, m01`gensym304, m02`gensym304, m03`gensym304, m10`gensym304,\n      m11`gensym304, m12`gensym304, m13`gensym304, m20`gensym304, m21`gensym304,\n      m22`gensym304, m23`gensym304, m30`gensym304, m31`gensym304, m32`gensym304,\n      m33`gensym304: float64): DMat4	
-dmat2	vmath.html#dmat2,,	vmath: dmat2(a`gensym304, b`gensym304: GVec2[float64]): DMat2	
-dmat3	vmath.html#dmat3,,,	vmath: dmat3(a`gensym304, b`gensym304, c`gensym304: GVec3[float64]): DMat3	
-dmat4	vmath.html#dmat4,,,,	vmath: dmat4(a`gensym304, b`gensym304, c`gensym304, d`gensym304: GVec4[float64]): DMat4	
+`$`	vmath.html#$,Mat2	vmath: `$`(a`gensym247: Mat2): string	
+`$`	vmath.html#$,Mat3	vmath: `$`(a`gensym247: Mat3): string	
+`$`	vmath.html#$,Mat4	vmath: `$`(a`gensym247: Mat4): string	
+dmat2	vmath.html#dmat2,float64,float64,float64,float64	vmath: dmat2(m00`gensym309, m01`gensym309, m10`gensym309, m11`gensym309: float64): DMat2	
+dmat3	vmath.html#dmat3,float64,float64,float64,float64,float64,float64,float64,float64,float64	vmath: dmat3(m00`gensym309, m01`gensym309, m02`gensym309, m10`gensym309, m11`gensym309,\n      m12`gensym309, m20`gensym309, m21`gensym309, m22`gensym309: float64): DMat3	
+dmat4	vmath.html#dmat4,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64	vmath: dmat4(m00`gensym309, m01`gensym309, m02`gensym309, m03`gensym309, m10`gensym309,\n      m11`gensym309, m12`gensym309, m13`gensym309, m20`gensym309, m21`gensym309,\n      m22`gensym309, m23`gensym309, m30`gensym309, m31`gensym309, m32`gensym309,\n      m33`gensym309: float64): DMat4	
+dmat2	vmath.html#dmat2,,	vmath: dmat2(a`gensym309, b`gensym309: GVec2[float64]): DMat2	
+dmat3	vmath.html#dmat3,,,	vmath: dmat3(a`gensym309, b`gensym309, c`gensym309: GVec3[float64]): DMat3	
+dmat4	vmath.html#dmat4,,,,	vmath: dmat4(a`gensym309, b`gensym309, c`gensym309, d`gensym309: GVec4[float64]): DMat4	
 dmat2	vmath.html#dmat2_2	vmath: dmat2(): DMat2	
 dmat3	vmath.html#dmat3_2	vmath: dmat3(): DMat3	
 dmat4	vmath.html#dmat4_2	vmath: dmat4(): DMat4	
-`$`	vmath.html#$,DMat2	vmath: `$`(a`gensym304: DMat2): string	
-`$`	vmath.html#$,DMat3	vmath: `$`(a`gensym304: DMat3): string	
-`$`	vmath.html#$,DMat4	vmath: `$`(a`gensym304: DMat4): string	
+`$`	vmath.html#$,DMat2	vmath: `$`(a`gensym309: DMat2): string	
+`$`	vmath.html#$,DMat3	vmath: `$`(a`gensym309: DMat3): string	
+`$`	vmath.html#$,DMat4	vmath: `$`(a`gensym309: DMat4): string	
 `~=`	vmath.html#~=,GMat2[T],GMat2[T]	vmath: `~=`[T](a, b: GMat2[T]): bool	
 `~=`	vmath.html#~=,GMat3[T],GMat3[T]	vmath: `~=`[T](a, b: GMat3[T]): bool	
 `~=`	vmath.html#~=,GMat4[T],GMat4[T]	vmath: `~=`[T](a, b: GMat4[T]): bool	
 pos	vmath.html#pos,GMat3[T]	vmath: pos[T](a: GMat3[T]): GVec2[T]	
 pos=	vmath.html#pos=,GMat3[T],GVec2[T]	vmath: pos=[T](a: var GMat3[T]; pos: GVec2[T])	
+forward	vmath.html#forward,GMat4[T]	vmath: forward[T](a: GMat4[T]): GVec3[T]	
+back	vmath.html#back,GMat4[T]	vmath: back[T](a: GMat4[T]): GVec3[T]	
+left	vmath.html#left,GMat4[T]	vmath: left[T](a: GMat4[T]): GVec3[T]	
+right	vmath.html#right,GMat4[T]	vmath: right[T](a: GMat4[T]): GVec3[T]	
+up	vmath.html#up,GMat4[T]	vmath: up[T](a: GMat4[T]): GVec3[T]	
+down	vmath.html#down,GMat4[T]	vmath: down[T](a: GMat4[T]): GVec3[T]	
 pos	vmath.html#pos,GMat4[T]	vmath: pos[T](a: GMat4[T]): GVec3[T]	
 pos=	vmath.html#pos=,GMat4[T],GVec3[T]	vmath: pos=[T](a: var GMat4[T]; pos: GVec3[T])	
 `*`	vmath.html#*,GMat3[T],GMat3[T]	vmath: `*`[T](a, b: GMat3[T]): GMat3[T]	
@@ -430,7 +452,14 @@ scale	vmath.html#scale,GVec3[T]	vmath: scale[T](v: GVec3[T]): GMat4[T]
 translate	vmath.html#translate,GVec2[T]	vmath: translate[T](v: GVec2[T]): GMat3[T]	
 translate	vmath.html#translate,GVec3[T]	vmath: translate[T](v: GVec3[T]): GMat4[T]	
 rotate	vmath.html#rotate,T	vmath: rotate[T](angle: T): GMat3[T]	
-hrp	vmath.html#hrp,GMat4[T]	vmath: hrp[T](m: GMat4[T]): GVec3[T]	
+rotationOnly	vmath.html#rotationOnly,GMat4[T]	vmath: rotationOnly[T](a: GMat4[T]): GMat4[T]	
+rotateX	vmath.html#rotateX,T	vmath: rotateX[T](angle: T): GMat4[T]	
+rotateY	vmath.html#rotateY,T	vmath: rotateY[T](angle: T): GMat4[T]	
+rotateZ	vmath.html#rotateZ,T	vmath: rotateZ[T](angle: T): GMat4[T]	
+toAngles	vmath.html#toAngles,GVec3[T]	vmath: toAngles[T](a: GVec3[T]): GVec3[T]	
+toAngles	vmath.html#toAngles,GVec3[T],GVec3[T]	vmath: toAngles[T](origin, target: GVec3[T]): GVec3[T]	
+toAngles	vmath.html#toAngles,GMat4[T]	vmath: toAngles[T](m: GMat4[T]): GVec3[T]	
+fromAngles	vmath.html#fromAngles,GVec3[T]	vmath: fromAngles[T](a: GVec3[T]): GMat4[T]	
 frustum	vmath.html#frustum,T,T,T,T,T,T	vmath: frustum[T](left, right, bottom, top, near, far: T): GMat4[T]	
 perspective	vmath.html#perspective,T,T,T,T	vmath: perspective[T](fovy, aspect, near, far: T): GMat4[T]	
 ortho	vmath.html#ortho,T,T,T,T,T,T	vmath: ortho[T](left, right, bottom, top, near, far: T): GMat4[T]	
@@ -443,13 +472,13 @@ Quat	vmath.html#Quat	vmath: Quat
 DQuat	vmath.html#DQuat	vmath: DQuat	
 genQuatConstructor	vmath.html#genQuatConstructor.t,untyped,untyped,untyped	vmath: genQuatConstructor(lower, upper, typ: untyped)	
 quat	vmath.html#quat_2	vmath: quat(): Quat	
-quat	vmath.html#quat,float32,float32,float32,float32	vmath: quat(x`gensym367, y`gensym367, z`gensym367, w`gensym367: float32): Quat	
-quat	vmath.html#quat,float32	vmath: quat(x`gensym367: float32): Quat	
-quat	vmath.html#quat_3	vmath: quat[T](x`gensym367: GVec4[T]): Quat	
+quat	vmath.html#quat,float32,float32,float32,float32	vmath: quat(x`gensym372, y`gensym372, z`gensym372, w`gensym372: float32): Quat	
+quat	vmath.html#quat,float32	vmath: quat(x`gensym372: float32): Quat	
+quat	vmath.html#quat_3	vmath: quat[T](x`gensym372: GVec4[T]): Quat	
 dquat	vmath.html#dquat_2	vmath: dquat(): DQuat	
-dquat	vmath.html#dquat,float64,float64,float64,float64	vmath: dquat(x`gensym371, y`gensym371, z`gensym371, w`gensym371: float64): DQuat	
-dquat	vmath.html#dquat,float64	vmath: dquat(x`gensym371: float64): DQuat	
-dquat	vmath.html#dquat_3	vmath: dquat[T](x`gensym371: GVec4[T]): DQuat	
+dquat	vmath.html#dquat,float64,float64,float64,float64	vmath: dquat(x`gensym376, y`gensym376, z`gensym376, w`gensym376: float64): DQuat	
+dquat	vmath.html#dquat,float64	vmath: dquat(x`gensym376: float64): DQuat	
+dquat	vmath.html#dquat_3	vmath: dquat[T](x`gensym376: GVec4[T]): DQuat	
 fromAxisAngle	vmath.html#fromAxisAngle,GVec3[T],T	vmath: fromAxisAngle[T](axis: GVec3[T]; angle: T): GVec4[T]	
 toAxisAngle	vmath.html#toAxisAngle,GVec4[T]	vmath: toAxisAngle[T](q: GVec4[T]): (GVec3[T], T)	
 orthogonal	vmath.html#orthogonal,GVec3[T]	vmath: orthogonal[T](v: GVec3[T]): GVec3[T]	
@@ -458,6 +487,3 @@ nlerp	vmath.html#nlerp,Quat,Quat,float32	vmath: nlerp(a: Quat; b: Quat; v: float
 quat	vmath.html#quat,GMat4[T]	vmath: quat[T](m: GMat4[T]): GVec4[T]	
 mat4	vmath.html#mat4,GVec4[T]	vmath: mat4[T](q: GVec4[T]): GMat4[T]	
 rotate	vmath.html#rotate,T,GVec3[T]	vmath: rotate[T](angle: T; axis: GVec3[T]): GMat4[T]	
-rotateX	vmath.html#rotateX,T	vmath: rotateX[T](angle: T): GMat4[T]	
-rotateY	vmath.html#rotateY,T	vmath: rotateY[T](angle: T): GMat4[T]	
-rotateZ	vmath.html#rotateZ,T	vmath: rotateZ[T](angle: T): GMat4[T]	
