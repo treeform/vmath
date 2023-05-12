@@ -1285,12 +1285,8 @@ proc translate*[T](v: GVec3[T]): GMat4[T] =
   )
 
 proc rotate*[T](angle: T): GMat3[T] =
-<<<<<<< 6e2906d9898fffe4edf18d77c10b32f09bcf8233
-  ## Create a 2d rotation matrix by an angle.
-=======
   ## Create a 2D rotation matrix by an angle.
   ## All angles assume radians.
->>>>>>> more changes
   let
     sin = sin(angle)
     cos = cos(angle)
@@ -1308,10 +1304,7 @@ proc rotationOnly*[T](a: GMat4[T]): GMat4[T] {.inline.} =
 
 proc rotateX*[T](angle: T): GMat4[T] =
   ## Return a rotation matrix around X with angle.
-<<<<<<< 6e2906d9898fffe4edf18d77c10b32f09bcf8233
-=======
   ## All angles assume radians.
->>>>>>> more changes
   result[0, 0] = 1
   result[0, 1] = 0
   result[0, 2] = 0
@@ -1334,10 +1327,7 @@ proc rotateX*[T](angle: T): GMat4[T] =
 
 proc rotateY*[T](angle: T): GMat4[T] =
   ## Return a rotation matrix around Y with angle.
-<<<<<<< 6e2906d9898fffe4edf18d77c10b32f09bcf8233
-=======
   ## All angles assume radians.
->>>>>>> more changes
   result[0, 0] = cos(angle)
   result[0, 1] = 0
   result[0, 2] = sin(angle)
@@ -1360,10 +1350,7 @@ proc rotateY*[T](angle: T): GMat4[T] =
 
 proc rotateZ*[T](angle: T): GMat4[T] =
   ## Return a rotation matrix around Z with angle.
-<<<<<<< 6e2906d9898fffe4edf18d77c10b32f09bcf8233
-=======
   ## All angles assume radians.
->>>>>>> more changes
   result[0, 0] = cos(angle)
   result[0, 1] = -sin(angle)
   result[0, 2] = 0
@@ -1389,10 +1376,7 @@ proc toAngles*[T](a: GVec3[T]): GVec3[T] =
   ##   pitch (x rotation)
   ##   yaw (y rotation)
   ##   roll (z rotation) - always 0 in vector case
-<<<<<<< 6e2906d9898fffe4edf18d77c10b32f09bcf8233
-=======
   ## All angles assume radians.
->>>>>>> more changes
   if a == gvec3[T](T(0), T(0), T(0)):
     return
   let
@@ -1406,10 +1390,7 @@ proc toAngles*[T](origin, target: GVec3[T]): GVec3[T] =
   ##   pitch (x rotation)
   ##   yaw (y rotation)
   ##   roll (z rotation) - always 0 in vector case
-<<<<<<< 6e2906d9898fffe4edf18d77c10b32f09bcf8233
-=======
   ## All angles assume radians.
->>>>>>> more changes
   toAngles(target - origin)
 
 proc toAngles*[T](m: GMat4[T]): GVec3[T] =
@@ -1418,10 +1399,7 @@ proc toAngles*[T](m: GMat4[T]): GVec3[T] =
   ##   yaw (y rotation)
   ##   roll (z rotation)
   ## Assumes matrix has not been scaled.
-<<<<<<< 6e2906d9898fffe4edf18d77c10b32f09bcf8233
-=======
   ## All angles assume radians.
->>>>>>> more changes
   result.x = arcsin(m[2,1])
   if result.x > PI/2:
     # Degenerate case over north pole.
@@ -1436,10 +1414,7 @@ proc toAngles*[T](m: GMat4[T]): GVec3[T] =
 
 proc fromAngles*[T](a: GVec3[T]): GMat4[T] =
   ## Takes a vector containing Euler angles and returns a matrix.
-<<<<<<< 6e2906d9898fffe4edf18d77c10b32f09bcf8233
-=======
   ## All angles assume radians.
->>>>>>> more changes
   rotateY(a.y) * rotateX(a.x) * rotateZ(a.z)
 
 proc frustum*[T](left, right, bottom, top, near, far: T): GMat4[T] =
@@ -1775,10 +1750,6 @@ proc rotate*[T](angle: T, axis: GVec3[T]): GMat4[T] =
   ## Return a rotation matrix with axis and angle.
   fromAxisAngle(axis, angle).mat4()
 
-<<<<<<< 6e2906d9898fffe4edf18d77c10b32f09bcf8233
-
-=======
->>>>>>> more changes
 when defined(release):
   {.pop.}
 {.pop.}
