@@ -151,18 +151,55 @@ elif defined(vmathObjBased):
   template gvec4*[T](mx, my, mz, mw: T): GVec4[T] =
     GVec4[T](x: mx, y: my, z: mz, w: mw)
 
-  template `[]`*[T](a: GVec2[T], i: int): T = cast[array[2, T]](a)[i]
-  template `[]`*[T](a: GVec3[T], i: int): T = cast[array[3, T]](a)[i]
-  template `[]`*[T](a: GVec4[T], i: int): T = cast[array[4, T]](a)[i]
+  when not defined(js):
+    template `[]`*[T](a: GVec2[T], i: int): T = cast[array[2, T]](a)[i]
+    template `[]`*[T](a: GVec3[T], i: int): T = cast[array[3, T]](a)[i]
+    template `[]`*[T](a: GVec4[T], i: int): T = cast[array[4, T]](a)[i]
 
-  template `[]=`*[T](a: var GVec2[T], i: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + i * sizeof(T))[] = v
+    template `[]=`*[T](a: var GVec2[T], i: int, v: T) =
+      cast[ptr T](cast[ByteAddress](a.addr) + i * sizeof(T))[] = v
+
+    template `[]=`*[T](a: var GVec3[T], i: int, v: T) =
+      cast[ptr T](cast[ByteAddress](a.addr) + i * sizeof(T))[] = v
+
+    template `[]=`*[T](a: var GVec4[T], i: int, v: T) =
+      cast[ptr T](cast[ByteAddress](a.addr) + i * sizeof(T))[] = v
+  else:
+    template `[]`*[T](a: GVec2[T], i: static[int]): T =
+      when i == 0: a.x
+      elif i == 1: a.y
+      else: {.error.}
+
+    template `[]`*[T](a: GVec3[T], i: static[int]): T =
+      when i == 0: a.x
+      elif i == 1: a.y
+      elif i == 2: a.z
+      else: {.error.}
+
+    template `[]`*[T](a: GVec4[T], i: static[int]): T =
+      when i == 0: a.x
+      elif i == 1: a.y
+      elif i == 2: a.z
+      elif i == 3: a.w
+      else: {.error.}
+
+    template `[]=`*[T](a: var GVec2[T], i: int, v: T) =
+      when i == 0: a.x = v
+      elif i == 1: a.y = v
+      else: {.error.}
 
   template `[]=`*[T](a: var GVec3[T], i: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + i * sizeof(T))[] = v
+      when i == 0: a.x = v
+      elif i == 1: a.y = v
+      elif i == 2: a.z = v
+      else: {.error.}
 
   template `[]=`*[T](a: var GVec4[T], i: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + i * sizeof(T))[] = v
+      when i == 0: a.x = v
+      elif i == 1: a.y = v
+      elif i == 2: a.z = v
+      elif i == 3: a.w = v
+      else: {.error.}
 
   type
     GMat2*[T] {.bycopy.} = object
