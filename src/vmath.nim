@@ -31,6 +31,7 @@ float64 double DVec2 DVec3 DVec4 DMat3 DMat4 DQuat
 ]##
 
 import macros, math, strutils
+import std/[genasts]
 export math except isNan
 
 {.push inline.}
@@ -151,18 +152,58 @@ elif defined(vmathObjBased):
   template gvec4*[T](mx, my, mz, mw: T): GVec4[T] =
     GVec4[T](x: mx, y: my, z: mz, w: mw)
 
-  template `[]`*[T](a: GVec2[T], i: int): T = cast[array[2, T]](a)[i]
-  template `[]`*[T](a: GVec3[T], i: int): T = cast[array[3, T]](a)[i]
-  template `[]`*[T](a: GVec4[T], i: int): T = cast[array[4, T]](a)[i]
+  macro genStaticReadAccess(a: typed, index: static[int]): untyped =
+    if index < a.getType[2].len:
+      return nnkDotExpr.newTree(a, a.getType[2][index])
+    error("Index " & $index & " is out of range for type " & a.getType.repr, a)
 
-  template `[]=`*[T](a: var GVec2[T], i: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + i * sizeof(T))[] = v
+  macro genReadAccess(a: typed, index: untyped, default: untyped): untyped =
+    var branch = nnkCaseStmt.newTree(index)
+    for i, member in a.getType[2]:
+      branch.add nnkOfBranch.newTree(i.newLit, nnkDotExpr.newTree(a, member))
+    branch.add nnkElse.newTree(default)
+    return branch
 
-  template `[]=`*[T](a: var GVec3[T], i: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + i * sizeof(T))[] = v
+  macro genStaticWriteAccess(a: typed, index: static[int], v: untyped): untyped =
+    if index < a.getType[2].len:
+      return genAst(a, member=a.getType[2][index], v):
+        a.member = v
+    error("Index " & $index & " is out of range for type " & a.getType.repr, a)
 
-  template `[]=`*[T](a: var GVec4[T], i: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + i * sizeof(T))[] = v
+  macro genWriteAccess(a: typed, index: typed, v: typed): untyped =
+    var branch = nnkCaseStmt.newTree(index)
+    for i, member in a.getType[2]:
+      let assignment = genAst(a, member, v):
+        a.member = v
+      branch.add nnkOfBranch.newTree(i.newLit, assignment)
+    branch.add nnkElse.newTree(nnkStmtList.newTree())
+    return branch
+
+  template `[]`*[T](a: GVec2[T], i: static[int]): T = genStaticReadAccess(a, i)
+  template `[]`*[T](a: GVec3[T], i: static[int]): T = genStaticReadAccess(a, i)
+  template `[]`*[T](a: GVec4[T], i: static[int]): T = genStaticReadAccess(a, i)
+
+  template `[]=`*[T](a: var GVec2[T], i: static[int], v: T) = genStaticWriteAccess(a, i, v)
+  template `[]=`*[T](a: var GVec3[T], i: static[int], v: T) = genStaticWriteAccess(a, i, v)
+  template `[]=`*[T](a: var GVec4[T], i: static[int], v: T) = genStaticWriteAccess(a, i, v)
+
+  when not defined(js):
+    template `[]`*[T](a: GVec2[T], i: int): T = cast[array[2, T]](a)[i]
+    template `[]`*[T](a: GVec3[T], i: int): T = cast[array[3, T]](a)[i]
+    template `[]`*[T](a: GVec4[T], i: int): T = cast[array[4, T]](a)[i]
+
+    template `[]=`*[T](a: var GVec2[T], i: int, v: T) = cast[ptr T](cast[ByteAddress](a.addr) + i * sizeof(T))[] = v
+    template `[]=`*[T](a: var GVec3[T], i: int, v: T) = cast[ptr T](cast[ByteAddress](a.addr) + i * sizeof(T))[] = v
+    template `[]=`*[T](a: var GVec4[T], i: int, v: T) = cast[ptr T](cast[ByteAddress](a.addr) + i * sizeof(T))[] = v
+
+  else:
+    template `[]`*[T](a: GVec2[T], i: int): T = genReadAccess(a, i, T.default)
+    template `[]`*[T](a: GVec3[T], i: int): T = genReadAccess(a, i, T.default)
+    template `[]`*[T](a: GVec4[T], i: int): T = genReadAccess(a, i, T.default)
+
+    template `[]=`*[T](a: var GVec2[T], i: int, v: T) = genWriteAccess(a, i, v)
+    template `[]=`*[T](a: var GVec3[T], i: int, v: T) = genWriteAccess(a, i, v)
+    template `[]=`*[T](a: var GVec4[T], i: int, v: T) = genWriteAccess(a, i, v)
 
   type
     GMat2*[T] {.bycopy.} = object
@@ -205,23 +246,31 @@ elif defined(vmathObjBased):
     result.m20 = m20; result.m21 = m21; result.m22 = m22; result.m23 = m23
     result.m30 = m30; result.m31 = m31; result.m32 = m32; result.m33 = m33
 
-  template `[]`*[T](a: GMat2[T], i, j: int): T =
-    cast[array[4, T]](a)[i * 2 + j]
+  template `[]`*[T](a: GMat2[T], i, j: static[int]): T = genStaticReadAccess(a, (i * 2) + j)
+  template `[]`*[T](a: GMat3[T], i, j: static[int]): T = genStaticReadAccess(a, (i * 3) + j)
+  template `[]`*[T](a: GMat4[T], i, j: static[int]): T = genStaticReadAccess(a, (i * 4) + j)
 
-  template `[]`*[T](a: GMat3[T], i, j: int): T =
-    cast[array[9, T]](a)[i * 3 + j]
+  template `[]=`*[T](a: var GMat2[T], i, j: static[int], v: T) = genStaticWriteAccess(a, (i * 2) + j, v)
+  template `[]=`*[T](a: var GMat3[T], i, j: static[int], v: T) = genStaticWriteAccess(a, (i * 3) + j, v)
+  template `[]=`*[T](a: var GMat4[T], i, j: static[int], v: T) = genStaticWriteAccess(a, (i * 4) + j, v)
 
-  template `[]`*[T](a: GMat4[T], i, j: int): T =
-    cast[array[16, T]](a)[i * 4 + j]
+  when not defined(js):
+    template `[]`*[T](a: GMat2[T], i, j: int): T = cast[array[4, T]](a)[i * 2 + j]
+    template `[]`*[T](a: GMat3[T], i, j: int): T = cast[array[9, T]](a)[i * 3 + j]
+    template `[]`*[T](a: GMat4[T], i, j: int): T = cast[array[16, T]](a)[i * 4 + j]
 
-  template `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + (i * 2 + j) * sizeof(T))[] = v
+    template `[]=`*[T](a: var GMat2[T], i, j: int, v: T) = cast[ptr T](cast[ByteAddress](a.addr) + (i * 2 + j) * sizeof(T))[] = v
+    template `[]=`*[T](a: var GMat3[T], i, j: int, v: T) = cast[ptr T](cast[ByteAddress](a.addr) + (i * 3 + j) * sizeof(T))[] = v
+    template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) = cast[ptr T](cast[ByteAddress](a.addr) + (i * 4 + j) * sizeof(T))[] = v
 
-  template `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + (i * 3 + j) * sizeof(T))[] = v
+  else:
+    template `[]`*[T](a: GMat2[T], i, j: int): T = genReadAccess(a, (i * 2) + j, T.default)
+    template `[]`*[T](a: GMat3[T], i, j: int): T = genReadAccess(a, (i * 3) + j, T.default)
+    template `[]`*[T](a: GMat4[T], i, j: int): T = genReadAccess(a, (i * 4) + j, T.default)
 
-  template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + (i * 4 + j) * sizeof(T))[] = v
+    template `[]=`*[T](a: var GMat2[T], i, j: int, v: T) = genWriteAccess(a, (i * 2) + j, v)
+    template `[]=`*[T](a: var GMat3[T], i, j: int, v: T) = genWriteAccess(a, (i * 3) + j, v)
+    template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) = genWriteAccess(a, (i * 4) + j, v)
 
   template `[]`*[T](a: GMat2[T], i: int): GVec2[T] =
     gvec2[T](
@@ -245,6 +294,7 @@ elif defined(vmathObjBased):
     )
 
 elif true or defined(vmathObjArrayBased):
+
   type
     GVec2*[T] = object
       arr: array[2, T]

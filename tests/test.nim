@@ -1155,4 +1155,37 @@ block:
     else:
       doAssert abs(angleBetween(a.y, b.y - b.z)) < 0.001
 
+block:
+  # Test vector and matrix [] accessors
+
+  # Test matrix
+  var m = gmat2(1, 2, 3, 4)
+
+  doAssert m[0, 0] == 1
+  doAssert m[0, 1] == 2
+  doAssert m[1, 0] == 3
+  doAssert m[1, 1] == 4
+
+  m[0, 0] = 5
+  m[0, 1] = 6
+  m[1, 0] = 7
+  m[1, 1] = 8
+
+  doAssert m[0, 0] == 5
+  doAssert m[0, 1] == 6
+  doAssert m[1, 0] == 7
+  doAssert m[1, 1] == 8
+
+  # Test vector
+  var v = gvec2(1, 2)
+
+  doAssert v[0] == 1
+  doAssert v[1] == 2
+
+  v[0] = 5
+  v[1] = 6
+
+  doAssert v[0] == 5
+  doAssert v[1] == 6
+
 echo "test finished successfully"
