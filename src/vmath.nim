@@ -248,7 +248,7 @@ elif defined(vmathObjBased):
 
   template `[]`*[T](a: GMat2[T], i, j: static[int]): T = genStaticReadAccess(a, (i * 2) + j)
   template `[]`*[T](a: GMat3[T], i, j: static[int]): T = genStaticReadAccess(a, (i * 3) + j)
-  template `[]`*[T](a: GMat4[T], i, j: static[int]): T = genStaticReadAccess(a, (i * 4) + j, 0)
+  template `[]`*[T](a: GMat4[T], i, j: static[int]): T = genStaticReadAccess(a, (i * 4) + j)
 
   template `[]=`*[T](a: var GMat2[T], i, j: static[int], v: T) = genStaticWriteAccess(a, (i * 2) + j, v)
   template `[]=`*[T](a: var GMat3[T], i, j: static[int], v: T) = genStaticWriteAccess(a, (i * 3) + j, v)
@@ -271,20 +271,6 @@ elif defined(vmathObjBased):
     template `[]=`*[T](a: var GMat2[T], i, j: int, v: T) = genWriteAccess(a, (i * 2) + j, v)
     template `[]=`*[T](a: var GMat3[T], i, j: int, v: T) = genWriteAccess(a, (i * 3) + j, v)
     template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) = genWriteAccess(a, (i * 4) + j, v)
-
-  var foo = gmat2(1, 2, 3, 4)
-  echo foo[0, 0]
-  echo foo[0, 1]
-  echo foo[1, 0]
-  echo foo[1, 1]
-  foo[0, 0] = 5
-  foo[0, 1] = 6
-  foo[1, 0] = 7
-  foo[1, 1] = 8
-  echo foo[0, 0]
-  echo foo[0, 1]
-  echo foo[1, 0]
-  echo foo[1, 1]
 
   template `[]`*[T](a: GMat2[T], i: int): GVec2[T] =
     gvec2[T](
