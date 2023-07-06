@@ -1032,6 +1032,18 @@ proc `*`*[T](a, b: GMat3[T]): GMat3[T] =
   result[2, 1] = b[2, 0] * a[0, 1] + b[2, 1] * a[1, 1] + b[2, 2] * a[2, 1]
   result[2, 2] = b[2, 0] * a[0, 2] + b[2, 1] * a[1, 2] + b[2, 2] * a[2, 2]
 
+proc `+=`*[T](a: var GVec234[T], b: GVec234[T]) =
+  a = a + b
+
+proc `-=`*[T](a: var GVec234[T], b: GVec234[T]) =
+  a = a - b
+
+proc `*=`*[T](a: var GVec234[T], b: GVec234[T]) =
+  a = a * b
+
+proc `/=`*[T](a: var GVec234[T], b: GVec234[T]) =
+  a = a / b
+
 proc `*`*[T](a: GMat2[T], b: GVec2[T]): GVec2[T] =
   gvec2[T](
     a[0, 0] * b.x + a[1, 0] * b.y,
@@ -1300,7 +1312,7 @@ proc rotationOnly*[T](a: GMat4[T]): GMat4[T] {.inline.} =
   ## Clears the positional component and returns rotation only.
   ## Assumes matrix has not been scaled.
   result = a
-  result.pos = gvec3(0, 0, 0)
+  result.pos = gvec3[T](0, 0, 0)
 
 proc rotateX*[T](angle: T): GMat4[T] =
   ## Return a rotation matrix around X with angle.

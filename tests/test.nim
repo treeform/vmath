@@ -153,7 +153,6 @@ block:
 block:
   # Test vec2 constructor.
   doAssert vec2(PI, PI) ~= vec2(PI)
-
 block:
   # Test basic vector vec2.
   var a = vec2(1, 2)
@@ -162,7 +161,7 @@ block:
   doAssert a + b ~= vec2(8.0, 8.0)
   doAssert a - b ~= vec2(-6.0, -4.0)
   doAssert a * n ~= vec2(13.7, 27.4)
-  doAssert a / n ~= vec2(0.0729927, 0.1459854)
+  doAssert a / n ~= vec2(1 / 13.7, 2 / 13.7)
   a += b
   doAssert a ~= vec2(8.0, 8.0)
   a -= b
@@ -179,14 +178,14 @@ block:
   var n = 13.7
   doAssert a + b ~= vec3(8.0, 8.0, 8.0)
   doAssert a - b ~= vec3(-6.0, -4.0, -2.0)
-  doAssert a * n ~= vec3(13.69999981, 27.39999962, 41.09999847)
-  doAssert a / n ~= vec3(0.07299270, 0.14598541, 0.21897811)
+  doAssert a * n ~= vec3(13.7, 27.4, 41.1)
+  doAssert a / n ~= vec3(1 / 13.7, 2 / 13.7, 3 / 13.7)
   a += b
   doAssert a ~= vec3(8.0, 8.0, 8.0)
   a -= b
   doAssert a ~= vec3(1.0, 2.0, 3.0)
   a *= n
-  doAssert a ~= vec3(13.69999981, 27.39999962, 41.09999847)
+  doAssert a ~= vec3(13.7, 27.4, 41.1)
   a /= n
   doAssert a ~= vec3(1.0, 2.0, 3.0)
 
@@ -197,14 +196,14 @@ block:
   var n = 13.7
   doAssert a + b ~= vec4(8.0, 8.0, 8.0, 8.0)
   doAssert a - b ~= vec4(-6.0, -4.0, -2.0, 0.0)
-  doAssert a * n ~= vec4(13.69999981, 27.39999962, 41.09999847, 54.79999924)
-  doAssert a / n ~= vec4(0.07299270, 0.14598541, 0.21897811, 0.29197082)
+  doAssert a * n ~= vec4(13.7, 27.4, 41.1, 54.8)
+  doAssert a / n ~= vec4(1 / 13.7, 2 / 13.7, 3 / 13.7, 4 / 13.7)
   a += b
   doAssert a ~= vec4(8.0, 8.0, 8.0, 8.0)
   a -= b
   doAssert a ~= vec4(1.0, 2.0, 3.0, 4.0)
   a *= n
-  doAssert a ~= vec4(13.69999981, 27.39999962, 41.09999847, 54.79999924)
+  doAssert a ~= vec4(13.7, 27.4, 41.1, 54.8)
   a /= n
   doAssert a ~= vec4(1.0, 2.0, 3.0, 4.0)
 
