@@ -789,7 +789,8 @@ proc lengthSq*[T](a: GVec4[T]): T =
   a.x*a.x + a.y*a.y + a.z*a.z + a.w*a.w
 
 proc normalize*[T](a: GVec234[T]): type(a) =
-  a / a.length
+  if (a.length == 0): a 
+  else: a / a.length
 
 proc mix*[T: SomeFloat](a, b: GVec234[T], v: T): type(a) =
   a * (1.0 - v) + b * v
