@@ -1573,7 +1573,7 @@ proc angle*[T](a: GVec2[T]): T =
   ## Angle of a Vec2.
   arctan2(a.y, a.x)
 
-proc angle*[T](a, b: GVec2[T]|GVec3[T]): T =
+proc angle*[T; S: GVec2[T]|GVec3[T]](a, b: S): T =
   ## Angle between 2 Vec2 or Vec3.
   runnableExamples:
     assert angle(vec2(0.0, 1.0), vec2(1.0, 0.0)).toDegrees() == 90.0
