@@ -1573,12 +1573,16 @@ proc angle*[T](a: GVec2[T]): T =
   ## Angle of a Vec2.
   arctan2(a.y, a.x)
 
-proc angle*[T](a, b: GVec2[T]): T =
-  ## Angle between 2 Vec2.
-  fixAngle(arctan2(a.y - b.y, a.x - b.x))
+proc angle*[T](a, b: GVec2[T]|GVec3[T]): T =
+  ## Angle between 2 Vec2 or Vec3.
+  runnableExamples:
+    assert angle(vec2(0.0, 1.0), vec2(1.0, 0.0)).toDegrees() == 90.0
+    assert angle(vec2(0.0, 1.0), vec2(-1.0, 0.0)).toDegrees() == 90.0
+    assert angle(vec2(0.0, 1.0), vec2(0.0, -1.0)).toDegrees() == 180.0
 
-proc angle*[T](a, b: GVec3[T]): T =
-  ## Angle between 2 Vec3.
+    assert angle(vec3(0.0, 1.0, 0.0), vec3(1.0, 0.0, 0.0)).toDegrees() == 90.0
+    assert angle(vec3(0.0, 1.0, 0.0), vec3(-1.0, 0.0, 0.0)).toDegrees() == 90.0
+    assert angle(vec3(0.0, 1.0, 0.0), vec3(0.0, -1.0, 0.0)).toDegrees() == 180.0
   var dot = dot(a, b)
   dot = dot / (a.length * b.length)
   arccos(dot)
