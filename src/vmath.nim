@@ -1577,7 +1577,11 @@ proc angle*[T; S: GVec2[T]|GVec3[T]](a, b: S): T =
   ## Angle between 2 Vec2 or Vec3.
   var dot = dot(a, b)
   dot = dot / (a.length * b.length)
-  arccos(dot)
+  # The cases of angle((1, 1), (-1, -1)) and its 3d counterpart
+  # angle((1, 1, 1), (-1, -1, -1)) result in NaN due to a domain defect going
+  # into the arcos proc: abs(x) > 1.0.
+  # Therefore, we must `clamp` here.
+  arccos(dot.clamp(-1.0, 1.0))
 
 type
   Quat* = GVec4[float32]
