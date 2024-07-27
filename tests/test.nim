@@ -1155,4 +1155,34 @@ block:
     else:
       doAssert abs(angleBetween(a.y, b.y - b.z)) < 0.001
 
+block:
+  # Test for https://github.com/treeform/vmath/issues/73
+  template gen2DTestsFor(constructor: untyped): void =
+    doAssert angle(constructor(1, 0), constructor(1, 0)) ~= 0
+    doAssert angle(constructor(1, 1), constructor(-1, -1)) ~= Pi
+    doAssert angle(constructor(1, 0), constructor(0, 1)) ~= Pi/2
+    doAssert angle(constructor(1, 0), constructor(-1, 0)) ~= Pi
+    doAssert angle(constructor(1, 1), constructor(1, -1)) ~= Pi/2
+
+    # Edge cases:
+    doAssert angle(constructor(0, 0), constructor(1, 0)).isNaN()
+
+  gen2DTestsFor vec2
+  gen2DTestsFor dvec2
+
+  template gen3DTestsFor(constructor: untyped): void =
+    doAssert angle(constructor(1, 0, 0), constructor(1, 0, 0)) ~= 0
+    doAssert angle(constructor(1, 1, 1), constructor(-1, -1, -1)) ~= Pi
+    doAssert angle(constructor(1, 0, 0), constructor(0, 1, 0)) ~= Pi/2
+    doAssert angle(constructor(1, 0, 0), constructor(-1, 0, 0)) ~= Pi
+    doAssert angle(constructor(1, 1, 1), constructor(1, -1, 1)) ~= arccos(1/3)
+    doAssert angle(constructor(1, 0, 0), constructor(0, 0, 1)) ~= Pi/2
+    doAssert angle(constructor(1, 1, 1), constructor(-1, -1, 1)) ~= arccos(-1/3)
+
+    # Edge cases:
+    doAssert angle(vec3(0, 0, 0), vec3(1, 0, 0)).isNaN()
+
+  gen3DTestsFor vec3
+  gen3DTestsFor dvec3
+
 echo "test finished successfully"
