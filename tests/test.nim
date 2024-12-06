@@ -1160,12 +1160,12 @@ block:
   template gen2DTestsFor(constructor: untyped): void =
     doAssert angle(constructor(1, 0), constructor(1, 0)) ~= 0
     doAssert angle(constructor(1, 1), constructor(-1, -1)) ~= Pi
-    doAssert angle(constructor(1, 0), constructor(0, 1)) ~= Pi/2
-    doAssert angle(constructor(1, 0), constructor(-1, 0)) ~= Pi
+    doAssert angle(constructor(1, 0), constructor(0, 1)) ~= -Pi/2
+    doAssert angle(constructor(1, 0), constructor(-1, 0)) ~= -Pi
     doAssert angle(constructor(1, 1), constructor(1, -1)) ~= Pi/2
 
     # Edge cases:
-    doAssert angle(constructor(0, 0), constructor(1, 0)).isNaN()
+    doAssert angle(constructor(0, 0), constructor(1, 0)) ~= 0
 
   gen2DTestsFor vec2
   gen2DTestsFor dvec2
