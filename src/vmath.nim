@@ -30,7 +30,8 @@ float64 double DVec2 DVec3 DVec4 DMat3 DMat4 DQuat
 
 ]##
 
-import macros, math, strutils
+import 
+  std/[macros, math, strutils]
 export math except isNan
 
 {.push inline.}
@@ -389,8 +390,8 @@ type
 
 proc `~=`*[T: SomeFloat](a, b: T): bool =
   ## Almost equal.
-  const epsilon = 0.000001
-  abs(a - b) <= epsilon
+  const Epsilon = 0.000001
+  abs(a - b) <= Epsilon
 
 proc between*[T](value, min, max: T): bool =
   ## Returns true if value is between min and max or equal to them.
@@ -411,7 +412,7 @@ proc fract*[T: SomeFloat](v: T): T =
   result = abs(v)
   result = result - trunc(result)
 
-proc fractional*[T: SomeFloat](v: T): T {.deprecated: "Use frac() insetad"} =
+proc fractional*[T: SomeFloat](v: T): T {.deprecated: "Use fract() instead"} =
   ## Returns fractional part of a number.
   fract(v)
 

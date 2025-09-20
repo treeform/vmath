@@ -1,4 +1,6 @@
-import benchy, vmath
+import 
+  benchy,
+  vmath
 
 block:
   var

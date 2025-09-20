@@ -1,4 +1,7 @@
 
+import 
+  std/[macros]
+
 {.experimental: "dotOperators".}
 proc num(letter: char, fields: NimNode): int =
   ## Given a swizzle character gives back the location number.

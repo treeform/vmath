@@ -1,4 +1,6 @@
-import benchy, vmath
+import 
+  benchy,
+  vmath
 
 proc isNaNSlow(f: SomeFloat): bool =
   ## Returns true if number is a NaN.

@@ -1,4 +1,6 @@
-import benchy, vmath
+import 
+  benchy,
+  vmath
 
 # TODO: I don't trust these simple benchmarks, make a better test.
 # echo "new vmath"

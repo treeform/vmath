@@ -1,4 +1,6 @@
-import random, vmath
+import 
+  std/random,
+  vmath
 
 randomize(1234)
 
