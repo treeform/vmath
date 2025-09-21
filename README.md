@@ -14,7 +14,7 @@ Supports c, cpp and js backend.
 
 ## About
 
-Your one stop shop for vector math routines for 2d and 3d graphics.
+Your one stop shop for vector math routines for 2D and 3D graphics.
 
 * Pure Nim with no dependencies.
 * Very similar to GLSL Shader Language with extra stuff.
@@ -42,7 +42,7 @@ float64 | double | DVec2 | DVec3 | DVec4 | DMat3 | DMat4 | DQuat |
 
 ## 2D & 3D matrix math
 
-You can combine and create 2d and 3d matrices by passing 2d or 3d vectors to matrix functions:
+You can combine and create 2D and 3D matrices by passing 2D or 3D vectors to matrix functions:
 
 ```nim
 let mat2d = translate(vec2(10, 20)) * rotate(45.toRadians) * scale(vec2(2))
@@ -63,15 +63,14 @@ quat(1.0, 2.0, 3.0, 4.0) ~= quat(1.0, 2.0, 3.0, 4.0)
 
 * `between` - Returns true if value is between min and max or equal to them.
 * `sign` - Returns the sign of a number, -1 or 1.
-* `quantize` - Makes v be a multiple of n. Rounding to integer quantize by 1.0.
-* `fractional` - Returns fractional part of a number. 3.14 -> 0.14
+* `quantize` - Makes v be a multiple of n. Rounding to integer quantizes by 1.0.
 * `lerp` - Interpolates value between a and b.
 
 ## Angle functions
 
-* `fixAngle` - Make angle be from -PI to PI radians.
-* `angleBetween` - Find the angle between angle a and angle b.
-* `turnAngle` - Move from angle a to angle b with step of v.
+* `fixAngle` - Makes angle be from -PI to PI radians.
+* `angleBetween` - Finds the angle between angle a and angle b.
+* `turnAngle` - Moves from angle a to angle b with step of v.
 
 ## Vector and matrix representation and benchmarks.
 
@@ -93,11 +92,11 @@ vmathObjArrayBased ................ 73.968 ms     74.292 ms    ±0.631   x100
 
 ## Zmod - GLSL mod
 
-GLSL uses a different type of float point mod. Because mod is a Nim keyword please use `zmod` when you need GLSL `mod` behavior.
+GLSL uses a different type of float point mod. Because mod is a Nim keyword, please use `zmod` when you need GLSL `mod` behavior.
 
 ## Coordinate System
 
-Right-hand z-forward coordinate system
+Right-hand Z-forward coordinate system
 
 This is the same system used in the GLTF file format.
 
@@ -124,18 +123,18 @@ OpenGL/GLSL/vmath vs Math/Specification notation:
 ```
 
 # 1.x.x to 2.0.0 vmath breaking changes:
-* New right-hand-z-forward cordate system and functions that care about
-coordinate system where moved there.
-* deprecated `lookAt()` please use `toAngles()`/`fromAngles()` instead.
-* deprecated `fractional()` use `frac()` instead.
+* New right-hand-Z-forward coordinate system and functions that care about
+coordinate system were moved there.
+* Deprecated `lookAt()`, please use `toAngles()`/`fromAngles()` instead.
+* Deprecated `fractional()`, use `frac()` instead.
 
 # 0.x.x to 1.0.0 vmath breaking changes:
 
-* `vec3(v)` no longer works please use `vec3(v.x, v.y, 0)` instead.
-* `vec3(v, 0)` no longer works please use `vec3(v.x, v.y, 0)` instead.
-* `2 * v` no longer works due to more vec types please use `v * 2` instead.
+* `vec3(v)` no longer works, please use `vec3(v.x, v.y, 0)` instead.
+* `vec3(v, 0)` no longer works, please use `vec3(v.x, v.y, 0)` instead.
+* `2 * v` no longer works due to more vec types, please use `v * 2` instead.
 * `m[15]` no longer works because matrices are now m[x, y].
-* Concept of 3x3 rotation 3d matrix was removed.
+* Concept of 3x3 rotation 3D matrix was removed.
 * `angleBetween` got renamed to `angle(a, b)`
 * `scaleMat` got renamed to `scale(v)`
 * `rotationMat3` got renamed to `rotate(x)`
