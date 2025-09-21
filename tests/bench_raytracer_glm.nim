@@ -2,7 +2,9 @@
 ## MIT License
 ## Copyright (c) 2021 Edin Omeragic
 
-import benchy, chroma, math, glm
+import 
+  std/math,
+  benchy, chroma, glm
 from pixie import Image, newImage, writeFile, dataIndex
 
 type Vec3 = glm.Vec3[float32]
