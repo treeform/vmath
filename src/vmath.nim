@@ -30,7 +30,7 @@ float64 double DVec2 DVec3 DVec4 DMat3 DMat4 DQuat
 
 ]##
 
-import 
+import
   std/[macros, math, strutils]
 export math except isNan
 
@@ -853,6 +853,15 @@ proc min*(a, b: Vec3): Vec3 =
 proc min*(a, b: Vec4): Vec4 =
   vec4(min(a.x, b.x), min(a.y, b.y), min(a.z, b.z), min(a.w, b.w))
 
+proc min*(a: Vec2, b: float32): Vec2 =
+  vec2(min(a.x, b), min(a.y, b))
+
+proc min*(a: Vec3, b: float32): Vec3 =
+  vec3(min(a.x, b), min(a.y, b), min(a.z, b))
+
+proc min*(a: Vec4, b: float32): Vec4 =
+  vec4(min(a.x, b), min(a.y, b), min(a.z, b), min(a.w, b))
+
 proc max*(a, b: Vec2): Vec2 =
   vec2(max(a.x, b.x), max(a.y, b.y))
 
@@ -861,6 +870,33 @@ proc max*(a, b: Vec3): Vec3 =
 
 proc max*(a, b: Vec4): Vec4 =
   vec4(max(a.x, b.x), max(a.y, b.y), max(a.z, b.z), max(a.w, b.w))
+
+proc max*(a: Vec2, b: float32): Vec2 =
+  vec2(max(a.x, b), max(a.y, b))
+
+proc max*(a: Vec3, b: float32): Vec3 =
+  vec3(max(a.x, b), max(a.y, b), max(a.z, b))
+
+proc max*(a: Vec4, b: float32): Vec4 =
+  vec4(max(a.x, b), max(a.y, b), max(a.z, b), max(a.w, b))
+
+proc clamp*(v, min, max: Vec2): Vec2 =
+  vec2(clamp(v.x, min.x, max.x), clamp(v.y, min.y, max.y))
+
+proc clamp*(v, min, max: Vec3): Vec3 =
+  vec3(clamp(v.x, min.x, max.x), clamp(v.y, min.y, max.y), clamp(v.z, min.z, max.z))
+
+proc clamp*(v, min, max: Vec4): Vec4 =
+  vec4(clamp(v.x, min.x, max.x), clamp(v.y, min.y, max.y), clamp(v.z, min.z, max.z), clamp(v.w, min.w, max.w))
+
+proc clamp*(v: Vec2, min, max: float32): Vec2 =
+  vec2(clamp(v.x, min, max), clamp(v.y, min, max))
+
+proc clamp*(v: Vec3, min, max: float32): Vec3 =
+  vec3(clamp(v.x, min, max), clamp(v.y, min, max), clamp(v.z, min, max))
+
+proc clamp*(v: Vec4, min, max: float32): Vec4 =
+  vec4(clamp(v.x, min, max), clamp(v.y, min, max), clamp(v.z, min, max), clamp(v.w, min, max))
 
 type
   Mat2* = GMat2[float32]
