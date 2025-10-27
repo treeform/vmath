@@ -6,7 +6,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest]
-        nim-version: ['1.4.x', '2.0.x', '2.2.x', 'stable']
+        nim-version: ['1.4.0', '2.0.0', '2.2.4']
 
     runs-on: ${{ matrix.os }}
 
