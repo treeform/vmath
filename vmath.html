@@ -16,10 +16,10 @@
 <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAA3XAAAN1wFCKJt4AAAAB3RJTUUH4QQQEwksSS9ZWwAAAk1JREFUWMPtll2ITVEUx39nn/O7Y5qR8f05wtCUUr6ZIS++8pEnkZInPImneaCQ5METNdOkeFBKUhMPRIkHKfEuUZSUlGlKPN2TrgfncpvmnntnmlEyq1Z7t89/rf9a6+y99oZxGZf/XeIq61EdtgKXgdXA0xrYAvBjOIF1AI9zvjcC74BSpndrJPkBWDScTF8Aa4E3wDlgHbASaANmVqlcCnwHvgDvgVfAJ+AikAAvgfVZwLnSVZHZaOuKoQi3ZOMi4NkYkpe1p4J7A8BpYAD49hfIy/oqG0+hLomiKP2L5L+1ubn5115S+3OAn4EnwBlgMzCjyt6ZAnQCJ4A7wOs88iRJHvw50HoujuPBoCKwHWiosy8MdfZnAdcHk8dxXFJ3VQbQlCTJvRBCGdRbD4M6uc5glpY3eAihpN5S5w12diSEcCCEcKUO4ljdr15T76ur1FDDLIQQ3qv71EdDOe3Kxj3leRXyk+pxdWnFWod6Wt2bY3de3aSuUHcPBVimHs7mK9WrmeOF6lR1o9qnzskh2ar2qm1qizpfXaPeVGdlmGN5pb09qMxz1Xb1kLqgzn1RyH7JUXW52lr5e/Kqi9qpto7V1atuUzfnARrV7jEib1T76gG2qxdGmXyiekkt1GswPTtek0aBfJp6YySGBfWg2tPQ0FAYgf1stUfdmdcjarbYJEniKIq6gY/Aw+zWHAC+p2labGpqiorFYgGYCEzN7oQdQClN07O1/EfDyGgC0ALMBdYAi4FyK+4H3gLPsxfR1zRNi+NP7nH5J+QntnXe5B5mpfQAAAAASUVORK5CYII=">
 
 <!-- CSS -->
-<link rel="stylesheet" type="text/css" href="nimdoc.out.css?v=2.2.4">
+<link rel="stylesheet" type="text/css" href="nimdoc.out.css?v=2.2.6">
 
 <!-- JS -->
-<script type="text/javascript" src="dochack.js?v=2.2.4"></script>
+<script type="text/javascript" src="dochack.js?v=2.2.6"></script>
 </head>
 <body>
   <div class="document" id="documentId">
@@ -372,6 +372,8 @@
       m11`gensym363, m12`gensym363, m13`gensym363, m20`gensym363, m21`gensym363,
       m22`gensym363, m23`gensym363, m30`gensym363, m31`gensym363, m32`gensym363,
       m33`gensym363: float64): DMat4</a></li>
+<li><a class="reference" href="#dmat4%2CDMat4" title="dmat4(m: DMat4): DMat4">dmat4(m: DMat4): DMat4</a></li>
+<li><a class="reference" href="#dmat4%2CMat4" title="dmat4(m: Mat4): DMat4">dmat4(m: Mat4): DMat4</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">dot
@@ -616,6 +618,8 @@
      m11`gensym301, m12`gensym301, m13`gensym301, m20`gensym301, m21`gensym301,
      m22`gensym301, m23`gensym301, m30`gensym301, m31`gensym301, m32`gensym301,
      m33`gensym301: float32): Mat4</a></li>
+<li><a class="reference" href="#mat4%2CDMat4" title="mat4(m: DMat4): Mat4">mat4(m: DMat4): Mat4</a></li>
+<li><a class="reference" href="#mat4%2CMat4" title="mat4(m: Mat4): Mat4">mat4(m: Mat4): Mat4</a></li>
 <li><a class="reference" href="#mat4%2CGVec4%5BT%5D" title="mat4[T](q: GVec4[T]): GMat4[T]">mat4[T](q: GVec4[T]): GMat4[T]</a></li>
 
 </ul>
@@ -706,6 +710,22 @@
 <li><a class="reference" href="#quat%2Cfloat32" title="quat(x`gensym426: float32): Quat">quat(x`gensym426: float32): Quat</a></li>
 <li><a class="reference" href="#quat%2CGMat4%5BT%5D" title="quat[T](m: GMat4[T]): GVec4[T]">quat[T](m: GMat4[T]): GVec4[T]</a></li>
 <li><a class="reference" href="#quat_3" title="quat[T](x`gensym426: GVec4[T]): Quat">quat[T](x`gensym426: GVec4[T]): Quat</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">quatMultiply
+  <li><a class="reference" href="#quatMultiply%2CGVec4%5BT%5D%2CGVec4%5BT%5D" title="quatMultiply[T](a: GVec4[T]; b: GVec4[T]): GVec4[T]">quatMultiply[T](a: GVec4[T]; b: GVec4[T]): GVec4[T]</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">quatRotateX
+  <li><a class="reference" href="#quatRotateX%2CT" title="quatRotateX[T](angle: T): GVec4[T]">quatRotateX[T](angle: T): GVec4[T]</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">quatRotateY
+  <li><a class="reference" href="#quatRotateY%2CT" title="quatRotateY[T](angle: T): GVec4[T]">quatRotateY[T](angle: T): GVec4[T]</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">quatRotateZ
+  <li><a class="reference" href="#quatRotateZ%2CT" title="quatRotateZ[T](angle: T): GVec4[T]">quatRotateZ[T](angle: T): GVec4[T]</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">right
@@ -3138,6 +3158,26 @@
 
   </dd>
 </div>
+<div id="dmat4,DMat4">
+  <dt><pre><span class="Keyword">proc</span> <a href="#dmat4%2CDMat4"><span class="Identifier">dmat4</span></a><span class="Other">(</span><span class="Identifier">m</span><span class="Other">:</span> <a href="vmath.html#DMat4"><span class="Identifier">DMat4</span></a><span class="Other">)</span><span class="Other">:</span> <a href="vmath.html#DMat4"><span class="Identifier">DMat4</span></a> {.<span class="Identifier">inline</span><span class="Other">,</span> <span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    Convert a double precision matrix to a double precision matrix.
+    <a href="https://github.com/treeform/vmath/tree/master/src/vmath.nim#L1828" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/treeform/vmath/edit/devel/src/vmath.nim#L1828" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="dmat4,Mat4">
+  <dt><pre><span class="Keyword">proc</span> <a href="#dmat4%2CMat4"><span class="Identifier">dmat4</span></a><span class="Other">(</span><span class="Identifier">m</span><span class="Other">:</span> <a href="vmath.html#Mat4"><span class="Identifier">Mat4</span></a><span class="Other">)</span><span class="Other">:</span> <a href="vmath.html#DMat4"><span class="Identifier">DMat4</span></a> {.<span class="Identifier">inline</span><span class="Other">,</span> <span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    Convert a single precision matrix to a double precision matrix.
+    <a href="https://github.com/treeform/vmath/tree/master/src/vmath.nim#L1809" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/treeform/vmath/edit/devel/src/vmath.nim#L1809" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
 
 </div>
 <div id="dot-procs-all">
@@ -4410,6 +4450,26 @@
 
   </dd>
 </div>
+<div id="mat4,DMat4">
+  <dt><pre><span class="Keyword">proc</span> <a href="#mat4%2CDMat4"><span class="Identifier">mat4</span></a><span class="Other">(</span><span class="Identifier">m</span><span class="Other">:</span> <a href="vmath.html#DMat4"><span class="Identifier">DMat4</span></a><span class="Other">)</span><span class="Other">:</span> <a href="vmath.html#Mat4"><span class="Identifier">Mat4</span></a> {.<span class="Identifier">inline</span><span class="Other">,</span> <span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    Convert a double precision matrix to a single precision matrix.
+    <a href="https://github.com/treeform/vmath/tree/master/src/vmath.nim#L1786" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/treeform/vmath/edit/devel/src/vmath.nim#L1786" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="mat4,Mat4">
+  <dt><pre><span class="Keyword">proc</span> <a href="#mat4%2CMat4"><span class="Identifier">mat4</span></a><span class="Other">(</span><span class="Identifier">m</span><span class="Other">:</span> <a href="vmath.html#Mat4"><span class="Identifier">Mat4</span></a><span class="Other">)</span><span class="Other">:</span> <a href="vmath.html#Mat4"><span class="Identifier">Mat4</span></a> {.<span class="Identifier">inline</span><span class="Other">,</span> <span class="Identifier">inline</span><span class="Other">,</span> <span><span class="Other pragmadots">...</span></span><span class="pragmawrap"><span class="Identifier">raises</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">tags</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span><span class="Other">,</span> <span class="Identifier">forbids</span><span class="Other">:</span> <span class="Other">[</span><span class="Other">]</span></span>.}</pre></dt>
+  <dd>
+    
+    Convert a double precision matrix to a single precision matrix.
+    <a href="https://github.com/treeform/vmath/tree/master/src/vmath.nim#L1805" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/treeform/vmath/edit/devel/src/vmath.nim#L1805" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
 <div id="mat4,GVec4[T]">
   <dt><pre><span class="Keyword">proc</span> <a href="#mat4%2CGVec4%5BT%5D"><span class="Identifier">mat4</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">q</span><span class="Other">:</span> <a href="vmath.html#GVec4"><span class="Identifier">GVec4</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="vmath.html#GMat4"><span class="Identifier">GMat4</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> {.<span class="Identifier">inline</span>.}</pre></dt>
   <dd>
@@ -4941,6 +5001,58 @@
 </div>
 
 </div>
+<div id="quatMultiply-procs-all">
+  <div id="quatMultiply,GVec4[T],GVec4[T]">
+  <dt><pre><span class="Keyword">proc</span> <a href="#quatMultiply%2CGVec4%5BT%5D%2CGVec4%5BT%5D"><span class="Identifier">quatMultiply</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="vmath.html#GVec4"><span class="Identifier">GVec4</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="vmath.html#GVec4"><span class="Identifier">GVec4</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="vmath.html#GVec4"><span class="Identifier">GVec4</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    Return the product of two quaternions.
+    <a href="https://github.com/treeform/vmath/tree/master/src/vmath.nim#L1848" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/treeform/vmath/edit/devel/src/vmath.nim#L1848" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="quatRotateX-procs-all">
+  <div id="quatRotateX,T">
+  <dt><pre><span class="Keyword">proc</span> <a href="#quatRotateX%2CT"><span class="Identifier">quatRotateX</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">angle</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <a href="vmath.html#GVec4"><span class="Identifier">GVec4</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    Return a quaternion that would rotate around the X axis.
+    <a href="https://github.com/treeform/vmath/tree/master/src/vmath.nim#L1836" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/treeform/vmath/edit/devel/src/vmath.nim#L1836" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="quatRotateY-procs-all">
+  <div id="quatRotateY,T">
+  <dt><pre><span class="Keyword">proc</span> <a href="#quatRotateY%2CT"><span class="Identifier">quatRotateY</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">angle</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <a href="vmath.html#GVec4"><span class="Identifier">GVec4</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    Return a quaternion that would rotate around the Y axis.
+    <a href="https://github.com/treeform/vmath/tree/master/src/vmath.nim#L1840" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/treeform/vmath/edit/devel/src/vmath.nim#L1840" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
+<div id="quatRotateZ-procs-all">
+  <div id="quatRotateZ,T">
+  <dt><pre><span class="Keyword">proc</span> <a href="#quatRotateZ%2CT"><span class="Identifier">quatRotateZ</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">angle</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <a href="vmath.html#GVec4"><span class="Identifier">GVec4</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    Return a quaternion that would rotate around the Z axis.
+    <a href="https://github.com/treeform/vmath/tree/master/src/vmath.nim#L1844" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/treeform/vmath/edit/devel/src/vmath.nim#L1844" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
 <div id="right-procs-all">
   <div id="right,GMat4[T]">
   <dt><pre><span class="Keyword">proc</span> <a href="#right%2CGMat4%5BT%5D"><span class="Identifier">right</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="vmath.html#GMat4"><span class="Identifier">GMat4</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="vmath.html#GVec3"><span class="Identifier">GVec3</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span class="Identifier">inline</span>.}</pre></dt>
@@ -4970,8 +5082,8 @@
   <dd>
     
     Return a rotation matrix with axis and angle.
-    <a href="https://github.com/treeform/vmath/tree/master/src/vmath.nim#L1786" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/treeform/vmath/edit/devel/src/vmath.nim#L1786" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/treeform/vmath/tree/master/src/vmath.nim#L1832" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/treeform/vmath/edit/devel/src/vmath.nim#L1832" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -6534,7 +6646,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2025-10-27 23:38:58 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2025-11-24 05:55:32 UTC</small>
       </div>
     </div>
   </div>
