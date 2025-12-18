@@ -1764,24 +1764,25 @@ proc mat4*[T](q: GVec4[T]): GMat4[T] =
     zw = q.z * q.w
 
   result[0, 0] = 1 - 2 * (yy + zz)
-  result[0, 1] = 0 + 2 * (xy - zw)
-  result[0, 2] = 0 + 2 * (xz + yw)
-  result[0, 3] = 0
-
-  result[1, 0] = 0 + 2 * (xy + zw)
-  result[1, 1] = 1 - 2 * (xx + zz)
-  result[1, 2] = 0 + 2 * (yz - xw)
-  result[1, 3] = 0
-
-  result[2, 0] = 0 + 2 * (xz - yw)
-  result[2, 1] = 0 + 2 * (yz + xw)
-  result[2, 2] = 1 - 2 * (xx + yy)
-  result[2, 3] = 0
-
+  result[1, 0] = 0 + 2 * (xy - zw)
+  result[2, 0] = 0 + 2 * (xz + yw)
   result[3, 0] = 0
+
+  result[0, 1] = 0 + 2 * (xy + zw)
+  result[1, 1] = 1 - 2 * (xx + zz)
+  result[2, 1] = 0 + 2 * (yz - xw)
   result[3, 1] = 0
+  
+  result[0, 2] = 0 + 2 * (xz - yw)
+  result[1, 2] = 0 + 2 * (yz + xw)
+  result[2, 2] = 1 - 2 * (xx + yy)
   result[3, 2] = 0
+
+  result[0, 3] = 0
+  result[1, 3] = 0
+  result[2, 3] = 0
   result[3, 3] = 1.0
+
 
 proc mat4*(m: DMat4): Mat4 {.inline.} =
   ## Convert a double precision matrix to a single precision matrix.
@@ -1853,6 +1854,18 @@ proc quatMultiply*[T](a: GVec4[T], b: GVec4[T]): GVec4[T] =
     a.w * b.z + a.z * b.w + a.x * b.y - a.y * b.x,
     a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z
   )
+
+proc toAngles*[T](m: GVec4[T]): GVec3[T] =
+  ## Convert a quaternion to Euler angles.
+  let
+    x = m.x
+    y = m.y
+    z = m.z
+    w = m.w
+
+  result.x = arctan2(2 * (w * x + y * z), 1 - 2 * (x * x + y * y))
+  result.y = arcsin(2 * (w * y - z * x))
+  result.z = arctan2(2 * (w * z + x * y), 1 - 2 * (y * y + z * z))
 
 when defined(release):
   {.pop.}
