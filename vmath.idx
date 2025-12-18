@@ -498,15 +498,16 @@ nim	fromTwoVectors	vmath.html#fromTwoVectors,GVec3[T],GVec3[T]	proc fromTwoVecto
 nim	nlerp	vmath.html#nlerp,Quat,Quat,float32	proc nlerp(a: Quat; b: Quat; v: float32): Quat		1706
 nim	quat	vmath.html#quat,GMat4[T]	proc quat[T](m: GMat4[T]): GVec4[T]		1712
 nim	mat4	vmath.html#mat4,GVec4[T]	proc mat4[T](q: GVec4[T]): GMat4[T]		1752
-nim	mat4	vmath.html#mat4,DMat4	proc mat4(m: DMat4): Mat4		1786
-nim	mat4	vmath.html#mat4,Mat4	proc mat4(m: Mat4): Mat4		1805
-nim	dmat4	vmath.html#dmat4,Mat4	proc dmat4(m: Mat4): DMat4		1809
-nim	dmat4	vmath.html#dmat4,DMat4	proc dmat4(m: DMat4): DMat4		1828
-nim	rotate	vmath.html#rotate,T,GVec3[T]	proc rotate[T](angle: T; axis: GVec3[T]): GMat4[T]		1832
-nim	quatRotateX	vmath.html#quatRotateX,T	proc quatRotateX[T](angle: T): GVec4[T]		1836
-nim	quatRotateY	vmath.html#quatRotateY,T	proc quatRotateY[T](angle: T): GVec4[T]		1840
-nim	quatRotateZ	vmath.html#quatRotateZ,T	proc quatRotateZ[T](angle: T): GVec4[T]		1844
-nim	quatMultiply	vmath.html#quatMultiply,GVec4[T],GVec4[T]	proc quatMultiply[T](a: GVec4[T]; b: GVec4[T]): GVec4[T]		1848
+nim	mat4	vmath.html#mat4,DMat4	proc mat4(m: DMat4): Mat4		1787
+nim	mat4	vmath.html#mat4,Mat4	proc mat4(m: Mat4): Mat4		1806
+nim	dmat4	vmath.html#dmat4,Mat4	proc dmat4(m: Mat4): DMat4		1810
+nim	dmat4	vmath.html#dmat4,DMat4	proc dmat4(m: DMat4): DMat4		1829
+nim	rotate	vmath.html#rotate,T,GVec3[T]	proc rotate[T](angle: T; axis: GVec3[T]): GMat4[T]		1833
+nim	quatRotateX	vmath.html#quatRotateX,T	proc quatRotateX[T](angle: T): GVec4[T]		1837
+nim	quatRotateY	vmath.html#quatRotateY,T	proc quatRotateY[T](angle: T): GVec4[T]		1841
+nim	quatRotateZ	vmath.html#quatRotateZ,T	proc quatRotateZ[T](angle: T): GVec4[T]		1845
+nim	quatMultiply	vmath.html#quatMultiply,GVec4[T],GVec4[T]	proc quatMultiply[T](a: GVec4[T]; b: GVec4[T]): GVec4[T]		1849
+nim	toAngles	vmath.html#toAngles,GVec4[T]	proc toAngles[T](m: GVec4[T]): GVec3[T]		1858
 nimgrp	ivec2	vmath.html#ivec2-procs-all	proc		486
 nimgrp	log2	vmath.html#log2-procs-all	proc		728
 nimgrp	dot	vmath.html#dot-procs-all	proc		801
