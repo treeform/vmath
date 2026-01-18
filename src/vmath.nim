@@ -1610,8 +1610,12 @@ proc angle*[T](a: GVec2[T]): T =
   ## Angle of a Vec2.
   arctan2(a.y, a.x)
 
-proc angle*[T; S: GVec2[T]|GVec3[T]](a, b: S): T =
-  ## Angle between 2 Vec2 or Vec3.
+proc angle*[T; S: GVec2[T]](a, b: S): T =
+  ## Angle between 2 Vec2.
+  arctan2(a.y*b.x - a.x*b.y, a.x*b.x + a.y*b.y)
+
+proc angle*[T; S: GVec3[T]](a, b: S): T =
+  ## Angle between 2 Vec3.
   var dot = dot(a, b)
   dot = dot / (a.length * b.length)
   # The cases of angle((1, 1), (-1, -1)) and its 3d counterpart
