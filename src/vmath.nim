@@ -1772,7 +1772,7 @@ proc mat4*[T](q: GVec4[T]): GMat4[T] =
   result[1, 1] = 1 - 2 * (xx + zz)
   result[2, 1] = 0 + 2 * (yz - xw)
   result[3, 1] = 0
-  
+
   result[0, 2] = 0 + 2 * (xz - yw)
   result[1, 2] = 0 + 2 * (yz + xw)
   result[2, 2] = 1 - 2 * (xx + yy)

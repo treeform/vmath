@@ -2,7 +2,7 @@
 ## MIT License
 ## Copyright (c) 2021 Edin Omeragic
 
-import 
+import
   std/math,
   benchy, chroma, pixie, vmath
 

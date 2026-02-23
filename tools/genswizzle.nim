@@ -1,4 +1,4 @@
-import 
+import
   std/strformat
 
 var

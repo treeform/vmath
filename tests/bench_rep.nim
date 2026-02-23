@@ -1,4 +1,4 @@
-import 
+import
   benchy
 
 type
