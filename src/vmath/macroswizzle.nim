@@ -1,5 +1,4 @@
-
-import 
+import
   std/[macros]
 
 {.experimental: "dotOperators".}
