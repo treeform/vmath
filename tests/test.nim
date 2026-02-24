@@ -703,8 +703,8 @@ block:
   )
   doAssert rotate(1.0, dvec3(1, 0, 0)).inverse() ~= dmat4(
     1.0, 0.0, 0.0, 0.0,
-    -0.0, 0.5403022766113281, 0.8414710164070129, 0.0,
-    0.0, -0.8414710164070129, 0.5403022766113281, 0.0,
+    0.0, 0.5403023058681398, -0.8414709848078965, 0.0,
+    0.0, 0.8414709848078965, 0.5403023058681398, -0.0,
     0.0, 0.0, 0.0, 1.0
   )
 
@@ -749,56 +749,56 @@ block:
     0, 0, 0, 1)
   var q1 = m1.quat()
   var m2 = q1.mat4()
-  doAssert m1 ~= m2
+  doAssert m1.transpose() ~= m2
 
 block:
   # Test Y 90.
   var m1 = rotate(PI/2, dvec3(0, 1, 0))
   var q1 = m1.quat()
   var m2 = q1.mat4()
-  doAssert m1 ~= m2
+  doAssert m1.transpose() ~= m2
 
 block:
   # Test -Y 90.
   var m1 = rotate(PI/2, dvec3(0, -1, 0))
   var q1 = m1.quat()
   var m2 = q1.mat4()
-  doAssert m1 ~= m2
+  doAssert m1.transpose() ~= m2
 
 block:
   # Test X 90.
   var m1 = rotate(PI/2, dvec3(1, 0, 0))
   var q1 = m1.quat()
   var m2 = q1.mat4()
-  doAssert m1 ~= m2
+  doAssert m1.transpose() ~= m2
 
 block:
   # Test Y 90.
   var m1 = rotate(PI/2, dvec3(1, 0, 0))
   var q1 = m1.quat()
   var m2 = q1.mat4()
-  doAssert m1 ~= m2
+  doAssert m1.transpose() ~= m2
 
 block:
   # Test 1,1,1 1.11rad.
   var m1 = rotate(PI*1.11, dvec3(1, 1, 1).normalize())
   var q1 = m1.quat()
   var m2 = q1.mat4()
-  doAssert m1 ~= m2
+  doAssert m1.transpose() ~= m2
 
 block:
   # Test 1,1,1 1.11rad.
   var m1 = rotate(PI*1.11, dvec3(-1, 1, 1).normalize())
   var q1 = m1.quat()
   var m2 = q1.mat4()
-  doAssert m1 ~= m2
+  doAssert m1.transpose() ~= m2
 
 block:
   # Test 1,1,1 1.11rad.
   var m1 = rotate(PI*1.11, dvec3(-1, 0.34, 1.123).normalize())
   var q1 = m1.quat()
   var m2 = q1.mat4()
-  doAssert m1 ~= m2
+  doAssert m1.transpose() ~= m2
 
 block:
   # Test super random quat test.
@@ -809,7 +809,7 @@ block:
     )
     var q1 = m1.quat()
     var m2 = q1.mat4()
-    doAssert m1 ~= m2
+    doAssert m1.transpose() ~= m2
 
 block:
   # Test *=1 /=1 don't change anything.
@@ -888,7 +888,7 @@ block:
     )
     var q1 = m1.quat()
     var m2 = q1.mat4()
-    doAssert m1 ~= m2
+    doAssert m1.transpose() ~= m2
 
 block:
   # test fromTwoVectors
@@ -896,14 +896,14 @@ block:
     a = vec3(1, 0, 0)
     b = vec3(0, 1, 0)
     q1 = fromTwoVectors(a, b)
-  doAssert q1.mat4 * a ~= b
+  doAssert q1.mat4.transpose() * a ~= b
 
   for i in 0 ..< 1000:
     let
       a = vec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
       b = vec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
       q = fromTwoVectors(a, b)
-    doAssert dist(q.mat4 * a, b) < 1E5
+    doAssert dist(q.mat4.transpose() * a, b) < 1E5
 
 block:
   let mat2d = translate(vec2(10, 20)) * rotate(45.toRadians) * scale(vec2(2))
