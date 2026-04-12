@@ -1713,15 +1713,15 @@ proc quat*[T](m: GMat4[T]): GVec4[T] =
   ## Create a quaternion from matrix.
   let
     m00 = m[0, 0]
-    m01 = m[1, 0]
-    m02 = m[2, 0]
+    m01 = m[0, 1]
+    m02 = m[0, 2]
 
-    m10 = m[0, 1]
+    m10 = m[1, 0]
     m11 = m[1, 1]
-    m12 = m[2, 1]
+    m12 = m[1, 2]
 
-    m20 = m[0, 2]
-    m21 = m[1, 2]
+    m20 = m[2, 0]
+    m21 = m[2, 1]
     m22 = m[2, 2]
 
   var
@@ -1731,17 +1731,17 @@ proc quat*[T](m: GMat4[T]): GVec4[T] =
   if m22 < 0:
     if m00 > m11:
       t = 1 + m00 - m11 - m22
-      q = gvec4(t, m01 + m10, m20 + m02, m12 - m21)
+      q = gvec4(t, m01 + m10, m20 + m02, m21 - m12)
     else:
       t = 1 - m00 + m11 - m22
-      q = gvec4(m01 + m10, t, m12 + m21, m20 - m02)
+      q = gvec4(m01 + m10, t, m12 + m21, m02 - m20)
   else:
     if m00 < - m11:
       t = 1 - m00 - m11 + m22
-      q = gvec4(m20 + m02, m12 + m21, t, m01 - m10)
+      q = gvec4(m20 + m02, m12 + m21, t, m10 - m01)
     else:
       t = 1 + m00 + m11 + m22
-      q = gvec4(m12 - m21, m20 - m02, m01 - m10, t)
+      q = gvec4(m21 - m12, m02 - m20, m10 - m01, t)
   q = q * (0.5 / sqrt(t))
 
   if abs(q.length - 1.0) > 0.001:
@@ -1764,23 +1764,23 @@ proc mat4*[T](q: GVec4[T]): GMat4[T] =
     zw = q.z * q.w
 
   result[0, 0] = 1 - 2 * (yy + zz)
-  result[1, 0] = 0 + 2 * (xy - zw)
-  result[2, 0] = 0 + 2 * (xz + yw)
-  result[3, 0] = 0
-
-  result[0, 1] = 0 + 2 * (xy + zw)
-  result[1, 1] = 1 - 2 * (xx + zz)
-  result[2, 1] = 0 + 2 * (yz - xw)
-  result[3, 1] = 0
-
-  result[0, 2] = 0 + 2 * (xz - yw)
-  result[1, 2] = 0 + 2 * (yz + xw)
-  result[2, 2] = 1 - 2 * (xx + yy)
-  result[3, 2] = 0
-
+  result[0, 1] = 0 + 2 * (xy - zw)
+  result[0, 2] = 0 + 2 * (xz + yw)
   result[0, 3] = 0
+
+  result[1, 0] = 0 + 2 * (xy + zw)
+  result[1, 1] = 1 - 2 * (xx + zz)
+  result[1, 2] = 0 + 2 * (yz - xw)
   result[1, 3] = 0
+
+  result[2, 0] = 0 + 2 * (xz - yw)
+  result[2, 1] = 0 + 2 * (yz + xw)
+  result[2, 2] = 1 - 2 * (xx + yy)
   result[2, 3] = 0
+
+  result[3, 0] = 0
+  result[3, 1] = 0
+  result[3, 2] = 0
   result[3, 3] = 1.0
 
 
@@ -1854,6 +1854,17 @@ proc quatMultiply*[T](a: GVec4[T], b: GVec4[T]): GVec4[T] =
     a.w * b.z + a.z * b.w + a.x * b.y - a.y * b.x,
     a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z
   )
+
+proc quatRotate*[T](q: GVec4[T], v: GVec3[T]): GVec3[T] =
+  ## Rotate a vector directly by a quaternion without building a matrix.
+  let
+    qv = gvec3[T](q.x, q.y, q.z)
+    t = cross(v, qv) * 2
+  v + q.w * t + cross(t, qv)
+
+proc `*`*[T](a: GVec4[T], b: GVec3[T]): GVec3[T] {.inline.} =
+  ## Rotate a vector directly by a quaternion.
+  quatRotate(a, b)
 
 proc toAngles*[T](m: GVec4[T]): GVec3[T] =
   ## Convert a quaternion to Euler angles.

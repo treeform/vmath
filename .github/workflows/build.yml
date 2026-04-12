@@ -19,6 +19,11 @@ jobs:
     - uses: treeform/setup-nim-action@v2
       with:
         nim-version: ${{ matrix.nim-version }}
+    - run: nim r tests/test_quaternion.nim
+    - run: nim r --gc:arc tests/test_quaternion.nim
+    - run: nim r -d:vmathObjBased tests/test_quaternion.nim
+    - run: nim r -d:vmathArrayBased tests/test_quaternion.nim
+    - run: nim js -r tests/test_quaternion.nim
     - run: nim r tests/test.nim
     - run: nim r --gc:arc tests/test.nim
     - run: nim r -d:vmathObjBased tests/test.nim
