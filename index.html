@@ -130,6 +130,7 @@
 <li><a class="reference" href="#%2A%2CGMat3%5BT%5D%2CGVec3%5BT%5D" title="`*`[T](a: GMat3[T]; b: GVec3[T]): GVec3[T]">`*`[T](a: GMat3[T]; b: GVec3[T]): GVec3[T]</a></li>
 <li><a class="reference" href="#%2A%2CGMat4%5BT%5D%2CGVec3%5BT%5D" title="`*`[T](a: GMat4[T]; b: GVec3[T]): GVec3[T]">`*`[T](a: GMat4[T]; b: GVec3[T]): GVec3[T]</a></li>
 <li><a class="reference" href="#%2A%2CGMat4%5BT%5D%2CGVec4%5BT%5D" title="`*`[T](a: GMat4[T]; b: GVec4[T]): GVec4[T]">`*`[T](a: GMat4[T]; b: GVec4[T]): GVec4[T]</a></li>
+<li><a class="reference" href="#%2A%2CGVec4%5BT%5D%2CGVec3%5BT%5D" title="`*`[T](a: GVec4[T]; b: GVec3[T]): GVec3[T]">`*`[T](a: GVec4[T]; b: GVec3[T]): GVec3[T]</a></li>
 <li><a class="reference" href="#%2A%2C%2C" title="`*`[T](a`gensym154, b`gensym154: GVec2[T]): GVec2[T]">`*`[T](a`gensym154, b`gensym154: GVec2[T]): GVec2[T]</a></li>
 <li><a class="reference" href="#%2A%2C%2C_2" title="`*`[T](a`gensym154, b`gensym154: GVec3[T]): GVec3[T]">`*`[T](a`gensym154, b`gensym154: GVec3[T]): GVec3[T]</a></li>
 <li><a class="reference" href="#%2A%2C%2C_3" title="`*`[T](a`gensym154, b`gensym154: GVec4[T]): GVec4[T]">`*`[T](a`gensym154, b`gensym154: GVec4[T]): GVec4[T]</a></li>
@@ -714,6 +715,10 @@
 </ul>
 <ul class="simple nested-toc-section">quatMultiply
   <li><a class="reference" href="#quatMultiply%2CGVec4%5BT%5D%2CGVec4%5BT%5D" title="quatMultiply[T](a: GVec4[T]; b: GVec4[T]): GVec4[T]">quatMultiply[T](a: GVec4[T]; b: GVec4[T]): GVec4[T]</a></li>
+
+</ul>
+<ul class="simple nested-toc-section">quatRotate
+  <li><a class="reference" href="#quatRotate%2CGVec4%5BT%5D%2CGVec3%5BT%5D" title="quatRotate[T](q: GVec4[T]; v: GVec3[T]): GVec3[T]">quatRotate[T](q: GVec4[T]; v: GVec3[T]): GVec3[T]</a></li>
 
 </ul>
 <ul class="simple nested-toc-section">quatRotateX
@@ -1663,6 +1668,16 @@
     
     <a href="https://github.com/treeform/vmath/tree/master/src/vmath.nim#L1155" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
 <a href="https://github.com/treeform/vmath/edit/devel/src/vmath.nim#L1155" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+<div id="*,GVec4[T],GVec3[T]">
+  <dt><pre><span class="Keyword">proc</span> <a href="#%2A%2CGVec4%5BT%5D%2CGVec3%5BT%5D"><span class="Identifier">`*`</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">a</span><span class="Other">:</span> <a href="vmath.html#GVec4"><span class="Identifier">GVec4</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">b</span><span class="Other">:</span> <a href="vmath.html#GVec3"><span class="Identifier">GVec3</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="vmath.html#GVec3"><span class="Identifier">GVec3</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> {.<span class="Identifier">inline</span><span class="Other">,</span> <span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    Rotate a vector directly by a quaternion.
+    <a href="https://github.com/treeform/vmath/tree/master/src/vmath.nim#L1865" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/treeform/vmath/edit/devel/src/vmath.nim#L1865" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -5015,6 +5030,19 @@
 </div>
 
 </div>
+<div id="quatRotate-procs-all">
+  <div id="quatRotate,GVec4[T],GVec3[T]">
+  <dt><pre><span class="Keyword">proc</span> <a href="#quatRotate%2CGVec4%5BT%5D%2CGVec3%5BT%5D"><span class="Identifier">quatRotate</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">q</span><span class="Other">:</span> <a href="vmath.html#GVec4"><span class="Identifier">GVec4</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">;</span> <span class="Identifier">v</span><span class="Other">:</span> <a href="vmath.html#GVec3"><span class="Identifier">GVec3</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">)</span><span class="Other">:</span> <a href="vmath.html#GVec3"><span class="Identifier">GVec3</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> {.<span class="Identifier">inline</span>.}</pre></dt>
+  <dd>
+    
+    Rotate a vector directly by a quaternion without building a matrix.
+    <a href="https://github.com/treeform/vmath/tree/master/src/vmath.nim#L1858" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/treeform/vmath/edit/devel/src/vmath.nim#L1858" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+
+  </dd>
+</div>
+
+</div>
 <div id="quatRotateX-procs-all">
   <div id="quatRotateX,T">
   <dt><pre><span class="Keyword">proc</span> <a href="#quatRotateX%2CT"><span class="Identifier">quatRotateX</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span><span class="Other">(</span><span class="Identifier">angle</span><span class="Other">:</span> <span class="Identifier">T</span><span class="Other">)</span><span class="Other">:</span> <a href="vmath.html#GVec4"><span class="Identifier">GVec4</span></a><span class="Other">[</span><span class="Identifier">T</span><span class="Other">]</span> {.<span class="Identifier">inline</span>.}</pre></dt>
@@ -5369,8 +5397,8 @@
   <dd>
     
     Convert a quaternion to Euler angles.
-    <a href="https://github.com/treeform/vmath/tree/master/src/vmath.nim#L1858" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
-<a href="https://github.com/treeform/vmath/edit/devel/src/vmath.nim#L1858" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
+    <a href="https://github.com/treeform/vmath/tree/master/src/vmath.nim#L1869" class="link-seesrc" target="_blank">Source</a>&nbsp;&nbsp;
+<a href="https://github.com/treeform/vmath/edit/devel/src/vmath.nim#L1869" class="link-seesrc" target="_blank" >Edit</a>&nbsp;&nbsp;
 
   </dd>
 </div>
@@ -6657,7 +6685,7 @@
       <div class="twelve-columns footer">
         <span class="nim-sprite"></span>
         <br>
-        <small style="color: var(--hint);">Made with Nim. Generated: 2026-02-24 04:36:21 UTC</small>
+        <small style="color: var(--hint);">Made with Nim. Generated: 2026-04-12 23:24:28 UTC</small>
       </div>
     </div>
   </div>

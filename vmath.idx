@@ -507,7 +507,9 @@ nim	quatRotateX	vmath.html#quatRotateX,T	proc quatRotateX[T](angle: T): GVec4[T]
 nim	quatRotateY	vmath.html#quatRotateY,T	proc quatRotateY[T](angle: T): GVec4[T]		1841
 nim	quatRotateZ	vmath.html#quatRotateZ,T	proc quatRotateZ[T](angle: T): GVec4[T]		1845
 nim	quatMultiply	vmath.html#quatMultiply,GVec4[T],GVec4[T]	proc quatMultiply[T](a: GVec4[T]; b: GVec4[T]): GVec4[T]		1849
-nim	toAngles	vmath.html#toAngles,GVec4[T]	proc toAngles[T](m: GVec4[T]): GVec3[T]		1858
+nim	quatRotate	vmath.html#quatRotate,GVec4[T],GVec3[T]	proc quatRotate[T](q: GVec4[T]; v: GVec3[T]): GVec3[T]		1858
+nim	`*`	vmath.html#*,GVec4[T],GVec3[T]	proc `*`[T](a: GVec4[T]; b: GVec3[T]): GVec3[T]		1865
+nim	toAngles	vmath.html#toAngles,GVec4[T]	proc toAngles[T](m: GVec4[T]): GVec3[T]		1869
 nimgrp	ivec2	vmath.html#ivec2-procs-all	proc		486
 nimgrp	log2	vmath.html#log2-procs-all	proc		728
 nimgrp	dot	vmath.html#dot-procs-all	proc		801
