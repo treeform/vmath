@@ -259,6 +259,37 @@ dumpMat4("lookAt", mat4.lookAt(mat4.create(),
 heading("euler angle decomposition");
 appendLine("N/A");
 
+heading("matrix inverse");
+dumpMat4("transform.inverse", mat4.invert(mat4.create(), transformM));
+dumpMat4("pure_rotation.inverse", mat4.invert(mat4.create(), pureRotationM));
+
+heading("cross product");
+appendLine("notes: cross(a, b) where a and b are vec3");
+const crossA = vec3.fromValues(1, 0, 0);
+const crossB = vec3.fromValues(0, 1, 0);
+const crossC = vec3.normalize(vec3.create(), vec3.fromValues(1, 2, 3));
+const crossD = vec3.normalize(vec3.create(), vec3.fromValues(-1, 0.5, 2));
+dumpVec3("cross(x_axis, y_axis)", vec3.cross(vec3.create(), crossA, crossB));
+dumpVec3("cross(y_axis, x_axis)", vec3.cross(vec3.create(), crossB, crossA));
+dumpVec3("cross(c, d)", vec3.cross(vec3.create(), crossC, crossD));
+
+heading("slerp");
+appendLine("notes: slerp(a, b, t) between quat_x and quat_z");
+dumpQuat("slerp(quat_x, quat_z, 0.25)", quat.slerp(quat.create(), quatX, quatZ, 0.25));
+dumpQuat("slerp(quat_x, quat_z, 0.5)", quat.slerp(quat.create(), quatX, quatZ, 0.5));
+dumpQuat("slerp(quat_x, quat_z, 0.75)", quat.slerp(quat.create(), quatX, quatZ, 0.75));
+
+heading("fromTwoVectors");
+appendLine("notes: quaternion that rotates vector a to vector b");
+const fromA = vec3.fromValues(1, 0, 0);
+const fromB = vec3.fromValues(0, 1, 0);
+const fromC = vec3.normalize(vec3.create(), vec3.fromValues(1, 2, -1));
+const fromD = vec3.normalize(vec3.create(), vec3.fromValues(-1, 0.5, 2));
+dumpQuat("from_x_to_y", quat.rotationTo(quat.create(), fromA, fromB));
+dumpQuat("from_c_to_d", quat.rotationTo(quat.create(), fromC, fromD));
+dumpVec3("verify_x_to_y", vec3.transformQuat(vec3.create(), fromA, quat.rotationTo(quat.create(), fromA, fromB)));
+dumpVec3("verify_c_to_d", vec3.transformQuat(vec3.create(), fromC, quat.rotationTo(quat.create(), fromC, fromD)));
+
 heading("basis directions");
 appendLine("N/A");
 

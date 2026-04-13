@@ -249,6 +249,39 @@ proc main() =
   lines.dumpVec3("pure_rotation.quat.euler", pureRotEuler)
   lines.dumpVec3("from_axis_angle.euler", axisEuler)
 
+  lines.heading("matrix inverse")
+  var transformInv = transformM
+  lines.dumpMat4("transform.inverse", joltMat44Inverse(addr transformInv))
+  var pureRotInv = pureRotationM
+  lines.dumpMat4("pure_rotation.inverse", joltMat44Inverse(addr pureRotInv))
+
+  lines.heading("cross product")
+  lines.appendLine("notes: cross(a, b) where a and b are vec3")
+  lines.dumpVec3("cross(x_axis, y_axis)", joltVec3Cross(1, 0, 0, 0, 1, 0))
+  lines.dumpVec3("cross(y_axis, x_axis)", joltVec3Cross(0, 1, 0, 1, 0, 0))
+  let crossC = joltVec3Normalize(1, 2, 3)
+  let crossD = joltVec3Normalize(-1, 0.5, 2)
+  lines.dumpVec3("cross(c, d)", joltVec3Cross(crossC.x, crossC.y, crossC.z, crossD.x, crossD.y, crossD.z))
+
+  lines.heading("slerp")
+  lines.appendLine("notes: slerp(a, b, t) between quat_x and quat_z")
+  lines.dumpQuat("slerp(quat_x, quat_z, 0.25)", joltQuatSlerp(quatX.x, quatX.y, quatX.z, quatX.w, quatZ.x, quatZ.y, quatZ.z, quatZ.w, 0.25))
+  lines.dumpQuat("slerp(quat_x, quat_z, 0.5)", joltQuatSlerp(quatX.x, quatX.y, quatX.z, quatX.w, quatZ.x, quatZ.y, quatZ.z, quatZ.w, 0.5))
+  lines.dumpQuat("slerp(quat_x, quat_z, 0.75)", joltQuatSlerp(quatX.x, quatX.y, quatX.z, quatX.w, quatZ.x, quatZ.y, quatZ.z, quatZ.w, 0.75))
+
+  lines.heading("fromTwoVectors")
+  lines.appendLine("notes: quaternion that rotates vector a to vector b")
+  let ftFromA = JoltFloat3(x: 1, y: 0, z: 0)
+  let ftFromB = JoltFloat3(x: 0, y: 1, z: 0)
+  let ftFromC = joltVec3Normalize(1, 2, -1)
+  let ftFromD = joltVec3Normalize(-1, 0.5, 2)
+  let ftQAB = joltQuatFromTo(ftFromA.x, ftFromA.y, ftFromA.z, ftFromB.x, ftFromB.y, ftFromB.z)
+  let ftQCD = joltQuatFromTo(ftFromC.x, ftFromC.y, ftFromC.z, ftFromD.x, ftFromD.y, ftFromD.z)
+  lines.dumpQuat("from_x_to_y", ftQAB)
+  lines.dumpQuat("from_c_to_d", ftQCD)
+  lines.dumpVec3("verify_x_to_y", quatRotateVec3(ftQAB, ftFromA))
+  lines.dumpVec3("verify_c_to_d", quatRotateVec3(ftQCD, ftFromC))
+
   lines.heading("basis directions")
   lines.appendLine("N/A")
 

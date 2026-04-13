@@ -235,6 +235,41 @@ notes: euler angles as vec3(pitch/x, yaw/y, roll/z) in radians
 pure_rotation.quat.euler: <+000.646, -000.401, +001.239>
 from_axis_angle.euler: <+000.064, +000.487, -000.670>
 
+== matrix inverse ==
+transform.inverse:
+[
+  +000.150 -000.277 +000.117 +000.000
+  +000.435 +000.013 -000.123 +000.000
+  +000.195 +000.185 +000.184 +000.000
+  -016.063 -003.019 -004.227 +001.000
+]
+pure_rotation.inverse:
+[
+  +000.300 -000.832 +000.467 +000.000
+  +000.870 +000.038 -000.491 +000.000
+  +000.391 +000.554 +000.735 +000.000
+  +000.000 +000.000 +000.000 +001.000
+]
+
+== cross product ==
+notes: cross(a, b) where a and b are vec3
+cross(x_axis, y_axis): <+000.000, +000.000, +001.000>
+cross(y_axis, x_axis): <+000.000, +000.000, -001.000>
+cross(c, d): <+000.292, -000.583, +000.292>
+
+== slerp ==
+notes: slerp(a, b, t) between quat_x and quat_z
+slerp(quat_x, quat_z, 0.25): <+000.247, +000.000, +000.157, +000.956>
+slerp(quat_x, quat_z, 0.5): <+000.169, +000.000, +000.308, +000.936>
+slerp(quat_x, quat_z, 0.75): <+000.086, +000.000, +000.451, +000.888>
+
+== fromTwoVectors ==
+notes: quaternion that rotates vector a to vector b
+from_x_to_y: <+000.000, +000.000, +000.707, +000.707>
+from_c_to_d: <+000.707, -000.157, +000.393, +000.567>
+verify_x_to_y: <+000.000, +001.000, +000.000>
+verify_c_to_d: <-000.436, +000.218, +000.873>
+
 == basis directions ==
 N/A
 

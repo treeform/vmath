@@ -125,6 +125,10 @@ We run identical math operations across vmath, [nim-glm](https://github.com/nick
 | Quaternion multiply        | ✅ | ✅ | ✅ |
 | Quaternion vector rotation | ✅ | ✅ | ✅ |
 | Quaternion-matrix roundtrip| ✅ | ✅ | ✅ |
+| Matrix inverse             | ✅ | ✅ | ✅ |
+| Cross product              | ✅ | ✅ | ✅ |
+| Slerp                      | ✅ | ✅ | ✅ |
+| fromTwoVectors             | N/A | ✅ | ✅ |
 | Perspective matrix         | ✅ | ✅ | ❌ |
 | Ortho matrix               | ✅ | ✅ | N/A |
 | LookAt matrix              | ✅ | ✅ | ✅ |

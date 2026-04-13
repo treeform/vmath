@@ -228,6 +228,29 @@ proc main() =
   lines.dumpVec3("pure_rotation.quat.euler", pureRotAngles)
   lines.dumpVec3("from_axis_angle.euler", axisAngles)
 
+  lines.heading("matrix inverse")
+  lines.dumpMat4("transform.inverse", inverse(transformM))
+  lines.dumpMat4("pure_rotation.inverse", inverse(pureRotationM))
+
+  lines.heading("cross product")
+  lines.appendLine("notes: cross(a, b) where a and b are vec3")
+  let crossA = vec3f(1, 0, 0)
+  let crossB = vec3f(0, 1, 0)
+  let crossC = normalize(vec3f(1, 2, 3))
+  let crossD = normalize(vec3f(-1, 0.5, 2))
+  lines.dumpVec3("cross(x_axis, y_axis)", cross(crossA, crossB))
+  lines.dumpVec3("cross(y_axis, x_axis)", cross(crossB, crossA))
+  lines.dumpVec3("cross(c, d)", cross(crossC, crossD))
+
+  lines.heading("slerp")
+  lines.appendLine("notes: slerp(a, b, t) between quat_x and quat_z")
+  lines.dumpQuat("slerp(quat_x, quat_z, 0.25)", slerp(quatX, quatZ, 0.25'f32))
+  lines.dumpQuat("slerp(quat_x, quat_z, 0.5)", slerp(quatX, quatZ, 0.5'f32))
+  lines.dumpQuat("slerp(quat_x, quat_z, 0.75)", slerp(quatX, quatZ, 0.75'f32))
+
+  lines.heading("fromTwoVectors")
+  lines.appendLine("N/A")
+
   lines.heading("basis directions")
   lines.appendLine("N/A")
 

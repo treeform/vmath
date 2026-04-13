@@ -1723,6 +1723,28 @@ proc nlerp*(a: Quat, b: Quat, v: float32): Quat =
   else:
     (a * (1.0 - v) + b * v).normalize()
 
+proc slerp*[T](a, b: GVec4[T], t: T): GVec4[T] =
+  ## Spherical linear interpolation between two quaternions.
+  var z = b
+  var cosTheta = dot(a, b)
+
+  # Take short path.
+  if cosTheta < 0:
+    z = -b
+    cosTheta = -cosTheta
+
+  # Linear interpolation when nearly parallel to avoid division by zero.
+  if cosTheta > 1 - T(1e-6):
+    return gvec4(
+      a.x + (z.x - a.x) * t,
+      a.y + (z.y - a.y) * t,
+      a.z + (z.z - a.z) * t,
+      a.w + (z.w - a.w) * t,
+    )
+  else:
+    let angle = arccos(cosTheta)
+    return (sin((1 - t) * angle) * a + sin(t * angle) * z) / sin(angle)
+
 proc quat*[T](m: GMat4[T]): GVec4[T] =
   ## Create a quaternion from matrix.
   let
