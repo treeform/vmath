@@ -51,13 +51,13 @@ proc dumpQuat(lines: var seq[string], label: string, value: Quat) =
 proc dumpMat4(lines: var seq[string], label: string, value: Mat4) =
   lines.appendLine(label & ":")
   lines.appendLine("[")
-  for row in 0 ..< 4:
+  for col in 0 ..< 4:
     lines.appendLine(
       "  " &
-      fmt(value[row, 0]) & " " &
-      fmt(value[row, 1]) & " " &
-      fmt(value[row, 2]) & " " &
-      fmt(value[row, 3])
+      fmt(value[0, col]) & " " &
+      fmt(value[1, col]) & " " &
+      fmt(value[2, col]) & " " &
+      fmt(value[3, col])
     )
   lines.appendLine("]")
 
@@ -66,11 +66,25 @@ proc heading(lines: var seq[string], title: string) =
     lines.appendLine()
   lines.appendLine("== " & title & " ==")
 
+proc mat4FromRows(
+  m00, m01, m02, m03,
+  m10, m11, m12, m13,
+  m20, m21, m22, m23,
+  m30, m31, m32, m33: float32
+): Mat4 =
+  ## Create a mat4 from row-major input (matching math notation).
+  mat4(
+    m00, m10, m20, m30,
+    m01, m11, m21, m31,
+    m02, m12, m22, m32,
+    m03, m13, m23, m33
+  )
+
 proc rotationOnlyCopy(value: Mat4): Mat4 =
   result = value
-  result[3, 0] = 0
-  result[3, 1] = 0
-  result[3, 2] = 0
+  result[0, 3] = 0
+  result[1, 3] = 0
+  result[2, 3] = 0
 
 proc main() =
   var lines: seq[string]
@@ -80,13 +94,13 @@ proc main() =
     angleB = -23'f32.toRadians
     angleC = 71'f32.toRadians
 
-    matA = mat4(
+    matA = mat4FromRows(
       1.0, 2.0, 3.0, 4.0,
       5.0, 6.0, 7.0, 8.0,
       9.0, 10.0, 11.0, 12.0,
       13.0, 14.0, 15.0, 16.0
     )
-    matB = mat4(
+    matB = mat4FromRows(
       0.5, -1.0, 2.0, 0.25,
       1.5, 0.75, -0.5, 2.0,
       -3.0, 4.0, 1.25, -2.5,
@@ -190,6 +204,18 @@ proc main() =
   lines.dumpVec3("quat_z.right", quatRotate(quatZ, basisRight))
   lines.dumpVec3("quat_z.up", quatRotate(quatZ, basisUp))
   lines.dumpVec3("quat_z.forward", quatRotate(quatZ, basisForward))
+
+  lines.heading("element access [row,col]")
+  lines.appendLine("notes: [row,col] in math convention, element (i,j) = row i, col j")
+  lines.dumpScalar("transform[0,0]", transformM[0, 0])
+  lines.dumpScalar("transform[0,1]", transformM[0, 1])
+  lines.dumpScalar("transform[0,2]", transformM[0, 2])
+  lines.dumpScalar("transform[0,3]", transformM[0, 3])
+  lines.dumpScalar("transform[1,0]", transformM[1, 0])
+  lines.dumpScalar("transform[1,3]", transformM[1, 3])
+  lines.dumpScalar("transform[2,0]", transformM[2, 0])
+  lines.dumpScalar("transform[2,3]", transformM[2, 3])
+  lines.dumpScalar("transform[3,3]", transformM[3, 3])
 
   writeFile(OutputPath, lines.join("\n") & "\n")
   echo "Wrote ", OutputPath

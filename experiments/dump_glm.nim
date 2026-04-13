@@ -209,6 +209,19 @@ proc main() =
   lines.dumpVec3("quat_z.up", quatZ * basisUp)
   lines.dumpVec3("quat_z.forward", quatZ * basisForward)
 
+  lines.heading("element access [row,col]")
+  lines.appendLine("notes: [row,col] in math convention, element (i,j) = row i, col j")
+  lines.appendLine("notes: GLM uses [col,row], so element (r,c) = value[c,r]")
+  lines.dumpScalar("transform[0,0]", transformM[0, 0])
+  lines.dumpScalar("transform[0,1]", transformM[1, 0])
+  lines.dumpScalar("transform[0,2]", transformM[2, 0])
+  lines.dumpScalar("transform[0,3]", transformM[3, 0])
+  lines.dumpScalar("transform[1,0]", transformM[0, 1])
+  lines.dumpScalar("transform[1,3]", transformM[3, 1])
+  lines.dumpScalar("transform[2,0]", transformM[0, 2])
+  lines.dumpScalar("transform[2,3]", transformM[3, 2])
+  lines.dumpScalar("transform[3,3]", transformM[3, 3])
+
   writeFile(OutputPath, lines.join("\n") & "\n")
   echo "Wrote ", OutputPath
 

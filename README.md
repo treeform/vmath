@@ -122,6 +122,43 @@ OpenGL/GLSL/vmath vs Math/Specification notation:
         ])
 ```
 
+## How does vmath compare to other libraries?
+
+vmath follows the standard glTF / OpenGL conventions: right-handed coordinate system, column-major matrix storage, and standard math `[row, col]` indexing. These are the dominant conventions used across graphics and game engines.
+
+We run identical math operations across vmath, [nim-glm](https://github.com/nickelsworth/nim-glm), [gl-matrix](https://github.com/toji/gl-matrix), and [Jolt Physics](https://github.com/jrouwe/JoltPhysics) and compare all results. See [experiments/](experiments/) for the dump scripts.
+
+| Feature                    | GLM | gl-matrix | Jolt |
+|----------------------------|:---:|:---------:|:----:|
+| Vectors                    | ✅ | ✅ | ✅ |
+| Matrix memory layout       | ✅ | ✅ | ✅ |
+| Matrix multiply            | ✅ | ✅ | ✅ |
+| Matrix-vector multiply     | ✅ | ✅ | ✅ |
+| Rotation matrices          | ✅ | ✅ | ✅ |
+| Translation matrices       | ✅ | ✅ | ✅ |
+| Scale matrices             | ✅ | ✅ | ✅ |
+| Quaternion constructors    | ✅ | ✅ | ✅ |
+| Quaternion multiply        | ✅ | ✅ | ✅ |
+| Quaternion vector rotation | ✅ | ✅ | ✅ |
+| Quaternion-matrix roundtrip| ✅ | ✅ | ✅ |
+| Element access `[row,col]` | ✅ | N/A | ✅ |
+| Quat decomposition (sign)  | ❌ | ❌ | ❌ |
+| Scaled-matrix decomposition| ❌ | ❌ | ❌ |
+
+❌ **Quaternion decomposition sign**: When extracting a quaternion from a rotation matrix, different libraries may return quaternions that differ by sign (q and -q represent the same rotation). This is expected behavior, not a bug.
+
+❌ **Scaled-matrix decomposition**: Extracting rotation from a matrix that includes scale produces different results across libraries because there is no single correct answer.
+
+# 2.x.x to 3.0.0 vmath breaking changes:
+
+* **Matrix indexing convention changed from `[col, row]` to `[row, col]`** (standard math notation). Code using `m[0, 3]` to access the translation X component should change to `m[0, 3]` (same syntax, but the meaning of indices swapped).
+* **`mat4(1..16)` no longer transposes** the input. Arguments are now stored directly to memory in column-major order, identical to `gmat4(1..16)`. If you were passing row-major values, you need to transpose them.
+* **Matrix multiplication is now standard `A * B`** (apply B first, then A). Previously it was reversed.
+* **`mat4 * vec3` now computes `M * v`** instead of `M^T * v`.
+* **2D `rotate(angle)` now produces a standard CCW rotation matrix.**
+* **`fromTwoVectors(a, b)` now correctly rotates `a` into `b`** (was reversed).
+* **`toAngles` / `fromAngles` use standard Y-X-Z decomposition** with correct signs.
+
 # 1.x.x to 2.0.0 vmath breaking changes:
 * New right-hand-Z-forward coordinate system and functions that care about
 coordinate system were moved there.

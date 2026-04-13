@@ -43,9 +43,9 @@ block:
     qy = quatRotateY(-0.91)
     qz = quatRotateZ(1.24)
 
-    mxy = rotateY(-0.91) * rotateX(0.37)
-    myz = rotateZ(1.24) * rotateY(-0.91)
-    mxyz = rotateZ(1.24) * rotateY(-0.91) * rotateX(0.37)
+    mxy = rotateX(0.37) * rotateY(-0.91)
+    myz = rotateY(-0.91) * rotateZ(1.24)
+    mxyz = rotateX(0.37) * rotateY(-0.91) * rotateZ(1.24)
 
   doAssert quatMultiply(qx, qy).mat4() ~= mxy
   doAssert quatMultiply(qy, qz).mat4() ~= myz
@@ -58,15 +58,15 @@ block:
     y = dvec3(0, 1, 0)
     z = dvec3(0, 0, 1)
 
-  doAssert quatRotateY(PI / 2).mat4() * x ~= dvec3(0, 0, 1)
-  doAssert quatRotateX(PI / 2).mat4() * y ~= dvec3(0, 0, -1)
-  doAssert quatRotateZ(PI / 2).mat4() * x ~= dvec3(0, -1, 0)
-  doAssert quatRotate(quatRotateY(PI / 2), x) ~= dvec3(0, 0, 1)
-  doAssert quatRotate(quatRotateX(PI / 2), y) ~= dvec3(0, 0, -1)
-  doAssert quatRotate(quatRotateZ(PI / 2), x) ~= dvec3(0, -1, 0)
-  doAssert quatRotateY(PI / 2) * x ~= dvec3(0, 0, 1)
-  doAssert quatRotateX(PI / 2) * y ~= dvec3(0, 0, -1)
-  doAssert quatRotateZ(PI / 2) * x ~= dvec3(0, -1, 0)
+  doAssert quatRotateY(PI / 2).mat4() * x ~= dvec3(0, 0, -1)
+  doAssert quatRotateX(PI / 2).mat4() * y ~= dvec3(0, 0, 1)
+  doAssert quatRotateZ(PI / 2).mat4() * x ~= dvec3(0, 1, 0)
+  doAssert quatRotate(quatRotateY(PI / 2), x) ~= dvec3(0, 0, -1)
+  doAssert quatRotate(quatRotateX(PI / 2), y) ~= dvec3(0, 0, 1)
+  doAssert quatRotate(quatRotateZ(PI / 2), x) ~= dvec3(0, 1, 0)
+  doAssert quatRotateY(PI / 2) * x ~= dvec3(0, 0, -1)
+  doAssert quatRotateX(PI / 2) * y ~= dvec3(0, 0, 1)
+  doAssert quatRotateZ(PI / 2) * x ~= dvec3(0, 1, 0)
   doAssert fromTwoVectors(x, y).mat4() * x ~= y
   doAssert fromTwoVectors(y, z).mat4() * y ~= z
 

@@ -96,6 +96,10 @@ proc quatMultiply(a, b: JoltQuat): JoltQuat =
 proc quatRotateVec3(q: JoltQuat, v: JoltFloat3): JoltFloat3 =
   joltQuatRotateVec3(q.x, q.y, q.z, q.w, v.x, v.y, v.z)
 
+proc get(m: JoltMat44, row, col: int32): float32 =
+  var mm = m
+  joltMat44Get(addr mm, row, col)
+
 proc main() =
   let physics = newPhysicsSystem(
     maxBodies = 1024,
@@ -223,6 +227,19 @@ proc main() =
   lines.dumpVec3("quat_z.right", quatRotateVec3(quatZ, basisRight))
   lines.dumpVec3("quat_z.up", quatRotateVec3(quatZ, basisUp))
   lines.dumpVec3("quat_z.forward", quatRotateVec3(quatZ, basisForward))
+
+  lines.heading("element access [row,col]")
+  lines.appendLine("notes: [row,col] in math convention, element (i,j) = row i, col j")
+  lines.appendLine("notes: Jolt Mat44 operator()(row, col) via C++ wrapper")
+  lines.dumpScalar("transform[0,0]", transformM.get(0, 0))
+  lines.dumpScalar("transform[0,1]", transformM.get(0, 1))
+  lines.dumpScalar("transform[0,2]", transformM.get(0, 2))
+  lines.dumpScalar("transform[0,3]", transformM.get(0, 3))
+  lines.dumpScalar("transform[1,0]", transformM.get(1, 0))
+  lines.dumpScalar("transform[1,3]", transformM.get(1, 3))
+  lines.dumpScalar("transform[2,0]", transformM.get(2, 0))
+  lines.dumpScalar("transform[2,3]", transformM.get(2, 3))
+  lines.dumpScalar("transform[3,3]", transformM.get(3, 3))
 
   writeFile(OutputPath, lines.join("\n") & "\n")
   physics.destroy()
