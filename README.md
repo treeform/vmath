@@ -133,9 +133,9 @@ We run identical math operations across vmath, [nim-glm](https://github.com/nick
 | fromTwoVectors             | ✅ | ✅ | ✅ | ✅ |
 | Quat decomposition (sign)  | ✅ | ✅ | ✅ | ✅ |
 | Scaled-matrix decomposition| ✅ | ✅ | ✅ | ✅ |
+| LookAt matrix              | ✅ | ✅ | ✅ | ✅ |
 | Perspective matrix         | ✅ | ✅ | ✅ | ❌ |
 | Ortho matrix               | ✅ | ✅ | ✅ | N/A |
-| LookAt matrix              | ✅ | ✅ | ✅ | ✅ |
 | Euler angle decomposition  | ✅ | ✅ | N/A | ✅ |
 | Element access `[row,col]` | ✅ | ✅ | N/A | ✅ |
 
