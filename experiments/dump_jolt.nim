@@ -282,12 +282,25 @@ proc main() =
   lines.dumpVec3("verify_x_to_y", quatRotateVec3(ftQAB, ftFromA))
   lines.dumpVec3("verify_c_to_d", quatRotateVec3(ftQCD, ftFromC))
 
+  lines.heading("quaternion inverse")
+  let axisQuatInv = joltQuatInverse(axisQuat.x, axisQuat.y, axisQuat.z, axisQuat.w)
+  lines.dumpQuat("from_axis_angle.inverse", axisQuatInv)
+  let verifyInv = quatMultiply(axisQuat, axisQuatInv)
+  lines.dumpQuat("verify_q_mul_qinv", verifyInv)
+
+  lines.heading("quaternion to axis-angle")
+  let aa1 = joltQuatGetAxisAngle(axisQuat.x, axisQuat.y, axisQuat.z, axisQuat.w)
+  let aa2 = joltQuatGetAxisAngle(quatXYZ.x, quatXYZ.y, quatXYZ.z, quatXYZ.w)
+  lines.dumpVec3("from_axis_angle.axis", JoltFloat3(x: aa1.x, y: aa1.y, z: aa1.z))
+  lines.dumpScalar("from_axis_angle.angle", aa1.w)
+  lines.dumpVec3("quat_xyz.axis", JoltFloat3(x: aa2.x, y: aa2.y, z: aa2.z))
+  lines.dumpScalar("quat_xyz.angle", aa2.w)
+
   lines.heading("basis directions")
   lines.appendLine("N/A")
 
   lines.heading("element access [row,col]")
   lines.appendLine("notes: [row,col] in math convention, element (i,j) = row i, col j")
-  lines.appendLine("notes: Jolt Mat44 operator()(row, col) via C++ wrapper")
   lines.dumpScalar("transform[0,0]", transformM.get(0, 0))
   lines.dumpScalar("transform[0,1]", transformM.get(0, 1))
   lines.dumpScalar("transform[0,2]", transformM.get(0, 2))

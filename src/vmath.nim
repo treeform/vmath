@@ -1663,21 +1663,18 @@ proc fromAxisAngle*[T](axis: GVec3[T], angle: T): GVec4[T] =
 
 proc toAxisAngle*[T](q: GVec4[T]): (GVec3[T], T) =
   ## Convert a quaternion to axis and angle.
-  let cosAngle = q.w
-  let angle = arccos(cosAngle) * 2.0
-  var
-    sinAngle = sqrt(1.0 - cosAngle * cosAngle)
-    axis: GVec4[T]
+  let w = clamp(q.w, T(-1), T(1))
+  let angle = arccos(w) * 2
+  let sinAngle = sqrt(1 - w * w)
+  if abs(sinAngle) < T(0.0005):
+    return (gvec3[T](1, 0, 0), angle)
+  return (gvec3[T](q.x / sinAngle, q.y / sinAngle, q.z / sinAngle), angle)
 
-  if abs(sinAngle) < 0.0005:
-    sinAngle = 1.0
-
-  axis.x = [
-    q.x / sinAngle,
-    q.y / sinAngle,
-    q.z / sinAngle
-  ]
-  return (axis, angle)
+proc quatInverse*[T](q: GVec4[T]): GVec4[T] =
+  ## Return the inverse of a quaternion.
+  ## For unit quaternions this is the conjugate.
+  let d = dot(q, q)
+  gvec4[T](-q.x / d, -q.y / d, -q.z / d, q.w / d)
 
 proc orthogonal*[T](v: GVec3[T]): GVec3[T] =
   ## Returns orthogonal vector to given vector.

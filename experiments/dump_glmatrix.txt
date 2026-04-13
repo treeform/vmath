@@ -274,18 +274,18 @@ from_c_to_d: <+000.707, -000.157, +000.393, +000.567>
 verify_x_to_y: <+000.000, +001.000, +000.000>
 verify_c_to_d: <-000.436, +000.218, +000.873>
 
+== quaternion inverse ==
+from_axis_angle.inverse: <-000.109, -000.217, +000.326, +000.914>
+verify_q_mul_qinv: <+000.000, +000.000, +000.000, +001.000>
+
+== quaternion to axis-angle ==
+from_axis_angle.axis: <+000.267, +000.535, -000.802>
+from_axis_angle.angle: +000.838
+quat_xyz.axis: <+000.235, -000.549, +000.802>
+quat_xyz.angle: +001.309
+
 == basis directions ==
 N/A
 
 == element access [row,col] ==
-notes: [row,col] in math convention, element (i,j) = row i, col j
-notes: gl-matrix uses flat arr[16], so element (r,c) = arr[c*4+r]
-transform[0,0]: +000.599
-transform[0,1]: -002.495
-transform[0,2]: +001.870
-transform[0,3]: +010.000
-transform[1,0]: +001.741
-transform[1,3]: +020.000
-transform[2,0]: +000.781
-transform[2,3]: +030.000
-transform[3,3]: +001.000
+N/A

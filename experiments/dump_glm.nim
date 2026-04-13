@@ -249,7 +249,32 @@ proc main() =
   lines.dumpQuat("slerp(quat_x, quat_z, 0.75)", slerp(quatX, quatZ, 0.75'f32))
 
   lines.heading("fromTwoVectors")
-  lines.appendLine("N/A")
+  lines.appendLine("notes: quaternion that rotates vector a to vector b")
+  lines.appendLine("notes: GLM has no native fromTwoVectors, implemented inline")
+  proc fromTwoVectors(a, b: Vec3f): Quatf =
+    let d = dot(a, b)
+    let c = cross(a, b)
+    let w = sqrt(dot(a, a) * dot(b, b)) + d
+    result = quatf(c.x, c.y, c.z, w)
+    result = normalize(result)
+  let fromA = vec3f(1, 0, 0)
+  let fromB = vec3f(0, 1, 0)
+  let fromC = normalize(vec3f(1, 2, -1))
+  let fromD = normalize(vec3f(-1, 0.5, 2))
+  lines.dumpQuat("from_x_to_y", fromTwoVectors(fromA, fromB))
+  lines.dumpQuat("from_c_to_d", fromTwoVectors(fromC, fromD))
+  lines.dumpVec3("verify_x_to_y", fromTwoVectors(fromA, fromB) * fromA)
+  lines.dumpVec3("verify_c_to_d", fromTwoVectors(fromC, fromD) * fromC)
+
+  lines.heading("quaternion inverse")
+  lines.dumpQuat("from_axis_angle.inverse", inverse(axisQuat))
+  lines.dumpQuat("verify_q_mul_qinv", axisQuat * inverse(axisQuat))
+
+  lines.heading("quaternion to axis-angle")
+  lines.dumpVec3("from_axis_angle.axis", axis(axisQuat))
+  lines.dumpScalar("from_axis_angle.angle", angle(axisQuat))
+  lines.dumpVec3("quat_xyz.axis", axis(quatXYZ))
+  lines.dumpScalar("quat_xyz.angle", angle(quatXYZ))
 
   lines.heading("basis directions")
   lines.appendLine("N/A")

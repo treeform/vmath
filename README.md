@@ -112,32 +112,34 @@ vmath follows the standard glTF / OpenGL conventions: right-handed coordinate sy
 
 We run identical math operations across vmath, [nim-glm](https://github.com/nickelsworth/nim-glm), [gl-matrix](https://github.com/toji/gl-matrix), and [Jolt Physics](https://github.com/jrouwe/JoltPhysics) and compare all results. See [experiments/](experiments/) for the dump scripts.
 
-| Feature                    | GLM | gl-matrix | Jolt |
-|----------------------------|:---:|:---------:|:----:|
-| Vectors                    | ✅ | ✅ | ✅ |
-| Matrix memory layout       | ✅ | ✅ | ✅ |
-| Matrix multiply            | ✅ | ✅ | ✅ |
-| Matrix-vector multiply     | ✅ | ✅ | ✅ |
-| Rotation matrices          | ✅ | ✅ | ✅ |
-| Translation matrices       | ✅ | ✅ | ✅ |
-| Scale matrices             | ✅ | ✅ | ✅ |
-| Quaternion constructors    | ✅ | ✅ | ✅ |
-| Quaternion multiply        | ✅ | ✅ | ✅ |
-| Quaternion vector rotation | ✅ | ✅ | ✅ |
-| Quaternion-matrix roundtrip| ✅ | ✅ | ✅ |
-| Matrix inverse             | ✅ | ✅ | ✅ |
-| Cross product              | ✅ | ✅ | ✅ |
-| Slerp                      | ✅ | ✅ | ✅ |
-| fromTwoVectors             | N/A | ✅ | ✅ |
-| Perspective matrix         | ✅ | ✅ | ❌ |
-| Ortho matrix               | ✅ | ✅ | N/A |
-| LookAt matrix              | ✅ | ✅ | ✅ |
-| Euler angle decomposition  | ✅ | N/A | ✅ |
-| Element access `[row,col]` | ✅ | N/A | ✅ |
-| Quat decomposition (sign)  | ✅ | ✅ | ✅ |
-| Scaled-matrix decomposition| ✅ | ✅ | ✅ |
+| Feature                    | vmath | nim-GLM | gl-matrix | Jolt Physics |
+|----------------------------|:-----:|:-------:|:---------:|:------------:|
+| Vectors                    | ✅ | ✅ | ✅ | ✅ |
+| Matrix memory layout       | ✅ | ✅ | ✅ | ✅ |
+| Matrix multiply            | ✅ | ✅ | ✅ | ✅ |
+| Matrix-vector multiply     | ✅ | ✅ | ✅ | ✅ |
+| Rotation matrices          | ✅ | ✅ | ✅ | ✅ |
+| Translation matrices       | ✅ | ✅ | ✅ | ✅ |
+| Scale matrices             | ✅ | ✅ | ✅ | ✅ |
+| Quaternion constructors    | ✅ | ✅ | ✅ | ✅ |
+| Quaternion multiply        | ✅ | ✅ | ✅ | ✅ |
+| Quaternion vector rotation | ✅ | ✅ | ✅ | ✅ |
+| Quaternion-matrix roundtrip| ✅ | ✅ | ✅ | ✅ |
+| Quaternion inverse         | ✅ | ✅ | ✅ | ✅ |
+| Quaternion to axis-angle   | ✅ | ✅ | ✅ | ✅ |
+| Matrix inverse             | ✅ | ✅ | ✅ | ✅ |
+| Cross product              | ✅ | ✅ | ✅ | ✅ |
+| Slerp                      | ✅ | ✅ | ✅ | ✅ |
+| fromTwoVectors             | ✅ | ✅ | ✅ | ✅ |
+| Perspective matrix         | ✅ | ✅ | ✅ | ❌ |
+| Ortho matrix               | ✅ | ✅ | ✅ | N/A |
+| LookAt matrix              | ✅ | ✅ | ✅ | ✅ |
+| Euler angle decomposition  | ✅ | ✅ | N/A | ✅ |
+| Element access `[row,col]` | ✅ | ✅ | N/A | ✅ |
+| Quat decomposition (sign)  | ✅ | ✅ | ✅ | ✅ |
+| Scaled-matrix decomposition| ✅ | ✅ | ✅ | ✅ |
 
-❌ **Perspective matrix**: Jolt uses Z range [0, 1] (Vulkan/DirectX convention) while vmath uses Z range [-1, 1] (OpenGL convention). The X and Y scaling match, but Z-related elements differ.
+❌ **Perspective matrix**: Jolt Physics uses Z range [0, 1] (Vulkan/DirectX convention) while vmath uses Z range [-1, 1] (OpenGL convention). The X and Y scaling match, but Z-related elements differ.
 
 # 2.x.x to 3.0.0 vmath breaking changes:
 

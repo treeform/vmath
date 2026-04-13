@@ -267,6 +267,18 @@ proc main() =
   lines.dumpVec3("verify_x_to_y", fromTwoVectors(fromA, fromB) * fromA)
   lines.dumpVec3("verify_c_to_d", fromTwoVectors(fromC, fromD) * fromC)
 
+  lines.heading("quaternion inverse")
+  lines.dumpQuat("from_axis_angle.inverse", quatInverse(axisQuat))
+  lines.dumpQuat("verify_q_mul_qinv", quatMultiply(axisQuat, quatInverse(axisQuat)))
+
+  lines.heading("quaternion to axis-angle")
+  let (aaAxis1, aaAngle1) = toAxisAngle(axisQuat)
+  let (aaAxis2, aaAngle2) = toAxisAngle(quatXYZ)
+  lines.dumpVec3("from_axis_angle.axis", aaAxis1)
+  lines.dumpScalar("from_axis_angle.angle", aaAngle1)
+  lines.dumpVec3("quat_xyz.axis", aaAxis2)
+  lines.dumpScalar("quat_xyz.angle", aaAngle2)
+
   lines.heading("element access [row,col]")
   lines.appendLine("notes: [row,col] in math convention, element (i,j) = row i, col j")
   lines.dumpScalar("transform[0,0]", transformM[0, 0])

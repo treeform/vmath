@@ -270,7 +270,22 @@ slerp(quat_x, quat_z, 0.5): <+000.169, +000.000, +000.308, +000.936>
 slerp(quat_x, quat_z, 0.75): <+000.086, +000.000, +000.451, +000.888>
 
 == fromTwoVectors ==
-N/A
+notes: quaternion that rotates vector a to vector b
+notes: GLM has no native fromTwoVectors, implemented inline
+from_x_to_y: <+000.000, +000.000, +000.707, +000.707>
+from_c_to_d: <+000.707, -000.157, +000.393, +000.567>
+verify_x_to_y: <+000.000, +001.000, +000.000>
+verify_c_to_d: <-000.436, +000.218, +000.873>
+
+== quaternion inverse ==
+from_axis_angle.inverse: <-000.109, -000.217, +000.326, +000.914>
+verify_q_mul_qinv: <+000.000, +000.000, +000.000, +001.000>
+
+== quaternion to axis-angle ==
+from_axis_angle.axis: <+000.267, +000.535, -000.802>
+from_axis_angle.angle: +000.838
+quat_xyz.axis: <+000.235, -000.549, +000.802>
+quat_xyz.angle: +001.309
 
 == basis directions ==
 N/A

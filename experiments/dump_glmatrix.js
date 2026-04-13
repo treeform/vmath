@@ -290,21 +290,25 @@ dumpQuat("from_c_to_d", quat.rotationTo(quat.create(), fromC, fromD));
 dumpVec3("verify_x_to_y", vec3.transformQuat(vec3.create(), fromA, quat.rotationTo(quat.create(), fromA, fromB)));
 dumpVec3("verify_c_to_d", vec3.transformQuat(vec3.create(), fromC, quat.rotationTo(quat.create(), fromC, fromD)));
 
+heading("quaternion inverse");
+dumpQuat("from_axis_angle.inverse", quat.invert(quat.create(), axisQuat));
+dumpQuat("verify_q_mul_qinv", quat.multiply(quat.create(), axisQuat, quat.invert(quat.create(), axisQuat)));
+
+heading("quaternion to axis-angle");
+const aaAxis1 = vec3.create();
+const aaAngle1 = quat.getAxisAngle(aaAxis1, axisQuat);
+const aaAxis2 = vec3.create();
+const aaAngle2 = quat.getAxisAngle(aaAxis2, quatXYZ);
+dumpVec3("from_axis_angle.axis", aaAxis1);
+dumpScalar("from_axis_angle.angle", aaAngle1);
+dumpVec3("quat_xyz.axis", aaAxis2);
+dumpScalar("quat_xyz.angle", aaAngle2);
+
 heading("basis directions");
 appendLine("N/A");
 
 heading("element access [row,col]");
-appendLine("notes: [row,col] in math convention, element (i,j) = row i, col j");
-appendLine("notes: gl-matrix uses flat arr[16], so element (r,c) = arr[c*4+r]");
-dumpScalar("transform[0,0]", transformM[0*4+0]);
-dumpScalar("transform[0,1]", transformM[1*4+0]);
-dumpScalar("transform[0,2]", transformM[2*4+0]);
-dumpScalar("transform[0,3]", transformM[3*4+0]);
-dumpScalar("transform[1,0]", transformM[0*4+1]);
-dumpScalar("transform[1,3]", transformM[3*4+1]);
-dumpScalar("transform[2,0]", transformM[0*4+2]);
-dumpScalar("transform[2,3]", transformM[3*4+2]);
-dumpScalar("transform[3,3]", transformM[3*4+3]);
+appendLine("N/A");
 
 writeFileSync(OutputPath, lines.join("\n") + "\n");
 console.log("Wrote", OutputPath);
