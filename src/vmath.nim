@@ -1057,11 +1057,39 @@ proc `pos=`*[T](a: var GMat4[T], pos: GVec3[T]) =
   a[3, 2] = pos.z
 
 proc `*`*[T](a, b: GMat3[T]): GMat3[T] =
-  for col in 0 ..< 3:
-    let v = a * b[col]
-    result[col, 0] = v.x
-    result[col, 1] = v.y
-    result[col, 2] = v.z
+  let
+    a00 = a[0, 0]
+    a01 = a[0, 1]
+    a02 = a[0, 2]
+    a10 = a[1, 0]
+    a11 = a[1, 1]
+    a12 = a[1, 2]
+    a20 = a[2, 0]
+    a21 = a[2, 1]
+    a22 = a[2, 2]
+
+  let
+    b00 = b[0, 0]
+    b01 = b[0, 1]
+    b02 = b[0, 2]
+    b10 = b[1, 0]
+    b11 = b[1, 1]
+    b12 = b[1, 2]
+    b20 = b[2, 0]
+    b21 = b[2, 1]
+    b22 = b[2, 2]
+
+  result[0, 0] = a00 * b00 + a10 * b01 + a20 * b02
+  result[0, 1] = a01 * b00 + a11 * b01 + a21 * b02
+  result[0, 2] = a02 * b00 + a12 * b01 + a22 * b02
+
+  result[1, 0] = a00 * b10 + a10 * b11 + a20 * b12
+  result[1, 1] = a01 * b10 + a11 * b11 + a21 * b12
+  result[1, 2] = a02 * b10 + a12 * b11 + a22 * b12
+
+  result[2, 0] = a00 * b20 + a10 * b21 + a20 * b22
+  result[2, 1] = a01 * b20 + a11 * b21 + a21 * b22
+  result[2, 2] = a02 * b20 + a12 * b21 + a22 * b22
 
 proc `*`*[T](a: GMat2[T], b: GVec2[T]): GVec2[T] =
   gvec2[T](
@@ -1083,12 +1111,61 @@ proc `*`*[T](a: GMat3[T], b: GVec3[T]): GVec3[T] =
   )
 
 proc `*`*[T](a, b: GMat4[T]): GMat4[T] =
-  for col in 0 ..< 4:
-    let v = a * b[col]
-    result[col, 0] = v.x
-    result[col, 1] = v.y
-    result[col, 2] = v.z
-    result[col, 3] = v.w
+  let
+    a00 = a[0, 0]
+    a01 = a[0, 1]
+    a02 = a[0, 2]
+    a03 = a[0, 3]
+    a10 = a[1, 0]
+    a11 = a[1, 1]
+    a12 = a[1, 2]
+    a13 = a[1, 3]
+    a20 = a[2, 0]
+    a21 = a[2, 1]
+    a22 = a[2, 2]
+    a23 = a[2, 3]
+    a30 = a[3, 0]
+    a31 = a[3, 1]
+    a32 = a[3, 2]
+    a33 = a[3, 3]
+
+  let
+    b00 = b[0, 0]
+    b01 = b[0, 1]
+    b02 = b[0, 2]
+    b03 = b[0, 3]
+    b10 = b[1, 0]
+    b11 = b[1, 1]
+    b12 = b[1, 2]
+    b13 = b[1, 3]
+    b20 = b[2, 0]
+    b21 = b[2, 1]
+    b22 = b[2, 2]
+    b23 = b[2, 3]
+    b30 = b[3, 0]
+    b31 = b[3, 1]
+    b32 = b[3, 2]
+    b33 = b[3, 3]
+
+  result[0, 0] = a00 * b00 + a10 * b01 + a20 * b02 + a30 * b03
+  result[0, 1] = a01 * b00 + a11 * b01 + a21 * b02 + a31 * b03
+  result[0, 2] = a02 * b00 + a12 * b01 + a22 * b02 + a32 * b03
+  result[0, 3] = a03 * b00 + a13 * b01 + a23 * b02 + a33 * b03
+
+  result[1, 0] = a00 * b10 + a10 * b11 + a20 * b12 + a30 * b13
+  result[1, 1] = a01 * b10 + a11 * b11 + a21 * b12 + a31 * b13
+  result[1, 2] = a02 * b10 + a12 * b11 + a22 * b12 + a32 * b13
+  result[1, 3] = a03 * b10 + a13 * b11 + a23 * b12 + a33 * b13
+
+  result[2, 0] = a00 * b20 + a10 * b21 + a20 * b22 + a30 * b23
+  result[2, 1] = a01 * b20 + a11 * b21 + a21 * b22 + a31 * b23
+  result[2, 2] = a02 * b20 + a12 * b21 + a22 * b22 + a32 * b23
+  result[2, 3] = a03 * b20 + a13 * b21 + a23 * b22 + a33 * b23
+
+  result[3, 0] = a00 * b30 + a10 * b31 + a20 * b32 + a30 * b33
+  result[3, 1] = a01 * b30 + a11 * b31 + a21 * b32 + a31 * b33
+  result[3, 2] = a02 * b30 + a12 * b31 + a22 * b32 + a32 * b33
+  result[3, 3] = a03 * b30 + a13 * b31 + a23 * b32 + a33 * b33
 
 proc `*`*[T](a: GMat4[T], b: GVec3[T]): GVec3[T] =
   gvec3[T](
@@ -1670,13 +1747,27 @@ proc nlerp*(a: Quat, b: Quat, v: float32): Quat =
 proc quat*[T](m: GMat4[T]): GVec4[T] =
   ## Create a quaternion from matrix.
   let
-    fourXSquaredMinus1 = m[0, 0] - m[1, 1] - m[2, 2]
-    fourYSquaredMinus1 = m[1, 1] - m[0, 0] - m[2, 2]
-    fourZSquaredMinus1 = m[2, 2] - m[0, 0] - m[1, 1]
-    fourWSquaredMinus1 = m[0, 0] + m[1, 1] + m[2, 2]
+    m00 = m[0, 0]
+    m01 = m[0, 1]
+    m02 = m[0, 2]
 
-  var biggestIndex = 0
-  var fourBiggestSquaredMinus1 = fourWSquaredMinus1
+    m10 = m[1, 0]
+    m11 = m[1, 1]
+    m12 = m[1, 2]
+
+    m20 = m[2, 0]
+    m21 = m[2, 1]
+    m22 = m[2, 2]
+
+    fourXSquaredMinus1 = m00 - m11 - m22
+    fourYSquaredMinus1 = m11 - m00 - m22
+    fourZSquaredMinus1 = m22 - m00 - m11
+    fourWSquaredMinus1 = m00 + m11 + m22
+
+  var
+    q: GVec4[T]
+    biggestIndex = 0
+    fourBiggestSquaredMinus1 = fourWSquaredMinus1
   if fourXSquaredMinus1 > fourBiggestSquaredMinus1:
     fourBiggestSquaredMinus1 = fourXSquaredMinus1
     biggestIndex = 1
@@ -1692,25 +1783,27 @@ proc quat*[T](m: GMat4[T]): GVec4[T] =
 
   case biggestIndex
   of 0:
-    result.w = biggestVal
-    result.x = (m[1, 2] - m[2, 1]) * mult
-    result.y = (m[2, 0] - m[0, 2]) * mult
-    result.z = (m[0, 1] - m[1, 0]) * mult
+    q.w = biggestVal
+    q.x = (m12 - m21) * mult
+    q.y = (m20 - m02) * mult
+    q.z = (m01 - m10) * mult
   of 1:
-    result.w = (m[1, 2] - m[2, 1]) * mult
-    result.x = biggestVal
-    result.y = (m[0, 1] + m[1, 0]) * mult
-    result.z = (m[2, 0] + m[0, 2]) * mult
+    q.w = (m12 - m21) * mult
+    q.x = biggestVal
+    q.y = (m01 + m10) * mult
+    q.z = (m20 + m02) * mult
   of 2:
-    result.w = (m[2, 0] - m[0, 2]) * mult
-    result.x = (m[0, 1] + m[1, 0]) * mult
-    result.y = biggestVal
-    result.z = (m[1, 2] + m[2, 1]) * mult
+    q.w = (m20 - m02) * mult
+    q.x = (m01 + m10) * mult
+    q.y = biggestVal
+    q.z = (m12 + m21) * mult
   else:
-    result.w = (m[0, 1] - m[1, 0]) * mult
-    result.x = (m[2, 0] + m[0, 2]) * mult
-    result.y = (m[1, 2] + m[2, 1]) * mult
-    result.z = biggestVal
+    q.w = (m01 - m10) * mult
+    q.x = (m20 + m02) * mult
+    q.y = (m12 + m21) * mult
+    q.z = biggestVal
+
+  result = q
 
 proc mat4*[T](q: GVec4[T]): GMat4[T] =
   let
