@@ -148,10 +148,12 @@ proc main() =
     quatXY = quatMultiply(quatX, quatY)
     quatXYZ = quatMultiply(quatXY, quatZ)
   let
+    hardAxis = joltVec3Normalize(1.0, -2.0, 3.0)
+    hardAngle = 170'f32 * PI.float32 / 180'f32
+    hardQuat = quatRotate(hardAxis.x, hardAxis.y, hardAxis.z, hardAngle)
+    hardMat = joltMat44FromQuat(hardQuat.x, hardQuat.y, hardQuat.z, hardQuat.w)
+  let
     rotationOnlyM = getRotationSafe(transformM)
-    basisRight = JoltFloat3(x: 1.0, y: 0.0, z: 0.0)
-    basisUp = JoltFloat3(x: 0.0, y: 1.0, z: 0.0)
-    basisForward = JoltFloat3(x: 0.0, y: 0.0, z: 1.0)
 
   lines.heading("dump")
   lines.appendLine("notes: matrices are printed in raw in-memory order, four scalars per line")
@@ -214,19 +216,41 @@ proc main() =
   lines.dumpQuat("pure_rotation.quat", pureRotationQuat)
   lines.dumpMat4("pure_rotation", pureRotationM)
   lines.dumpMat4("pure_rotation.quat.mat4", joltMat44FromQuat(pureRotationQuat.x, pureRotationQuat.y, pureRotationQuat.z, pureRotationQuat.w))
-  lines.appendLine("transform.rotation_only.note: skipped exact quaternion/matrix roundtrip comparison because scaled-matrix decomposition differs by library")
   lines.dumpMat4("transform.rotation_only", rotationOnlyM)
+  lines.dumpQuat("transform.rotation_only.quat", getQuaternion(rotationOnlyM))
   let axisMatQuat = axisQuat
   lines.dumpQuat("axis_mat.quat", axisMatQuat)
   lines.dumpMat4("axis_mat.quat.mat4", joltMat44FromQuat(axisMatQuat.x, axisMatQuat.y, axisMatQuat.z, axisMatQuat.w))
+  lines.appendLine("hard_decomp.note: 170 degrees around (1,-2,3) normalized — w near zero")
+  lines.dumpQuat("hard_decomp.quat_original", hardQuat)
+  let hardMatQuat = getQuaternion(hardMat)
+  lines.dumpQuat("hard_decomp.quat_from_mat", hardMatQuat)
+  lines.dumpMat4("hard_decomp.mat4", hardMat)
+  lines.dumpMat4("hard_decomp.quat_from_mat.mat4", joltMat44FromQuat(hardMatQuat.x, hardMatQuat.y, hardMatQuat.z, hardMatQuat.w))
+
+  let fovyRad = 60'f32 * PI.float32 / 180'f32
+
+  lines.heading("perspective matrix")
+  lines.appendLine("notes: fovy=60 degrees, aspect=1.5, near=0.1, far=100.0")
+  lines.appendLine("notes: Jolt uses Z range [0,1] (Vulkan/DirectX convention), values will differ from OpenGL [-1,1]")
+  lines.dumpMat4("perspective", joltMat44Perspective(fovyRad, 1.5'f32, 0.1'f32, 100'f32))
+
+  lines.heading("ortho matrix")
+  lines.appendLine("N/A")
+
+  lines.heading("lookAt matrix")
+  lines.appendLine("notes: eye=(5,5,5), center=(0,0,0), up=(0,1,0)")
+  lines.dumpMat4("lookAt", joltMat44LookAt(5, 5, 5, 0, 0, 0, 0, 1, 0))
+
+  lines.heading("euler angle decomposition")
+  lines.appendLine("notes: euler angles as vec3(pitch/x, yaw/y, roll/z) in radians")
+  let pureRotEuler = joltQuatGetEulerAngles(pureRotationQuat.x, pureRotationQuat.y, pureRotationQuat.z, pureRotationQuat.w)
+  let axisEuler = joltQuatGetEulerAngles(axisQuat.x, axisQuat.y, axisQuat.z, axisQuat.w)
+  lines.dumpVec3("pure_rotation.quat.euler", pureRotEuler)
+  lines.dumpVec3("from_axis_angle.euler", axisEuler)
 
   lines.heading("basis directions")
-  lines.dumpVec3("canonical_right", basisRight)
-  lines.dumpVec3("canonical_up", basisUp)
-  lines.dumpVec3("canonical_forward", basisForward)
-  lines.dumpVec3("quat_z.right", quatRotateVec3(quatZ, basisRight))
-  lines.dumpVec3("quat_z.up", quatRotateVec3(quatZ, basisUp))
-  lines.dumpVec3("quat_z.forward", quatRotateVec3(quatZ, basisForward))
+  lines.appendLine("N/A")
 
   lines.heading("element access [row,col]")
   lines.appendLine("notes: [row,col] in math convention, element (i,j) = row i, col j")

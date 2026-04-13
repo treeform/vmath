@@ -159,6 +159,11 @@ const quatZ = quatFromAxisAngle(vec3.fromValues(0, 0, 1), angleC);
 const quatXY = quatMul(quatX, quatY);
 const quatXYZ = quatMul(quatXY, quatZ);
 
+const hardAxis = vec3.normalize(vec3.create(), vec3.fromValues(1.0, -2.0, 3.0));
+const hardAngle = 170 * DEG2RAD;
+const hardQuat = quatFromAxisAngle(hardAxis, hardAngle);
+const hardMat = mat4FromQuat(hardQuat);
+
 const rotationOnlyM = rotationOnlyCopy(transformM);
 const basisRight   = vec3.fromValues(1, 0, 0);
 const basisUp      = vec3.fromValues(0, 1, 0);
@@ -225,19 +230,37 @@ const pureRotationQuat = quatFromMat(pureRotationM);
 dumpQuat("pure_rotation.quat", pureRotationQuat);
 dumpMat4("pure_rotation", pureRotationM);
 dumpMat4("pure_rotation.quat.mat4", mat4FromQuat(pureRotationQuat));
-appendLine("transform.rotation_only.note: skipped exact quaternion/matrix roundtrip comparison because scaled-matrix decomposition differs by library");
 dumpMat4("transform.rotation_only", rotationOnlyM);
+dumpQuat("transform.rotation_only.quat", quatFromMat(rotationOnlyM));
 const axisMatQuat = quatFromMat(axisMat);
 dumpQuat("axis_mat.quat", axisMatQuat);
 dumpMat4("axis_mat.quat.mat4", mat4FromQuat(axisMatQuat));
+appendLine("hard_decomp.note: 170 degrees around (1,-2,3) normalized — w near zero");
+dumpQuat("hard_decomp.quat_original", hardQuat);
+dumpQuat("hard_decomp.quat_from_mat", quatFromMat(hardMat));
+dumpMat4("hard_decomp.mat4", hardMat);
+dumpMat4("hard_decomp.quat_from_mat.mat4", mat4FromQuat(quatFromMat(hardMat)));
+
+const DEG2RAD_60 = 60 * Math.PI / 180;
+
+heading("perspective matrix");
+appendLine("notes: fovy=60 degrees, aspect=1.5, near=0.1, far=100.0");
+dumpMat4("perspective", mat4.perspective(mat4.create(), DEG2RAD_60, 1.5, 0.1, 100.0));
+
+heading("ortho matrix");
+appendLine("notes: left=-10, right=10, bottom=-7.5, top=7.5, near=0.1, far=100.0");
+dumpMat4("ortho", mat4.ortho(mat4.create(), -10, 10, -7.5, 7.5, 0.1, 100.0));
+
+heading("lookAt matrix");
+appendLine("notes: eye=(5,5,5), center=(0,0,0), up=(0,1,0)");
+dumpMat4("lookAt", mat4.lookAt(mat4.create(),
+  vec3.fromValues(5, 5, 5), vec3.fromValues(0, 0, 0), vec3.fromValues(0, 1, 0)));
+
+heading("euler angle decomposition");
+appendLine("N/A");
 
 heading("basis directions");
-dumpVec3("canonical_right", basisRight);
-dumpVec3("canonical_up", basisUp);
-dumpVec3("canonical_forward", basisForward);
-dumpVec3("quat_z.right", quatRotateVec3(quatZ, basisRight));
-dumpVec3("quat_z.up", quatRotateVec3(quatZ, basisUp));
-dumpVec3("quat_z.forward", quatRotateVec3(quatZ, basisForward));
+appendLine("N/A");
 
 heading("element access [row,col]");
 appendLine("notes: [row,col] in math convention, element (i,j) = row i, col j");

@@ -106,22 +106,6 @@ This is the same system used in the GLTF file format.
 
 [glTF Spec 2.0](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#coordinate-system-and-units)
 
-## OpenGL matrix column-major notation.
-
-> [9.005](https://www.opengl.org/archives/resources/faq/technical/transformations.htm) For programming purposes, OpenGL matrices are 16-value arrays with base vectors laid out contiguously in memory. The translation components occupy the 13th, 14th, and 15th elements of the 16-element matrix, where indices are numbered from 1 to 16 as described in section 2.11.2 of the [OpenGL 2.1 Specification](https://registry.khronos.org/OpenGL/specs/gl/glspec21.pdf).
->
-> Sadly, the use of column-major format in the spec and blue book has resulted in endless confusion in the OpenGL programming community. Column-major notation suggests that matrices are not laid out in memory as a programmer would expect.
-
-OpenGL/GLSL/vmath vs Math/Specification notation:
-```
-        mat4([
-          a, b, c, 0,              | a d g x |
-          d, e, f, 0,              | b e h y |
-          g, h, i, 0,              | c f i z |
-          x, y, z, 1               | 0 0 0 1 |
-        ])
-```
-
 ## How does vmath compare to other libraries?
 
 vmath follows the standard glTF / OpenGL conventions: right-handed coordinate system, column-major matrix storage, and standard math `[row, col]` indexing. These are the dominant conventions used across graphics and game engines.
@@ -141,15 +125,19 @@ We run identical math operations across vmath, [nim-glm](https://github.com/nick
 | Quaternion multiply        | ✅ | ✅ | ✅ |
 | Quaternion vector rotation | ✅ | ✅ | ✅ |
 | Quaternion-matrix roundtrip| ✅ | ✅ | ✅ |
+| Perspective matrix         | ✅ | ✅ | ❌ |
+| Ortho matrix               | ✅ | ✅ | N/A |
+| LookAt matrix              | ✅ | ✅ | ✅ |
+| Euler angle decomposition  | ✅ | N/A | ✅ |
 | Element access `[row,col]` | ✅ | N/A | ✅ |
-| Quat decomposition (sign)  | ❌ | ❌ | ❌ |
-| Scaled-matrix decomposition| ❌ | ❌ | ❌ |
+| Quat decomposition (sign)  | ✅ | ✅ | ✅ |
+| Scaled-matrix decomposition| ✅ | ✅ | ✅ |
 
-❌ **Quaternion decomposition sign**: When extracting a quaternion from a rotation matrix, different libraries may return quaternions that differ by sign (q and -q represent the same rotation). This is expected behavior, not a bug.
-
-❌ **Scaled-matrix decomposition**: Extracting rotation from a matrix that includes scale produces different results across libraries because there is no single correct answer.
+❌ **Perspective matrix**: Jolt uses Z range [0, 1] (Vulkan/DirectX convention) while vmath uses Z range [-1, 1] (OpenGL convention). The X and Y scaling match, but Z-related elements differ.
 
 # 2.x.x to 3.0.0 vmath breaking changes:
+
+Significant work went into aligning vmath with the dominant conventions used across the game and graphics industry. vmath now matches GLM, gl-matrix, and Jolt on all core operations (see comparison table above).
 
 * **Matrix indexing convention changed from `[col, row]` to `[row, col]`** (standard math notation). Code using `m[0, 3]` to access the translation X component should change to `m[0, 3]` (same syntax, but the meaning of indices swapped).
 * **`mat4(1..16)` no longer transposes** the input. Arguments are now stored directly to memory in column-major order, identical to `gmat4(1..16)`. If you were passing row-major values, you need to transpose them.

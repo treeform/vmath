@@ -1535,10 +1535,7 @@ proc ortho*[T](left, right, bottom, top, near, far: T): GMat4[T] =
   result[2, 3] = T(-(far + near) / fn)
   result[3, 3] = 1
 
-proc lookAt*[T](eye, center, up: GVec3[T]): GMat4[T]
-  {.deprecated: "Wrong coordinate system. " &
-    "Use toAngles(eye, center).fromAngles() instead to get " &
-    "right-handed-z-forward coordinate system".} =
+proc lookAt*[T](eye, center, up: GVec3[T]): GMat4[T] =
   ## Create a matrix that would convert eye pos to looking at center.
   let
     eyex = eye[0]
@@ -1619,11 +1616,8 @@ proc lookAt*[T](eye, center, up: GVec3[T]): GMat4[T]
   result[2, 3] = -(z0 * eyex + z1 * eyey + z2 * eyez)
   result[3, 3] = 1
 
-proc lookAt*[T](eye, center: GVec3[T]): GMat4[T]
-  {.deprecated: "Wrong coordinate system. " &
-    "Use toAngles(eye, center).fromAngles() instead to get " &
-    "right-handed-z-forward coordinate system".} =
-  ## Look center from eye with default UP vector.
+proc lookAt*[T](eye, center: GVec3[T]): GMat4[T] =
+  ## Look at center from eye with default UP vector.
   lookAt(eye, center, gvec3(T(0), 0, 1))
 
 proc angle*[T](a: GVec2[T]): T =

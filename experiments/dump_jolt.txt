@@ -172,7 +172,6 @@ pure_rotation.quat.mat4:
   +000.467 -000.491 +000.735 +000.000
   +000.000 +000.000 +000.000 +001.000
 ]
-transform.rotation_only.note: skipped exact quaternion/matrix roundtrip comparison because scaled-matrix decomposition differs by library
 transform.rotation_only:
 [
   +000.599 +001.741 +000.781 +000.000
@@ -180,6 +179,7 @@ transform.rotation_only:
   +001.870 -001.964 +002.941 +000.000
   +000.000 +000.000 +000.000 +001.000
 ]
+transform.rotation_only.quat: <+000.840, +000.252, +000.982, +001.079>
 axis_mat.quat: <+000.109, +000.217, -000.326, +000.914>
 axis_mat.quat.mat4:
 [
@@ -188,14 +188,55 @@ axis_mat.quat.mat4:
   +000.326 -000.340 +000.882 +000.000
   +000.000 +000.000 +000.000 +001.000
 ]
+hard_decomp.note: 170 degrees around (1,-2,3) normalized — w near zero
+hard_decomp.quat_original: <+000.266, -000.532, +000.799, +000.087>
+hard_decomp.quat_from_mat: <+000.266, -000.532, +000.799, +000.087>
+hard_decomp.mat4:
+[
+  -000.843 -000.144 +000.518 +000.000
+  -000.423 -000.418 -000.804 +000.000
+  +000.332 -000.897 +000.291 +000.000
+  +000.000 +000.000 +000.000 +001.000
+]
+hard_decomp.quat_from_mat.mat4:
+[
+  -000.843 -000.144 +000.518 +000.000
+  -000.423 -000.418 -000.804 +000.000
+  +000.332 -000.897 +000.291 +000.000
+  +000.000 +000.000 +000.000 +001.000
+]
+
+== perspective matrix ==
+notes: fovy=60 degrees, aspect=1.5, near=0.1, far=100.0
+notes: Jolt uses Z range [0,1] (Vulkan/DirectX convention), values will differ from OpenGL [-1,1]
+perspective:
+[
+  +001.155 +000.000 +000.000 +000.000
+  +000.000 +001.732 +000.000 +000.000
+  +000.000 +000.000 -001.001 -001.000
+  +000.000 +000.000 -000.100 +000.000
+]
+
+== ortho matrix ==
+N/A
+
+== lookAt matrix ==
+notes: eye=(5,5,5), center=(0,0,0), up=(0,1,0)
+lookAt:
+[
+  +000.707 -000.408 +000.577 +000.000
+  +000.000 +000.816 +000.577 +000.000
+  -000.707 -000.408 +000.577 +000.000
+  +000.000 +000.000 -008.660 +001.000
+]
+
+== euler angle decomposition ==
+notes: euler angles as vec3(pitch/x, yaw/y, roll/z) in radians
+pure_rotation.quat.euler: <+000.646, -000.401, +001.239>
+from_axis_angle.euler: <+000.064, +000.487, -000.670>
 
 == basis directions ==
-canonical_right: <+001.000, +000.000, +000.000>
-canonical_up: <+000.000, +001.000, +000.000>
-canonical_forward: <+000.000, +000.000, +001.000>
-quat_z.right: <+000.326, +000.946, +000.000>
-quat_z.up: <-000.946, +000.326, +000.000>
-quat_z.forward: <+000.000, +000.000, +001.000>
+N/A
 
 == element access [row,col] ==
 notes: [row,col] in math convention, element (i,j) = row i, col j

@@ -129,10 +129,12 @@ proc main() =
     quatXY = quatX * quatY
     quatXYZ = quatXY * quatZ
 
+    hardAxis = normalize(vec3f(1.0, -2.0, 3.0))
+    hardAngle = 170'f32 * PI.float32 / 180'f32
+    hardQuat = quatf(hardAxis, hardAngle)
+    hardMat = hardQuat.mat4()
+
     rotationOnlyM = rotationOnlyCopy(transformM)
-    basisRight = vec3f(1'f32, 0'f32, 0'f32)
-    basisUp = vec3f(0'f32, 1'f32, 0'f32)
-    basisForward = vec3f(0'f32, 0'f32, 1'f32)
 
   lines.heading("dump")
   lines.appendLine("notes: matrices are printed in raw in-memory order, four scalars per line")
@@ -195,19 +197,39 @@ proc main() =
   lines.dumpQuat("pure_rotation.quat", pureRotationQuat)
   lines.dumpMat4("pure_rotation", pureRotationM)
   lines.dumpMat4("pure_rotation.quat.mat4", pureRotationQuat.mat4())
-  lines.appendLine("transform.rotation_only.note: skipped exact quaternion/matrix roundtrip comparison because scaled-matrix decomposition differs by library")
   lines.dumpMat4("transform.rotation_only", rotationOnlyM)
+  lines.dumpQuat("transform.rotation_only.quat", quat(rotationOnlyM))
   let axisMatQuat = quat(axisMat)
   lines.dumpQuat("axis_mat.quat", axisMatQuat)
   lines.dumpMat4("axis_mat.quat.mat4", axisMatQuat.mat4())
+  lines.appendLine("hard_decomp.note: 170 degrees around (1,-2,3) normalized — w near zero")
+  lines.dumpQuat("hard_decomp.quat_original", hardQuat)
+  lines.dumpQuat("hard_decomp.quat_from_mat", quat(hardMat))
+  lines.dumpMat4("hard_decomp.mat4", hardMat)
+  lines.dumpMat4("hard_decomp.quat_from_mat.mat4", quat(hardMat).mat4())
+
+  lines.heading("perspective matrix")
+  lines.appendLine("notes: fovy=60 degrees, aspect=1.5, near=0.1, far=100.0")
+  let fovyRad = 60'f32 * PI.float32 / 180'f32
+  lines.dumpMat4("perspective", perspectiveRH(fovyRad, 1.5'f32, 0.1'f32, 100'f32))
+
+  lines.heading("ortho matrix")
+  lines.appendLine("notes: left=-10, right=10, bottom=-7.5, top=7.5, near=0.1, far=100.0")
+  lines.dumpMat4("ortho", ortho(-10'f32, 10'f32, -7.5'f32, 7.5'f32, 0.1'f32, 100'f32))
+
+  lines.heading("lookAt matrix")
+  lines.appendLine("notes: eye=(5,5,5), center=(0,0,0), up=(0,1,0)")
+  lines.dumpMat4("lookAt", lookAtRH(vec3f(5, 5, 5), vec3f(0, 0, 0), vec3f(0, 1, 0)))
+
+  lines.heading("euler angle decomposition")
+  lines.appendLine("notes: euler angles as vec3(pitch/x, yaw/y, roll/z) in radians")
+  let pureRotAngles = eulerAngles(quat(pureRotationM))
+  let axisAngles = eulerAngles(axisQuat)
+  lines.dumpVec3("pure_rotation.quat.euler", pureRotAngles)
+  lines.dumpVec3("from_axis_angle.euler", axisAngles)
 
   lines.heading("basis directions")
-  lines.dumpVec3("canonical_right", basisRight)
-  lines.dumpVec3("canonical_up", basisUp)
-  lines.dumpVec3("canonical_forward", basisForward)
-  lines.dumpVec3("quat_z.right", quatZ * basisRight)
-  lines.dumpVec3("quat_z.up", quatZ * basisUp)
-  lines.dumpVec3("quat_z.forward", quatZ * basisForward)
+  lines.appendLine("N/A")
 
   lines.heading("element access [row,col]")
   lines.appendLine("notes: [row,col] in math convention, element (i,j) = row i, col j")
