@@ -1,9 +1,9 @@
 import
   std/[math, os, strutils],
-  vmath
+  glm
 
 const
-  OutputPath = parentDir(currentSourcePath()) / "dump_vmath.txt"
+  OutputPath = parentDir(currentSourcePath()) / "dump_glm.txt"
 
 proc cleanFloat(value: float32): float32 =
   if abs(value) < 0.0000005'f32:
@@ -34,30 +34,30 @@ proc fmt(value: float32): string =
   result.add fracText
 
 proc appendLine(lines: var seq[string], line = "") =
-  lines.add(line)
+  lines.add line
 
 proc dumpScalar(lines: var seq[string], label: string, value: float32) =
   lines.appendLine(label & ": " & fmt(value))
 
-proc dumpVec3(lines: var seq[string], label: string, value: Vec3) =
+proc dumpVec3(lines: var seq[string], label: string, value: Vec3f) =
   lines.appendLine(label & ": <" & fmt(value.x) & ", " & fmt(value.y) & ", " & fmt(value.z) & ">")
 
-proc dumpVec4(lines: var seq[string], label: string, value: Vec4) =
+proc dumpVec4(lines: var seq[string], label: string, value: Vec4f) =
   lines.appendLine(label & ": <" & fmt(value.x) & ", " & fmt(value.y) & ", " & fmt(value.z) & ", " & fmt(value.w) & ">")
 
-proc dumpQuat(lines: var seq[string], label: string, value: Quat) =
+proc dumpQuat(lines: var seq[string], label: string, value: Quatf) =
   lines.appendLine(label & ": <" & fmt(value.x) & ", " & fmt(value.y) & ", " & fmt(value.z) & ", " & fmt(value.w) & ">")
 
-proc dumpMat4(lines: var seq[string], label: string, value: Mat4) =
+proc dumpMat4(lines: var seq[string], label: string, value: Mat4f) =
   lines.appendLine(label & ":")
   lines.appendLine("[")
-  for row in 0 ..< 4:
+  for col in 0 ..< 4:
     lines.appendLine(
       "  " &
-      fmt(value[row, 0]) & " " &
-      fmt(value[row, 1]) & " " &
-      fmt(value[row, 2]) & " " &
-      fmt(value[row, 3])
+      fmt(value[col, 0]) & " " &
+      fmt(value[col, 1]) & " " &
+      fmt(value[col, 2]) & " " &
+      fmt(value[col, 3])
     )
   lines.appendLine("]")
 
@@ -66,63 +66,79 @@ proc heading(lines: var seq[string], title: string) =
     lines.appendLine()
   lines.appendLine("== " & title & " ==")
 
-proc rotationOnlyCopy(value: Mat4): Mat4 =
+proc mat4FromRows(
+  m00, m01, m02, m03: float32,
+  m10, m11, m12, m13: float32,
+  m20, m21, m22, m23: float32,
+  m30, m31, m32, m33: float32
+): Mat4f =
+  result[0] = vec4f(m00, m10, m20, m30)
+  result[1] = vec4f(m01, m11, m21, m31)
+  result[2] = vec4f(m02, m12, m22, m32)
+  result[3] = vec4f(m03, m13, m23, m33)
+
+proc transformVec3ByMat4(matrix: Mat4f, value: Vec3f): Vec3f =
+  (matrix * vec4f(value, 1'f32)).xyz
+
+proc transformVec4ByMat4(matrix: Mat4f, value: Vec4f): Vec4f =
+  matrix * value
+
+proc rotationOnlyCopy(value: Mat4f): Mat4f =
   result = value
-  result[3, 0] = 0
-  result[3, 1] = 0
-  result[3, 2] = 0
+  result[3] = vec4f(0'f32, 0'f32, 0'f32, 1'f32)
 
 proc main() =
   var lines: seq[string]
 
   let
-    angleA = 37'f32.toRadians
-    angleB = -23'f32.toRadians
-    angleC = 71'f32.toRadians
+    angleA = 37'f32 * PI.float32 / 180'f32
+    angleB = -23'f32 * PI.float32 / 180'f32
+    angleC = 71'f32 * PI.float32 / 180'f32
 
-    matA = mat4(
+    matA = mat4FromRows(
       1.0, 2.0, 3.0, 4.0,
       5.0, 6.0, 7.0, 8.0,
       9.0, 10.0, 11.0, 12.0,
       13.0, 14.0, 15.0, 16.0
     )
-    matB = mat4(
+    matB = mat4FromRows(
       0.5, -1.0, 2.0, 0.25,
       1.5, 0.75, -0.5, 2.0,
       -3.0, 4.0, 1.25, -2.5,
       0.0, 1.0, -1.5, 3.0
     )
-    vecA = vec3(1.25, -2.5, 3.75)
-    vecB = vec4(1.25, -2.5, 3.75, 1.0)
+    vecA = vec3f(1.25, -2.5, 3.75)
+    vecB = vec4f(1.25, -2.5, 3.75, 1.0)
 
-    scaleM = scale(vec3(2.0, 3.0, 4.0))
-    translateM = translate(vec3(10.0, 20.0, 30.0))
-    rotateXM = rotateX(angleA)
-    rotateYM = rotateY(angleB)
-    rotateZM = rotateZ(angleC)
+    scaleM = mat4f(1).scale(2'f32, 3'f32, 4'f32)
+    translateM = mat4f(1).translate(10'f32, 20'f32, 30'f32)
+    rotateXM = mat4f(1).rotateX(angleA)
+    rotateYM = mat4f(1).rotateY(angleB)
+    rotateZM = mat4f(1).rotateZ(angleC)
     pureRotationM = rotateZM * rotateYM * rotateXM
-    axis = normalize(vec3(1.0, 2.0, -3.0))
-    axisAngle = 48'f32.toRadians
-    axisQuat = fromAxisAngle(axis, axisAngle)
+
+    axis = normalize(vec3f(1.0, 2.0, -3.0))
+    axisAngle = 48'f32 * PI.float32 / 180'f32
+    axisQuat = quatf(axis, axisAngle)
     axisMat = axisQuat.mat4()
     transformM = translateM * rotateZM * rotateYM * rotateXM * scaleM
 
-    quatX = quatRotateX(angleA)
-    quatY = quatRotateY(angleB)
-    quatZ = quatRotateZ(angleC)
-    quatXY = quatMultiply(quatX, quatY)
-    quatXYZ = quatMultiply(quatXY, quatZ)
+    quatX = quatf(vec3f(1'f32, 0'f32, 0'f32), angleA)
+    quatY = quatf(vec3f(0'f32, 1'f32, 0'f32), angleB)
+    quatZ = quatf(vec3f(0'f32, 0'f32, 1'f32), angleC)
+    quatXY = quatX * quatY
+    quatXYZ = quatXY * quatZ
 
     rotationOnlyM = rotationOnlyCopy(transformM)
-    basisRight = vec3(1.0, 0.0, 0.0)
-    basisUp = vec3(0.0, 1.0, 0.0)
-    basisForward = vec3(0.0, 0.0, 1.0)
+    basisRight = vec3f(1'f32, 0'f32, 0'f32)
+    basisUp = vec3f(0'f32, 1'f32, 0'f32)
+    basisForward = vec3f(0'f32, 0'f32, 1'f32)
 
   lines.heading("dump")
   lines.appendLine("notes: matrices are printed in raw in-memory order, four scalars per line")
 
   lines.heading("matrix constructors and composition")
-  lines.dumpMat4("identity", mat4())
+  lines.dumpMat4("identity", mat4f())
   lines.dumpMat4("matrix_a", matA)
   lines.dumpMat4("matrix_b", matB)
   lines.dumpMat4("scale", scaleM)
@@ -142,13 +158,13 @@ proc main() =
   lines.heading("matrix vector multiply")
   lines.dumpVec3("vec3_input", vecA)
   lines.dumpVec4("vec4_input", vecB)
-  lines.dumpVec3("transform * vec3", transformM * vecA)
-  lines.dumpVec4("transform * vec4", transformM * vecB)
-  lines.dumpVec3("rotate_z * vec3", rotateZM * vecA)
-  lines.dumpVec3("translate * vec3", translateM * vecA)
+  lines.dumpVec3("transform * vec3", transformVec3ByMat4(transformM, vecA))
+  lines.dumpVec4("transform * vec4", transformVec4ByMat4(transformM, vecB))
+  lines.dumpVec3("rotate_z * vec3", transformVec3ByMat4(rotateZM, vecA))
+  lines.dumpVec3("translate * vec3", transformVec3ByMat4(translateM, vecA))
 
   lines.heading("quaternion constructors")
-  lines.dumpQuat("quat_identity", quat())
+  lines.dumpQuat("quat_identity", quatf())
   lines.dumpQuat("quat_rotate_x", quatX)
   lines.dumpQuat("quat_rotate_y", quatY)
   lines.dumpQuat("quat_rotate_z", quatZ)
@@ -168,28 +184,30 @@ proc main() =
 
   lines.heading("quaternion vector rotate")
   lines.dumpVec3("input", vecA)
-  lines.dumpVec3("quat_rotate(quat_x, input)", quatRotate(quatX, vecA))
-  lines.dumpVec3("quat_rotate(quat_y, input)", quatRotate(quatY, vecA))
-  lines.dumpVec3("quat_rotate(quat_z, input)", quatRotate(quatZ, vecA))
-  lines.dumpVec3("quat_rotate(from_axis_angle, input)", quatRotate(axisQuat, vecA))
+  lines.dumpVec3("quat_rotate(quat_x, input)", quatX * vecA)
+  lines.dumpVec3("quat_rotate(quat_y, input)", quatY * vecA)
+  lines.dumpVec3("quat_rotate(quat_z, input)", quatZ * vecA)
+  lines.dumpVec3("quat_rotate(from_axis_angle, input)", axisQuat * vecA)
   lines.dumpVec3("quat_z * input", quatZ * vecA)
 
   lines.heading("matrix quaternion roundtrip")
-  lines.dumpQuat("pure_rotation.quat", pureRotationM.quat())
+  let pureRotationQuat = quat(pureRotationM)
+  lines.dumpQuat("pure_rotation.quat", pureRotationQuat)
   lines.dumpMat4("pure_rotation", pureRotationM)
-  lines.dumpMat4("pure_rotation.quat.mat4", pureRotationM.quat().mat4())
+  lines.dumpMat4("pure_rotation.quat.mat4", pureRotationQuat.mat4())
   lines.appendLine("transform.rotation_only.note: skipped exact quaternion/matrix roundtrip comparison because scaled-matrix decomposition differs by library")
   lines.dumpMat4("transform.rotation_only", rotationOnlyM)
-  lines.dumpQuat("axis_mat.quat", axisMat.quat())
-  lines.dumpMat4("axis_mat.quat.mat4", axisMat.quat().mat4())
+  let axisMatQuat = quat(axisMat)
+  lines.dumpQuat("axis_mat.quat", axisMatQuat)
+  lines.dumpMat4("axis_mat.quat.mat4", axisMatQuat.mat4())
 
   lines.heading("basis directions")
   lines.dumpVec3("canonical_right", basisRight)
   lines.dumpVec3("canonical_up", basisUp)
   lines.dumpVec3("canonical_forward", basisForward)
-  lines.dumpVec3("quat_z.right", quatRotate(quatZ, basisRight))
-  lines.dumpVec3("quat_z.up", quatRotate(quatZ, basisUp))
-  lines.dumpVec3("quat_z.forward", quatRotate(quatZ, basisForward))
+  lines.dumpVec3("quat_z.right", quatZ * basisRight)
+  lines.dumpVec3("quat_z.up", quatZ * basisUp)
+  lines.dumpVec3("quat_z.forward", quatZ * basisForward)
 
   writeFile(OutputPath, lines.join("\n") & "\n")
   echo "Wrote ", OutputPath
