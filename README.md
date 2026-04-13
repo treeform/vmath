@@ -131,13 +131,14 @@ We run identical math operations across vmath, [nim-glm](https://github.com/nick
 | Cross product              | ✅ | ✅ | ✅ | ✅ |
 | Slerp                      | ✅ | ✅ | ✅ | ✅ |
 | fromTwoVectors             | ✅ | ✅ | ✅ | ✅ |
+| Quat decomposition (sign)  | ✅ | ✅ | ✅ | ✅ |
+| Scaled-matrix decomposition| ✅ | ✅ | ✅ | ✅ |
 | Perspective matrix         | ✅ | ✅ | ✅ | ❌ |
 | Ortho matrix               | ✅ | ✅ | ✅ | N/A |
 | LookAt matrix              | ✅ | ✅ | ✅ | ✅ |
 | Euler angle decomposition  | ✅ | ✅ | N/A | ✅ |
 | Element access `[row,col]` | ✅ | ✅ | N/A | ✅ |
-| Quat decomposition (sign)  | ✅ | ✅ | ✅ | ✅ |
-| Scaled-matrix decomposition| ✅ | ✅ | ✅ | ✅ |
+
 
 ❌ **Perspective matrix**: Jolt Physics uses Z range [0, 1] (Vulkan/DirectX convention) while vmath uses Z range [-1, 1] (OpenGL convention). The X and Y scaling match, but Z-related elements differ.
 
