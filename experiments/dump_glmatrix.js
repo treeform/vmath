@@ -1,8 +1,8 @@
-import * as mat4 from "/Users/me/p/gl-matrix/src/mat4.js";
-import * as mat3 from "/Users/me/p/gl-matrix/src/mat3.js";
-import * as vec3 from "/Users/me/p/gl-matrix/src/vec3.js";
-import * as vec4 from "/Users/me/p/gl-matrix/src/vec4.js";
-import * as quat from "/Users/me/p/gl-matrix/src/quat.js";
+import * as mat4 from "../../gl-matrix/src/mat4.js";
+import * as mat3 from "../../gl-matrix/src/mat3.js";
+import * as vec3 from "../../gl-matrix/src/vec3.js";
+import * as vec4 from "../../gl-matrix/src/vec4.js";
+import * as quat from "../../gl-matrix/src/quat.js";
 import { writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
