@@ -303,7 +303,7 @@ elif true or defined(vmathObjArrayBased):
     GMat3*[T] {.bycopy.} = object
       arr: array[9, T]
     GMat4*[T] {.bycopy.} = object
-      arr: array[16, T]
+      arr*: array[16, T]
 
   proc gmat2*[T](
     m00, m01,
@@ -913,7 +913,7 @@ proc matToString[T](a: T, n: int): string =
   for x in 0 ..< n:
     result.add "  "
     for y in 0 ..< n:
-      result.add $a[y, x] & ", "
+      result.add $a[x, y] & ", "
     result.setLen(result.len - 1)
     result.add "\n"
   result.setLen(result.len - 2)
