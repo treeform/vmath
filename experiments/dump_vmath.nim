@@ -202,7 +202,7 @@ proc main() =
   lines.dumpQuat("transform.rotation_only.quat", rotationOnlyM.quat())
   lines.dumpQuat("axis_mat.quat", axisMat.quat())
   lines.dumpMat4("axis_mat.quat.mat4", axisMat.quat().mat4())
-  lines.appendLine("hard_decomp.note: 170 degrees around (1,-2,3) normalized — w near zero")
+  lines.appendLine("hard_decomp.note: 170 degrees around (1,-2,3) normalized - w near zero")
   lines.dumpQuat("hard_decomp.quat_original", hardQuat)
   lines.dumpQuat("hard_decomp.quat_from_mat", hardMat.quat())
   lines.dumpMat4("hard_decomp.mat4", hardMat)

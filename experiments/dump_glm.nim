@@ -202,7 +202,7 @@ proc main() =
   let axisMatQuat = quat(axisMat)
   lines.dumpQuat("axis_mat.quat", axisMatQuat)
   lines.dumpMat4("axis_mat.quat.mat4", axisMatQuat.mat4())
-  lines.appendLine("hard_decomp.note: 170 degrees around (1,-2,3) normalized — w near zero")
+  lines.appendLine("hard_decomp.note: 170 degrees around (1,-2,3) normalized - w near zero")
   lines.dumpQuat("hard_decomp.quat_original", hardQuat)
   lines.dumpQuat("hard_decomp.quat_from_mat", quat(hardMat))
   lines.dumpMat4("hard_decomp.mat4", hardMat)

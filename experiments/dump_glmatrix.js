@@ -235,7 +235,7 @@ dumpQuat("transform.rotation_only.quat", quatFromMat(rotationOnlyM));
 const axisMatQuat = quatFromMat(axisMat);
 dumpQuat("axis_mat.quat", axisMatQuat);
 dumpMat4("axis_mat.quat.mat4", mat4FromQuat(axisMatQuat));
-appendLine("hard_decomp.note: 170 degrees around (1,-2,3) normalized — w near zero");
+appendLine("hard_decomp.note: 170 degrees around (1,-2,3) normalized - w near zero");
 dumpQuat("hard_decomp.quat_original", hardQuat);
 dumpQuat("hard_decomp.quat_from_mat", quatFromMat(hardMat));
 dumpMat4("hard_decomp.mat4", hardMat);

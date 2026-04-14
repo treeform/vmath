@@ -221,7 +221,7 @@ proc main() =
   let axisMatQuat = axisQuat
   lines.dumpQuat("axis_mat.quat", axisMatQuat)
   lines.dumpMat4("axis_mat.quat.mat4", joltMat44FromQuat(axisMatQuat.x, axisMatQuat.y, axisMatQuat.z, axisMatQuat.w))
-  lines.appendLine("hard_decomp.note: 170 degrees around (1,-2,3) normalized — w near zero")
+  lines.appendLine("hard_decomp.note: 170 degrees around (1,-2,3) normalized - w near zero")
   lines.dumpQuat("hard_decomp.quat_original", hardQuat)
   let hardMatQuat = getQuaternion(hardMat)
   lines.dumpQuat("hard_decomp.quat_from_mat", hardMatQuat)

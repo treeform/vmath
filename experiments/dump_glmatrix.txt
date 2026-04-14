@@ -188,7 +188,7 @@ axis_mat.quat.mat4:
   +000.326 -000.340 +000.882 +000.000
   +000.000 +000.000 +000.000 +001.000
 ]
-hard_decomp.note: 170 degrees around (1,-2,3) normalized — w near zero
+hard_decomp.note: 170 degrees around (1,-2,3) normalized - w near zero
 hard_decomp.quat_original: <+000.266, -000.532, +000.799, +000.087>
 hard_decomp.quat_from_mat: <+000.266, -000.532, +000.799, +000.087>
 hard_decomp.mat4:
