@@ -338,13 +338,13 @@ elif true or defined(vmathObjArrayBased):
       m30, m31, m32, m33
     ])
 
-  template `[]`*[T](a: GMat2[T], i, j: int): T = a.arr[j * 2 + i]
-  template `[]`*[T](a: GMat3[T], i, j: int): T = a.arr[j * 3 + i]
-  template `[]`*[T](a: GMat4[T], i, j: int): T = a.arr[j * 4 + i]
+  template `[]`*[T](a: GMat2[T], i, j: int): T = a.arr[i * 2 + j]
+  template `[]`*[T](a: GMat3[T], i, j: int): T = a.arr[i * 3 + j]
+  template `[]`*[T](a: GMat4[T], i, j: int): T = a.arr[i * 4 + j]
 
-  template `[]=`*[T](a: var GMat2[T], i, j: int, v: T) = a.arr[j * 2 + i] = v
-  template `[]=`*[T](a: var GMat3[T], i, j: int, v: T) = a.arr[j * 3 + i] = v
-  template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) = a.arr[j * 4 + i] = v
+  template `[]=`*[T](a: var GMat2[T], i, j: int, v: T) = a.arr[i * 2 + j] = v
+  template `[]=`*[T](a: var GMat3[T], i, j: int, v: T) = a.arr[i * 3 + j] = v
+  template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) = a.arr[i * 4 + j] = v
 
   template `[]`*[T](a: GMat2[T], i: int): GVec2[T] =
     gvec2[T](
