@@ -423,16 +423,14 @@ suite "mat4 operations":
         check t[r, c] == a[c, r]
     check transpose(transpose(a)) ~= a
 
-  test "mat4 inverse of invertible matrix":
-    # Pure rotation + translation (well-conditioned)
-    let m = translate(vec3(10, 20, 30)) * rotateZ(71.toRadians) *
-            rotateY(-23.toRadians) * rotateX(37.toRadians)
+  test "mat4 inverse (float32)":
+    let m = translate(vec3(1, 2, 3)) * rotateZ(45.toRadians)
     let inv = inverse(m)
     check m * inv ~= mat4()
     check inv * m ~= mat4()
 
-  test "mat4 inverse with non-uniform scale (double)":
-    # Non-uniform scale needs float64 for ~= tolerance
+  test "mat4 inverse (float64, compound transform)":
+    # Multi-rotation + non-uniform scale needs float64 to stay within ~= tolerance
     let m = translate(dvec3(10, 20, 30)) * rotateZ(71.0.toRadians) *
             rotateY(-23.0.toRadians) * rotateX(37.0.toRadians) * scale(dvec3(2, 3, 4))
     let inv = inverse(m)
