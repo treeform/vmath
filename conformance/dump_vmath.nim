@@ -1,6 +1,6 @@
 import
   std/[math, os, strutils],
-  vmath {.all.}
+  ../src/vmath {.all.}
 
 const
   OutputPath = parentDir(currentSourcePath()) / "dump_vmath.txt"
