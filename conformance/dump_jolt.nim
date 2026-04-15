@@ -253,15 +253,6 @@ proc main() =
   lines.dumpMat4("hard_decomp.mat4", hardMat)
   lines.dumpMat4("hard_decomp.quat_from_mat.mat4", joltMat44FromQuat(hardMatQuat.x, hardMatQuat.y, hardMatQuat.z, hardMatQuat.w))
 
-  lines.heading("perspective matrix")
-  lines.appendLine("notes: fovy=60 degrees, aspect=1.5, near=0.1, far=100.0")
-  lines.appendLine("notes: Jolt uses Z range [0,1] (Vulkan/DirectX convention), values will differ from OpenGL [-1,1]")
-  let fovyRad = 60'f32 * PI.float32 / 180'f32
-  lines.dumpMat4("perspective", joltMat44Perspective(fovyRad, 1.5'f32, 0.1'f32, 100'f32))
-
-  lines.heading("ortho matrix")
-  lines.appendLine("N/A")
-
   lines.heading("lookAt matrix")
   lines.appendLine("notes: eye=(5,5,5), center=(0,0,0), up=(0,1,0)")
   lines.dumpMat4("lookAt", joltMat44LookAt(5, 5, 5, 0, 0, 0, 0, 1, 0))
@@ -317,6 +308,14 @@ proc main() =
   lines.dumpScalar("from_axis_angle.angle", aa1.w)
   lines.dumpVec3("quat_xyz.axis", JoltFloat3(x: aa2.x, y: aa2.y, z: aa2.z))
   lines.dumpScalar("quat_xyz.angle", aa2.w)
+
+  lines.heading("perspective matrix")
+  lines.appendLine("notes: fovy=60 degrees, aspect=1.5, near=0.1, far=100.0")
+  let fovyRad = 60'f32 * PI.float32 / 180'f32
+  lines.dumpMat4("perspective", joltMat44Perspective(fovyRad, 1.5'f32, 0.1'f32, 100'f32))
+
+  lines.heading("ortho matrix")
+  lines.appendLine("N/A")
 
   lines.heading("basis directions")
   lines.appendLine("N/A")

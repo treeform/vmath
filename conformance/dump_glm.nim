@@ -223,15 +223,6 @@ proc main() =
   lines.dumpMat4("hard_decomp.mat4", hardMat)
   lines.dumpMat4("hard_decomp.quat_from_mat.mat4", quat(hardMat).mat4())
 
-  lines.heading("perspective matrix")
-  lines.appendLine("notes: fovy=60 degrees, aspect=1.5, near=0.1, far=100.0")
-  let fovyRad = 60'f32 * PI.float32 / 180'f32
-  lines.dumpMat4("perspective", perspectiveRH(fovyRad, 1.5'f32, 0.1'f32, 100'f32))
-
-  lines.heading("ortho matrix")
-  lines.appendLine("notes: left=-10, right=10, bottom=-7.5, top=7.5, near=0.1, far=100.0")
-  lines.dumpMat4("ortho", ortho(-10'f32, 10'f32, -7.5'f32, 7.5'f32, 0.1'f32, 100'f32))
-
   lines.heading("lookAt matrix")
   lines.appendLine("notes: eye=(5,5,5), center=(0,0,0), up=(0,1,0)")
   lines.dumpMat4("lookAt", lookAtRH(vec3f(5, 5, 5), vec3f(0, 0, 0), vec3f(0, 1, 0)))
@@ -289,6 +280,15 @@ proc main() =
   lines.dumpScalar("from_axis_angle.angle", angle(axisQuat))
   lines.dumpVec3("quat_xyz.axis", axis(quatXYZ))
   lines.dumpScalar("quat_xyz.angle", angle(quatXYZ))
+
+  lines.heading("perspective matrix")
+  lines.appendLine("notes: fovy=60 degrees, aspect=1.5, near=0.1, far=100.0")
+  let fovyRad = 60'f32 * PI.float32 / 180'f32
+  lines.dumpMat4("perspective", perspectiveRH(fovyRad, 1.5'f32, 0.1'f32, 100'f32))
+
+  lines.heading("ortho matrix")
+  lines.appendLine("notes: left=-10, right=10, bottom=-7.5, top=7.5, near=0.1, far=100.0")
+  lines.dumpMat4("ortho", ortho(-10'f32, 10'f32, -7.5'f32, 7.5'f32, 0.1'f32, 100'f32))
 
   lines.heading("basis directions")
   lines.appendLine("N/A")

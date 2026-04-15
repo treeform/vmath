@@ -65,9 +65,9 @@ proc heading(lines: var seq[string], title: string) =
 
 proc rotationOnlyCopy(value: Mat4): Mat4 =
   result = value
-  result[0, 3] = 0
-  result[1, 3] = 0
-  result[2, 3] = 0
+  result[3, 0] = 0
+  result[3, 1] = 0
+  result[3, 2] = 0
 
 proc main() =
   var lines: seq[string]
@@ -211,14 +211,6 @@ proc main() =
   lines.dumpMat4("hard_decomp.mat4", hardMat)
   lines.dumpMat4("hard_decomp.quat_from_mat.mat4", hardMat.quat().mat4())
 
-  lines.heading("perspective matrix")
-  lines.appendLine("notes: fovy=60 degrees, aspect=1.5, near=0.1, far=100.0")
-  lines.dumpMat4("perspective", perspective(60'f32, 1.5'f32, 0.1'f32, 100'f32))
-
-  lines.heading("ortho matrix")
-  lines.appendLine("notes: left=-10, right=10, bottom=-7.5, top=7.5, near=0.1, far=100.0")
-  lines.dumpMat4("ortho", ortho(-10'f32, 10'f32, -7.5'f32, 7.5'f32, 0.1'f32, 100'f32))
-
   lines.heading("lookAt matrix")
   lines.appendLine("notes: eye=(5,5,5), center=(0,0,0), up=(0,1,0)")
   lines.dumpMat4("lookAt", lookAt(vec3(5'f32, 5'f32, 5'f32), vec3(0'f32, 0'f32, 0'f32), vec3(0'f32, 1'f32, 0'f32)))
@@ -229,15 +221,6 @@ proc main() =
   let axisAngles = axisQuat.toAngles()
   lines.dumpVec3("pure_rotation.quat.euler", pureRotAngles)
   lines.dumpVec3("from_axis_angle.euler", axisAngles)
-
-  lines.heading("basis directions")
-  lines.appendLine("notes: library-specific, N/A for libraries without canonical basis helpers")
-  lines.dumpVec3("canonical_right", basisRight)
-  lines.dumpVec3("canonical_up", basisUp)
-  lines.dumpVec3("canonical_forward", basisForward)
-  lines.dumpVec3("quat_z.right", quatRotate(quatZ, basisRight))
-  lines.dumpVec3("quat_z.up", quatRotate(quatZ, basisUp))
-  lines.dumpVec3("quat_z.forward", quatRotate(quatZ, basisForward))
 
   lines.heading("matrix inverse")
   lines.dumpMat4("transform.inverse", transformM.inverse())
@@ -281,6 +264,14 @@ proc main() =
   lines.dumpScalar("from_axis_angle.angle", aaAngle1)
   lines.dumpVec3("quat_xyz.axis", aaAxis2)
   lines.dumpScalar("quat_xyz.angle", aaAngle2)
+
+  lines.heading("perspective matrix")
+  lines.appendLine("notes: fovy=60 degrees, aspect=1.5, near=0.1, far=100.0")
+  lines.dumpMat4("perspective", perspective(60'f32, 1.5'f32, 0.1'f32, 100'f32))
+
+  lines.heading("ortho matrix")
+  lines.appendLine("notes: left=-10, right=10, bottom=-7.5, top=7.5, near=0.1, far=100.0")
+  lines.dumpMat4("ortho", ortho(-10'f32, 10'f32, -7.5'f32, 7.5'f32, 0.1'f32, 100'f32))
 
   lines.heading("basis directions")
   lines.dumpVec3("forward", matA.forward())
