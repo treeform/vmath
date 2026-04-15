@@ -39,6 +39,9 @@ proc appendLine(lines: var seq[string], line = "") =
 proc dumpScalar(lines: var seq[string], label: string, value: float32) =
   lines.appendLine(label & ": " & fmt(value))
 
+proc dumpVec2(lines: var seq[string], label: string, value: Vec2) =
+  lines.appendLine(label & ": <" & fmt(value.x) & ", " & fmt(value.y) & ">")
+
 proc dumpVec3(lines: var seq[string], label: string, value: Vec3) =
   lines.appendLine(label & ": <" & fmt(value.x) & ", " & fmt(value.y) & ", " & fmt(value.z) & ">")
 
@@ -47,6 +50,23 @@ proc dumpVec4(lines: var seq[string], label: string, value: Vec4) =
 
 proc dumpQuat(lines: var seq[string], label: string, value: Quat) =
   lines.appendLine(label & ": <" & fmt(value.x) & ", " & fmt(value.y) & ", " & fmt(value.z) & ", " & fmt(value.w) & ">")
+
+proc dumpMat2(lines: var seq[string], label: string, value: Mat2) =
+  lines.appendLine(label & ":")
+  let d = cast[array[4, float32]](value)
+  lines.appendLine("[")
+  lines.appendLine("  " & fmt(d[0]) & " " & fmt(d[2]))
+  lines.appendLine("  " & fmt(d[1]) & " " & fmt(d[3]))
+  lines.appendLine("]")
+
+proc dumpMat3(lines: var seq[string], label: string, value: Mat3) =
+  lines.appendLine(label & ":")
+  let d = cast[array[9, float32]](value)
+  lines.appendLine("[")
+  lines.appendLine("  " & fmt(d[0]) & " " & fmt(d[3]) & " " & fmt(d[6]))
+  lines.appendLine("  " & fmt(d[1]) & " " & fmt(d[4]) & " " & fmt(d[7]))
+  lines.appendLine("  " & fmt(d[2]) & " " & fmt(d[5]) & " " & fmt(d[8]))
+  lines.appendLine("]")
 
 proc dumpMat4(lines: var seq[string], label: string, value: Mat4) =
   lines.appendLine(label & ":")
@@ -121,6 +141,20 @@ proc main() =
     hardQuat = fromAxisAngle(hardAxis, hardAngle)
     hardMat = hardQuat.mat4()
 
+    mat2A = cast[Mat2]([1.0f, 2.0f, 3.0f, 4.0f])
+    mat2B = cast[Mat2]([5.0f, -6.0f, 7.0f, -8.0f])
+    vec2A = vec2(1.25, -2.5)
+
+    mat3A = cast[Mat3]([1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 10.0f])
+    mat3B = cast[Mat3]([-1.0f, 3.0f, 5.0f, 7.0f, -2.0f, 4.0f, 6.0f, 8.0f, -3.0f])
+    vec2B = vec2(3.0, -1.5)
+    vec3C = vec3(1.0, -2.0, 3.0)
+
+    rotAngle2D = 45'f32.toRadians
+    scale2D = scale(vec2(2.0, 3.0))
+    translate2D = translate(vec2(5.0, 10.0))
+    rotate2D = rotate(rotAngle2D)
+
     rotationOnlyM = rotationOnlyCopy(transformM)
     basisRight = vec3(1.0, 0.0, 0.0)
     basisUp = vec3(0.0, 1.0, 0.0)
@@ -155,6 +189,70 @@ proc main() =
   lines.dumpScalar("transform[3, 1]", matA[3, 1])
   lines.dumpScalar("transform[3, 2]", matA[3, 2])
   lines.dumpScalar("transform[3, 3]", matA[3, 3])
+
+  lines.heading("mat2 basics")
+  lines.dumpMat2("identity", mat2())
+  lines.dumpMat2("mat2_a", mat2A)
+  lines.dumpMat2("mat2_b", mat2B)
+
+  lines.heading("mat2 multiply")
+  lines.dumpMat2("mat2_a * mat2_b", mat2A * mat2B)
+  lines.dumpMat2("mat2_b * mat2_a", mat2B * mat2A)
+
+  lines.heading("mat2 element access [row, col]")
+  lines.dumpScalar("mat2[0, 0]", mat2A[0, 0])
+  lines.dumpScalar("mat2[0, 1]", mat2A[0, 1])
+  lines.dumpScalar("mat2[1, 0]", mat2A[1, 0])
+  lines.dumpScalar("mat2[1, 1]", mat2A[1, 1])
+
+  lines.heading("mat2 vector multiply")
+  lines.dumpVec2("vec2_input", vec2A)
+  lines.dumpVec2("mat2_a * vec2", mat2A * vec2A)
+
+  lines.heading("mat2 transpose")
+  lines.dumpMat2("mat2_a.transpose", transpose(mat2A))
+
+  lines.heading("mat2 inverse")
+  lines.dumpMat2("mat2_a.inverse", inverse(mat2A))
+
+  lines.heading("mat3 basics")
+  lines.dumpMat3("identity", mat3())
+  lines.dumpMat3("mat3_a", mat3A)
+  lines.dumpMat3("mat3_b", mat3B)
+
+  lines.heading("mat3 multiply")
+  lines.dumpMat3("mat3_a * mat3_b", mat3A * mat3B)
+  lines.dumpMat3("mat3_b * mat3_a", mat3B * mat3A)
+
+  lines.heading("mat3 element access [row, col]")
+  lines.dumpScalar("mat3[0, 0]", mat3A[0, 0])
+  lines.dumpScalar("mat3[0, 1]", mat3A[0, 1])
+  lines.dumpScalar("mat3[0, 2]", mat3A[0, 2])
+  lines.dumpScalar("mat3[1, 0]", mat3A[1, 0])
+  lines.dumpScalar("mat3[1, 1]", mat3A[1, 1])
+  lines.dumpScalar("mat3[1, 2]", mat3A[1, 2])
+  lines.dumpScalar("mat3[2, 0]", mat3A[2, 0])
+  lines.dumpScalar("mat3[2, 1]", mat3A[2, 1])
+  lines.dumpScalar("mat3[2, 2]", mat3A[2, 2])
+
+  lines.heading("mat3 vector multiply")
+  lines.dumpVec2("vec2_input", vec2B)
+  lines.dumpVec3("vec3_input", vec3C)
+  lines.dumpVec2("mat3_a * vec2", mat3A * vec2B)
+  lines.dumpVec3("mat3_a * vec3", mat3A * vec3C)
+
+  lines.heading("mat3 transpose")
+  lines.dumpMat3("mat3_a.transpose", transpose(mat3A))
+
+  lines.heading("mat3 inverse")
+  lines.dumpMat3("mat3_a.inverse", inverse(mat3A))
+
+  lines.heading("mat3 constructors")
+  lines.dumpMat3("scale2d", scale2D)
+  lines.dumpMat3("translate2d", translate2D)
+  lines.dumpScalar("rotate_angle_radians", rotAngle2D)
+  lines.dumpMat3("rotate2d", rotate2D)
+  lines.dumpMat3("translate * rotate * scale", translate2D * rotate2D * scale2D)
 
   lines.heading("matrix constructors and composition")
   lines.dumpMat4("scale", scaleM)

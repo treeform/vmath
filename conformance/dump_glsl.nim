@@ -1,11 +1,82 @@
 import
   std/[math, os, strformat, strutils],
   opengl,
-  shady/compute
+  windy,
+  vmath
 
 const
   OutputPath = parentDir(currentSourcePath()) / "dump_glsl.txt"
   ShaderPath = parentDir(currentSourcePath()) / "dump_glsl.comp"
+
+  VertexShaderSrc = """
+#version 410
+void main() {
+  float x = (gl_VertexID == 1) ? 3.0 : -1.0;
+  float y = (gl_VertexID == 2) ? 3.0 : -1.0;
+  gl_Position = vec4(x, y, 0.0, 1.0);
+}
+"""
+
+var
+  contextInitialized = false
+  window: Window
+  vao: GLuint
+
+proc ensureContext() =
+  if contextInitialized:
+    return
+  window = newWindow(
+    title = "GLSL dump",
+    size = ivec2(100, 100),
+    visible = false,
+    openglVersion = OpenGL4Dot1
+  )
+  window.makeContextCurrent()
+  loadExtensions()
+  glGenVertexArrays(1, vao.addr)
+  glBindVertexArray(vao)
+  glDisable(GL_DEPTH_TEST)
+  glDisable(GL_BLEND)
+  contextInitialized = true
+
+proc compileShader(shaderType: GLenum, source: string): GLuint =
+  result = glCreateShader(shaderType)
+  var srcArray = allocCStringArray([source])
+  glShaderSource(result, 1, srcArray, nil)
+  deallocCStringArray(srcArray)
+  glCompileShader(result)
+  var status: GLint
+  glGetShaderiv(result, GL_COMPILE_STATUS, status.addr)
+  if status == 0:
+    var logLen: GLint
+    glGetShaderiv(result, GL_INFO_LOG_LENGTH, logLen.addr)
+    var log = newString(logLen)
+    glGetShaderInfoLog(result, logLen, nil, log.cstring)
+    echo "Shader compile error:"
+    echo log
+    echo "Source:"
+    echo source
+    quit(1)
+
+proc compileProgram(vertSrc, fragSrc: string): GLuint =
+  let vertShader = compileShader(GL_VERTEX_SHADER, vertSrc)
+  let fragShader = compileShader(GL_FRAGMENT_SHADER, fragSrc)
+  result = glCreateProgram()
+  glAttachShader(result, vertShader)
+  glAttachShader(result, fragShader)
+  glLinkProgram(result)
+  var status: GLint
+  glGetProgramiv(result, GL_LINK_STATUS, status.addr)
+  if status == 0:
+    var logLen: GLint
+    glGetProgramiv(result, GL_INFO_LOG_LENGTH, logLen.addr)
+    var log = newString(logLen)
+    glGetProgramInfoLog(result, logLen, nil, log.cstring)
+    echo "Program link error:"
+    echo log
+    quit(1)
+  glDeleteShader(vertShader)
+  glDeleteShader(fragShader)
 
 proc cleanFloat(value: float32): float32 =
   if abs(value) < 0.0000005'f32:
@@ -41,6 +112,9 @@ proc appendLine(lines: var seq[string], line = "") =
 proc dumpScalar(lines: var seq[string], label: string, value: float32) =
   lines.appendLine(label & ": " & fmt(value))
 
+proc dumpVec2(lines: var seq[string], label: string, value: openArray[float32]) =
+  lines.appendLine(label & ": <" & fmt(value[0]) & ", " & fmt(value[1]) & ">")
+
 proc dumpVec3(lines: var seq[string], label: string, value: openArray[float32]) =
   lines.appendLine(label & ": <" & fmt(value[0]) & ", " & fmt(value[1]) & ", " & fmt(value[2]) & ">")
 
@@ -49,6 +123,21 @@ proc dumpVec4(lines: var seq[string], label: string, value: openArray[float32]) 
 
 proc dumpQuat(lines: var seq[string], label: string, value: openArray[float32]) =
   lines.appendLine(label & ": <" & fmt(value[0]) & ", " & fmt(value[1]) & ", " & fmt(value[2]) & ", " & fmt(value[3]) & ">")
+
+proc dumpMat2(lines: var seq[string], label: string, value: openArray[float32]) =
+  lines.appendLine(label & ":")
+  lines.appendLine("[")
+  lines.appendLine("  " & fmt(value[0]) & " " & fmt(value[2]))
+  lines.appendLine("  " & fmt(value[1]) & " " & fmt(value[3]))
+  lines.appendLine("]")
+
+proc dumpMat3(lines: var seq[string], label: string, value: openArray[float32]) =
+  lines.appendLine(label & ":")
+  lines.appendLine("[")
+  lines.appendLine("  " & fmt(value[0]) & " " & fmt(value[3]) & " " & fmt(value[6]))
+  lines.appendLine("  " & fmt(value[1]) & " " & fmt(value[4]) & " " & fmt(value[7]))
+  lines.appendLine("  " & fmt(value[2]) & " " & fmt(value[5]) & " " & fmt(value[8]))
+  lines.appendLine("]")
 
 proc dumpMat4(lines: var seq[string], label: string, value: openArray[float32]) =
   lines.appendLine(label & ":")
@@ -73,6 +162,27 @@ proc setUniformMat4(program: GLuint, name: string, value: openArray[float32]) =
     return
   doAssert value.len == 16
   glUniformMatrix4fv(location, 1, GLboolean(GL_FALSE), cast[ptr GLfloat](unsafeAddr value[0]))
+
+proc setUniformMat3(program: GLuint, name: string, value: openArray[float32]) =
+  let location = glGetUniformLocation(program, name)
+  if location < 0:
+    return
+  doAssert value.len == 9
+  glUniformMatrix3fv(location, 1, GLboolean(GL_FALSE), cast[ptr GLfloat](unsafeAddr value[0]))
+
+proc setUniformMat2(program: GLuint, name: string, value: openArray[float32]) =
+  let location = glGetUniformLocation(program, name)
+  if location < 0:
+    return
+  doAssert value.len == 4
+  glUniformMatrix2fv(location, 1, GLboolean(GL_FALSE), cast[ptr GLfloat](unsafeAddr value[0]))
+
+proc setUniformVec2(program: GLuint, name: string, value: openArray[float32]) =
+  let location = glGetUniformLocation(program, name)
+  if location < 0:
+    return
+  doAssert value.len == 2
+  glUniform2f(location, value[0], value[1])
 
 proc setUniformVec3(program: GLuint, name: string, value: openArray[float32]) =
   let location = glGetUniformLocation(program, name)
@@ -205,6 +315,13 @@ proc uploadDumpUniforms(program: GLuint) =
     ]
     uVecA = [1.25f, -2.5f, 3.75f]
     uVecB = [1.25f, -2.5f, 3.75f, 1.0f]
+    uMat2A = [1.0f, 2.0f, 3.0f, 4.0f]
+    uMat2B = [5.0f, -6.0f, 7.0f, -8.0f]
+    uVec2A = [1.25f, -2.5f]
+    uMat3A = [1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 10.0f]
+    uMat3B = [-1.0f, 3.0f, 5.0f, 7.0f, -2.0f, 4.0f, 6.0f, 8.0f, -3.0f]
+    uVec2B = [3.0f, -1.5f]
+    uVec3C = [1.0f, -2.0f, 3.0f]
   setUniformMat4(program, "uIdentityM", uIdentityM)
   setUniformMat4(program, "uMatA", uMatA)
   setUniformMat4(program, "uMatB", uMatB)
@@ -217,62 +334,95 @@ proc uploadDumpUniforms(program: GLuint) =
   setUniformMat4(program, "uHardMat", uHardMat)
   setUniformVec3(program, "uVecA", uVecA)
   setUniformVec4(program, "uVecB", uVecB)
+  setUniformMat2(program, "uMat2A", uMat2A)
+  setUniformMat2(program, "uMat2B", uMat2B)
+  setUniformMat3(program, "uMat3A", uMat3A)
+  setUniformMat3(program, "uMat3B", uMat3B)
+  setUniformVec2(program, "uVec2A", uVec2A)
+  setUniformVec2(program, "uVec2B", uVec2B)
+  setUniformVec3(program, "uVec3C", uVec3C)
 
-proc runComputeShader(shaderSrc: string, invocationCount: int): seq[float32] =
-  initOffscreenWindow()
+proc runShader(fragSrc: string, pixelCount: int): seq[float32] =
+  ensureContext()
 
-  let shaderId = compileComputeShader((ShaderPath, shaderSrc))
-  glUseProgram(shaderId)
-  uploadDumpUniforms(shaderId)
+  let program = compileProgram(VertexShaderSrc, fragSrc)
+  glUseProgram(program)
+  uploadDumpUniforms(program)
 
-  var
-    outputBufferId: GLuint
-    outputTextureId: GLuint
-  glGenBuffers(1, outputBufferId.addr)
-  glBindBuffer(GL_TEXTURE_BUFFER, outputBufferId)
-  glBufferData(GL_TEXTURE_BUFFER, invocationCount * 4 * sizeof(float32), nil, GL_STATIC_DRAW)
+  var fbo, texture: GLuint
+  glGenFramebuffers(1, fbo.addr)
+  glBindFramebuffer(GL_FRAMEBUFFER, fbo)
 
-  glGenTextures(1, outputTextureId.addr)
-  glActiveTexture(GL_TEXTURE0)
-  glBindTexture(GL_TEXTURE_BUFFER, outputTextureId)
-  glTexBuffer(GL_TEXTURE_BUFFER, GL_RGBA32F, outputBufferId)
-  glBindImageTexture(0, outputTextureId, 0, GL_FALSE, 0, GL_WRITE_ONLY, GL_RGBA32F)
+  glGenTextures(1, texture.addr)
+  glBindTexture(GL_TEXTURE_2D, texture)
+  glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA32F.GLint, pixelCount.GLsizei, 1.GLsizei, 0.GLint, GL_RGBA, cGL_FLOAT, nil)
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST.GLint)
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST.GLint)
+  glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture, 0)
 
-  glDispatchCompute(invocationCount.GLuint, 1, 1)
-  glMemoryBarrier(GL_BUFFER_UPDATE_BARRIER_BIT or GL_SHADER_IMAGE_ACCESS_BARRIER_BIT)
+  let status = glCheckFramebufferStatus(GL_FRAMEBUFFER)
+  if status != GL_FRAMEBUFFER_COMPLETE:
+    echo "Framebuffer incomplete: ", status.uint32
+    quit(1)
 
-  result.setLen(invocationCount * 4)
-  let mapped = cast[ptr UncheckedArray[float32]](glMapNamedBuffer(outputBufferId, GL_READ_ONLY))
-  copyMem(result[0].addr, mapped, result.len * sizeof(float32))
-  discard glUnmapNamedBuffer(outputBufferId)
+  glViewport(0, 0, pixelCount.GLsizei, 1)
+  glDrawArrays(GL_TRIANGLES, 0, 3)
 
-  glBindTexture(GL_TEXTURE_BUFFER, 0)
-  glBindBuffer(GL_TEXTURE_BUFFER, 0)
-  glDeleteTextures(1, outputTextureId.addr)
-  glDeleteBuffers(1, outputBufferId.addr)
-  glDeleteProgram(shaderId)
+  result.setLen(pixelCount * 4)
+  glReadPixels(0, 0, pixelCount.GLsizei, 1.GLsizei, GL_RGBA, cGL_FLOAT, result[0].addr)
+
+  glBindFramebuffer(GL_FRAMEBUFFER, 0)
+  glDeleteTextures(1, texture.addr)
+  glDeleteFramebuffers(1, fbo.addr)
+  glDeleteProgram(program)
 
 proc runMatrix(expr: string): seq[float32] =
   let shaderSrc = shaderTemplate(fmt"""
-  uint index = gl_GlobalInvocationID.x;
+  int index = int(gl_FragCoord.x);
   mat4 value = {expr};
-  imageStore(outputBuffer, int(index), value[int(index)]);
+  fragColor = value[index];
 """)
-  runComputeShader(shaderSrc, 4)
+  runShader(shaderSrc, 4)
+
+proc runMat3(expr: string): seq[float32] =
+  let shaderSrc = shaderTemplate(fmt"""
+  int index = int(gl_FragCoord.x);
+  mat3 value = {expr};
+  fragColor = vec4(value[index], 0.0);
+""")
+  let raw = runShader(shaderSrc, 3)
+  result = @[raw[0], raw[1], raw[2], raw[4], raw[5], raw[6], raw[8], raw[9], raw[10]]
+
+proc runMat2(expr: string): seq[float32] =
+  let shaderSrc = shaderTemplate(fmt"""
+  int index = int(gl_FragCoord.x);
+  mat2 value = {expr};
+  fragColor = vec4(value[index], 0.0, 0.0);
+""")
+  let raw = runShader(shaderSrc, 2)
+  result = @[raw[0], raw[1], raw[4], raw[5]]
 
 proc runVec3(expr: string): seq[float32] =
   let shaderSrc = shaderTemplate(fmt"""
   vec3 value = {expr};
-  imageStore(outputBuffer, 0, vec4(value, 0.0));
+  fragColor = vec4(value, 0.0);
 """)
-  runComputeShader(shaderSrc, 1)
+  runShader(shaderSrc, 1)
 
 proc runVec4(expr: string): seq[float32] =
   let shaderSrc = shaderTemplate(fmt"""
   vec4 value = {expr};
-  imageStore(outputBuffer, 0, value);
+  fragColor = value;
 """)
-  runComputeShader(shaderSrc, 1)
+  runShader(shaderSrc, 1)
+
+proc runVec2(expr: string): seq[float32] =
+  let shaderSrc = shaderTemplate(fmt"""
+  vec2 value = {expr};
+  fragColor = vec4(value, 0.0, 0.0);
+""")
+  let raw = runShader(shaderSrc, 1)
+  result = @[raw[0], raw[1]]
 
 proc runScalar(expr: string): float32 =
   runVec4(expr).toOpenArray(0, 3)[0]
@@ -309,6 +459,70 @@ proc main() =
   lines.dumpScalar("transform[3, 1]", runScalar("vec4(matA()[3][1], 0.0, 0.0, 0.0)"))
   lines.dumpScalar("transform[3, 2]", runScalar("vec4(matA()[3][2], 0.0, 0.0, 0.0)"))
   lines.dumpScalar("transform[3, 3]", runScalar("vec4(matA()[3][3], 0.0, 0.0, 0.0)"))
+
+  lines.heading("mat2 basics")
+  lines.dumpMat2("identity", runMat2("mat2(1.0)"))
+  lines.dumpMat2("mat2_a", runMat2("mat2A()"))
+  lines.dumpMat2("mat2_b", runMat2("mat2B()"))
+
+  lines.heading("mat2 multiply")
+  lines.dumpMat2("mat2_a * mat2_b", runMat2("mat2A() * mat2B()"))
+  lines.dumpMat2("mat2_b * mat2_a", runMat2("mat2B() * mat2A()"))
+
+  lines.heading("mat2 element access [row, col]")
+  lines.dumpScalar("mat2[0, 0]", runScalar("vec4(mat2A()[0][0], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("mat2[0, 1]", runScalar("vec4(mat2A()[0][1], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("mat2[1, 0]", runScalar("vec4(mat2A()[1][0], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("mat2[1, 1]", runScalar("vec4(mat2A()[1][1], 0.0, 0.0, 0.0)"))
+
+  lines.heading("mat2 vector multiply")
+  lines.dumpVec2("vec2_input", runVec2("vec2A()"))
+  lines.dumpVec2("mat2_a * vec2", runVec2("mat2A() * vec2A()"))
+
+  lines.heading("mat2 transpose")
+  lines.dumpMat2("mat2_a.transpose", runMat2("transpose(mat2A())"))
+
+  lines.heading("mat2 inverse")
+  lines.dumpMat2("mat2_a.inverse", runMat2("inverse(mat2A())"))
+
+  lines.heading("mat3 basics")
+  lines.dumpMat3("identity", runMat3("mat3(1.0)"))
+  lines.dumpMat3("mat3_a", runMat3("mat3A()"))
+  lines.dumpMat3("mat3_b", runMat3("mat3B()"))
+
+  lines.heading("mat3 multiply")
+  lines.dumpMat3("mat3_a * mat3_b", runMat3("mat3A() * mat3B()"))
+  lines.dumpMat3("mat3_b * mat3_a", runMat3("mat3B() * mat3A()"))
+
+  lines.heading("mat3 element access [row, col]")
+  lines.dumpScalar("mat3[0, 0]", runScalar("vec4(mat3A()[0][0], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("mat3[0, 1]", runScalar("vec4(mat3A()[0][1], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("mat3[0, 2]", runScalar("vec4(mat3A()[0][2], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("mat3[1, 0]", runScalar("vec4(mat3A()[1][0], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("mat3[1, 1]", runScalar("vec4(mat3A()[1][1], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("mat3[1, 2]", runScalar("vec4(mat3A()[1][2], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("mat3[2, 0]", runScalar("vec4(mat3A()[2][0], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("mat3[2, 1]", runScalar("vec4(mat3A()[2][1], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("mat3[2, 2]", runScalar("vec4(mat3A()[2][2], 0.0, 0.0, 0.0)"))
+
+  lines.heading("mat3 vector multiply")
+  lines.dumpVec2("vec2_input", runVec2("vec2B()"))
+  lines.dumpVec3("vec3_input", runVec3("vec3C()"))
+  lines.dumpVec2("mat3_a * vec2", runVec2("(mat3A() * vec3(vec2B(), 1.0)).xy"))
+  lines.dumpVec3("mat3_a * vec3", runVec3("mat3A() * vec3C()"))
+
+  lines.heading("mat3 transpose")
+  lines.dumpMat3("mat3_a.transpose", runMat3("transpose(mat3A())"))
+
+  lines.heading("mat3 inverse")
+  lines.dumpMat3("mat3_a.inverse", runMat3("inverse(mat3A())"))
+
+  lines.heading("mat3 constructors")
+  lines.dumpMat3("scale2d", runMat3("scale2D(vec2(2.0, 3.0))"))
+  lines.dumpMat3("translate2d", runMat3("translate2D(vec2(5.0, 10.0))"))
+  lines.dumpScalar("rotate_angle_radians", runScalar("vec4(rotAngle2D, 0.0, 0.0, 0.0)"))
+  lines.dumpMat3("rotate2d", runMat3("rotate2D(rotAngle2D)"))
+  lines.dumpMat3("translate * rotate * scale", runMat3("translate2D(vec2(5.0, 10.0)) * rotate2D(rotAngle2D) * scale2D(vec2(2.0, 3.0))"))
 
   lines.heading("matrix constructors and composition")
   lines.dumpMat4("scale", runMatrix("scaleM()"))

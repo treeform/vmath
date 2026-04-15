@@ -105,7 +105,9 @@ static Mat44 RotationOnlyCopy(Mat44 value)
 
 int main()
 {
-	const std::string output_path = "C:/p/vmath/conformance/dump_jolt.txt";
+	// Derive output path from __FILE__ so it works regardless of cwd
+	std::string source_path(__FILE__);
+	std::string output_path = source_path.substr(0, source_path.rfind('.')) + ".txt";
 
 	std::vector<std::string> lines;
 
@@ -190,6 +192,45 @@ int main()
 	DumpScalar(lines, "transform[3, 1]", mat_a(3, 1));
 	DumpScalar(lines, "transform[3, 2]", mat_a(3, 2));
 	DumpScalar(lines, "transform[3, 3]", mat_a(3, 3));
+
+	Heading(lines, "mat2 basics");
+	AppendLine(lines, "N/A");
+
+	Heading(lines, "mat2 multiply");
+	AppendLine(lines, "N/A");
+
+	Heading(lines, "mat2 element access [row, col]");
+	AppendLine(lines, "N/A");
+
+	Heading(lines, "mat2 vector multiply");
+	AppendLine(lines, "N/A");
+
+	Heading(lines, "mat2 transpose");
+	AppendLine(lines, "N/A");
+
+	Heading(lines, "mat2 inverse");
+	AppendLine(lines, "N/A");
+
+	Heading(lines, "mat3 basics");
+	AppendLine(lines, "N/A");
+
+	Heading(lines, "mat3 multiply");
+	AppendLine(lines, "N/A");
+
+	Heading(lines, "mat3 element access [row, col]");
+	AppendLine(lines, "N/A");
+
+	Heading(lines, "mat3 vector multiply");
+	AppendLine(lines, "N/A");
+
+	Heading(lines, "mat3 transpose");
+	AppendLine(lines, "N/A");
+
+	Heading(lines, "mat3 inverse");
+	AppendLine(lines, "N/A");
+
+	Heading(lines, "mat3 constructors");
+	AppendLine(lines, "N/A");
 
 	Heading(lines, "matrix constructors and composition");
 	DumpMat4(lines, "scale", scale_m);

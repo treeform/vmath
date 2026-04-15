@@ -1,5 +1,7 @@
-import * as mat4 from "../../gl-matrix/src/mat4.js";
+import * as mat2 from "../../gl-matrix/src/mat2.js";
 import * as mat3 from "../../gl-matrix/src/mat3.js";
+import * as mat4 from "../../gl-matrix/src/mat4.js";
+import * as vec2 from "../../gl-matrix/src/vec2.js";
 import * as vec3 from "../../gl-matrix/src/vec3.js";
 import * as vec4 from "../../gl-matrix/src/vec4.js";
 import * as quat from "../../gl-matrix/src/quat.js";
@@ -39,6 +41,9 @@ function heading(title) {
 function dumpScalar(label, value) {
   appendLine(label + ": " + fmt(value));
 }
+function dumpVec2(label, v) {
+  appendLine(label + ": <" + fmt(v[0]) + ", " + fmt(v[1]) + ">");
+}
 function dumpVec3(label, v) {
   appendLine(label + ": <" + fmt(v[0]) + ", " + fmt(v[1]) + ", " + fmt(v[2]) + ">");
 }
@@ -47,6 +52,21 @@ function dumpVec4(label, v) {
 }
 function dumpQuat(label, q) {
   appendLine(label + ": <" + fmt(q[0]) + ", " + fmt(q[1]) + ", " + fmt(q[2]) + ", " + fmt(q[3]) + ">");
+}
+function dumpMat2(label, m) {
+  appendLine(label + ":");
+  appendLine("[");
+  appendLine("  " + fmt(m[0]) + " " + fmt(m[2]));
+  appendLine("  " + fmt(m[1]) + " " + fmt(m[3]));
+  appendLine("]");
+}
+function dumpMat3(label, m) {
+  appendLine(label + ":");
+  appendLine("[");
+  appendLine("  " + fmt(m[0]) + " " + fmt(m[3]) + " " + fmt(m[6]));
+  appendLine("  " + fmt(m[1]) + " " + fmt(m[4]) + " " + fmt(m[7]));
+  appendLine("  " + fmt(m[2]) + " " + fmt(m[5]) + " " + fmt(m[8]));
+  appendLine("]");
 }
 function dumpMat4(label, m) {
   appendLine(label + ":");
@@ -150,20 +170,31 @@ const angleA = 37 * DEG2RAD;
 const angleB = -23 * DEG2RAD;
 const angleC = 71 * DEG2RAD;
 
-const matA = mat4.fromValues(
+const matA = new Float32Array([
   1.0, 2.0, 3.0, 4.0,
   5.0, 6.0, 7.0, 8.0,
   9.0, 10.0, 11.0, 12.0,
   13.0, 14.0, 15.0, 16.0
-);
-const matB = mat4.fromValues(
+]);
+const matB = new Float32Array([
   -10.0, -20.0, -30.0, -40.0,
   50.0, 60.0, 70.0, 80.0,
   90.0, 100.0, 110.0, 120.0,
   130.0, 140.0, 150.0, 160.0
-);
+]);
 const vecA = vec3.fromValues(1.25, -2.5, 3.75);
 const vecB = vec4.fromValues(1.25, -2.5, 3.75, 1.0);
+
+const mat2A = new Float32Array([1.0, 2.0, 3.0, 4.0]);
+const mat2B = new Float32Array([5.0, -6.0, 7.0, -8.0]);
+const vec2A = vec2.fromValues(1.25, -2.5);
+
+const mat3A = new Float32Array([1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 10.0]);
+const mat3B = new Float32Array([-1.0, 3.0, 5.0, 7.0, -2.0, 4.0, 6.0, 8.0, -3.0]);
+const vec2B = vec2.fromValues(3.0, -1.5);
+const vec3C = vec3.fromValues(1.0, -2.0, 3.0);
+
+const rotAngle2D = 45 * DEG2RAD;
 
 const scaleM = scaleMat(2.0, 3.0, 4.0);
 const translateM = translateMat(10.0, 20.0, 30.0);
@@ -206,6 +237,64 @@ dumpMat4("matrix_b * matrix_a", mul(matB, matA));
 
 heading("element access [row, col]");
 appendLine("N/A");
+
+heading("mat2 basics");
+dumpMat2("identity", mat2.create());
+dumpMat2("mat2_a", mat2A);
+dumpMat2("mat2_b", mat2B);
+
+heading("mat2 multiply");
+dumpMat2("mat2_a * mat2_b", mat2.multiply(mat2.create(), mat2A, mat2B));
+dumpMat2("mat2_b * mat2_a", mat2.multiply(mat2.create(), mat2B, mat2A));
+
+heading("mat2 element access [row, col]");
+appendLine("N/A");
+
+heading("mat2 vector multiply");
+dumpVec2("vec2_input", vec2A);
+dumpVec2("mat2_a * vec2", vec2.transformMat2(vec2.create(), vec2A, mat2A));
+
+heading("mat2 transpose");
+dumpMat2("mat2_a.transpose", mat2.transpose(mat2.create(), mat2A));
+
+heading("mat2 inverse");
+dumpMat2("mat2_a.inverse", mat2.invert(mat2.create(), mat2A));
+
+heading("mat3 basics");
+dumpMat3("identity", mat3.create());
+dumpMat3("mat3_a", mat3A);
+dumpMat3("mat3_b", mat3B);
+
+heading("mat3 multiply");
+dumpMat3("mat3_a * mat3_b", mat3.multiply(mat3.create(), mat3A, mat3B));
+dumpMat3("mat3_b * mat3_a", mat3.multiply(mat3.create(), mat3B, mat3A));
+
+heading("mat3 element access [row, col]");
+appendLine("N/A");
+
+heading("mat3 vector multiply");
+dumpVec2("vec2_input", vec2B);
+dumpVec3("vec3_input", vec3C);
+dumpVec2("mat3_a * vec2", vec2.transformMat3(vec2.create(), vec2B, mat3A));
+dumpVec3("mat3_a * vec3", vec3.transformMat3(vec3.create(), vec3C, mat3A));
+
+heading("mat3 transpose");
+dumpMat3("mat3_a.transpose", mat3.transpose(mat3.create(), mat3A));
+
+heading("mat3 inverse");
+dumpMat3("mat3_a.inverse", mat3.invert(mat3.create(), mat3A));
+
+heading("mat3 constructors");
+{
+  const scale2D = mat3.fromScaling(mat3.create(), vec2.fromValues(2.0, 3.0));
+  dumpMat3("scale2d", scale2D);
+  const translate2D = mat3.fromTranslation(mat3.create(), vec2.fromValues(5.0, 10.0));
+  dumpMat3("translate2d", translate2D);
+  dumpScalar("rotate_angle_radians", rotAngle2D);
+  const rotate2D = mat3.fromRotation(mat3.create(), rotAngle2D);
+  dumpMat3("rotate2d", rotate2D);
+  dumpMat3("translate * rotate * scale", mat3.multiply(mat3.create(), translate2D, mat3.multiply(mat3.create(), rotate2D, scale2D)));
+}
 
 heading("matrix constructors and composition");
 dumpMat4("scale", scaleM);

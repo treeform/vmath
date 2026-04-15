@@ -1056,6 +1056,13 @@ proc `pos=`*[T](a: var GMat4[T], pos: GVec3[T]) =
   a[3, 1] = pos.y
   a[3, 2] = pos.z
 
+proc `*`*[T](a, b: GMat2[T]): GMat2[T] =
+  result[0, 0] = b[0, 0] * a[0, 0] + b[0, 1] * a[1, 0]
+  result[0, 1] = b[0, 0] * a[0, 1] + b[0, 1] * a[1, 1]
+
+  result[1, 0] = b[1, 0] * a[0, 0] + b[1, 1] * a[1, 0]
+  result[1, 1] = b[1, 0] * a[0, 1] + b[1, 1] * a[1, 1]
+
 proc `*`*[T](a, b: GMat3[T]): GMat3[T] =
   result[0, 0] = b[0, 0] * a[0, 0] + b[0, 1] * a[1, 0] + b[0, 2] * a[2, 0]
   result[0, 1] = b[0, 0] * a[0, 1] + b[0, 1] * a[1, 1] + b[0, 2] * a[2, 1]
@@ -1160,8 +1167,15 @@ proc `*`*[T](a: GMat4[T], b: GVec4[T]): GVec4[T] =
     a[0, 3] * b.x + a[1, 3] * b.y + a[2, 3] * b.z + a[3, 3] * b.w
   )
 
+proc transpose*[T](a: GMat2[T]): GMat2[T] =
+  ## Return a transpose of the matrix.
+  gmat2[T](
+    a[0, 0], a[1, 0],
+    a[0, 1], a[1, 1]
+  )
+
 proc transpose*[T](a: GMat3[T]): GMat3[T] =
-  ## Return an transpose of the matrix.
+  ## Return a transpose of the matrix.
   gmat3[T](
     a[0, 0], a[1, 0], a[2, 0],
     a[0, 1], a[1, 1], a[2, 1],
@@ -1176,6 +1190,10 @@ proc transpose*[T](a: GMat4[T]): GMat4[T] =
     a[0, 2], a[1, 2], a[2, 2], a[3, 2],
     a[0, 3], a[1, 3], a[2, 3], a[3, 3]
   )
+
+proc determinant*[T](a: GMat2[T]): T =
+  ## Compute a determinant of the matrix.
+  a[0, 0] * a[1, 1] - a[1, 0] * a[0, 1]
 
 proc determinant*[T](a: GMat3[T]): T =
   ## Compute a determinant of the matrix.
@@ -1212,6 +1230,14 @@ proc determinant*[T](a: GMat4[T]): T =
     a10*a01*a32*a23 - a00*a11*a32*a23 - a20*a11*a02*a33 + a10*a21*a02*a33 +
     a20*a01*a12*a33 - a00*a21*a12*a33 - a10*a01*a22*a33 + a00*a11*a22*a33
   )
+
+proc inverse*[T](a: GMat2[T]): GMat2[T] =
+  ## Return an inverse of the matrix.
+  let invDet = 1 / a.determinant
+  result[0, 0] = +a[1, 1] * invDet
+  result[0, 1] = -a[0, 1] * invDet
+  result[1, 0] = -a[1, 0] * invDet
+  result[1, 1] = +a[0, 0] * invDet
 
 proc inverse*[T](a: GMat3[T]): GMat3[T] =
   ## Return an inverse of the matrix.

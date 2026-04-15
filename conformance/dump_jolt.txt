@@ -58,6 +58,45 @@ transform[3, 1]: +008.000
 transform[3, 2]: +012.000
 transform[3, 3]: +016.000
 
+== mat2 basics ==
+N/A
+
+== mat2 multiply ==
+N/A
+
+== mat2 element access [row, col] ==
+N/A
+
+== mat2 vector multiply ==
+N/A
+
+== mat2 transpose ==
+N/A
+
+== mat2 inverse ==
+N/A
+
+== mat3 basics ==
+N/A
+
+== mat3 multiply ==
+N/A
+
+== mat3 element access [row, col] ==
+N/A
+
+== mat3 vector multiply ==
+N/A
+
+== mat3 transpose ==
+N/A
+
+== mat3 inverse ==
+N/A
+
+== mat3 constructors ==
+N/A
+
 == matrix constructors and composition ==
 scale:
 [

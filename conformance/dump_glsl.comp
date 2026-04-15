@@ -1,6 +1,5 @@
-#version 430
-layout (local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
-layout (rgba32f, binding = 0) uniform writeonly imageBuffer outputBuffer;
+#version 410
+out vec4 fragColor;
 
 uniform mat4 uIdentityM;
 uniform mat4 uMatA;
@@ -14,11 +13,19 @@ uniform mat4 uAxisMat;
 uniform mat4 uHardMat;
 uniform vec3 uVecA;
 uniform vec4 uVecB;
+uniform mat2 uMat2A;
+uniform mat2 uMat2B;
+uniform mat3 uMat3A;
+uniform mat3 uMat3B;
+uniform vec2 uVec2A;
+uniform vec2 uVec2B;
+uniform vec3 uVec3C;
 
 const float angleA = radians(37.0);
 const float angleB = radians(-23.0);
 const float angleC = radians(71.0);
 const float axisAngle = radians(48.0);
+const float rotAngle2D = radians(45.0);
 
 mat4 identityM() {
   return uIdentityM;
@@ -38,6 +45,34 @@ vec3 vecA() {
 
 vec4 vecB() {
   return uVecB;
+}
+
+mat2 mat2A() {
+  return uMat2A;
+}
+
+mat2 mat2B() {
+  return uMat2B;
+}
+
+mat3 mat3A() {
+  return uMat3A;
+}
+
+mat3 mat3B() {
+  return uMat3B;
+}
+
+vec2 vec2A() {
+  return uVec2A;
+}
+
+vec2 vec2B() {
+  return uVec2B;
+}
+
+vec3 vec3C() {
+  return uVec3C;
 }
 
 mat4 scaleM() {
@@ -330,6 +365,32 @@ vec3 quatToAngles(vec4 q) {
     atan(2.0 * (w * x + y * z), 1.0 - 2.0 * (x * x + y * y)),
     asin(2.0 * (w * y - z * x)),
     atan(2.0 * (w * z + x * y), 1.0 - 2.0 * (y * y + z * z))
+  );
+}
+
+mat3 scale2D(vec2 s) {
+  return mat3(
+    vec3(s.x, 0.0, 0.0),
+    vec3(0.0, s.y, 0.0),
+    vec3(0.0, 0.0, 1.0)
+  );
+}
+
+mat3 translate2D(vec2 t) {
+  return mat3(
+    vec3(1.0, 0.0, 0.0),
+    vec3(0.0, 1.0, 0.0),
+    vec3(t.x, t.y, 1.0)
+  );
+}
+
+mat3 rotate2D(float angle) {
+  float c = cos(angle);
+  float s = sin(angle);
+  return mat3(
+    vec3(c, s, 0.0),
+    vec3(-s, c, 0.0),
+    vec3(0.0, 0.0, 1.0)
   );
 }
 
