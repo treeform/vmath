@@ -64,383 +64,166 @@ proc heading(lines: var seq[string], title: string) =
     lines.appendLine()
   lines.appendLine("== " & title & " ==")
 
-proc glslPrelude(): string =
-  result = """
-#version 430
-layout (local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
-layout (rgba32f, binding = 0) uniform writeonly imageBuffer outputBuffer;
+proc shaderTemplate(mainBody: string): string =
+  readFile(ShaderPath).replace("__MAIN_BODY__", mainBody)
 
-const float angleA = radians(37.0);
-const float angleB = radians(-23.0);
-const float angleC = radians(71.0);
-const float axisAngle = radians(48.0);
+proc setUniformMat4(program: GLuint, name: string, value: openArray[float32]) =
+  let location = glGetUniformLocation(program, name)
+  if location < 0:
+    return
+  doAssert value.len == 16
+  glUniformMatrix4fv(location, 1, GLboolean(GL_FALSE), cast[ptr GLfloat](unsafeAddr value[0]))
 
-mat4 identityM() {
-  return mat4(
-    vec4(1.0, 0.0, 0.0, 0.0),
-    vec4(0.0, 1.0, 0.0, 0.0),
-    vec4(0.0, 0.0, 1.0, 0.0),
-    vec4(0.0, 0.0, 0.0, 1.0)
-  );
-}
+proc setUniformVec3(program: GLuint, name: string, value: openArray[float32]) =
+  let location = glGetUniformLocation(program, name)
+  if location < 0:
+    return
+  doAssert value.len == 3
+  glUniform3f(location, value[0], value[1], value[2])
 
-mat4 matA() {
-  return mat4(
-    vec4(1.0, 2.0, 3.0, 4.0),
-    vec4(5.0, 6.0, 7.0, 8.0),
-    vec4(9.0, 10.0, 11.0, 12.0),
-    vec4(13.0, 14.0, 15.0, 16.0)
-  );
-}
+proc setUniformVec4(program: GLuint, name: string, value: openArray[float32]) =
+  let location = glGetUniformLocation(program, name)
+  if location < 0:
+    return
+  doAssert value.len == 4
+  glUniform4f(location, value[0], value[1], value[2], value[3])
 
-mat4 matB() {
-  return mat4(
-    vec4(-10.0, -20.0, -30.0, -40.0),
-    vec4(50.0, 60.0, 70.0, 80.0),
-    vec4(90.0, 100.0, 110.0, 120.0),
-    vec4(130.0, 140.0, 150.0, 160.0)
-  );
-}
-
-vec3 vecA() {
-  return vec3(1.25, -2.5, 3.75);
-}
-
-vec4 vecB() {
-  return vec4(1.25, -2.5, 3.75, 1.0);
-}
-
-mat4 scaleM() {
-  return mat4(
-    vec4(2.0, 0.0, 0.0, 0.0),
-    vec4(0.0, 3.0, 0.0, 0.0),
-    vec4(0.0, 0.0, 4.0, 0.0),
-    vec4(0.0, 0.0, 0.0, 1.0)
-  );
-}
-
-mat4 translateM() {
-  return mat4(
-    vec4(1.0, 0.0, 0.0, 0.0),
-    vec4(0.0, 1.0, 0.0, 0.0),
-    vec4(0.0, 0.0, 1.0, 0.0),
-    vec4(10.0, 20.0, 30.0, 1.0)
-  );
-}
-
-mat4 rotateXM() {
-  float s = sin(angleA);
-  float c = cos(angleA);
-  return mat4(
-    vec4(1.0, 0.0, 0.0, 0.0),
-    vec4(0.0, c, s, 0.0),
-    vec4(0.0, -s, c, 0.0),
-    vec4(0.0, 0.0, 0.0, 1.0)
-  );
-}
-
-mat4 rotateYM() {
-  float s = sin(angleB);
-  float c = cos(angleB);
-  return mat4(
-    vec4(c, 0.0, -s, 0.0),
-    vec4(0.0, 1.0, 0.0, 0.0),
-    vec4(s, 0.0, c, 0.0),
-    vec4(0.0, 0.0, 0.0, 1.0)
-  );
-}
-
-mat4 rotateZM() {
-  float s = sin(angleC);
-  float c = cos(angleC);
-  return mat4(
-    vec4(c, s, 0.0, 0.0),
-    vec4(-s, c, 0.0, 0.0),
-    vec4(0.0, 0.0, 1.0, 0.0),
-    vec4(0.0, 0.0, 0.0, 1.0)
-  );
-}
-
-mat4 pureRotationM() {
-  return rotateZM() * rotateYM() * rotateXM();
-}
-
-vec3 axisNormalized() {
-  return normalize(vec3(1.0, 2.0, -3.0));
-}
-
-vec4 quatIdentity() {
-  return vec4(0.0, 0.0, 0.0, 1.0);
-}
-
-vec4 quatAxisAngle(vec3 axis, float angle) {
-  vec3 a = normalize(axis);
-  float s = sin(angle * 0.5);
-  return vec4(a * s, cos(angle * 0.5));
-}
-
-vec4 quatX() {
-  return quatAxisAngle(vec3(1.0, 0.0, 0.0), angleA);
-}
-
-vec4 quatY() {
-  return quatAxisAngle(vec3(0.0, 1.0, 0.0), angleB);
-}
-
-vec4 quatZ() {
-  return quatAxisAngle(vec3(0.0, 0.0, 1.0), angleC);
-}
-
-vec4 axisQuat() {
-  return quatAxisAngle(axisNormalized(), axisAngle);
-}
-
-vec4 quatMultiply(vec4 a, vec4 b) {
-  return vec4(
-    a.w * b.x + a.x * b.w + a.y * b.z - a.z * b.y,
-    a.w * b.y + a.y * b.w + a.z * b.x - a.x * b.z,
-    a.w * b.z + a.z * b.w + a.x * b.y - a.y * b.x,
-    a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z
-  );
-}
-
-vec3 quatRotate(vec4 q, vec3 v) {
-  vec3 uv = cross(q.xyz, v);
-  vec3 uuv = cross(q.xyz, uv);
-  return v + ((uv * q.w) + uuv) * 2.0;
-}
-
-mat4 quatMat4(vec4 q) {
-  float xx = q.x * q.x;
-  float xy = q.x * q.y;
-  float xz = q.x * q.z;
-  float xw = q.x * q.w;
-  float yy = q.y * q.y;
-  float yz = q.y * q.z;
-  float yw = q.y * q.w;
-  float zz = q.z * q.z;
-  float zw = q.z * q.w;
-
-  return mat4(
-    vec4(1.0 - 2.0 * (yy + zz), 2.0 * (xy + zw), 2.0 * (xz - yw), 0.0),
-    vec4(2.0 * (xy - zw), 1.0 - 2.0 * (xx + zz), 2.0 * (yz + xw), 0.0),
-    vec4(2.0 * (xz + yw), 2.0 * (yz - xw), 1.0 - 2.0 * (xx + yy), 0.0),
-    vec4(0.0, 0.0, 0.0, 1.0)
-  );
-}
-
-vec4 mat4Quat(mat4 m) {
-  float m00 = m[0][0];
-  float m11 = m[1][1];
-  float m22 = m[2][2];
-
-  float fourXSquaredMinus1 = m00 - m11 - m22;
-  float fourYSquaredMinus1 = m11 - m00 - m22;
-  float fourZSquaredMinus1 = m22 - m00 - m11;
-  float fourWSquaredMinus1 = m00 + m11 + m22;
-
-  int biggestIndex = 0;
-  float fourBiggestSquaredMinus1 = fourWSquaredMinus1;
-  if (fourXSquaredMinus1 > fourBiggestSquaredMinus1) {
-    fourBiggestSquaredMinus1 = fourXSquaredMinus1;
-    biggestIndex = 1;
-  }
-  if (fourYSquaredMinus1 > fourBiggestSquaredMinus1) {
-    fourBiggestSquaredMinus1 = fourYSquaredMinus1;
-    biggestIndex = 2;
-  }
-  if (fourZSquaredMinus1 > fourBiggestSquaredMinus1) {
-    fourBiggestSquaredMinus1 = fourZSquaredMinus1;
-    biggestIndex = 3;
-  }
-
-  float biggestVal = sqrt(fourBiggestSquaredMinus1 + 1.0) * 0.5;
-  float mult = 0.25 / biggestVal;
-  vec4 q = vec4(0.0);
-
-  if (biggestIndex == 0) {
-    q.w = biggestVal;
-    q.x = (m[1][2] - m[2][1]) * mult;
-    q.y = (m[2][0] - m[0][2]) * mult;
-    q.z = (m[0][1] - m[1][0]) * mult;
-  } else if (biggestIndex == 1) {
-    q.w = (m[1][2] - m[2][1]) * mult;
-    q.x = biggestVal;
-    q.y = (m[0][1] + m[1][0]) * mult;
-    q.z = (m[2][0] + m[0][2]) * mult;
-  } else if (biggestIndex == 2) {
-    q.w = (m[2][0] - m[0][2]) * mult;
-    q.x = (m[0][1] + m[1][0]) * mult;
-    q.y = biggestVal;
-    q.z = (m[1][2] + m[2][1]) * mult;
-  } else {
-    q.w = (m[0][1] - m[1][0]) * mult;
-    q.x = (m[2][0] + m[0][2]) * mult;
-    q.y = (m[1][2] + m[2][1]) * mult;
-    q.z = biggestVal;
-  }
-
-  return q;
-}
-
-mat4 axisMat() {
-  return quatMat4(axisQuat());
-}
-
-mat4 transformM() {
-  return translateM() * rotateZM() * rotateYM() * rotateXM() * scaleM();
-}
-
-mat4 rotationOnly(mat4 m) {
-  m[3] = vec4(0.0, 0.0, 0.0, 1.0);
-  return m;
-}
-
-vec3 hardAxis() {
-  return normalize(vec3(1.0, -2.0, 3.0));
-}
-
-vec4 hardQuat() {
-  return quatAxisAngle(hardAxis(), radians(170.0));
-}
-
-mat4 hardMat() {
-  return quatMat4(hardQuat());
-}
-
-mat4 frustumM(float left, float right, float bottom, float top, float nearV, float farV) {
-  float rl = right - left;
-  float tb = top - bottom;
-  float fn = farV - nearV;
-  return mat4(
-    vec4((nearV * 2.0) / rl, 0.0, 0.0, 0.0),
-    vec4(0.0, (nearV * 2.0) / tb, 0.0, 0.0),
-    vec4((right + left) / rl, (top + bottom) / tb, -(farV + nearV) / fn, -1.0),
-    vec4(0.0, 0.0, -(farV * nearV * 2.0) / fn, 0.0)
-  );
-}
-
-mat4 perspectiveM(float fovyDeg, float aspect, float nearV, float farV) {
-  float top = nearV * tan(fovyDeg * 3.14159265359 / 360.0);
-  float right = top * aspect;
-  return frustumM(-right, right, -top, top, nearV, farV);
-}
-
-mat4 orthoM(float left, float right, float bottom, float top, float nearV, float farV) {
-  float rl = right - left;
-  float tb = top - bottom;
-  float fn = farV - nearV;
-  return mat4(
-    vec4(2.0 / rl, 0.0, 0.0, 0.0),
-    vec4(0.0, 2.0 / tb, 0.0, 0.0),
-    vec4(0.0, 0.0, -2.0 / fn, 0.0),
-    vec4(-(left + right) / rl, -(top + bottom) / tb, -(farV + nearV) / fn, 1.0)
-  );
-}
-
-mat4 lookAtM(vec3 eye, vec3 center, vec3 up) {
-  if (all(equal(eye, center))) {
-    return identityM();
-  }
-
-  vec3 z = normalize(eye - center);
-  vec3 x = cross(up, z);
-  if (length(x) == 0.0) {
-    x = vec3(0.0);
-  } else {
-    x = normalize(x);
-  }
-  vec3 y = cross(z, x);
-
-  return mat4(
-    vec4(x.x, y.x, z.x, 0.0),
-    vec4(x.y, y.y, z.y, 0.0),
-    vec4(x.z, y.z, z.z, 0.0),
-    vec4(-dot(x, eye), -dot(y, eye), -dot(z, eye), 1.0)
-  );
-}
-
-vec4 quatInverse(vec4 q) {
-  float d = dot(q, q);
-  return vec4(-q.x / d, -q.y / d, -q.z / d, q.w / d);
-}
-
-vec3 orthogonalV(vec3 v) {
-  vec3 av = abs(v);
-  vec3 other;
-  if (av.x < av.y) {
-    other = av.x < av.z ? vec3(1.0, 0.0, 0.0) : vec3(0.0, 0.0, 1.0);
-  } else {
-    other = av.y < av.z ? vec3(0.0, 1.0, 0.0) : vec3(0.0, 0.0, 1.0);
-  }
-  return cross(av, other);
-}
-
-vec4 fromTwoVectorsQ(vec3 a, vec3 b) {
-  vec3 u = normalize(b);
-  vec3 v = normalize(a);
-  if (all(equal(u, -v))) {
-    vec3 q = normalize(orthogonalV(u));
-    return vec4(q.x, q.y, q.z, 0.0);
-  }
-  vec3 halfV = normalize(u + v);
-  vec3 q = cross(v, halfV);
-  float w = dot(v, halfV);
-  return vec4(q.x, q.y, q.z, w);
-}
-
-vec4 slerpQ(vec4 a, vec4 b, float t) {
-  vec4 z = b;
-  float cosTheta = dot(a, b);
-  if (cosTheta < 0.0) {
-    z = -b;
-    cosTheta = -cosTheta;
-  }
-  if (cosTheta > 1.0 - 1e-6) {
-    return vec4(
-      a.x + (z.x - a.x) * t,
-      a.y + (z.y - a.y) * t,
-      a.z + (z.z - a.z) * t,
-      a.w + (z.w - a.w) * t
-    );
-  } else {
-    float angle = acos(cosTheta);
-    return (sin((1.0 - t) * angle) * a + sin(t * angle) * z) / sin(angle);
-  }
-}
-
-vec3 quatAxisOnly(vec4 q) {
-  float cosAngle = q.w;
-  float sinAngle = sqrt(max(0.0, 1.0 - cosAngle * cosAngle));
-  if (abs(sinAngle) < 0.0005) {
-    sinAngle = 1.0;
-  }
-  return vec3(q.x / sinAngle, q.y / sinAngle, q.z / sinAngle);
-}
-
-float quatAngleOnly(vec4 q) {
-  return acos(q.w) * 2.0;
-}
-
-vec3 quatToAngles(vec4 q) {
-  float x = q.x;
-  float y = q.y;
-  float z = q.z;
-  float w = q.w;
-  return vec3(
-    atan(2.0 * (w * x + y * z), 1.0 - 2.0 * (x * x + y * y)),
-    asin(2.0 * (w * y - z * x)),
-    atan(2.0 * (w * z + x * y), 1.0 - 2.0 * (y * y + z * z))
-  );
-}
-"""
+proc uploadDumpUniforms(program: GLuint) =
+  let
+    angleA = degToRad(37.0f)
+    angleB = degToRad(-23.0f)
+    angleC = degToRad(71.0f)
+    axisAngle = degToRad(48.0f)
+    hardAngle = degToRad(170.0f)
+    rotateXSin = sin(angleA)
+    rotateXCos = cos(angleA)
+    rotateYSin = sin(angleB)
+    rotateYCos = cos(angleB)
+    rotateZSin = sin(angleC)
+    rotateZCos = cos(angleC)
+    axisLenInv = 1.0f / sqrt(1.0f * 1.0f + 2.0f * 2.0f + (-3.0f) * (-3.0f))
+    axisX = 1.0f * axisLenInv
+    axisY = 2.0f * axisLenInv
+    axisZ = -3.0f * axisLenInv
+    axisQuatSin = sin(axisAngle * 0.5f)
+    axisQuatCos = cos(axisAngle * 0.5f)
+    axisQuat = [
+      axisX * axisQuatSin,
+      axisY * axisQuatSin,
+      axisZ * axisQuatSin,
+      axisQuatCos
+    ]
+    hardAxisLenInv = 1.0f / sqrt(1.0f * 1.0f + (-2.0f) * (-2.0f) + 3.0f * 3.0f)
+    hardAxisX = 1.0f * hardAxisLenInv
+    hardAxisY = -2.0f * hardAxisLenInv
+    hardAxisZ = 3.0f * hardAxisLenInv
+    hardQuatSin = sin(hardAngle * 0.5f)
+    hardQuatCos = cos(hardAngle * 0.5f)
+    hardQuat = [
+      hardAxisX * hardQuatSin,
+      hardAxisY * hardQuatSin,
+      hardAxisZ * hardQuatSin,
+      hardQuatCos
+    ]
+    axisQuatXX = axisQuat[0] * axisQuat[0]
+    axisQuatXY = axisQuat[0] * axisQuat[1]
+    axisQuatXZ = axisQuat[0] * axisQuat[2]
+    axisQuatXW = axisQuat[0] * axisQuat[3]
+    axisQuatYY = axisQuat[1] * axisQuat[1]
+    axisQuatYZ = axisQuat[1] * axisQuat[2]
+    axisQuatYW = axisQuat[1] * axisQuat[3]
+    axisQuatZZ = axisQuat[2] * axisQuat[2]
+    axisQuatZW = axisQuat[2] * axisQuat[3]
+    hardQuatXX = hardQuat[0] * hardQuat[0]
+    hardQuatXY = hardQuat[0] * hardQuat[1]
+    hardQuatXZ = hardQuat[0] * hardQuat[2]
+    hardQuatXW = hardQuat[0] * hardQuat[3]
+    hardQuatYY = hardQuat[1] * hardQuat[1]
+    hardQuatYZ = hardQuat[1] * hardQuat[2]
+    hardQuatYW = hardQuat[1] * hardQuat[3]
+    hardQuatZZ = hardQuat[2] * hardQuat[2]
+    hardQuatZW = hardQuat[2] * hardQuat[3]
+    uIdentityM = [
+      1.0f, 0.0f, 0.0f, 0.0f,
+      0.0f, 1.0f, 0.0f, 0.0f,
+      0.0f, 0.0f, 1.0f, 0.0f,
+      0.0f, 0.0f, 0.0f, 1.0f
+    ]
+    uMatA = [
+      1.0f, 2.0f, 3.0f, 4.0f,
+      5.0f, 6.0f, 7.0f, 8.0f,
+      9.0f, 10.0f, 11.0f, 12.0f,
+      13.0f, 14.0f, 15.0f, 16.0f
+    ]
+    uMatB = [
+      -10.0f, -20.0f, -30.0f, -40.0f,
+      50.0f, 60.0f, 70.0f, 80.0f,
+      90.0f, 100.0f, 110.0f, 120.0f,
+      130.0f, 140.0f, 150.0f, 160.0f
+    ]
+    uScaleM = [
+      2.0f, 0.0f, 0.0f, 0.0f,
+      0.0f, 3.0f, 0.0f, 0.0f,
+      0.0f, 0.0f, 4.0f, 0.0f,
+      0.0f, 0.0f, 0.0f, 1.0f
+    ]
+    uTranslateM = [
+      1.0f, 0.0f, 0.0f, 0.0f,
+      0.0f, 1.0f, 0.0f, 0.0f,
+      0.0f, 0.0f, 1.0f, 0.0f,
+      10.0f, 20.0f, 30.0f, 1.0f
+    ]
+    uRotateXM = [
+      1.0f, 0.0f, 0.0f, 0.0f,
+      0.0f, rotateXCos, rotateXSin, 0.0f,
+      0.0f, -rotateXSin, rotateXCos, 0.0f,
+      0.0f, 0.0f, 0.0f, 1.0f
+    ]
+    uRotateYM = [
+      rotateYCos, 0.0f, -rotateYSin, 0.0f,
+      0.0f, 1.0f, 0.0f, 0.0f,
+      rotateYSin, 0.0f, rotateYCos, 0.0f,
+      0.0f, 0.0f, 0.0f, 1.0f
+    ]
+    uRotateZM = [
+      rotateZCos, rotateZSin, 0.0f, 0.0f,
+      -rotateZSin, rotateZCos, 0.0f, 0.0f,
+      0.0f, 0.0f, 1.0f, 0.0f,
+      0.0f, 0.0f, 0.0f, 1.0f
+    ]
+    uAxisMat = [
+      1.0f - 2.0f * (axisQuatYY + axisQuatZZ), 2.0f * (axisQuatXY + axisQuatZW), 2.0f * (axisQuatXZ - axisQuatYW), 0.0f,
+      2.0f * (axisQuatXY - axisQuatZW), 1.0f - 2.0f * (axisQuatXX + axisQuatZZ), 2.0f * (axisQuatYZ + axisQuatXW), 0.0f,
+      2.0f * (axisQuatXZ + axisQuatYW), 2.0f * (axisQuatYZ - axisQuatXW), 1.0f - 2.0f * (axisQuatXX + axisQuatYY), 0.0f,
+      0.0f, 0.0f, 0.0f, 1.0f
+    ]
+    uHardMat = [
+      1.0f - 2.0f * (hardQuatYY + hardQuatZZ), 2.0f * (hardQuatXY + hardQuatZW), 2.0f * (hardQuatXZ - hardQuatYW), 0.0f,
+      2.0f * (hardQuatXY - hardQuatZW), 1.0f - 2.0f * (hardQuatXX + hardQuatZZ), 2.0f * (hardQuatYZ + hardQuatXW), 0.0f,
+      2.0f * (hardQuatXZ + hardQuatYW), 2.0f * (hardQuatYZ - hardQuatXW), 1.0f - 2.0f * (hardQuatXX + hardQuatYY), 0.0f,
+      0.0f, 0.0f, 0.0f, 1.0f
+    ]
+    uVecA = [1.25f, -2.5f, 3.75f]
+    uVecB = [1.25f, -2.5f, 3.75f, 1.0f]
+  setUniformMat4(program, "uIdentityM", uIdentityM)
+  setUniformMat4(program, "uMatA", uMatA)
+  setUniformMat4(program, "uMatB", uMatB)
+  setUniformMat4(program, "uScaleM", uScaleM)
+  setUniformMat4(program, "uTranslateM", uTranslateM)
+  setUniformMat4(program, "uRotateXM", uRotateXM)
+  setUniformMat4(program, "uRotateYM", uRotateYM)
+  setUniformMat4(program, "uRotateZM", uRotateZM)
+  setUniformMat4(program, "uAxisMat", uAxisMat)
+  setUniformMat4(program, "uHardMat", uHardMat)
+  setUniformVec3(program, "uVecA", uVecA)
+  setUniformVec4(program, "uVecB", uVecB)
 
 proc runComputeShader(shaderSrc: string, invocationCount: int): seq[float32] =
-  writeFile(ShaderPath, shaderSrc)
   initOffscreenWindow()
 
   let shaderId = compileComputeShader((ShaderPath, shaderSrc))
   glUseProgram(shaderId)
+  uploadDumpUniforms(shaderId)
 
   var
     outputBufferId: GLuint
@@ -470,31 +253,25 @@ proc runComputeShader(shaderSrc: string, invocationCount: int): seq[float32] =
   glDeleteProgram(shaderId)
 
 proc runMatrix(expr: string): seq[float32] =
-  let shaderSrc = glslPrelude() & "\n" & fmt"""
-void main() {{
+  let shaderSrc = shaderTemplate(fmt"""
   uint index = gl_GlobalInvocationID.x;
   mat4 value = {expr};
   imageStore(outputBuffer, int(index), value[int(index)]);
-}}
-"""
+""")
   runComputeShader(shaderSrc, 4)
 
 proc runVec3(expr: string): seq[float32] =
-  let shaderSrc = glslPrelude() & "\n" & fmt"""
-void main() {{
+  let shaderSrc = shaderTemplate(fmt"""
   vec3 value = {expr};
   imageStore(outputBuffer, 0, vec4(value, 0.0));
-}}
-"""
+""")
   runComputeShader(shaderSrc, 1)
 
 proc runVec4(expr: string): seq[float32] =
-  let shaderSrc = glslPrelude() & "\n" & fmt"""
-void main() {{
+  let shaderSrc = shaderTemplate(fmt"""
   vec4 value = {expr};
   imageStore(outputBuffer, 0, value);
-}}
-"""
+""")
   runComputeShader(shaderSrc, 1)
 
 proc runScalar(expr: string): float32 =

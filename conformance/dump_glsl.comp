@@ -2,95 +2,62 @@
 layout (local_size_x = 1, local_size_y = 1, local_size_z = 1) in;
 layout (rgba32f, binding = 0) uniform writeonly imageBuffer outputBuffer;
 
+uniform mat4 uIdentityM;
+uniform mat4 uMatA;
+uniform mat4 uMatB;
+uniform mat4 uScaleM;
+uniform mat4 uTranslateM;
+uniform mat4 uRotateXM;
+uniform mat4 uRotateYM;
+uniform mat4 uRotateZM;
+uniform mat4 uAxisMat;
+uniform mat4 uHardMat;
+uniform vec3 uVecA;
+uniform vec4 uVecB;
+
 const float angleA = radians(37.0);
 const float angleB = radians(-23.0);
 const float angleC = radians(71.0);
 const float axisAngle = radians(48.0);
 
 mat4 identityM() {
-  return mat4(
-    vec4(1.0, 0.0, 0.0, 0.0),
-    vec4(0.0, 1.0, 0.0, 0.0),
-    vec4(0.0, 0.0, 1.0, 0.0),
-    vec4(0.0, 0.0, 0.0, 1.0)
-  );
+  return uIdentityM;
 }
 
 mat4 matA() {
-  return mat4(
-    vec4(1.0, 2.0, 3.0, 4.0),
-    vec4(5.0, 6.0, 7.0, 8.0),
-    vec4(9.0, 10.0, 11.0, 12.0),
-    vec4(13.0, 14.0, 15.0, 16.0)
-  );
+  return uMatA;
 }
 
 mat4 matB() {
-  return mat4(
-    vec4(-10.0, -20.0, -30.0, -40.0),
-    vec4(50.0, 60.0, 70.0, 80.0),
-    vec4(90.0, 100.0, 110.0, 120.0),
-    vec4(130.0, 140.0, 150.0, 160.0)
-  );
+  return uMatB;
 }
 
 vec3 vecA() {
-  return vec3(1.25, -2.5, 3.75);
+  return uVecA;
 }
 
 vec4 vecB() {
-  return vec4(1.25, -2.5, 3.75, 1.0);
+  return uVecB;
 }
 
 mat4 scaleM() {
-  return mat4(
-    vec4(2.0, 0.0, 0.0, 0.0),
-    vec4(0.0, 3.0, 0.0, 0.0),
-    vec4(0.0, 0.0, 4.0, 0.0),
-    vec4(0.0, 0.0, 0.0, 1.0)
-  );
+  return uScaleM;
 }
 
 mat4 translateM() {
-  return mat4(
-    vec4(1.0, 0.0, 0.0, 0.0),
-    vec4(0.0, 1.0, 0.0, 0.0),
-    vec4(0.0, 0.0, 1.0, 0.0),
-    vec4(10.0, 20.0, 30.0, 1.0)
-  );
+  return uTranslateM;
 }
 
 mat4 rotateXM() {
-  float s = sin(angleA);
-  float c = cos(angleA);
-  return mat4(
-    vec4(1.0, 0.0, 0.0, 0.0),
-    vec4(0.0, c, s, 0.0),
-    vec4(0.0, -s, c, 0.0),
-    vec4(0.0, 0.0, 0.0, 1.0)
-  );
+  return uRotateXM;
 }
 
 mat4 rotateYM() {
-  float s = sin(angleB);
-  float c = cos(angleB);
-  return mat4(
-    vec4(c, 0.0, -s, 0.0),
-    vec4(0.0, 1.0, 0.0, 0.0),
-    vec4(s, 0.0, c, 0.0),
-    vec4(0.0, 0.0, 0.0, 1.0)
-  );
+  return uRotateYM;
 }
 
 mat4 rotateZM() {
-  float s = sin(angleC);
-  float c = cos(angleC);
-  return mat4(
-    vec4(c, s, 0.0, 0.0),
-    vec4(-s, c, 0.0, 0.0),
-    vec4(0.0, 0.0, 1.0, 0.0),
-    vec4(0.0, 0.0, 0.0, 1.0)
-  );
+  return uRotateZM;
 }
 
 mat4 pureRotationM() {
@@ -216,7 +183,7 @@ vec4 mat4Quat(mat4 m) {
 }
 
 mat4 axisMat() {
-  return quatMat4(axisQuat());
+  return uAxisMat;
 }
 
 mat4 transformM() {
@@ -237,7 +204,7 @@ vec4 hardQuat() {
 }
 
 mat4 hardMat() {
-  return quatMat4(hardQuat());
+  return uHardMat;
 }
 
 mat4 frustumM(float left, float right, float bottom, float top, float nearV, float farV) {
@@ -367,7 +334,5 @@ vec3 quatToAngles(vec4 q) {
 }
 
 void main() {
-  uint index = gl_GlobalInvocationID.x;
-  mat4 value = orthoM(-10.0, 10.0, -7.5, 7.5, 0.1, 100.0);
-  imageStore(outputBuffer, int(index), value[int(index)]);
+  __MAIN_BODY__
 }
