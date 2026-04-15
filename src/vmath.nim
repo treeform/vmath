@@ -1048,7 +1048,7 @@ proc down*[T](a: GMat4[T]): GVec3[T] {.inline.} =
 
 proc pos*[T](a: GMat4[T]): GVec3[T] =
   ## Position of the matrix.
-  gvec3[T](a[3, 0], a[3, 1], a[3, 2])
+  gvec3[T](a[3].x, a[3].y, a[3].z)
 
 proc `pos=`*[T](a: var GMat4[T], pos: GVec3[T]) =
   ## See the position of the matrix.
@@ -1622,7 +1622,7 @@ proc lookAt*[T](eye, center, up: GVec3[T]): GMat4[T] =
 
 proc lookAt*[T](eye, center: GVec3[T]): GMat4[T] =
   ## Look at center from eye with default UP vector.
-  lookAt(eye, center, gvec3(T(0), 0, 1))
+  lookAt(eye, center, gvec3(T(0), 1, 0))
 
 proc angle*[T](a: GVec2[T]): T =
   ## Angle of a Vec2.
