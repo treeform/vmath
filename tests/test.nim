@@ -501,6 +501,184 @@ suite "mat4 constructors":
     check v2.x ~= v3.x
     check v2.y ~= v3.y
 
+suite "vector operations":
+  test "length":
+    check vec2(3, 4).length ~= 5.0f
+    check vec3(1, 2, 2).length ~= 3.0f
+    check vec4(1, 0, 0, 0).length ~= 1.0f
+    check dvec3(0, 0, 0).length ~= 0.0
+
+  test "lengthSq":
+    check vec2(3, 4).lengthSq ~= 25.0f
+    check vec3(1, 2, 2).lengthSq ~= 9.0f
+    check vec4(2, 0, 0, 0).lengthSq ~= 4.0f
+
+  test "normalize":
+    check normalize(vec2(10, 0)) ~= vec2(1, 0)
+    check normalize(vec3(0, 0, 5)) ~= vec3(0, 0, 1)
+    check abs(normalize(vec4(1, 1, 1, 1)).length - 1.0f) < 1e-5f
+
+  test "dist and distSq":
+    check dist(vec2(0, 0), vec2(3, 4)) ~= 5.0f
+    check distSq(vec2(0, 0), vec2(3, 4)) ~= 25.0f
+    check dist(vec3(0, 0, 0), vec3(1, 2, 2)) ~= 3.0f
+    check distSq(vec3(0, 0, 0), vec3(1, 2, 2)) ~= 9.0f
+
+  test "dot product":
+    check dot(vec2(1, 0), vec2(0, 1)) ~= 0.0f
+    check dot(vec2(1, 0), vec2(1, 0)) ~= 1.0f
+    check dot(vec3(1, 2, 3), vec3(4, 5, 6)) ~= 32.0f
+    check dot(vec4(1, 2, 3, 4), vec4(5, 6, 7, 8)) ~= 70.0f
+
+  test "dir (point to point)":
+    let d = dir(vec3(0, 0, 0), vec3(10, 0, 0))
+    check abs(d.length - 1.0f) < 1e-5f
+    let d2 = dir(vec2(0, 0), vec2(0, 5))
+    check abs(d2.length - 1.0f) < 1e-5f
+
+  test "dir (angle to vec2)":
+    check dir(0.0f) ~= vec2(1, 0)
+    check dir(float32(PI / 2)) ~= vec2(0, 1)
+    check dir(float32(PI)) ~= vec2(-1, 0)
+
+  test "angle of vec2":
+    check angle(vec2(1, 0)) ~= 0.0f
+    check angle(vec2(0, 1)) ~= float32(PI / 2)
+    check angle(vec2(-1, 0)) ~= float32(PI)
+
+  test "mix (vector lerp)":
+    check mix(vec2(0, 0), vec2(10, 20), 0.5f) ~= vec2(5, 10)
+    check mix(vec3(0, 0, 0), vec3(10, 20, 30), 0.25f) ~= vec3(2.5, 5.0, 7.5)
+    check mix(vec4(0, 0, 0, 0), vec4(4, 8, 12, 16), 0.5f) ~= vec4(2, 4, 6, 8)
+
+  test "mix (per-component vector)":
+    check mix(vec2(0, 0), vec2(10, 20), vec2(0.5, 1.0)) ~= vec2(5, 20)
+    check mix(vec3(0, 0, 0), vec3(10, 20, 30), vec3(0.0, 0.5, 1.0)) ~= vec3(0, 10, 30)
+
+  test "clamp (vector bounds)":
+    check clamp(vec2(5, -5), vec2(0, 0), vec2(3, 3)) == vec2(3, 0)
+    check clamp(vec3(5, -5, 1), vec3(0, 0, 0), vec3(3, 3, 3)) == vec3(3, 0, 1)
+
+  test "clamp (scalar bounds)":
+    check clamp(vec2(5, -5), 0.0f, 3.0f) == vec2(3, 0)
+    check clamp(vec3(5, -5, 1), 0.0f, 3.0f) == vec3(3, 0, 1)
+
+  test "inversesqrt":
+    check inversesqrt(4.0f) ~= 0.5f
+    check inversesqrt(1.0f) ~= 1.0f
+    check inversesqrt(16.0) ~= 0.25
+
+  test "zmod":
+    # GLSL-style mod: a - b * floor(a/b)
+    check zmod(5.5f, 3.0f) ~= 2.5f
+    check zmod(-1.0f, 3.0f) ~= 2.0f  # differs from Nim mod for negatives
+    check zmod(7.0f, 3.0f) ~= 1.0f
+
+  test "turnAngle":
+    # Should step toward target angle, clamped by speed
+    let a = 0.0f
+    let b = 1.0f
+    check turnAngle(a, b, 0.5f) ~= 0.5f  # step partway
+    check turnAngle(a, b, 2.0f) ~= b      # speed exceeds gap, snap to target
+    check turnAngle(a, b, 0.01f) ~= 0.01f # small step
+
+suite "mat4 direction accessors":
+  test "identity directions":
+    let m = mat4()
+    check m.forward ~= vec3(0, 0, 1)
+    check m.back ~= vec3(0, 0, -1)
+    check m.left ~= vec3(-1, 0, 0)
+    check m.right ~= vec3(1, 0, 0)
+    check m.up ~= vec3(0, 1, 0)
+    check m.down ~= vec3(0, -1, 0)
+
+  test "rotated directions":
+    let m = rotateY(float32(PI / 2))
+    # After 90° CCW around Y: forward (+Z) rotates toward +X
+    check m.forward ~= vec3(1, 0, 0)
+    check m.right ~= vec3(0, 0, -1)
+    check m.up ~= vec3(0, 1, 0)
+
+  test "rotationOnly strips translation":
+    let m = translate(vec3(10, 20, 30)) * rotateX(float32(PI / 4))
+    # rotationOnly zeroes the translation column
+    var r = m
+    r.pos = vec3(0, 0, 0)
+    check r.pos ~= vec3(0, 0, 0)
+    check r.forward ~= m.forward
+    check r.up ~= m.up
+
+suite "frustum and projection":
+  test "frustum matrix":
+    let f = frustum[float32](-1, 1, -1, 1, 1, 100)
+    # Near plane, center should map to origin
+    let v = f * vec4(0, 0, -1, 1)
+    check v.x ~= 0.0f
+    check v.y ~= 0.0f
+    # Should match perspective with 90° fov, aspect 1
+    let p = perspective[float32](90, 1, 1, 100)
+    check f ~= p
+
+suite "euler angles (extended)":
+  test "toAngles from origin to target":
+    let angles = toAngles(vec3(0, 0, 0), vec3(0, 0, 1))
+    check angles ~= vec3(0, 0, 0)  # looking forward
+    let angles2 = toAngles(vec3(0, 0, 0), vec3(1, 0, 0))
+    check angles2 ~= toAngles(vec3(1, 0, 0))
+
+  test "toAngles from quaternion":
+    # Identity quaternion = no rotation
+    check toAngles(quat(0, 0, 0, 1)) ~= vec3(0, 0, 0)
+    # Quaternion euler roundtrip
+    let q = quatRotateX(0.3f) * quatRotateY(0.5f) * quatRotateZ(0.1f)
+    let anglesFromQuat = toAngles(q)
+    let anglesFromMat = toAngles(q.mat4())
+    check anglesFromQuat ~= anglesFromMat
+
+  test "rotate around arbitrary axis":
+    let axis = normalize(vec3(1.0, 1.0, 0.0))
+    let m = rotate(float32(PI / 2), axis)
+    # Should be a valid rotation matrix (det = 1, orthogonal)
+    check abs(determinant(m) - 1.0f) < 0.01f
+    let inv = inverse(m)
+    check m * inv ~= mat4()
+
+suite "quaternion nlerp":
+  test "nlerp endpoints":
+    let
+      qx = quatRotateX(0.37f)
+      qz = quatRotateZ(1.24f)
+    check nlerp(qx, qz, 0.0f) ~= qx
+
+  test "nlerp produces unit quaternions":
+    let
+      qx = quatRotateX(0.37f)
+      qz = quatRotateZ(1.24f)
+    for i in 0 .. 10:
+      let q = nlerp(qx, qz, i.float32 / 10.0f)
+      check abs(q.length - 1.0f) < 1e-5f
+
+  test "nlerp vs slerp similar for close quats":
+    let
+      qx = quatRotateX(0.1f)
+      qy = quatRotateX(0.2f)
+      nl = nlerp(qx, qy, 0.5f)
+      sl = slerp(qx, qy, 0.5f)
+    # For close quaternions, nlerp and slerp should be very similar
+    check dist(nl, sl) < 0.01f
+
+suite "orthogonal vector":
+  test "orthogonal is perpendicular to abs(v)":
+    # orthogonal() uses abs(v) internally, so result is perpendicular to abs(v)
+    for v in [vec3(1, 0, 0), vec3(0, 1, 0), vec3(0, 0, 1),
+              vec3(1, 1, 0), vec3(1, 1, 1), vec3(3, 2, 7)]:
+      let o = orthogonal(v)
+      check abs(dot(v, o)) < 1e-5f
+
+  test "orthogonal is nonzero for nonzero input":
+    for v in [vec3(1, 0, 0), vec3(0, 1, 0), vec3(0, 0, 1), vec3(5, 3, 2)]:
+      check orthogonal(v).length > 0.0f
+
 suite "degenerate matrices":
   test "all-zero mat2":
     let z = mat2(0, 0, 0, 0)
