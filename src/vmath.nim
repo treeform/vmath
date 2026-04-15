@@ -121,16 +121,16 @@ when defined(vmathArrayBased):
       [m30, m31, m32, m33]
     ]
 
-  template `[]`*[T](a: GMat234[T], i, j: int): T = a[j][i]
+  template `[]`*[T](a: GMat234[T], i, j: int): T = a[i][j]
 
   template `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + (j * 2 + i) * sizeof(T))[] = v
+    cast[ptr T](cast[ByteAddress](a.addr) + (i * 2 + j) * sizeof(T))[] = v
 
   template `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + (j * 3 + i) * sizeof(T))[] = v
+    cast[ptr T](cast[ByteAddress](a.addr) + (i * 3 + j) * sizeof(T))[] = v
 
   template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + (j * 4 + i) * sizeof(T))[] = v
+    cast[ptr T](cast[ByteAddress](a.addr) + (i * 4 + j) * sizeof(T))[] = v
 
 elif defined(vmathObjBased):
   type
@@ -207,42 +207,42 @@ elif defined(vmathObjBased):
     result.m30 = m30; result.m31 = m31; result.m32 = m32; result.m33 = m33
 
   template `[]`*[T](a: GMat2[T], i, j: int): T =
-    cast[array[4, T]](a)[j * 2 + i]
+    cast[array[4, T]](a)[i * 2 + j]
 
   template `[]`*[T](a: GMat3[T], i, j: int): T =
-    cast[array[9, T]](a)[j * 3 + i]
+    cast[array[9, T]](a)[i * 3 + j]
 
   template `[]`*[T](a: GMat4[T], i, j: int): T =
-    cast[array[16, T]](a)[j * 4 + i]
+    cast[array[16, T]](a)[i * 4 + j]
 
   template `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + (j * 2 + i) * sizeof(T))[] = v
+    cast[ptr T](cast[ByteAddress](a.addr) + (i * 2 + j) * sizeof(T))[] = v
 
   template `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + (j * 3 + i) * sizeof(T))[] = v
+    cast[ptr T](cast[ByteAddress](a.addr) + (i * 3 + j) * sizeof(T))[] = v
 
   template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + (j * 4 + i) * sizeof(T))[] = v
+    cast[ptr T](cast[ByteAddress](a.addr) + (i * 4 + j) * sizeof(T))[] = v
 
   template `[]`*[T](a: GMat2[T], i: int): GVec2[T] =
     gvec2[T](
-      a[0, i],
-      a[1, i]
+      a[i, 0],
+      a[i, 1]
     )
 
   template `[]`*[T](a: GMat3[T], i: int): GVec3[T] =
     gvec3[T](
-      a[0, i],
-      a[1, i],
-      a[2, i]
+      a[i, 0],
+      a[i, 1],
+      a[i, 2]
     )
 
   template `[]`*[T](a: GMat4[T], i: int): GVec4[T] =
     gvec4[T](
-      a[0, i],
-      a[1, i],
-      a[2, i],
-      a[3, i]
+      a[i, 0],
+      a[i, 1],
+      a[i, 2],
+      a[i, 3]
     )
 
 elif true or defined(vmathObjArrayBased):
@@ -303,7 +303,7 @@ elif true or defined(vmathObjArrayBased):
     GMat3*[T] {.bycopy.} = object
       arr: array[9, T]
     GMat4*[T] {.bycopy.} = object
-      arr*: array[16, T]
+      arr: array[16, T]
 
   proc gmat2*[T](
     m00, m01,
@@ -348,23 +348,23 @@ elif true or defined(vmathObjArrayBased):
 
   template `[]`*[T](a: GMat2[T], i: int): GVec2[T] =
     gvec2[T](
-      a[0, i],
-      a[1, i]
+      a[i, 0],
+      a[i, 1]
     )
 
   template `[]`*[T](a: GMat3[T], i: int): GVec3[T] =
     gvec3[T](
-      a[0, i],
-      a[1, i],
-      a[2, i]
+      a[i, 0],
+      a[i, 1],
+      a[i, 2]
     )
 
   template `[]`*[T](a: GMat4[T], i: int): GVec4[T] =
     gvec4[T](
-      a[0, i],
-      a[1, i],
-      a[2, i],
-      a[3, i]
+      a[i, 0],
+      a[i, 1],
+      a[i, 2],
+      a[i, 3]
     )
 
 type
