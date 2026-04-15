@@ -63,17 +63,6 @@ proc heading(lines: var seq[string], title: string) =
     lines.appendLine()
   lines.appendLine("== " & title & " ==")
 
-proc mat4FromRows(
-  m00, m01, m02, m03: float32,
-  m10, m11, m12, m13: float32,
-  m20, m21, m22, m23: float32,
-  m30, m31, m32, m33: float32
-): Mat4f =
-  result[0] = vec4f(m00, m10, m20, m30)
-  result[1] = vec4f(m01, m11, m21, m31)
-  result[2] = vec4f(m02, m12, m22, m32)
-  result[3] = vec4f(m03, m13, m23, m33)
-
 proc transformVec3ByMat4(matrix: Mat4f, value: Vec3f): Vec3f =
   (matrix * vec4f(value, 1'f32)).xyz
 
