@@ -18,19 +18,19 @@ mat4 identityM() {
 
 mat4 matA() {
   return mat4(
-    vec4(1.0, 5.0, 9.0, 13.0),
-    vec4(2.0, 6.0, 10.0, 14.0),
-    vec4(3.0, 7.0, 11.0, 15.0),
-    vec4(4.0, 8.0, 12.0, 16.0)
+    vec4(1.0, 2.0, 3.0, 4.0),
+    vec4(5.0, 6.0, 7.0, 8.0),
+    vec4(9.0, 10.0, 11.0, 12.0),
+    vec4(13.0, 14.0, 15.0, 16.0)
   );
 }
 
 mat4 matB() {
   return mat4(
-    vec4(0.5, 1.5, -3.0, 0.0),
-    vec4(-1.0, 0.75, 4.0, 1.0),
-    vec4(2.0, -0.5, 1.25, -1.5),
-    vec4(0.25, 2.0, -2.5, 3.0)
+    vec4(-10.0, -20.0, -30.0, -40.0),
+    vec4(50.0, 60.0, 70.0, 80.0),
+    vec4(90.0, 100.0, 110.0, 120.0),
+    vec4(130.0, 140.0, 150.0, 160.0)
   );
 }
 
@@ -367,6 +367,7 @@ vec3 quatToAngles(vec4 q) {
 }
 
 void main() {
-  vec4 value = vec4(transformM()[3][3], 0.0, 0.0, 0.0);
-  imageStore(outputBuffer, 0, value);
+  uint index = gl_GlobalInvocationID.x;
+  mat4 value = orthoM(-10.0, 10.0, -7.5, 7.5, 0.1, 100.0);
+  imageStore(outputBuffer, int(index), value[int(index)]);
 }

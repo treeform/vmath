@@ -21,17 +21,24 @@ function fmt(value) {
   let abs = Math.abs(cleaned);
   let whole = Math.floor(abs);
   let frac = Math.round((abs - whole) * 1000);
-  if (frac === 1000) { whole++; frac = 0; }
+  if (frac === 1000) {
+    whole++;
+    frac = 0;
+  }
   return sign + String(whole).padStart(3, "0") + "." + String(frac).padStart(3, "0");
 }
 
 const lines = [];
-function appendLine(line = "") { lines.push(line); }
+function appendLine(line = "") {
+  lines.push(line);
+}
 function heading(title) {
   if (lines.length > 0) appendLine();
   appendLine("== " + title + " ==");
 }
-function dumpScalar(label, value) { appendLine(label + ": " + fmt(value)); }
+function dumpScalar(label, value) {
+  appendLine(label + ": " + fmt(value));
+}
 function dumpVec3(label, v) {
   appendLine(label + ": <" + fmt(v[0]) + ", " + fmt(v[1]) + ", " + fmt(v[2]) + ">");
 }
@@ -44,31 +51,13 @@ function dumpQuat(label, q) {
 function dumpMat4(label, m) {
   appendLine(label + ":");
   appendLine("[");
-  for (let col = 0; col < 4; col++) {
-    const off = col * 4;
-    appendLine("  " + fmt(m[off]) + " " + fmt(m[off+1]) + " " + fmt(m[off+2]) + " " + fmt(m[off+3]));
-  }
+  appendLine("  " + fmt(m[0]) + " " + fmt(m[4]) + " " + fmt(m[8]) + " " + fmt(m[12]));
+  appendLine("  " + fmt(m[1]) + " " + fmt(m[5]) + " " + fmt(m[9]) + " " + fmt(m[13]));
+  appendLine("  " + fmt(m[2]) + " " + fmt(m[6]) + " " + fmt(m[10]) + " " + fmt(m[14]));
+  appendLine("  " + fmt(m[3]) + " " + fmt(m[7]) + " " + fmt(m[11]) + " " + fmt(m[15]));
   appendLine("]");
 }
 
-// Helper: create a mat4 from row-major input (math notation).
-// Row-major element (r,c) goes to column-major arr[c*4+r].
-function mat4FromRows(
-  m00, m01, m02, m03,
-  m10, m11, m12, m13,
-  m20, m21, m22, m23,
-  m30, m31, m32, m33
-) {
-  return mat4.fromValues(
-    m00, m10, m20, m30,
-    m01, m11, m21, m31,
-    m02, m12, m22, m32,
-    m03, m13, m23, m33
-  );
-}
-
-// gl-matrix transforms take (out, matrix, param) — mutate out.
-// Helpers to build fresh matrices from identity.
 function scaleMat(sx, sy, sz) {
   return mat4.scale(mat4.create(), mat4.create(), vec3.fromValues(sx, sy, sz));
 }
@@ -107,35 +96,68 @@ function mat4FromQuat(q) {
 }
 function rotationOnlyCopy(m) {
   const out = mat4.clone(m);
-  out[12] = 0; out[13] = 0; out[14] = 0; out[15] = 1;
+  out[12] = 0;
+  out[13] = 0;
+  out[14] = 0;
+  out[15] = 1;
   return out;
 }
-function mat3FromMat4Upper(m) {
-  return mat3.fromMat4(mat3.create(), m);
-}
 function quatFromMat(m) {
-  const m3 = mat3FromMat4Upper(m);
-  return quat.fromMat3(quat.create(), m3);
+  return quat.fromMat3(quat.create(), mat3.fromMat4(mat3.create(), m));
 }
+function quatToEulerXYZ(q) {
+  const x = q[0];
+  const y = q[1];
+  const z = q[2];
+  const w = q[3];
 
-// --- Main ---
+  const ex = Math.atan2(2 * (w * x + y * z), 1 - 2 * (x * x + y * y));
+  const ey = Math.asin(Math.max(-1, Math.min(1, 2 * (w * y - z * x))));
+  const ez = Math.atan2(2 * (w * z + x * y), 1 - 2 * (y * y + z * z));
+  return vec3.fromValues(ex, ey, ez);
+}
+function basisRight(m) {
+  return vec3.fromValues(m[0], m[1], m[2]);
+}
+function basisUp(m) {
+  return vec3.fromValues(m[4], m[5], m[6]);
+}
+function basisForward(m) {
+  return vec3.fromValues(m[8], m[9], m[10]);
+}
+function quatToAxisAngle(q) {
+  const normalized = quat.normalize(quat.create(), q);
+  const w = Math.max(-1, Math.min(1, normalized[3]));
+  const angle = 2 * Math.acos(w);
+  const s = Math.sqrt(Math.max(0, 1 - w * w));
+  if (s < 0.00001) {
+    return {
+      axis: vec3.fromValues(1, 0, 0),
+      angle: 0,
+    };
+  }
+  return {
+    axis: vec3.fromValues(normalized[0] / s, normalized[1] / s, normalized[2] / s),
+    angle,
+  };
+}
 
 const DEG2RAD = Math.PI / 180;
 const angleA = 37 * DEG2RAD;
 const angleB = -23 * DEG2RAD;
 const angleC = 71 * DEG2RAD;
 
-const matA = mat4FromRows(
+const matA = mat4.fromValues(
   1.0, 2.0, 3.0, 4.0,
   5.0, 6.0, 7.0, 8.0,
   9.0, 10.0, 11.0, 12.0,
   13.0, 14.0, 15.0, 16.0
 );
-const matB = mat4FromRows(
-  0.5, -1.0, 2.0, 0.25,
-  1.5, 0.75, -0.5, 2.0,
-  -3.0, 4.0, 1.25, -2.5,
-  0.0, 1.0, -1.5, 3.0
+const matB = mat4.fromValues(
+  -10.0, -20.0, -30.0, -40.0,
+  50.0, 60.0, 70.0, 80.0,
+  90.0, 100.0, 110.0, 120.0,
+  130.0, 140.0, 150.0, 160.0
 );
 const vecA = vec3.fromValues(1.25, -2.5, 3.75);
 const vecB = vec4.fromValues(1.25, -2.5, 3.75, 1.0);
@@ -165,17 +187,24 @@ const hardQuat = quatFromAxisAngle(hardAxis, hardAngle);
 const hardMat = mat4FromQuat(hardQuat);
 
 const rotationOnlyM = rotationOnlyCopy(transformM);
-const basisRight   = vec3.fromValues(1, 0, 0);
-const basisUp      = vec3.fromValues(0, 1, 0);
-const basisForward = vec3.fromValues(0, 0, 1);
+const pureRotationQuat = quatFromMat(pureRotationM);
 
 heading("dump");
-appendLine("notes: matrices are printed in raw in-memory order, four scalars per line");
+appendLine("notes: matrices are printed in common column-major order");
 
-heading("matrix constructors and composition");
+heading("matrix basics");
 dumpMat4("identity", mat4.create());
 dumpMat4("matrix_a", matA);
 dumpMat4("matrix_b", matB);
+
+heading("matrix multiply");
+dumpMat4("matrix_a * matrix_b", mul(matA, matB));
+dumpMat4("matrix_b * matrix_a", mul(matB, matA));
+
+heading("element access [row, col]");
+appendLine("N/A");
+
+heading("matrix constructors and composition");
 dumpMat4("scale", scaleM);
 dumpMat4("translate", translateM);
 dumpMat4("rotate_x", rotateXM);
@@ -183,12 +212,6 @@ dumpMat4("rotate_y", rotateYM);
 dumpMat4("rotate_z", rotateZM);
 dumpMat4("pure_rotation = rotate_z * rotate_y * rotate_x", pureRotationM);
 dumpMat4("transform = translate * rotate_z * rotate_y * rotate_x * scale", transformM);
-
-heading("matrix multiply");
-dumpMat4("lhs", matA);
-dumpMat4("rhs", matB);
-dumpMat4("lhs * rhs", mul(matA, matB));
-dumpMat4("rhs * lhs", mul(matB, matA));
 
 heading("matrix vector multiply");
 dumpVec3("vec3_input", vecA);
@@ -226,38 +249,32 @@ dumpVec3("quat_rotate(from_axis_angle, input)", quatRotateVec3(axisQuat, vecA));
 dumpVec3("quat_z * input", quatRotateVec3(quatZ, vecA));
 
 heading("matrix quaternion roundtrip");
-const pureRotationQuat = quatFromMat(pureRotationM);
 dumpQuat("pure_rotation.quat", pureRotationQuat);
 dumpMat4("pure_rotation", pureRotationM);
 dumpMat4("pure_rotation.quat.mat4", mat4FromQuat(pureRotationQuat));
 dumpMat4("transform.rotation_only", rotationOnlyM);
 dumpQuat("transform.rotation_only.quat", quatFromMat(rotationOnlyM));
-const axisMatQuat = quatFromMat(axisMat);
-dumpQuat("axis_mat.quat", axisMatQuat);
-dumpMat4("axis_mat.quat.mat4", mat4FromQuat(axisMatQuat));
+dumpQuat("axis_mat.quat", quatFromMat(axisMat));
+dumpMat4("axis_mat.quat.mat4", mat4FromQuat(quatFromMat(axisMat)));
 appendLine("hard_decomp.note: 170 degrees around (1,-2,3) normalized - w near zero");
 dumpQuat("hard_decomp.quat_original", hardQuat);
 dumpQuat("hard_decomp.quat_from_mat", quatFromMat(hardMat));
 dumpMat4("hard_decomp.mat4", hardMat);
 dumpMat4("hard_decomp.quat_from_mat.mat4", mat4FromQuat(quatFromMat(hardMat)));
 
-const DEG2RAD_60 = 60 * Math.PI / 180;
-
-heading("perspective matrix");
-appendLine("notes: fovy=60 degrees, aspect=1.5, near=0.1, far=100.0");
-dumpMat4("perspective", mat4.perspective(mat4.create(), DEG2RAD_60, 1.5, 0.1, 100.0));
-
-heading("ortho matrix");
-appendLine("notes: left=-10, right=10, bottom=-7.5, top=7.5, near=0.1, far=100.0");
-dumpMat4("ortho", mat4.ortho(mat4.create(), -10, 10, -7.5, 7.5, 0.1, 100.0));
-
 heading("lookAt matrix");
 appendLine("notes: eye=(5,5,5), center=(0,0,0), up=(0,1,0)");
-dumpMat4("lookAt", mat4.lookAt(mat4.create(),
-  vec3.fromValues(5, 5, 5), vec3.fromValues(0, 0, 0), vec3.fromValues(0, 1, 0)));
+dumpMat4("lookAt", mat4.lookAt(
+  mat4.create(),
+  vec3.fromValues(5, 5, 5),
+  vec3.fromValues(0, 0, 0),
+  vec3.fromValues(0, 1, 0)
+));
 
 heading("euler angle decomposition");
-appendLine("N/A");
+appendLine("notes: euler angles as vec3(pitch/x, yaw/y, roll/z) in radians");
+dumpVec3("pure_rotation.quat.euler", quatToEulerXYZ(pureRotationQuat));
+dumpVec3("from_axis_angle.euler", quatToEulerXYZ(axisQuat));
 
 heading("matrix inverse");
 dumpMat4("transform.inverse", mat4.invert(mat4.create(), transformM));
@@ -285,30 +302,39 @@ const fromA = vec3.fromValues(1, 0, 0);
 const fromB = vec3.fromValues(0, 1, 0);
 const fromC = vec3.normalize(vec3.create(), vec3.fromValues(1, 2, -1));
 const fromD = vec3.normalize(vec3.create(), vec3.fromValues(-1, 0.5, 2));
-dumpQuat("from_x_to_y", quat.rotationTo(quat.create(), fromA, fromB));
-dumpQuat("from_c_to_d", quat.rotationTo(quat.create(), fromC, fromD));
-dumpVec3("verify_x_to_y", vec3.transformQuat(vec3.create(), fromA, quat.rotationTo(quat.create(), fromA, fromB)));
-dumpVec3("verify_c_to_d", vec3.transformQuat(vec3.create(), fromC, quat.rotationTo(quat.create(), fromC, fromD)));
+const fromXToY = quat.rotationTo(quat.create(), fromA, fromB);
+const fromCToD = quat.rotationTo(quat.create(), fromC, fromD);
+dumpQuat("from_x_to_y", fromXToY);
+dumpQuat("from_c_to_d", fromCToD);
+dumpVec3("verify_x_to_y", vec3.transformQuat(vec3.create(), fromA, fromXToY));
+dumpVec3("verify_c_to_d", vec3.transformQuat(vec3.create(), fromC, fromCToD));
 
 heading("quaternion inverse");
 dumpQuat("from_axis_angle.inverse", quat.invert(quat.create(), axisQuat));
 dumpQuat("verify_q_mul_qinv", quat.multiply(quat.create(), axisQuat, quat.invert(quat.create(), axisQuat)));
 
 heading("quaternion to axis-angle");
-const aaAxis1 = vec3.create();
-const aaAngle1 = quat.getAxisAngle(aaAxis1, axisQuat);
-const aaAxis2 = vec3.create();
-const aaAngle2 = quat.getAxisAngle(aaAxis2, quatXYZ);
-dumpVec3("from_axis_angle.axis", aaAxis1);
-dumpScalar("from_axis_angle.angle", aaAngle1);
-dumpVec3("quat_xyz.axis", aaAxis2);
-dumpScalar("quat_xyz.angle", aaAngle2);
+const axisAngle1 = quatToAxisAngle(axisQuat);
+const axisAngle2 = quatToAxisAngle(quatXYZ);
+dumpVec3("from_axis_angle.axis", axisAngle1.axis);
+dumpScalar("from_axis_angle.angle", axisAngle1.angle);
+dumpVec3("quat_xyz.axis", axisAngle2.axis);
+dumpScalar("quat_xyz.angle", axisAngle2.angle);
+
+const DEG2RAD_60 = 60 * DEG2RAD;
+
+heading("perspective matrix");
+appendLine("notes: fovy=60 degrees, aspect=1.5, near=0.1, far=100.0");
+dumpMat4("perspective", mat4.perspective(mat4.create(), DEG2RAD_60, 1.5, 0.1, 100.0));
+
+heading("ortho matrix");
+appendLine("notes: left=-10, right=10, bottom=-7.5, top=7.5, near=0.1, far=100.0");
+dumpMat4("ortho", mat4.ortho(mat4.create(), -10, 10, -7.5, 7.5, 0.1, 100.0));
 
 heading("basis directions");
-appendLine("N/A");
-
-heading("element access [row,col]");
-appendLine("N/A");
+dumpVec3("forward", basisForward(matA));
+dumpVec3("right", basisRight(matA));
+dumpVec3("up", basisUp(matA));
 
 writeFileSync(OutputPath, lines.join("\n") + "\n");
 console.log("Wrote", OutputPath);

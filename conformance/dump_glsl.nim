@@ -53,14 +53,10 @@ proc dumpQuat(lines: var seq[string], label: string, value: openArray[float32]) 
 proc dumpMat4(lines: var seq[string], label: string, value: openArray[float32]) =
   lines.appendLine(label & ":")
   lines.appendLine("[")
-  for offset in countup(0, 12, 4):
-    lines.appendLine(
-      "  " &
-      fmt(value[offset + 0]) & " " &
-      fmt(value[offset + 1]) & " " &
-      fmt(value[offset + 2]) & " " &
-      fmt(value[offset + 3])
-    )
+  lines.appendLine("  " & fmt(value[0]) & " " & fmt(value[4]) & " " & fmt(value[8]) & " " & fmt(value[12]))
+  lines.appendLine("  " & fmt(value[1]) & " " & fmt(value[5]) & " " & fmt(value[9]) & " " & fmt(value[13]))
+  lines.appendLine("  " & fmt(value[2]) & " " & fmt(value[6]) & " " & fmt(value[10]) & " " & fmt(value[14]))
+  lines.appendLine("  " & fmt(value[3]) & " " & fmt(value[7]) & " " & fmt(value[11]) & " " & fmt(value[15]))
   lines.appendLine("]")
 
 proc heading(lines: var seq[string], title: string) =
@@ -90,19 +86,19 @@ mat4 identityM() {
 
 mat4 matA() {
   return mat4(
-    vec4(1.0, 5.0, 9.0, 13.0),
-    vec4(2.0, 6.0, 10.0, 14.0),
-    vec4(3.0, 7.0, 11.0, 15.0),
-    vec4(4.0, 8.0, 12.0, 16.0)
+    vec4(1.0, 2.0, 3.0, 4.0),
+    vec4(5.0, 6.0, 7.0, 8.0),
+    vec4(9.0, 10.0, 11.0, 12.0),
+    vec4(13.0, 14.0, 15.0, 16.0)
   );
 }
 
 mat4 matB() {
   return mat4(
-    vec4(0.5, 1.5, -3.0, 0.0),
-    vec4(-1.0, 0.75, 4.0, 1.0),
-    vec4(2.0, -0.5, 1.25, -1.5),
-    vec4(0.25, 2.0, -2.5, 3.0)
+    vec4(-10.0, -20.0, -30.0, -40.0),
+    vec4(50.0, 60.0, 70.0, 80.0),
+    vec4(90.0, 100.0, 110.0, 120.0),
+    vec4(130.0, 140.0, 150.0, 160.0)
   );
 }
 
@@ -508,12 +504,36 @@ proc main() =
   var lines: seq[string]
 
   lines.heading("dump")
-  lines.appendLine("notes: matrices are printed in raw in-memory order, four scalars per line")
+  lines.appendLine("notes: matrices are printed in common column-major order")
 
-  lines.heading("matrix constructors and composition")
+  lines.heading("matrix basics")
   lines.dumpMat4("identity", runMatrix("identityM()"))
   lines.dumpMat4("matrix_a", runMatrix("matA()"))
   lines.dumpMat4("matrix_b", runMatrix("matB()"))
+
+  lines.heading("matrix multiply")
+  lines.dumpMat4("matrix_a * matrix_b", runMatrix("matA() * matB()"))
+  lines.dumpMat4("matrix_b * matrix_a", runMatrix("matB() * matA()"))
+
+  lines.heading("element access [row, col]")
+  lines.dumpScalar("transform[0, 0]", runScalar("vec4(matA()[0][0], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("transform[0, 1]", runScalar("vec4(matA()[0][1], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("transform[0, 2]", runScalar("vec4(matA()[0][2], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("transform[0, 3]", runScalar("vec4(matA()[0][3], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("transform[1, 0]", runScalar("vec4(matA()[1][0], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("transform[1, 1]", runScalar("vec4(matA()[1][1], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("transform[1, 2]", runScalar("vec4(matA()[1][2], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("transform[1, 3]", runScalar("vec4(matA()[1][3], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("transform[2, 0]", runScalar("vec4(matA()[2][0], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("transform[2, 1]", runScalar("vec4(matA()[2][1], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("transform[2, 2]", runScalar("vec4(matA()[2][2], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("transform[2, 3]", runScalar("vec4(matA()[2][3], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("transform[3, 0]", runScalar("vec4(matA()[3][0], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("transform[3, 1]", runScalar("vec4(matA()[3][1], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("transform[3, 2]", runScalar("vec4(matA()[3][2], 0.0, 0.0, 0.0)"))
+  lines.dumpScalar("transform[3, 3]", runScalar("vec4(matA()[3][3], 0.0, 0.0, 0.0)"))
+
+  lines.heading("matrix constructors and composition")
   lines.dumpMat4("scale", runMatrix("scaleM()"))
   lines.dumpMat4("translate", runMatrix("translateM()"))
   lines.dumpMat4("rotate_x", runMatrix("rotateXM()"))
@@ -521,12 +541,6 @@ proc main() =
   lines.dumpMat4("rotate_z", runMatrix("rotateZM()"))
   lines.dumpMat4("pure_rotation = rotate_z * rotate_y * rotate_x", runMatrix("pureRotationM()"))
   lines.dumpMat4("transform = translate * rotate_z * rotate_y * rotate_x * scale", runMatrix("transformM()"))
-
-  lines.heading("matrix multiply")
-  lines.dumpMat4("lhs", runMatrix("matA()"))
-  lines.dumpMat4("rhs", runMatrix("matB()"))
-  lines.dumpMat4("lhs * rhs", runMatrix("matA() * matB()"))
-  lines.dumpMat4("rhs * lhs", runMatrix("matB() * matA()"))
 
   lines.heading("matrix vector multiply")
   lines.dumpVec3("vec3_input", runVec3("vecA()"))
@@ -577,14 +591,6 @@ proc main() =
   lines.dumpMat4("hard_decomp.mat4", runMatrix("hardMat()"))
   lines.dumpMat4("hard_decomp.quat_from_mat.mat4", runMatrix("quatMat4(mat4Quat(hardMat()))"))
 
-  lines.heading("perspective matrix")
-  lines.appendLine("notes: fovy=60 degrees, aspect=1.5, near=0.1, far=100.0")
-  lines.dumpMat4("perspective", runMatrix("perspectiveM(60.0, 1.5, 0.1, 100.0)"))
-
-  lines.heading("ortho matrix")
-  lines.appendLine("notes: left=-10, right=10, bottom=-7.5, top=7.5, near=0.1, far=100.0")
-  lines.dumpMat4("ortho", runMatrix("orthoM(-10.0, 10.0, -7.5, 7.5, 0.1, 100.0)"))
-
   lines.heading("lookAt matrix")
   lines.appendLine("notes: eye=(5,5,5), center=(0,0,0), up=(0,1,0)")
   lines.dumpMat4("lookAt", runMatrix("lookAtM(vec3(5.0, 5.0, 5.0), vec3(0.0), vec3(0.0, 1.0, 0.0))"))
@@ -593,15 +599,6 @@ proc main() =
   lines.appendLine("notes: euler angles as vec3(pitch/x, yaw/y, roll/z) in radians")
   lines.dumpVec3("pure_rotation.quat.euler", runVec3("quatToAngles(mat4Quat(pureRotationM()))"))
   lines.dumpVec3("from_axis_angle.euler", runVec3("quatToAngles(axisQuat())"))
-
-  lines.heading("basis directions")
-  lines.appendLine("notes: library-specific, N/A for libraries without canonical basis helpers")
-  lines.dumpVec3("canonical_right", runVec3("vec3(1.0, 0.0, 0.0)"))
-  lines.dumpVec3("canonical_up", runVec3("vec3(0.0, 1.0, 0.0)"))
-  lines.dumpVec3("canonical_forward", runVec3("vec3(0.0, 0.0, 1.0)"))
-  lines.dumpVec3("quat_z.right", runVec3("quatRotate(quatZ(), vec3(1.0, 0.0, 0.0))"))
-  lines.dumpVec3("quat_z.up", runVec3("quatRotate(quatZ(), vec3(0.0, 1.0, 0.0))"))
-  lines.dumpVec3("quat_z.forward", runVec3("quatRotate(quatZ(), vec3(0.0, 0.0, 1.0))"))
 
   lines.heading("matrix inverse")
   lines.dumpMat4("transform.inverse", runMatrix("inverse(transformM())"))
@@ -636,17 +633,16 @@ proc main() =
   lines.dumpVec3("quat_xyz.axis", runVec3("quatAxisOnly(quatMultiply(quatMultiply(quatX(), quatY()), quatZ()))"))
   lines.dumpScalar("quat_xyz.angle", runScalar("vec4(quatAngleOnly(quatMultiply(quatMultiply(quatX(), quatY()), quatZ())), 0.0, 0.0, 0.0)"))
 
-  lines.heading("element access [row,col]")
-  lines.appendLine("notes: [row,col] in math convention, element (i,j) = row i, col j")
-  lines.dumpScalar("transform[0,0]", runScalar("vec4(transformM()[0][0], 0.0, 0.0, 0.0)"))
-  lines.dumpScalar("transform[0,1]", runScalar("vec4(transformM()[1][0], 0.0, 0.0, 0.0)"))
-  lines.dumpScalar("transform[0,2]", runScalar("vec4(transformM()[2][0], 0.0, 0.0, 0.0)"))
-  lines.dumpScalar("transform[0,3]", runScalar("vec4(transformM()[3][0], 0.0, 0.0, 0.0)"))
-  lines.dumpScalar("transform[1,0]", runScalar("vec4(transformM()[0][1], 0.0, 0.0, 0.0)"))
-  lines.dumpScalar("transform[1,3]", runScalar("vec4(transformM()[3][1], 0.0, 0.0, 0.0)"))
-  lines.dumpScalar("transform[2,0]", runScalar("vec4(transformM()[0][2], 0.0, 0.0, 0.0)"))
-  lines.dumpScalar("transform[2,3]", runScalar("vec4(transformM()[3][2], 0.0, 0.0, 0.0)"))
-  lines.dumpScalar("transform[3,3]", runScalar("vec4(transformM()[3][3], 0.0, 0.0, 0.0)"))
+  lines.heading("perspective matrix")
+  lines.appendLine("notes: fovy=60 degrees, aspect=1.5, near=0.1, far=100.0")
+  lines.dumpMat4("perspective", runMatrix("perspectiveM(60.0, 1.5, 0.1, 100.0)"))
+
+  lines.heading("ortho matrix")
+  lines.appendLine("notes: left=-10, right=10, bottom=-7.5, top=7.5, near=0.1, far=100.0")
+  lines.dumpMat4("ortho", runMatrix("orthoM(-10.0, 10.0, -7.5, 7.5, 0.1, 100.0)"))
+
+  lines.heading("basis directions")
+  lines.appendLine("N/A")
 
   writeFile(OutputPath, lines.join("\n") & "\n")
   echo "Wrote ", OutputPath
