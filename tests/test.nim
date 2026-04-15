@@ -180,8 +180,14 @@ suite "mat2 memory layout and element access":
 
 suite "mat2 operations":
   let
-    a = cast[Mat2]([1.0f, 2.0f, 3.0f, 4.0f])
-    b = cast[Mat2]([5.0f, -6.0f, 7.0f, -8.0f])
+    a = when defined(js):
+      mat2(1, 2, 3, 4)
+    else:
+      cast[Mat2]([1.0f, 2.0f, 3.0f, 4.0f])
+    b = when defined(js):
+      mat2(5, -6, 7, -8)
+    else:
+      cast[Mat2]([5.0f, -6.0f, 7.0f, -8.0f])
 
   test "mat2 multiply":
     let ab = a * b
@@ -260,8 +266,14 @@ suite "mat3 memory layout and element access":
 
 suite "mat3 operations":
   let
-    a = cast[Mat3]([1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 10.0f])
-    b = cast[Mat3]([-1.0f, 3.0f, 5.0f, 7.0f, -2.0f, 4.0f, 6.0f, 8.0f, -3.0f])
+    a = when defined(js):
+      mat3(1, 2, 3, 4, 5, 6, 7, 8, 10)
+    else:
+      cast[Mat3]([1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 10.0f])
+    b = when defined(js):
+      mat3(-1, 3, 5, 7, -2, 4, 6, 8, -3)
+    else:
+      cast[Mat3]([-1.0f, 3.0f, 5.0f, 7.0f, -2.0f, 4.0f, 6.0f, 8.0f, -3.0f])
 
   test "mat3 multiply":
     check mat3() * a ~= a
@@ -396,18 +408,20 @@ suite "mat4 memory layout and element access":
 
 suite "mat4 operations":
   let
-    a = cast[Mat4]([
-      1.0f, 2.0f, 3.0f, 4.0f,
-      5.0f, 6.0f, 7.0f, 8.0f,
-      9.0f, 10.0f, 11.0f, 12.0f,
-      13.0f, 14.0f, 15.0f, 16.0f
-    ])
-    b = cast[Mat4]([
-      -10.0f, -20.0f, -30.0f, -40.0f,
-      50.0f, 60.0f, 70.0f, 80.0f,
-      90.0f, 100.0f, 110.0f, 120.0f,
-      130.0f, 140.0f, 150.0f, 160.0f
-    ])
+    a = when defined(js):
+      mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
+    else:
+      cast[Mat4]([
+        1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f,
+        9.0f, 10.0f, 11.0f, 12.0f, 13.0f, 14.0f, 15.0f, 16.0f
+      ])
+    b = when defined(js):
+      mat4(-10, -20, -30, -40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160)
+    else:
+      cast[Mat4]([
+        -10.0f, -20.0f, -30.0f, -40.0f, 50.0f, 60.0f, 70.0f, 80.0f,
+        90.0f, 100.0f, 110.0f, 120.0f, 130.0f, 140.0f, 150.0f, 160.0f
+      ])
 
   test "mat4 multiply identity":
     check mat4() * a ~= a
@@ -815,7 +829,7 @@ suite "degenerate matrices":
   test "very large values":
     let big = 1e18f
     let m = mat2(big, 0, 0, big)
-    check determinant(m) == big * big
+    check abs(determinant(m) - big * big) < 1e30f
     let inv = inverse(m)
     check inv[0, 0] ~= (1.0f / big)
     check m * inv ~= mat2()
