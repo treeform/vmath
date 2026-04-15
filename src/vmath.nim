@@ -1840,9 +1840,22 @@ proc mat4*[T](q: GVec4[T]): GMat4[T] =
 
 proc mat4*(m: DMat4): Mat4 {.inline.} =
   ## Convert a double precision matrix to a single precision matrix.
-  for r in 0 ..< 4:
-    for c in 0 ..< 4:
-      result[r, c] = float32(m[r, c])
+  result[0, 0] = float32(m[0, 0])
+  result[0, 1] = float32(m[0, 1])
+  result[0, 2] = float32(m[0, 2])
+  result[0, 3] = float32(m[0, 3])
+  result[1, 0] = float32(m[1, 0])
+  result[1, 1] = float32(m[1, 1])
+  result[1, 2] = float32(m[1, 2])
+  result[1, 3] = float32(m[1, 3])
+  result[2, 0] = float32(m[2, 0])
+  result[2, 1] = float32(m[2, 1])
+  result[2, 2] = float32(m[2, 2])
+  result[2, 3] = float32(m[2, 3])
+  result[3, 0] = float32(m[3, 0])
+  result[3, 1] = float32(m[3, 1])
+  result[3, 2] = float32(m[3, 2])
+  result[3, 3] = float32(m[3, 3])
 
 proc mat4*(m: Mat4): Mat4 {.inline.} =
   ## Convert a double precision matrix to a single precision matrix.
@@ -1850,9 +1863,22 @@ proc mat4*(m: Mat4): Mat4 {.inline.} =
 
 proc dmat4*(m: Mat4): DMat4 {.inline.} =
   ## Convert a single precision matrix to a double precision matrix.
-  for r in 0 ..< 4:
-    for c in 0 ..< 4:
-      result[r, c] = float64(m[r, c])
+  result[0, 0] = float64(m[0, 0])
+  result[0, 1] = float64(m[0, 1])
+  result[0, 2] = float64(m[0, 2])
+  result[0, 3] = float64(m[0, 3])
+  result[1, 0] = float64(m[1, 0])
+  result[1, 1] = float64(m[1, 1])
+  result[1, 2] = float64(m[1, 2])
+  result[1, 3] = float64(m[1, 3])
+  result[2, 0] = float64(m[2, 0])
+  result[2, 1] = float64(m[2, 1])
+  result[2, 2] = float64(m[2, 2])
+  result[2, 3] = float64(m[2, 3])
+  result[3, 0] = float64(m[3, 0])
+  result[3, 1] = float64(m[3, 1])
+  result[3, 2] = float64(m[3, 2])
+  result[3, 3] = float64(m[3, 3])
 
 proc dmat4*(m: DMat4): DMat4 {.inline.} =
   ## Convert a double precision matrix to a double precision matrix.
