@@ -1363,7 +1363,7 @@ proc rotationOnly*[T](a: GMat4[T]): GMat4[T] {.inline.} =
   ## Clears the positional component and returns rotation only.
   ## Assumes matrix has not been scaled.
   result = a
-  result.pos = gvec3(0, 0, 0)
+  result.pos = gvec3[T](0, 0, 0)
 
 proc rotateX*[T](angle: T): GMat4[T] =
   ## Return a rotation matrix around X with angle.

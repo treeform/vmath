@@ -601,9 +601,7 @@ suite "mat4 direction accessors":
 
   test "rotationOnly strips translation":
     let m = translate(vec3(10, 20, 30)) * rotateX(float32(PI / 4))
-    # rotationOnly zeroes the translation column
-    var r = m
-    r.pos = vec3(0, 0, 0)
+    let r = rotationOnly(m)
     check r.pos ~= vec3(0, 0, 0)
     check r.forward ~= m.forward
     check r.up ~= m.up
