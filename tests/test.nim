@@ -1,6 +1,6 @@
 import
   std/[math, random, unittest],
-  vmath {.all.}
+  vmath
 
 randomize(1234)
 
