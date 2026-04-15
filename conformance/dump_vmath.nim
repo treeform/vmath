@@ -58,6 +58,9 @@ proc dumpMat4(lines: var seq[string], label: string, value: Mat4) =
   lines.appendLine("  " & fmt(d[3]) & " " & fmt(d[7]) & " " & fmt(d[11]) & " " & fmt(d[15]) )
   lines.appendLine("]")
 
+proc dumpMat4Default(lines: var seq[string], label: string, value: Mat4) =
+  lines.appendLine(label & ": " & $value)
+
 proc heading(lines: var seq[string], title: string) =
   if lines.len > 0:
     lines.appendLine()
@@ -277,6 +280,10 @@ proc main() =
   lines.dumpVec3("forward", matA.forward())
   lines.dumpVec3("right", matA.right())
   lines.dumpVec3("up", matA.up())
+
+  lines.heading("default matrix printer")
+  lines.dumpMat4Default("matrix_a.default", matA)
+  lines.dumpMat4Default("transform.default", transformM)
 
   writeFile(OutputPath, lines.join("\n") & "\n")
   echo "Wrote ", OutputPath

@@ -80,6 +80,13 @@ static void DumpMat4(std::vector<std::string> &lines, const std::string &label, 
 	AppendLine(lines, "]");
 }
 
+static void DumpMat4Default(std::vector<std::string> &lines, const std::string &label, Mat44Arg value)
+{
+	std::ostringstream out;
+	out << value;
+	AppendLine(lines, label + ": " + out.str());
+}
+
 static void Heading(std::vector<std::string> &lines, const std::string &title)
 {
 	if (!lines.empty())
@@ -311,6 +318,10 @@ int main()
 
 	Heading(lines, "basis directions");
 	AppendLine(lines, "N/A");
+
+	Heading(lines, "default matrix printer");
+	DumpMat4Default(lines, "matrix_a.default", mat_a);
+	DumpMat4Default(lines, "transform.default", transform_m);
 
 	std::ofstream out(output_path, std::ios::binary);
 	for (size_t i = 0; i < lines.size(); ++i)

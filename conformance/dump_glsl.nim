@@ -644,6 +644,9 @@ proc main() =
   lines.heading("basis directions")
   lines.appendLine("N/A")
 
+  lines.heading("default matrix printer")
+  lines.appendLine("N/A")
+
   writeFile(OutputPath, lines.join("\n") & "\n")
   echo "Wrote ", OutputPath
 

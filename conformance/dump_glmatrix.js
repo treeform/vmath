@@ -57,6 +57,9 @@ function dumpMat4(label, m) {
   appendLine("  " + fmt(m[3]) + " " + fmt(m[7]) + " " + fmt(m[11]) + " " + fmt(m[15]));
   appendLine("]");
 }
+function dumpMat4Default(label, m) {
+  appendLine(label + ": " + mat4.str(m));
+}
 
 function scaleMat(sx, sy, sz) {
   return mat4.scale(mat4.create(), mat4.create(), vec3.fromValues(sx, sy, sz));
@@ -335,6 +338,10 @@ heading("basis directions");
 dumpVec3("forward", basisForward(matA));
 dumpVec3("right", basisRight(matA));
 dumpVec3("up", basisUp(matA));
+
+heading("default matrix printer");
+dumpMat4Default("matrix_a.default", matA);
+dumpMat4Default("transform.default", transformM);
 
 writeFileSync(OutputPath, lines.join("\n") + "\n");
 console.log("Wrote", OutputPath);
