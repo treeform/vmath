@@ -501,6 +501,171 @@ suite "mat4 constructors":
     check v2.x ~= v3.x
     check v2.y ~= v3.y
 
+suite "degenerate matrices":
+  test "all-zero mat2":
+    let z = mat2(0, 0, 0, 0)
+    check determinant(z) == 0.0f
+    # zero * anything = zero
+    check z * mat2() ~= z
+    check mat2() * z ~= z
+    check z * z ~= z
+    # zero * vec = zero
+    check z * vec2(1, 2) ~= vec2(0, 0)
+    # transpose of zero is zero
+    check transpose(z) ~= z
+
+  test "all-zero mat3":
+    let z = mat3(0, 0, 0, 0, 0, 0, 0, 0, 0)
+    check determinant(z) == 0.0f
+    check z * mat3() ~= z
+    check mat3() * z ~= z
+    check z * z ~= z
+    check z * vec3(1, 2, 3) ~= vec3(0, 0, 0)
+    check transpose(z) ~= z
+
+  test "all-zero mat4":
+    let z = mat4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    check determinant(z) == 0.0f
+    check z * mat4() ~= z
+    check mat4() * z ~= z
+    check z * z ~= z
+    check z * vec3(1, 2, 3) ~= vec3(0, 0, 0)
+    check transpose(z) ~= z
+
+  test "singular mat2 (det=0)":
+    # Rows are linearly dependent
+    let s = mat2(1, 2, 2, 4)
+    check determinant(s) == 0.0f
+    # Inverse produces Inf/NaN (division by zero det)
+    let inv = inverse(s)
+    check vmath.isNan(inv[0, 0]) or abs(inv[0, 0]) == Inf
+
+  test "singular mat3 (det=0)":
+    # Row 2 = Row 0 + Row 1
+    let s = mat3(1, 0, 0, 0, 1, 0, 1, 1, 0)
+    check abs(determinant(s)) < 1e-6f
+    let inv = inverse(s)
+    check vmath.isNan(inv[0, 0]) or abs(inv[0, 0]) == Inf
+
+  test "singular mat4 (det=0)":
+    # Duplicate rows → det = 0
+    let s = mat4(
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      1, 0, 0, 0,
+      0, 0, 0, 1
+    )
+    check abs(determinant(s)) < 1e-6f
+    let inv = inverse(s)
+    check vmath.isNan(inv[0, 0]) or abs(inv[0, 0]) == Inf
+
+  test "zero diagonal mat2":
+    let m = mat2(0, 3, 7, 0)
+    check determinant(m) == -(7.0f * 3.0f)  # -21
+    # Still invertible (det != 0)
+    let inv = inverse(m)
+    check m * inv ~= mat2()
+
+  test "zero diagonal mat3":
+    let m = mat3(0, 1, 0, 0, 0, 1, 1, 0, 0)
+    # Permutation matrix, det = 1
+    check abs(determinant(m) - 1.0f) < 1e-5f
+    let inv = inverse(m)
+    check m * inv ~= mat3()
+
+  test "zero diagonal mat4":
+    # Anti-diagonal matrix
+    let m = mat4(
+      0, 0, 0, 1,
+      0, 0, 1, 0,
+      0, 1, 0, 0,
+      1, 0, 0, 0
+    )
+    check abs(determinant(m)) > 0.0f
+    let inv = inverse(m)
+    check m * inv ~= mat4()
+
+  test "near-singular mat3 (tiny det)":
+    let m = dmat3(
+      1.0, 0.0, 0.0,
+      0.0, 1e-15, 0.0,
+      0.0, 0.0, 1.0
+    )
+    check abs(determinant(m)) < 1e-10
+    check determinant(m) != 0.0
+    # Inverse exists but is huge
+    let inv = inverse(m)
+    check inv[1, 1] > 1e14
+
+  test "scale by zero (rank-deficient mat4)":
+    let m = scale(vec3(1, 0, 1))
+    check determinant(m) == 0.0f
+    # Multiply still works, just collapses one axis
+    check m * vec3(5, 5, 5) ~= vec3(5, 0, 5)
+
+  test "all-ones matrices":
+    let m2 = mat2(1, 1, 1, 1)
+    check determinant(m2) == 0.0f
+    # m * m = 2 * m (idempotent up to scaling)
+    check m2 * m2 ~= mat2(2, 2, 2, 2)
+
+    let m3 = mat3(1, 1, 1, 1, 1, 1, 1, 1, 1)
+    check determinant(m3) == 0.0f
+    check m3 * m3 ~= mat3(3, 3, 3, 3, 3, 3, 3, 3, 3)
+
+  test "negative identity":
+    let m2 = mat2(-1, 0, 0, -1)
+    check determinant(m2) == 1.0f
+    check m2 * m2 ~= mat2()  # (-I)^2 = I
+    check inverse(m2) ~= m2  # (-I)^-1 = -I
+
+    let m3 = mat3(-1, 0, 0, 0, -1, 0, 0, 0, -1)
+    check determinant(m3) == -1.0f
+    check m3 * m3 ~= mat3()
+    check inverse(m3) ~= m3
+
+    let m4 = mat4(
+      -1, 0, 0, 0,
+       0,-1, 0, 0,
+       0, 0,-1, 0,
+       0, 0, 0, 1
+    )
+    check abs(determinant(m4) - (-1.0f)) < 1e-5f
+    check inverse(m4) ~= m4
+
+  test "projection matrix (non-invertible rank 1)":
+    # Projects onto x-axis: P^2 = P
+    let p = mat3(1, 0, 0, 0, 0, 0, 0, 0, 0)
+    check determinant(p) == 0.0f
+    check p * p ~= p  # idempotent
+    check p * vec3(5, 7, 9) ~= vec3(5, 0, 0)
+
+  test "very large values":
+    let big = 1e18f
+    let m = mat2(big, 0, 0, big)
+    check determinant(m) == big * big
+    let inv = inverse(m)
+    check inv[0, 0] ~= (1.0f / big)
+    check m * inv ~= mat2()
+
+  test "mixed large and small values":
+    let m = dmat3(
+      1e10, 0.0, 0.0,
+      0.0, 1e-10, 0.0,
+      0.0, 0.0, 1.0
+    )
+    let inv = inverse(m)
+    check m * inv ~= dmat3()
+
+  test "skew/shear matrix":
+    # Shear in x by y
+    let m = mat3(1, 0, 0, 3, 1, 0, 0, 0, 1)
+    check determinant(m) == 1.0f
+    let inv = inverse(m)
+    check m * inv ~= mat3()
+    # Shearing (1, 0) should give (1, 0), shearing (0, 1) should give (3, 1)
+    check m * vec3(0, 1, 0) ~= vec3(3, 1, 0)
+
 suite "quaternion constructors":
   test "identity quaternion":
     let q = quat(0, 0, 0, 1)
@@ -880,17 +1045,103 @@ suite "vector swizzling":
     check b == vec4(4, 3, 2, 1)
 
 suite "string representation":
-  test "vector $":
+  test "vec2 $":
     check $vec2(1.0, 2.0) == "vec2(1.0, 2.0)"
+
+  test "vec3 $":
     check $vec3(1.0, 2.0, 3.0) == "vec3(1.0, 2.0, 3.0)"
+
+  test "vec4 $":
     check $vec4(1.0, 2.0, 3.0, 4.0) == "vec4(1.0, 2.0, 3.0, 4.0)"
+
+  test "dvec2 $":
+    check $dvec2(1.0, 2.0) == "dvec2(1.0, 2.0)"
+
+  test "dvec3 $":
+    check $dvec3(1.0, 2.0, 3.0) == "dvec3(1.0, 2.0, 3.0)"
+
+  test "dvec4 $":
+    check $dvec4(1.0, 2.0, 3.0, 4.0) == "dvec4(1.0, 2.0, 3.0, 4.0)"
+
+  test "ivec2 $":
     check $ivec2(1, 2) == "ivec2(1, 2)"
+
+  test "ivec3 $":
+    check $ivec3(1, 2, 3) == "ivec3(1, 2, 3)"
+
+  test "ivec4 $":
+    check $ivec4(1, 2, 3, 4) == "ivec4(1, 2, 3, 4)"
+
+  test "uvec2 $":
+    check $uvec2(1, 2) == "uvec2(1, 2)"
+
+  test "uvec3 $":
+    check $uvec3(1, 2, 3) == "uvec3(1, 2, 3)"
+
+  test "uvec4 $":
+    check $uvec4(1, 2, 3, 4) == "uvec4(1, 2, 3, 4)"
+
+  test "bvec2 $":
     check $bvec2(true, false) == "bvec2(true, false)"
 
-  test "matrix $":
-    check $mat2(1, 3, 0, 1) == """mat2(
-  1.0, 3.0,
-  0.0, 1.0
+  test "bvec3 $":
+    check $bvec3(true, false, true) == "bvec3(true, false, true)"
+
+  test "bvec4 $":
+    check $bvec4(true, false, true, false) == "bvec4(true, false, true, false)"
+
+  test "quat $ (prints as vec4)":
+    check $quat(1.0, 2.0, 3.0, 4.0) == "vec4(1.0, 2.0, 3.0, 4.0)"
+    check $dquat(1.0, 2.0, 3.0, 4.0) == "dvec4(1.0, 2.0, 3.0, 4.0)"
+
+  test "mat2 $":
+    check $mat2(1, 2, 3, 4) == """mat2(
+  1.0, 2.0,
+  3.0, 4.0
+)"""
+
+  test "mat3 $":
+    check $mat3(1, 2, 3, 4, 5, 6, 7, 8, 9) == """mat3(
+  1.0, 2.0, 3.0,
+  4.0, 5.0, 6.0,
+  7.0, 8.0, 9.0
+)"""
+
+  test "mat4 $":
+    check $mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16) == """mat4(
+  1.0, 2.0, 3.0, 4.0,
+  5.0, 6.0, 7.0, 8.0,
+  9.0, 10.0, 11.0, 12.0,
+  13.0, 14.0, 15.0, 16.0
+)"""
+
+  test "dmat2 $":
+    check $dmat2(1, 2, 3, 4) == """dmat2(
+  1.0, 2.0,
+  3.0, 4.0
+)"""
+
+  test "dmat3 $":
+    check $dmat3(1, 2, 3, 4, 5, 6, 7, 8, 9) == """dmat3(
+  1.0, 2.0, 3.0,
+  4.0, 5.0, 6.0,
+  7.0, 8.0, 9.0
+)"""
+
+  test "dmat4 $":
+    check $dmat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16) == """dmat4(
+  1.0, 2.0, 3.0, 4.0,
+  5.0, 6.0, 7.0, 8.0,
+  9.0, 10.0, 11.0, 12.0,
+  13.0, 14.0, 15.0, 16.0
+)"""
+
+  test "mat4 identity $":
+    check $mat4() == """mat4(
+  1.0, 0.0, 0.0, 0.0,
+  0.0, 1.0, 0.0, 0.0,
+  0.0, 0.0, 1.0, 0.0,
+  0.0, 0.0, 0.0, 1.0
 )"""
 
 suite "double precision":
