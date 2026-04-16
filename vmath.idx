@@ -447,69 +447,75 @@ nim	up	vmath.html#up,GMat4[T]	proc up[T](a: GMat4[T]): GVec3[T]		1039
 nim	down	vmath.html#down,GMat4[T]	proc down[T](a: GMat4[T]): GVec3[T]		1045
 nim	pos	vmath.html#pos,GMat4[T]	proc pos[T](a: GMat4[T]): GVec3[T]		1049
 nim	pos=	vmath.html#pos=,GMat4[T],GVec3[T]	proc pos=[T](a: var GMat4[T]; pos: GVec3[T])		1053
-nim	`*`	vmath.html#*,GMat3[T],GMat3[T]	proc `*`[T](a, b: GMat3[T]): GMat3[T]		1059
-nim	`*`	vmath.html#*,GMat2[T],GVec2[T]	proc `*`[T](a: GMat2[T]; b: GVec2[T]): GVec2[T]		1072
-nim	`*`	vmath.html#*,GMat3[T],GVec2[T]	proc `*`[T](a: GMat3[T]; b: GVec2[T]): GVec2[T]		1078
-nim	`*`	vmath.html#*,GMat3[T],GVec3[T]	proc `*`[T](a: GMat3[T]; b: GVec3[T]): GVec3[T]		1084
-nim	`*`	vmath.html#*,GMat4[T],GMat4[T]	proc `*`[T](a, b: GMat4[T]): GMat4[T]		1091
-nim	`*`	vmath.html#*,GMat4[T],GVec3[T]	proc `*`[T](a: GMat4[T]; b: GVec3[T]): GVec3[T]		1148
-nim	`*`	vmath.html#*,GMat4[T],GVec4[T]	proc `*`[T](a: GMat4[T]; b: GVec4[T]): GVec4[T]		1155
-nim	transpose	vmath.html#transpose,GMat3[T]	proc transpose[T](a: GMat3[T]): GMat3[T]		1163
-nim	transpose	vmath.html#transpose,GMat4[T]	proc transpose[T](a: GMat4[T]): GMat4[T]		1171
-nim	determinant	vmath.html#determinant,GMat3[T]	proc determinant[T](a: GMat3[T]): T		1180
-nim	determinant	vmath.html#determinant,GMat4[T]	proc determinant[T](a: GMat4[T]): T		1188
-nim	inverse	vmath.html#inverse,GMat3[T]	proc inverse[T](a: GMat3[T]): GMat3[T]		1216
-nim	inverse	vmath.html#inverse,GMat4[T]	proc inverse[T](a: GMat4[T]): GMat4[T]		1233
-nim	scale	vmath.html#scale,GVec2[T]	proc scale[T](v: GVec2[T]): GMat3[T]		1290
-nim	scale	vmath.html#scale,GVec3[T]	proc scale[T](v: GVec3[T]): GMat4[T]		1298
-nim	translate	vmath.html#translate,GVec2[T]	proc translate[T](v: GVec2[T]): GMat3[T]		1307
-nim	translate	vmath.html#translate,GVec3[T]	proc translate[T](v: GVec3[T]): GMat4[T]		1315
-nim	rotate	vmath.html#rotate,T	proc rotate[T](angle: T): GMat3[T]		1324
-nim	rotationOnly	vmath.html#rotationOnly,GMat4[T]	proc rotationOnly[T](a: GMat4[T]): GMat4[T]		1336
-nim	rotateX	vmath.html#rotateX,T	proc rotateX[T](angle: T): GMat4[T]		1342
-nim	rotateY	vmath.html#rotateY,T	proc rotateY[T](angle: T): GMat4[T]		1365
-nim	rotateZ	vmath.html#rotateZ,T	proc rotateZ[T](angle: T): GMat4[T]		1388
-nim	toAngles	vmath.html#toAngles,GVec3[T]	proc toAngles[T](a: GVec3[T]): GVec3[T]		1411
-nim	toAngles	vmath.html#toAngles,GVec3[T],GVec3[T]	proc toAngles[T](origin, target: GVec3[T]): GVec3[T]		1425
-nim	toAngles	vmath.html#toAngles,GMat4[T]	proc toAngles[T](m: GMat4[T]): GVec3[T]		1433
-nim	fromAngles	vmath.html#fromAngles,GVec3[T]	proc fromAngles[T](a: GVec3[T]): GMat4[T]		1452
-nim	frustum	vmath.html#frustum,T,T,T,T,T,T	proc frustum[T](left, right, bottom, top, near, far: T): GMat4[T]		1457
-nim	perspective	vmath.html#perspective,T,T,T,T	proc perspective[T](fovy, aspect, near, far: T): GMat4[T]		1484
-nim	ortho	vmath.html#ortho,T,T,T,T,T,T	proc ortho[T](left, right, bottom, top, near, far: T): GMat4[T]		1491
-nim	lookAt	vmath.html#lookAt,GVec3[T],GVec3[T],GVec3[T]	proc lookAt[T](eye, center, up: GVec3[T]): GMat4[T]		1518
-nim	lookAt	vmath.html#lookAt,GVec3[T],GVec3[T]	proc lookAt[T](eye, center: GVec3[T]): GMat4[T]		1602
-nim	angle	vmath.html#angle,GVec2[T]	proc angle[T](a: GVec2[T]): T		1609
-nim	angle	vmath.html#angle,S,S	proc angle[T; S: GVec2[T] | GVec3[T]](a, b: S): T		1613
-nim	Quat	vmath.html#Quat	type Quat		1624
-nim	DQuat	vmath.html#DQuat	type DQuat		1625
-nim	genQuatConstructor	vmath.html#genQuatConstructor.t,untyped,untyped,untyped	template genQuatConstructor(lower, upper, typ: untyped)		1627
-nim	quat	vmath.html#quat_2	proc quat(): Quat		1629
-nim	quat	vmath.html#quat,float32,float32,float32,float32	proc quat(x`gensym426, y`gensym426, z`gensym426, w`gensym426: float32): Quat		1630
-nim	quat	vmath.html#quat,float32	proc quat(x`gensym426: float32): Quat		1631
-nim	quat	vmath.html#quat_3	proc quat[T](x`gensym426: GVec4[T]): Quat		1635
-nim	dquat	vmath.html#dquat_2	proc dquat(): DQuat		1629
-nim	dquat	vmath.html#dquat,float64,float64,float64,float64	proc dquat(x`gensym430, y`gensym430, z`gensym430, w`gensym430: float64): DQuat		1630
-nim	dquat	vmath.html#dquat,float64	proc dquat(x`gensym430: float64): DQuat		1631
-nim	dquat	vmath.html#dquat_3	proc dquat[T](x`gensym430: GVec4[T]): DQuat		1636
-nim	fromAxisAngle	vmath.html#fromAxisAngle,GVec3[T],T	proc fromAxisAngle[T](axis: GVec3[T]; angle: T): GVec4[T]		1638
-nim	toAxisAngle	vmath.html#toAxisAngle,GVec4[T]	proc toAxisAngle[T](q: GVec4[T]): (GVec3[T], T)		1650
-nim	orthogonal	vmath.html#orthogonal,GVec3[T]	proc orthogonal[T](v: GVec3[T]): GVec3[T]		1668
-nim	fromTwoVectors	vmath.html#fromTwoVectors,GVec3[T],GVec3[T]	proc fromTwoVectors[T](a, b: GVec3[T]): GVec4[T]		1684
-nim	nlerp	vmath.html#nlerp,Quat,Quat,float32	proc nlerp(a: Quat; b: Quat; v: float32): Quat		1706
-nim	quat	vmath.html#quat,GMat4[T]	proc quat[T](m: GMat4[T]): GVec4[T]		1712
-nim	mat4	vmath.html#mat4,GVec4[T]	proc mat4[T](q: GVec4[T]): GMat4[T]		1752
-nim	mat4	vmath.html#mat4,DMat4	proc mat4(m: DMat4): Mat4		1787
-nim	mat4	vmath.html#mat4,Mat4	proc mat4(m: Mat4): Mat4		1806
-nim	dmat4	vmath.html#dmat4,Mat4	proc dmat4(m: Mat4): DMat4		1810
-nim	dmat4	vmath.html#dmat4,DMat4	proc dmat4(m: DMat4): DMat4		1829
-nim	rotate	vmath.html#rotate,T,GVec3[T]	proc rotate[T](angle: T; axis: GVec3[T]): GMat4[T]		1833
-nim	quatRotateX	vmath.html#quatRotateX,T	proc quatRotateX[T](angle: T): GVec4[T]		1837
-nim	quatRotateY	vmath.html#quatRotateY,T	proc quatRotateY[T](angle: T): GVec4[T]		1841
-nim	quatRotateZ	vmath.html#quatRotateZ,T	proc quatRotateZ[T](angle: T): GVec4[T]		1845
-nim	quatMultiply	vmath.html#quatMultiply,GVec4[T],GVec4[T]	proc quatMultiply[T](a: GVec4[T]; b: GVec4[T]): GVec4[T]		1849
-nim	quatRotate	vmath.html#quatRotate,GVec4[T],GVec3[T]	proc quatRotate[T](q: GVec4[T]; v: GVec3[T]): GVec3[T]		1858
-nim	`*`	vmath.html#*,GVec4[T],GVec3[T]	proc `*`[T](a: GVec4[T]; b: GVec3[T]): GVec3[T]		1865
-nim	toAngles	vmath.html#toAngles,GVec4[T]	proc toAngles[T](m: GVec4[T]): GVec3[T]		1869
+nim	`*`	vmath.html#*,GMat2[T],GMat2[T]	proc `*`[T](a, b: GMat2[T]): GMat2[T]		1059
+nim	`*`	vmath.html#*,GMat3[T],GMat3[T]	proc `*`[T](a, b: GMat3[T]): GMat3[T]		1066
+nim	`*`	vmath.html#*,GMat2[T],GVec2[T]	proc `*`[T](a: GMat2[T]; b: GVec2[T]): GVec2[T]		1079
+nim	`*`	vmath.html#*,GMat3[T],GVec2[T]	proc `*`[T](a: GMat3[T]; b: GVec2[T]): GVec2[T]		1085
+nim	`*`	vmath.html#*,GMat3[T],GVec3[T]	proc `*`[T](a: GMat3[T]; b: GVec3[T]): GVec3[T]		1091
+nim	`*`	vmath.html#*,GMat4[T],GMat4[T]	proc `*`[T](a, b: GMat4[T]): GMat4[T]		1098
+nim	`*`	vmath.html#*,GMat4[T],GVec3[T]	proc `*`[T](a: GMat4[T]; b: GVec3[T]): GVec3[T]		1155
+nim	`*`	vmath.html#*,GMat4[T],GVec4[T]	proc `*`[T](a: GMat4[T]; b: GVec4[T]): GVec4[T]		1162
+nim	transpose	vmath.html#transpose,GMat2[T]	proc transpose[T](a: GMat2[T]): GMat2[T]		1170
+nim	transpose	vmath.html#transpose,GMat3[T]	proc transpose[T](a: GMat3[T]): GMat3[T]		1177
+nim	transpose	vmath.html#transpose,GMat4[T]	proc transpose[T](a: GMat4[T]): GMat4[T]		1185
+nim	determinant	vmath.html#determinant,GMat2[T]	proc determinant[T](a: GMat2[T]): T		1194
+nim	determinant	vmath.html#determinant,GMat3[T]	proc determinant[T](a: GMat3[T]): T		1198
+nim	determinant	vmath.html#determinant,GMat4[T]	proc determinant[T](a: GMat4[T]): T		1206
+nim	inverse	vmath.html#inverse,GMat2[T]	proc inverse[T](a: GMat2[T]): GMat2[T]		1234
+nim	inverse	vmath.html#inverse,GMat3[T]	proc inverse[T](a: GMat3[T]): GMat3[T]		1242
+nim	inverse	vmath.html#inverse,GMat4[T]	proc inverse[T](a: GMat4[T]): GMat4[T]		1259
+nim	scale	vmath.html#scale,GVec2[T]	proc scale[T](v: GVec2[T]): GMat3[T]		1316
+nim	scale	vmath.html#scale,GVec3[T]	proc scale[T](v: GVec3[T]): GMat4[T]		1324
+nim	translate	vmath.html#translate,GVec2[T]	proc translate[T](v: GVec2[T]): GMat3[T]		1333
+nim	translate	vmath.html#translate,GVec3[T]	proc translate[T](v: GVec3[T]): GMat4[T]		1341
+nim	rotate	vmath.html#rotate,T	proc rotate[T](angle: T): GMat3[T]		1350
+nim	rotationOnly	vmath.html#rotationOnly,GMat4[T]	proc rotationOnly[T](a: GMat4[T]): GMat4[T]		1362
+nim	rotateX	vmath.html#rotateX,T	proc rotateX[T](angle: T): GMat4[T]		1368
+nim	rotateY	vmath.html#rotateY,T	proc rotateY[T](angle: T): GMat4[T]		1391
+nim	rotateZ	vmath.html#rotateZ,T	proc rotateZ[T](angle: T): GMat4[T]		1414
+nim	toAngles	vmath.html#toAngles,GVec3[T]	proc toAngles[T](a: GVec3[T]): GVec3[T]		1437
+nim	toAngles	vmath.html#toAngles,GVec3[T],GVec3[T]	proc toAngles[T](origin, target: GVec3[T]): GVec3[T]		1451
+nim	toAngles	vmath.html#toAngles,GMat4[T]	proc toAngles[T](m: GMat4[T]): GVec3[T]		1459
+nim	fromAngles	vmath.html#fromAngles,GVec3[T]	proc fromAngles[T](a: GVec3[T]): GMat4[T]		1476
+nim	frustum	vmath.html#frustum,T,T,T,T,T,T	proc frustum[T](left, right, bottom, top, near, far: T): GMat4[T]		1481
+nim	perspective	vmath.html#perspective,T,T,T,T	proc perspective[T](fovy, aspect, near, far: T): GMat4[T]		1508
+nim	ortho	vmath.html#ortho,T,T,T,T,T,T	proc ortho[T](left, right, bottom, top, near, far: T): GMat4[T]		1515
+nim	lookAt	vmath.html#lookAt,GVec3[T],GVec3[T],GVec3[T]	proc lookAt[T](eye, center, up: GVec3[T]): GMat4[T]		1542
+nim	lookAt	vmath.html#lookAt,GVec3[T],GVec3[T]	proc lookAt[T](eye, center: GVec3[T]): GMat4[T]		1623
+nim	angle	vmath.html#angle,GVec2[T]	proc angle[T](a: GVec2[T]): T		1627
+nim	angle	vmath.html#angle,S,S	proc angle[T; S: GVec2[T] | GVec3[T]](a, b: S): T		1631
+nim	Quat	vmath.html#Quat	type Quat		1642
+nim	DQuat	vmath.html#DQuat	type DQuat		1643
+nim	genQuatConstructor	vmath.html#genQuatConstructor.t,untyped,untyped,untyped	template genQuatConstructor(lower, upper, typ: untyped)		1645
+nim	quat	vmath.html#quat_2	proc quat(): Quat		1647
+nim	quat	vmath.html#quat,float32,float32,float32,float32	proc quat(x`gensym426, y`gensym426, z`gensym426, w`gensym426: float32): Quat		1648
+nim	quat	vmath.html#quat,float32	proc quat(x`gensym426: float32): Quat		1649
+nim	quat	vmath.html#quat_3	proc quat[T](x`gensym426: GVec4[T]): Quat		1653
+nim	dquat	vmath.html#dquat_2	proc dquat(): DQuat		1647
+nim	dquat	vmath.html#dquat,float64,float64,float64,float64	proc dquat(x`gensym430, y`gensym430, z`gensym430, w`gensym430: float64): DQuat		1648
+nim	dquat	vmath.html#dquat,float64	proc dquat(x`gensym430: float64): DQuat		1649
+nim	dquat	vmath.html#dquat_3	proc dquat[T](x`gensym430: GVec4[T]): DQuat		1654
+nim	fromAxisAngle	vmath.html#fromAxisAngle,GVec3[T],T	proc fromAxisAngle[T](axis: GVec3[T]; angle: T): GVec4[T]		1656
+nim	toAxisAngle	vmath.html#toAxisAngle,GVec4[T]	proc toAxisAngle[T](q: GVec4[T]): (GVec3[T], T)		1668
+nim	quatInverse	vmath.html#quatInverse,GVec4[T]	proc quatInverse[T](q: GVec4[T]): GVec4[T]		1677
+nim	orthogonal	vmath.html#orthogonal,GVec3[T]	proc orthogonal[T](v: GVec3[T]): GVec3[T]		1683
+nim	fromTwoVectors	vmath.html#fromTwoVectors,GVec3[T],GVec3[T]	proc fromTwoVectors[T](a, b: GVec3[T]): GVec4[T]		1699
+nim	nlerp	vmath.html#nlerp,Quat,Quat,float32	proc nlerp(a: Quat; b: Quat; v: float32): Quat		1721
+nim	slerp	vmath.html#slerp,GVec4[T],GVec4[T],T	proc slerp[T](a, b: GVec4[T]; t: T): GVec4[T]		1727
+nim	quat	vmath.html#quat,GMat4[T]	proc quat[T](m: GMat4[T]): GVec4[T]		1749
+nim	mat4	vmath.html#mat4,GVec4[T]	proc mat4[T](q: GVec4[T]): GMat4[T]		1810
+nim	mat4	vmath.html#mat4,DMat4	proc mat4(m: DMat4): Mat4		1845
+nim	mat4	vmath.html#mat4,Mat4	proc mat4(m: Mat4): Mat4		1864
+nim	dmat4	vmath.html#dmat4,Mat4	proc dmat4(m: Mat4): DMat4		1868
+nim	dmat4	vmath.html#dmat4,DMat4	proc dmat4(m: DMat4): DMat4		1887
+nim	rotate	vmath.html#rotate,T,GVec3[T]	proc rotate[T](angle: T; axis: GVec3[T]): GMat4[T]		1891
+nim	quatRotateX	vmath.html#quatRotateX,T	proc quatRotateX[T](angle: T): GVec4[T]		1895
+nim	quatRotateY	vmath.html#quatRotateY,T	proc quatRotateY[T](angle: T): GVec4[T]		1899
+nim	quatRotateZ	vmath.html#quatRotateZ,T	proc quatRotateZ[T](angle: T): GVec4[T]		1903
+nim	quatMultiply	vmath.html#quatMultiply,GVec4[T],GVec4[T]	proc quatMultiply[T](a: GVec4[T]; b: GVec4[T]): GVec4[T]		1907
+nim	quatRotate	vmath.html#quatRotate,GVec4[T],GVec3[T]	proc quatRotate[T](q: GVec4[T]; v: GVec3[T]): GVec3[T]		1916
+nim	`*`	vmath.html#*,GVec4[T],GVec3[T]	proc `*`[T](a: GVec4[T]; b: GVec3[T]): GVec3[T]		1924
+nim	toAngles	vmath.html#toAngles,GVec4[T]	proc toAngles[T](m: GVec4[T]): GVec3[T]		1928
 nimgrp	ivec2	vmath.html#ivec2-procs-all	proc		486
 nimgrp	log2	vmath.html#log2-procs-all	proc		728
 nimgrp	dot	vmath.html#dot-procs-all	proc		801
@@ -534,18 +540,18 @@ nimgrp	min	vmath.html#min-procs-all	proc		847
 nimgrp	bvec4	vmath.html#bvec4-procs-all	proc		488
 nimgrp	pos=	vmath.html#pos=-procs-all	proc		1015
 nimgrp	dvec3	vmath.html#dvec3-procs-all	proc		487
-nimgrp	toangles	vmath.html#toAngles-procs-all	proc		1411
+nimgrp	toangles	vmath.html#toAngles-procs-all	proc		1437
 nimgrp	==	vmath.html#==-procs-all	proc		566
 nimgrp	/	vmath.html#/-procs-all	proc		651
 nimgrp	exp	vmath.html#exp-procs-all	proc		726
-nimgrp	dquat	vmath.html#dquat-procs-all	proc		1629
+nimgrp	dquat	vmath.html#dquat-procs-all	proc		1647
 nimgrp	dmat4	vmath.html#dmat4-procs-all	proc		940
 nimgrp	mix	vmath.html#mix-procs-all	proc		423
 nimgrp	*	vmath.html#*-procs-all	proc		650
 nimgrp	arctan	vmath.html#arctan-procs-all	proc		720
 nimgrp	*=	vmath.html#*=-procs-all	proc		689
-nimgrp	determinant	vmath.html#determinant-procs-all	proc		1180
-nimgrp	transpose	vmath.html#transpose-procs-all	proc		1163
+nimgrp	determinant	vmath.html#determinant-procs-all	proc		1194
+nimgrp	transpose	vmath.html#transpose-procs-all	proc		1170
 nimgrp	zmod	vmath.html#zmod-procs-all	proc		476
 nimgrp	uvec4	vmath.html#uvec4-procs-all	proc		488
 nimgrp	arccos	vmath.html#arccos-procs-all	proc		719
@@ -556,7 +562,7 @@ nimgrp	mat2	vmath.html#mat2-procs-all	proc		924
 nimgrp	+=	vmath.html#+=-procs-all	proc		687
 nimgrp	tanh	vmath.html#tanh-procs-all	proc		723
 nimgrp	length	vmath.html#length-procs-all	proc		774
-nimgrp	inverse	vmath.html#inverse-procs-all	proc		1216
+nimgrp	inverse	vmath.html#inverse-procs-all	proc		1234
 nimgrp	dvec2	vmath.html#dvec2-procs-all	proc		486
 nimgrp	max	vmath.html#max-procs-all	proc		865
 nimgrp	abs	vmath.html#abs-procs-all	proc		732
@@ -565,19 +571,19 @@ nimgrp	bvec2	vmath.html#bvec2-procs-all	proc		486
 nimgrp	-=	vmath.html#-=-procs-all	proc		688
 nimgrp	dvec4	vmath.html#dvec4-procs-all	proc		488
 nimgrp	greaterthan	vmath.html#greaterThan-procs-all	proc		757
-nimgrp	angle	vmath.html#angle-procs-all	proc		1609
+nimgrp	angle	vmath.html#angle-procs-all	proc		1627
 nimgrp	vec4	vmath.html#vec4-procs-all	proc		488
 nimgrp	vec3	vmath.html#vec3-procs-all	proc		487
 nimgrp	todegrees	vmath.html#toDegrees-procs-all	proc		460
-nimgrp	lookat	vmath.html#lookAt-procs-all	proc		1518
+nimgrp	lookat	vmath.html#lookAt-procs-all	proc		1542
 nimgrp	tan	vmath.html#tan-procs-all	proc		717
 nimgrp	sin	vmath.html#sin-procs-all	proc		715
 nimgrp	clamp	vmath.html#clamp-procs-all	proc		883
-nimgrp	translate	vmath.html#translate-procs-all	proc		1307
+nimgrp	translate	vmath.html#translate-procs-all	proc		1333
 nimgrp	exp2	vmath.html#exp2-procs-all	proc		724
 nimgrp	pos	vmath.html#pos-procs-all	proc		1012
 nimgrp	fract	vmath.html#fract-procs-all	proc		408
-nimgrp	scale	vmath.html#scale-procs-all	proc		1290
+nimgrp	scale	vmath.html#scale-procs-all	proc		1316
 nimgrp	ln	vmath.html#ln-procs-all	proc		727
 nimgrp	+	vmath.html#+-procs-all	proc		648
 nimgrp	sqrt	vmath.html#sqrt-procs-all	proc		729
@@ -587,13 +593,13 @@ nimgrp	trunc	vmath.html#trunc-procs-all	proc		733
 nimgrp	arcsin	vmath.html#arcsin-procs-all	proc		718
 nimgrp	mat4	vmath.html#mat4-procs-all	proc		940
 nimgrp	div	vmath.html#div-procs-all	proc		653
-nimgrp	quat	vmath.html#quat-procs-all	proc		1629
+nimgrp	quat	vmath.html#quat-procs-all	proc		1647
 nimgrp	lessthan	vmath.html#lessThan-procs-all	proc		755
 nimgrp	/=	vmath.html#/=-procs-all	proc		690
 nimgrp	toradians	vmath.html#toRadians-procs-all	proc		456
 nimgrp	cos	vmath.html#cos-procs-all	proc		716
 nimgrp	vec2	vmath.html#vec2-procs-all	proc		486
-nimgrp	rotate	vmath.html#rotate-procs-all	proc		1324
+nimgrp	rotate	vmath.html#rotate-procs-all	proc		1350
 nimgrp	cosh	vmath.html#cosh-procs-all	proc		722
 nimgrp	dmat2	vmath.html#dmat2-procs-all	proc		924
 nimgrp	x	vmath.html#x-templates-all	template		268
