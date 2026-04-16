@@ -106,21 +106,57 @@ This is the same system used in the GLTF file format.
 
 [glTF Spec 2.0](https://registry.khronos.org/glTF/specs/2.0/glTF-2.0.html#coordinate-system-and-units)
 
-## OpenGL matrix column-major notation.
+## How does vmath compare to other libraries?
 
-> [9.005](https://www.opengl.org/archives/resources/faq/technical/transformations.htm) For programming purposes, OpenGL matrices are 16-value arrays with base vectors laid out contiguously in memory. The translation components occupy the 13th, 14th, and 15th elements of the 16-element matrix, where indices are numbered from 1 to 16 as described in section 2.11.2 of the [OpenGL 2.1 Specification](https://registry.khronos.org/OpenGL/specs/gl/glspec21.pdf).
->
-> Sadly, the use of column-major format in the spec and blue book has resulted in endless confusion in the OpenGL programming community. Column-major notation suggests that matrices are not laid out in memory as a programmer would expect.
+vmath follows the standard glTF / OpenGL conventions: right-handed coordinate system, column-major matrix storage, and math-style `[row, col]` indexing.
 
-OpenGL/GLSL/vmath vs Math/Specification notation:
-```
-        mat4([
-          a, b, c, 0,              | a d g x |
-          d, e, f, 0,              | b e h y |
-          g, h, i, 0,              | c f i z |
-          x, y, z, 1               | 0 0 0 1 |
-        ])
-```
+We run identical math operations across vmath, GLSL, [nim-glm](https://github.com/nickelsworth/nim-glm), [gl-matrix](https://github.com/toji/gl-matrix), and [Jolt Physics](https://github.com/jrouwe/JoltPhysics) and compare the generated dumps in [conformance/](conformance/).
+
+
+| Feature                    | vmath | GLSL | nim-GLM | gl-matrix | Jolt Physics |
+|----------------------------|:-----:|:----:|:-------:|:---------:|:------------:|
+| Vectors                    | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Matrix memory layout       | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Matrix multiply            | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Matrix-vector multiply     | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Rotation matrices          | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Translation matrices       | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Scale matrices             | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Mat2                       | ✅ | ✅ | ✅ | ✅ | N/A |
+| Mat3                       | ✅ | ✅ | ✅ | ✅ | N/A |
+| Mat3 2D constructors.      | ✅ | ✅ | ✅ | ✅ | N/A |
+| Quaternion constructors    | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Quaternion multiply        | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Quaternion vector rotation | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Quaternion-matrix roundtrip| ✅ | ✅ | ✅ | ✅ | ✅ |
+| Quaternion inverse         | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Quaternion to axis-angle   | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Matrix inverse             | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Cross product              | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Slerp                      | ✅ | ✅ | ✅ | ✅ | ✅ |
+| fromTwoVectors             | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Quat decomposition (sign)  | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Scaled-matrix decomposition| ✅ | ✅ | ✅ | ✅ | ✅ |
+| LookAt matrix              | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Perspective matrix         | ✅ | ✅ | ✅ | ✅ | ❌ |
+| Ortho matrix               | ✅ | ✅ | ✅ | ✅ | N/A |
+| Euler angle decomposition  | ✅ | ✅ | ✅ | N/A | ✅ |
+| Element access             | ✅ | ✅ | ✅ | N/A | ❌ |
+
+❌ **Perspective matrix**: Jolt Physics uses Z range `[0, 1]` (Vulkan/DirectX convention) while vmath uses Z range `[-1, 1]` (OpenGL convention). The X and Y scaling match, but Z-related elements differ.
+
+❌ **Element access note**: Jolt does convention differs from vmath's math-style `[row, col]` interpretation it follows the DirectX/HLSL convention.
+
+# 2.x.x to 3.0.0 vmath breaking changes:
+
+Version `3.0.0` changed rotation to be CCW (counter-clockwise) and updated the quaternion conventions to match GLSL, GLM, gl-matrix. Added a multi-library conformance suite.
+
+* **Rotation matrices (`rotateX`, `rotateY`, `rotateZ`, 2D `rotate`) now use standard CCW (counter-clockwise) convention.** The sin/cos sign placement in the rotation matrices was swapped. If your code relied on the old CW direction, please negate the angle.
+* **Quaternion ↔ matrix conversion (`quat()`, `mat4()`) rewritten.** Uses the standard "biggest component" algorithm matching GLM/GLSL. The off-diagonal signs in `mat4(quat)` were swapped to match the new rotation direction.
+* **`toAngles` corrected signs and added gimbal-lock clamping.** No longer negates the Y and Z angles to match the new rotation direction.
+* **`fromTwoVectors(a, b)` now rotates `a` into `b`.** Previous behavior had that direction reversed.
+* **`lookAt()` un-deprecated.** Restored with Y-up which is glTF/OpenGL convention.
+* **New functions added:** `quatInverse`, `slerp`, `quatMultiply`, `quatRotate`, `quatRotateX/Y/Z`, `toAngles(quat)`, `mat4(DMat4)`, `dmat4(Mat4)`, and Mat2 operations (`*`, `transpose`, `determinant`, `inverse`).
 
 # 1.x.x to 2.0.0 vmath breaking changes:
 * New right-hand-Z-forward coordinate system and functions that care about

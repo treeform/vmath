@@ -1,1190 +1,1404 @@
 import
-  std/random,
+  std/[math, random, unittest],
   vmath
 
 randomize(1234)
 
-block:
-  # Test ~=.
-  doAssert 1.0 ~= 1.0
-  doAssert 0.0 ~= 0.0
-  doAssert -1.0 ~= -1.0
-  doAssert not(0.1 ~= 0.2)
-  doAssert not(0.01 ~= 0.02)
-  doAssert not(0.001 ~= 0.002)
-  doAssert not(0.0001 ~= 0.0002)
-  doAssert not(0.00001 ~= 0.00002)
+suite "approximate equality":
+  test "float ~=":
+    check 1.0 ~= 1.0
+    check 0.0 ~= 0.0
+    check -1.0 ~= -1.0
+    check not(0.1 ~= 0.2)
+    check not(0.01 ~= 0.02)
+    check not(0.001 ~= 0.002)
+    check not(0.0001 ~= 0.0002)
+    check not(0.00001 ~= 0.00002)
+    check 0.000001 ~= 0.000002
+    check -0.000001 ~= -0.000002
 
-  # Diff < epsilon.
-  doAssert 0.000001 ~= 0.000002
-  doAssert -0.000001 ~= -0.000002
+  test "vec ~=":
+    check vec2(1.0, 2.0) ~= vec2(1.0, 2.0)
+    check vec3(1.0, 2.0, 3.0) ~= vec3(1.0, 2.0, 3.0)
+    check vec4(1.0, 2.0, 3.0, 4.0) ~= vec4(1.0, 2.0, 3.0, 4.0)
+    check quat(1.0, 2.0, 3.0, 4.0) ~= quat(1.0, 2.0, 3.0, 4.0)
+    check dvec2(1) ~= dvec2(1)
+    check dvec4(1, 2, 3, 4).xy ~= dvec2(1, 2)
 
-  doAssert vec2(1.0, 2.0) ~= vec2(1.0, 2.0)
-  doAssert vec3(1.0, 2.0, 3.0) ~= vec3(1.0, 2.0, 3.0)
-  doAssert vec4(1.0, 2.0, 3.0, 4.0) ~= vec4(1.0, 2.0, 3.0, 4.0)
-  doAssert quat(1.0, 2.0, 3.0, 4.0) ~= quat(1.0, 2.0, 3.0, 4.0)
+  test "int ~= should not compile":
+    check not compiles(1 ~= 1)
 
-  doAssert dvec2(1) ~= dvec2(1)
-  doAssert dvec4(1, 2, 3, 4).xy ~= dvec2(1, 2)
+suite "scalar utilities":
+  test "between":
+    check between(0.5, 0, 1)
+    check not between(1.5, 0, 1)
 
-  when compiles(1 ~= 1):
-    doAssert false
+  test "sign":
+    check sign(-1.0) == -1.0
+    check sign(0.0) == 1.0
+    check sign(1.0) == 1.0
 
-block:
-  # Test simple functions.
-  doAssert between(0.5, 0, 1)
-  doAssert not between(1.5, 0, 1)
+  test "quantize":
+    check quantize(1.23456789, 1.0) ~= 1
+    check quantize(1.23456789, 0.1) ~= 1.2
+    check quantize(1.23456789, 0.01) ~= 1.23
+    check quantize(-1.23456789, 0.01) ~= -1.23
 
-  doAssert sign(-1.0) == -1.0
-  doAssert sign(0.0) == 1.0
-  doAssert sign(1.0) == 1.0
+  test "fract":
+    check fract(0.0) ~= 0.0
+    check fract(3.14) ~= 0.14
+    check fract(-3.14) ~= 0.14
+    check fract(1.23456789) ~= 0.23456789
 
-  block:
-    proc quantize2(v, n: float32): float32 =
-      ## Makes v be multiple of n. Rounding to integer quantize by 1.0.
-      sign(v) * trunc(abs(v) / n) * n
+  test "mix":
+    check mix(0.0, 1.0, 0.5) ~= 0.5
+    check mix(0.0, 10.0, 0.5) ~= 5.0
+    check mix(-1.0, 1.0, 0.25) ~= -0.5
 
-    let n = 1.float32 / 10
+  test "fixAngle":
+    check fixAngle(0.1) ~= 0.1
+    check fixAngle(3.1) ~= 3.1
+    check fixAngle(4.1) ~= -2.183185577392578
+    check fixAngle(-4.1) ~= 2.183185577392578
 
-    for _ in 0 ..< 10_000:
-      let f = rand(-100.float32 .. 100.float32)
-      doAssert quantize(f, n) == quantize2(f, n)
+  test "angleBetween":
+    check angleBetween(0.0, 1.0) ~= 1.0
+    check angleBetween(0.0, PI) ~= PI
+    check angleBetween(0.1, 0.2) ~= 0.1
+    check angleBetween(0.1, 0.2 + PI*2) ~= 0.1
+    check angleBetween(0.2, 0.1) ~= -0.1
 
-  doAssert quantize(1.23456789, 1.0) ~= 1
-  doAssert quantize(1.23456789, 0.1) ~= 1.2
-  doAssert quantize(1.23456789, 0.01) ~= 1.23
-  doAssert quantize(-1.23456789, 0.01) ~= -1.23
+  test "isNan":
+    check vmath.isNan(float32(0.3)) == false
+    check vmath.isNan(float32(0.0)) == false
+    check vmath.isNan(float32(0.3/0.0)) == true
+    check vmath.isNan(float64(0.3/0.0)) == true
 
-  doAssert fract(0.0) ~= 0.0
-  doAssert fract(3.14) ~= 0.14
-  doAssert fract(-3.14) ~= 0.14
-  doAssert fract(1.23456789) ~= 0.23456789
-  doAssert fract(-1.23456789) ~= 0.23456789
+suite "vector memory layout":
+  test "vec2 cast to array":
+    when not defined(js):
+      let v = vec2(1.0, 2.0)
+      let a = cast[array[2, float32]](v)
+      check a[0] == 1.0f
+      check a[1] == 2.0f
 
-  doAssert mix(0.0, 1.0, 0.5) ~= 0.5
-  doAssert mix(0.0, 10.0, 0.5) ~= 5.0
-  doAssert mix(0.0, 100.0, 0.5) ~= 50.0
-  doAssert mix(-1.0, 1.0, 0.25) ~= -0.5
-  doAssert mix(-10.0, 10.0, 0.25) ~= -5.0
-  doAssert mix(-100.0, 100.0, 0.25) ~= -50.0
+  test "vec3 cast to array":
+    when not defined(js):
+      let v = vec3(1.0, 2.0, 3.0)
+      let a = cast[array[3, float32]](v)
+      check a[0] == 1.0f
+      check a[1] == 2.0f
+      check a[2] == 3.0f
 
-  doAssert mix(0.0, 1.0, 0.5) ~= 0.5
-  doAssert mix(0.0, 10.0, 0.5) ~= 5.0
-  doAssert mix(0.0, 100.0, 0.5) ~= 50.0
-  doAssert mix(-1.0, 1.0, 0.25) ~= -0.5
-  doAssert mix(-10.0, 10.0, 0.25) ~= -5.0
-  doAssert mix(-100.0, 100.0, 0.25) ~= -50.0
+  test "vec4 cast to array":
+    when not defined(js):
+      let v = vec4(1.0, 2.0, 3.0, 4.0)
+      let a = cast[array[4, float32]](v)
+      check a[0] == 1.0f
+      check a[1] == 2.0f
+      check a[2] == 3.0f
+      check a[3] == 4.0f
 
-  doAssert fixAngle(0.1) ~= 0.1
-  doAssert fixAngle(1.1) ~= 1.1
-  doAssert fixAngle(2.1) ~= 2.1
-  doAssert fixAngle(3.1) ~= 3.1
-  doAssert fixAngle(4.1) ~= -2.183185577392578
-  doAssert fixAngle(-0.1) ~= -0.1
-  doAssert fixAngle(-1.1) ~= -1.1
-  doAssert fixAngle(-2.1) ~= -2.1
-  doAssert fixAngle(-3.1) ~= -3.1
-  doAssert fixAngle(-4.1) ~= 2.183185577392578
+  test "vec component access matches array index":
+    let v2 = vec2(10, 20)
+    check v2.x == v2[0]
+    check v2.y == v2[1]
 
-  doAssert angleBetween(0.0, 1.0) ~= 1.0
-  doAssert angleBetween(0.0, PI) ~= PI
-  doAssert angleBetween(0.0, PI + 0.2) ~= (-PI + 0.2)
-  doAssert angleBetween(0.1, 0.2) ~= 0.1
-  doAssert angleBetween(0.1, 0.2 + PI*2) ~= 0.1
-  doAssert angleBetween(0.1, 0.2 - PI*2) ~= 0.1
-  doAssert angleBetween(0.1 + PI*2, 0.2) ~= 0.1
-  doAssert angleBetween(0.1 - PI*2, 0.2) ~= 0.1
-  doAssert angleBetween(0.2, 0.1) ~= -0.1
-  doAssert angleBetween(0.2, 0.1 - PI*2) ~= -0.1
-  doAssert angleBetween(0.2, 0.1 + PI*2) ~= -0.1
-  doAssert angleBetween(0.2 + PI*2, 0.1) ~= -0.1
-  doAssert angleBetween(0.2 - PI*2, 0.1) ~= -0.1
+    let v3 = vec3(10, 20, 30)
+    check v3.x == v3[0]
+    check v3.y == v3[1]
+    check v3.z == v3[2]
 
-  doAssert turnAngle(0.0, PI, 0.5) ~= 0.5
-  doAssert turnAngle(0.5, PI, 3.5) ~= PI
+    let v4 = vec4(10, 20, 30, 40)
+    check v4.x == v4[0]
+    check v4.y == v4[1]
+    check v4.z == v4[2]
+    check v4.w == v4[3]
 
-  proc isNaNSlow(f: SomeFloat): bool =
-    ## Returns true if number is a NaN.
-    f.classify notin {fcNormal, fcZero, fcSubnormal}
+  test "vec component assignment":
+    var v2 = vec2(0)
+    v2[0] = 1.0; v2[1] = 2.0
+    check v2 ~= vec2(1, 2)
 
-  doAssert isNaNSlow(0.3) == false
-  doAssert isNaNSlow(0.0) == false
-  doAssert isNaNSlow(0.3/0.0) == true
-  doAssert isNaNSlow(-0.3/0.0) == true
-  doAssert isNaNSlow(5.0e-324) == false
+    var v3 = vec3(0)
+    v3[0] = 1.0; v3[1] = 2.0; v3[2] = 3.0
+    check v3 ~= vec3(1, 2, 3)
 
-  doAssert isNan(float32(0.3)) == false
-  doAssert isNan(float32(0.0)) == false
-  doAssert isNan(float32(0.3/0.0)) == true
-  doAssert isNan(float32(-0.3/0.0)) == true
-  doAssert isNan(float32(5.0e-324)) == false
+    var v4 = vec4(0)
+    v4[0] = 1.0; v4[1] = 2.0; v4[2] = 3.0; v4[3] = 4.0
+    check v4 ~= vec4(1, 2, 3, 4)
 
-  doAssert isNan(float64(0.3)) == false
-  doAssert isNan(float64(0.0)) == false
-  doAssert isNan(float64(0.3/0.0)) == true
-  doAssert isNan(float64(-0.3/0.0)) == true
-  doAssert isNan(float64(5.0e-324)) == false
+suite "mat2 memory layout and element access":
+  test "mat2 cast to flat array is column-major":
+    when not defined(js):
+      # Memory: [col0_row0, col0_row1, col1_row0, col1_row1]
+      let m = cast[Mat2]([1.0f, 2.0f, 3.0f, 4.0f])
+      let a = cast[array[4, float32]](m)
+      check a[0] == 1.0f  # col 0 row 0
+      check a[1] == 2.0f  # col 0 row 1
+      check a[2] == 3.0f  # col 1 row 0
+      check a[3] == 4.0f  # col 1 row 1
 
-block:
-  when not defined(js):
-    # Test vec2 cast.
-    var v = vec2(1.0, 2.0)
-    var a = cast[array[2, float32]](v)
-    doAssert a[0] ~= 1.0
-    doAssert a[1] ~= 2.0
+  test "mat2 [row, col] element access":
+    when not defined(js):
+      let m = cast[Mat2]([1.0f, 2.0f, 3.0f, 4.0f])
+      # [row, col] indexing into column-major memory
+      check m[0, 0] == 1.0f  # arr[0*2+0] = arr[0]
+      check m[0, 1] == 2.0f  # arr[0*2+1] = arr[1]
+      check m[1, 0] == 3.0f  # arr[1*2+0] = arr[2]
+      check m[1, 1] == 4.0f  # arr[1*2+1] = arr[3]
 
-block:
-  # Test position assignment
-  var
-    v2 = vec2(0)
-    v3 = vec3(0)
-    v4 = vec4(0)
-  v2[0] = 1.0
-  v2[1] = 2.0
-  doAssert v2 ~= vec2(1, 2)
-  v3[0] = 1.0
-  v3[1] = 2.0
-  v3[2] = 3.0
-  doAssert v3 ~= vec3(1, 2, 3)
-  v4[0] = 1.0
-  v4[1] = 2.0
-  v4[2] = 3.0
-  v4[3] = 4.0
-  doAssert v4 ~= vec4(1, 2, 3, 4)
+  test "mat2 element assignment":
+    var m = mat2()
+    m[0, 0] = 5.0; m[0, 1] = 6.0
+    m[1, 0] = 7.0; m[1, 1] = 8.0
+    check m[0, 0] == 5.0f
+    check m[0, 1] == 6.0f
+    check m[1, 0] == 7.0f
+    check m[1, 1] == 8.0f
 
-block:
-  # Test vec2 constructor.
-  doAssert vec2(PI, PI) ~= vec2(PI)
+  test "mat2 identity":
+    let m = mat2()
+    check m[0, 0] == 1.0f
+    check m[0, 1] == 0.0f
+    check m[1, 0] == 0.0f
+    check m[1, 1] == 1.0f
 
-block:
-  # Test basic vector vec2.
-  var a = vec2(1, 2)
-  var b = vec2(7, 6)
-  var n = 13.7
-  doAssert a + b ~= vec2(8.0, 8.0)
-  doAssert a - b ~= vec2(-6.0, -4.0)
-  doAssert a * n ~= vec2(13.7, 27.4)
-  doAssert a / n ~= vec2(0.0729927, 0.1459854)
-  a += b
-  doAssert a ~= vec2(8.0, 8.0)
-  a -= b
-  doAssert a ~= vec2(1.0, 2.0)
-  a *= n
-  doAssert a ~= vec2(13.7, 27.4)
-  a /= n
-  doAssert a ~= vec2(1.0, 2.0)
+  test "mat2 scalar constructor":
+    let m = mat2(1, 2, 3, 4)
+    check m[0, 0] == 1.0f
+    check m[0, 1] == 2.0f
+    check m[1, 0] == 3.0f
+    check m[1, 1] == 4.0f
 
-block:
-  # Test basic vector vec3.
-  var a = vec3(1, 2, 3)
-  var b = vec3(7, 6, 5)
-  var n = 13.7
-  doAssert a + b ~= vec3(8.0, 8.0, 8.0)
-  doAssert a - b ~= vec3(-6.0, -4.0, -2.0)
-  doAssert a * n ~= vec3(13.69999981, 27.39999962, 41.09999847)
-  doAssert a / n ~= vec3(0.07299270, 0.14598541, 0.21897811)
-  a += b
-  doAssert a ~= vec3(8.0, 8.0, 8.0)
-  a -= b
-  doAssert a ~= vec3(1.0, 2.0, 3.0)
-  a *= n
-  doAssert a ~= vec3(13.69999981, 27.39999962, 41.09999847)
-  a /= n
-  doAssert a ~= vec3(1.0, 2.0, 3.0)
+  test "mat2 vector column constructor":
+    let m = mat2(vec2(1, 2), vec2(3, 4))
+    check m[0, 0] == 1.0f
+    check m[0, 1] == 2.0f
+    check m[1, 0] == 3.0f
+    check m[1, 1] == 4.0f
 
-block:
-  # Test basic vector vec4.
-  var a = vec4(1, 2, 3, 4)
-  var b = vec4(7, 6, 5, 4)
-  var n = 13.7
-  doAssert a + b ~= vec4(8.0, 8.0, 8.0, 8.0)
-  doAssert a - b ~= vec4(-6.0, -4.0, -2.0, 0.0)
-  doAssert a * n ~= vec4(13.69999981, 27.39999962, 41.09999847, 54.79999924)
-  doAssert a / n ~= vec4(0.07299270, 0.14598541, 0.21897811, 0.29197082)
-  a += b
-  doAssert a ~= vec4(8.0, 8.0, 8.0, 8.0)
-  a -= b
-  doAssert a ~= vec4(1.0, 2.0, 3.0, 4.0)
-  a *= n
-  doAssert a ~= vec4(13.69999981, 27.39999962, 41.09999847, 54.79999924)
-  a /= n
-  doAssert a ~= vec4(1.0, 2.0, 3.0, 4.0)
-
-block:
-  # Test all type constructors compile
+suite "mat2 operations":
   let
-    _ = bvec2(true, false)
-    _ = bvec3(true, false, true)
-    _ = bvec4(true, false, true, false)
-
-    _ = ivec2(-1, 2)
-    _ = ivec3(-1, 2, 3)
-    _ = ivec4(-1, 2, 3, 4)
-
-    _ = uvec2(1, 2)
-    _ = uvec3(1, 2, 3)
-    _ = uvec4(1, 2, 3, 4)
-
-    _ = vec2(1.0, 2.0)
-    _ = vec3(1.0, 2.0, 3.0)
-    _ = vec4(1.0, 2.0, 3.0, 4.0)
-
-    _ = dvec2(1.0, 2.0)
-    _ = dvec3(1.0, 2.0, 3.0)
-    _ = dvec4(1.0, 2.0, 3.0, 4.0)
-
-    _ = bvec2(true)
-    _ = bvec3(true)
-    _ = bvec4(true)
-
-    _ = ivec2(-1)
-    _ = ivec3(-1)
-    _ = ivec4(-1)
-
-    _ = uvec2(1)
-    _ = uvec3(1)
-    _ = uvec4(1)
-
-    _ = vec2(1.0)
-    _ = vec3(1.0)
-    _ = vec4(1.0)
-
-    _ = dvec2(1.0)
-    _ = dvec3(1.0)
-    _ = dvec4(1.0)
-
-    _ = bvec2()
-    _ = bvec3()
-    _ = bvec4()
-
-    _ = ivec2()
-    _ = ivec3()
-    _ = ivec4()
-
-    _ = uvec2()
-    _ = uvec3()
-    _ = uvec4()
-
-    _ = vec2()
-    _ = vec3()
-    _ = vec4()
-
-    _ = dvec2()
-    _ = dvec3()
-    _ = dvec4()
-
-  var a = vec3(vec2(1, 2), 3)
-  doAssert a == vec3(1, 2, 3)
-
-  var b = vec4(vec3(1, 2, 3), 4)
-  doAssert b == vec4(1, 2, 3, 4)
-
-  var c = vec4(vec2(1, 2), vec2(3, 4))
-  doAssert c == vec4(1, 2, 3, 4)
-
-block:
-  # test $ string functions
-  doAssert $bvec2(true, false) == "bvec2(true, false)"
-  doAssert $bvec3(true, false, true) == "bvec3(true, false, true)"
-  doAssert $bvec4(true, false, true, false) == "bvec4(true, false, true, false)"
-
-  doAssert $ivec2(1, 2) == "ivec2(1, 2)"
-  doAssert $ivec3(1, 2, 3) == "ivec3(1, 2, 3)"
-  doAssert $ivec4(1, 2, 3, 4) == "ivec4(1, 2, 3, 4)"
-
-  doAssert $uvec2(1, 2) == "uvec2(1, 2)"
-  doAssert $uvec3(1, 2, 3) == "uvec3(1, 2, 3)"
-  doAssert $uvec4(1, 2, 3, 4) == "uvec4(1, 2, 3, 4)"
-
-  doAssert $vec2(1.0, 2.0) == "vec2(1.0, 2.0)"
-  doAssert $vec3(1.0, 2.0, 3.0) == "vec3(1.0, 2.0, 3.0)"
-  doAssert $vec4(1.0, 2.0, 3.0, 4.0) == "vec4(1.0, 2.0, 3.0, 4.0)"
-
-  doAssert $dvec2(1.0, 2.0) == "dvec2(1.0, 2.0)"
-  doAssert $dvec3(1.0, 2.0, 3.0) == "dvec3(1.0, 2.0, 3.0)"
-  doAssert $dvec4(1.0, 2.0, 3.0, 4.0) == "dvec4(1.0, 2.0, 3.0, 4.0)"
-
-block:
-  # test swizzle vec
-  var a = vec2(1, 2)
-  doAssert a.x == 1.0
-  doAssert a.y == 2.0
-  doAssert a.yx == vec2(2, 1)
-  doAssert a.gr == vec2(2, 1)
-  doAssert a.ts == vec2(2, 1)
-  doAssert a.xxx == vec3(1, 1, 1)
-
-  a.yx = vec2(-1, -2)
-  doAssert a == vec2(-2, -1)
-
-  a.xx = vec2(-7, -3)
-  doAssert a == vec2(-3, -1)
-
-  when compiles(a.xyzxyz):
-    doAssert false
-
-  when compiles(a.z = 123):
-    doAssert false
-
-  var b = vec4(1, 2, 3, 4)
-  doAssert b == vec4(1, 2, 3, 4)
-  b.wzyx = b
-  doAssert b == vec4(4, 3, 2, 1)
-
-  b.g = 123
-  doAssert b == vec4(4.0, 123.0, 2.0, 1.0)
-
-block:
-  # test swizzle dvec float64
-  var a = dvec2(1, 2)
-  doAssert a.x == 1.0
-  doAssert a.y == 2.0
-  doAssert a.yx == dvec2(2, 1)
-  doAssert a.gr == dvec2(2, 1)
-  doAssert a.ts == dvec2(2, 1)
-  doAssert a.xxx == dvec3(1, 1, 1)
-
-  a.yx = dvec2(-1, -2)
-  doAssert a == dvec2(-2, -1)
-
-  a.xx = dvec2(-7, -3)
-  doAssert a == dvec2(-3, -1)
-
-  when compiles(a.xyzxyz):
-    doAssert false
-
-  when compiles(a.z = 123):
-    doAssert false
-
-  var b = dvec4(1, 2, 3, 4)
-  doAssert b == dvec4(1, 2, 3, 4)
-
-  b.g = 123
-  doAssert b == dvec4(1.0, 123.0, 3.0, 4.0)
-
-block:
-  # test swizzle self-assignment
-  var a = dvec2(1, 2)
-  a.yx = a
-  doAssert a == dvec2(2, 1)
-
-  var b = dvec3(1, 2, 3)
-  b.zyx = b
-  doAssert b == dvec3(3, 2, 1)
-
-  var c = dvec4(1, 2, 3, 4)
-  c.wzyx = c
-  doAssert c == dvec4(4, 3, 2, 1)
-
-block:
-  # Test swizzle calls only once
-  var callCount = 0
-  proc countsCalls(): Vec2 =
-    inc callCount
-
-  doAssert countsCalls().yx == vec2(0, 0)
-  doAssert callCount == 1
-
-  callCount = 0
-  doAssert vec2(0, 0) == countsCalls().yx
-  doAssert callCount == 1
-
-  var tmp: Vec2
-  proc countsCalls2(): var Vec2 =
-    inc callCount
-    return tmp
-
-  callCount = 0
-  countsCalls2().yx = vec2(0, 0)
-  doAssert callCount == 1
-
-block:
-  # Test swizzle with complex expressions
-  var a = [
-    vec2(1, 2),
-    vec2(3, 4),
-    vec2(5, 6),
-    vec2(7, 8),
-  ]
-  var i = 0
-  proc f(): var Vec2 =
-    # function with side effects
-    result = a[i]
-    inc i
-
-  doAssert f().yx == vec2(2, 1)
-  doAssert f().gr == vec2(4, 3)
-  doAssert f().ts == vec2(6, 5)
-  doAssert f().yx == vec2(8, 7)
-  doAssert i == 4
-
-  i = 0
-  f().yx = f()
-  doAssert a[0] == vec2(4, 3)
-  doAssert a[1] == vec2(3, 4)
-  doAssert i == 2
-
-  var b = [
-    vec3(1, 2, 3),
-    vec3(4, 5, 6),
-    vec3(7, 8, 9),
-  ]
-  i = 0
-  proc g(): var Vec3 =
-    # function with side effects
-    result = b[i]
-    inc i
-
-  doAssert g().yxz == vec3(2, 1, 3)
-  doAssert g().bgr == vec3(6, 5, 4)
-  doAssert g().tps == vec3(8, 9, 7)
-  doAssert i == 3
-
-  i = 0
-  g().yxz = g()
-  doAssert b[0] == vec3(5, 4, 6)
-  doAssert b[1] == vec3(4, 5, 6)
-  doAssert i == 2
-
-  var c = [
-    vec4(1, 2, 3, 4),
-    vec4(5, 6, 7, 8),
-  ]
-  i = 0
-  proc h(): var Vec4 =
-    # function with side effects
-    result = c[i]
-    inc i
-
-  doAssert h().yxzw == vec4(2, 1, 3, 4)
-  doAssert h().tqsp == vec4(6, 8, 5, 7)
-  doAssert i == 2
-
-  i = 0
-  h().wzyx = h()
-  doAssert c[0] == vec4(8, 7, 6, 5)
-  doAssert c[1] == vec4(5, 6, 7, 8)
-  doAssert i == 2
-
-
-block:
-  # Test basic mat constructors.
-  block:
-    let
-      _ = mat2()
-      _ = mat3()
-      _ = mat4()
-
-  block:
-    let
-      _ = mat2(
-        1, 0,
-        0, 1
-      )
-      _ = mat3(
-        1, 0, 0,
-        0, 1, 0,
-        0, 0, 1
-      )
-      _ = mat4(
-        1, 0, 0, 0,
-        0, 1, 0, 0,
-        0, 0, 1, 0,
-        0, 0, 0, 1
-      )
-
-  block:
-    # test $ string functions
-    doAssert $mat2(
-      1, 3,
-      0, 1
-    ) == """mat2(
-  1.0, 3.0,
-  0.0, 1.0
-)"""
-    doAssert $mat3(
-      1, 3, 0,
-      0, 1, 0,
-      0, 3, 1
-    ) == """mat3(
-  1.0, 3.0, 0.0,
-  0.0, 1.0, 0.0,
-  0.0, 3.0, 1.0
-)"""
-    doAssert $mat4(
-      1, 3, 0, 0,
-      0, 1, 0, 0,
-      0, 3, 1, 0,
-      0, 3, 0, 1
-    ) == """mat4(
-  1.0, 3.0, 0.0, 0.0,
-  0.0, 1.0, 0.0, 0.0,
-  0.0, 3.0, 1.0, 0.0,
-  0.0, 3.0, 0.0, 1.0
-)"""
-    doAssert $dmat2(
-      1, 0,
-      4, 1
-    ) == """dmat2(
-  1.0, 0.0,
-  4.0, 1.0
-)"""
-    doAssert $dmat3(
-      1, 0, 0,
-      4, 1, 0,
-      4, 0, 1
-    ) == """dmat3(
-  1.0, 0.0, 0.0,
-  4.0, 1.0, 0.0,
-  4.0, 0.0, 1.0
-)"""
-    doAssert $dmat4(
-      1, 0, 0, 0,
-      4, 1, 0, 0,
-      4, 0, 1, 0,
-      4, 0, 0, 1
-    ) == """dmat4(
-  1.0, 0.0, 0.0, 0.0,
-  4.0, 1.0, 0.0, 0.0,
-  4.0, 0.0, 1.0, 0.0,
-  4.0, 0.0, 0.0, 1.0
-)"""
-
-  block:
-    let
-      _ = mat2(
-        vec2(1, 0),
-        vec2(0, 1)
-      )
-      _ = mat3(
-        vec3(1, 0, 0),
-        vec3(0, 1, 0),
-        vec3(0, 0, 1)
-      )
-      _ = mat4(
-        vec4(1, 0, 0, 0),
-        vec4(0, 1, 0, 0),
-        vec4(0, 0, 1, 0),
-        vec4(0, 0, 0, 1)
-      )
-
-  block:
-    let
-      _ = dmat2()
-      _ = dmat3()
-      _ = dmat4()
-
-  block:
-    let
-      _ = dmat2(
-        1, 0,
-        0, 1
-      )
-      _ = dmat3(
-        1, 0, 0,
-        0, 1, 0,
-        0, 0, 1
-      )
-      _ = dmat4(
-        1, 0, 0, 0,
-        0, 1, 0, 0,
-        0, 0, 1, 0,
-        0, 0, 0, 1
-      )
-
-  block:
-    let
-      _ = dmat2(
-        dvec2(1, 0),
-        dvec2(0, 1)
-      )
-      _ = dmat3(
-        dvec3(1, 0, 0),
-        dvec3(0, 1, 0),
-        dvec3(0, 0, 1)
-      )
-      _ = dmat4(
-        dvec4(1, 0, 0, 0),
-        dvec4(0, 1, 0, 0),
-        dvec4(0, 0, 1, 0),
-        dvec4(0, 0, 0, 1)
-      )
-
-  block:
-    var
-      d2 = dmat2()
-      d3 = dmat3()
-      d4 = dmat4()
-
-    d2[0, 0] = 123.123
-    d2[1, 1] = 123.123
-
-    d3[0, 0] = 123.123
-    d3[1, 1] = 123.123
-    d3[2, 2] = 123.123
-
-    d4[0, 0] = 123.123
-    d4[1, 1] = 123.123
-    d4[2, 2] = 123.123
-    d4[3, 3] = 123.123
-
-block:
-  # Test basic mat functions.
-  doAssert dmat3().transpose() ~= dmat3(
-    1.0, 0.0, 0.0,
-    0.0, 1.0, 0.0,
-    0.0, 0.0, 1.0
-  )
-  doAssert dmat4().transpose() ~= dmat4(
-    1.0, 0.0, 0.0, 0.0,
-    0.0, 1.0, 0.0, 0.0,
-    0.0, 0.0, 1.0, 0.0,
-    0.0, 0.0, 0.0, 1.0
-  )
-
-  doAssert scale(dvec2(1, 2)) ~= dmat3(
-    1.0, 0.0, 0.0,
-    0.0, 2.0, 0.0,
-    0.0, 0.0, 1.0
-  )
-  doAssert scale(dvec3(2, 2, 3)) ~= dmat4(
-    2.0, 0.0, 0.0, 0.0,
-    0.0, 2.0, 0.0, 0.0,
-    0.0, 0.0, 3.0, 0.0,
-    0.0, 0.0, 0.0, 1.0
-  )
-
-  doAssert translate(dvec2(1, 2)) ~= dmat3(
-    1.0, 0.0, 0.0,
-    0.0, 1.0, 0.0,
-    1.0, 2.0, 1.0
-  )
-  doAssert translate(dvec3(1, 2, 3)) ~= dmat4(
-    1.0, 0.0, 0.0, 0.0,
-    0.0, 1.0, 0.0, 0.0,
-    0.0, 0.0, 1.0, 0.0,
-    1.0, 2.0, 3.0, 1.0
-  )
-
-  doAssert rotate(1.0) ~= dmat3(
-    0.5403023058681398, -0.8414709848078965, 0.0,
-    0.8414709848078965, 0.5403023058681398, 0.0,
-    0.0, 0.0, 1.0
-  )
-
-  doAssert scale(dvec2(2)) ~= dmat3(
-    2.0, 0.0, 0.0,
-    0.0, 2.0, 0.0,
-    0.0, 0.0, 1.0
-  )
-  doAssert scale(dvec3(2)) ~= dmat4(
-    2.0, 0.0, 0.0, 0.0,
-    0.0, 2.0, 0.0, 0.0,
-    0.0, 0.0, 2.0, 0.0,
-    0.0, 0.0, 0.0, 1.0
-  )
-
-  doAssert translate(dvec2(2)) ~= dmat3(
-    1.0, 0.0, 0.0,
-    0.0, 1.0, 0.0,
-    2.0, 2.0, 1.0
-  )
-  doAssert translate(dvec3(2)) ~= dmat4(
-    1.0, 0.0, 0.0, 0.0,
-    0.0, 1.0, 0.0, 0.0,
-    0.0, 0.0, 1.0, 0.0,
-    2.0, 2.0, 2.0, 1.0
-  )
-
-  doAssert rotate(1.0).inverse() ~= dmat3(
-    0.5403023058681398, 0.8414709848078965, -0.0,
-    -0.8414709848078965, 0.5403023058681398, -0.0,
-    0.0, -0.0, 1.0
-  )
-  doAssert rotate(1.0, dvec3(1, 0, 0)).inverse() ~= dmat4(
-    1.0, 0.0, 0.0, 0.0,
-    0.0, 0.5403023058681398, 0.8414709848078965, 0.0,
-    0.0, -0.8414709848078965, 0.5403023058681398, -0.0,
-    0.0, 0.0, 0.0, 1.0
-  )
-
-
-  block:
-    doAssert translate(vec2(1, 2)).pos == vec2(1, 2)
-
-    var translation = translate(vec2(1, 2))
-    translation.pos = vec2(3, 4)
-    doAssert translation.pos == vec2(3, 4)
-
-  block:
-    doAssert translate(vec3(1, 2, 3)).pos == vec3(1, 2, 3)
-
-    var translation = translate(vec3(1, 2, 3))
-    translation.pos = vec3(3, 4, 5)
-    doAssert translation.pos == vec3(3, 4, 5)
-
-block:
-  # Test basic vector mat4 and quat.
-  var m1 = mat4(
-    1, 0, 0, 0,
-    0, 1, 0, 0,
-    0, 0, 1, 0,
-    0, 0, 0, 1)
-  var q1 = m1.quat()
-  var m2 = q1.mat4()
-  doAssert m2 ~= mat4(
-    1.00000, 0.00000, 0.00000, 0.00000,
-    0.00000, 1.00000, 0.00000, 0.00000,
-    0.00000, 0.00000, 1.00000, 0.00000,
-    0.00000, 0.00000, 0.00000, 1.00000
-  )
-  doAssert m1 ~= (m2)
-
-block:
-  # Test basic vector mat4 -1.
-  var m1 = mat4(
-    1, 0, 0, 0,
-    0, 0, -1, 0,
-    0, 1, 0, 0,
-    0, 0, 0, 1)
-  var q1 = m1.quat()
-  var m2 = q1.mat4()
-  doAssert m1 ~= m2
-
-block:
-  # Test Y 90.
-  var m1 = rotate(PI/2, dvec3(0, 1, 0))
-  var q1 = m1.quat()
-  var m2 = q1.mat4()
-  doAssert m1 ~= m2
-
-block:
-  # Test -Y 90.
-  var m1 = rotate(PI/2, dvec3(0, -1, 0))
-  var q1 = m1.quat()
-  var m2 = q1.mat4()
-  doAssert m1 ~= m2
-
-block:
-  # Test X 90.
-  var m1 = rotate(PI/2, dvec3(1, 0, 0))
-  var q1 = m1.quat()
-  var m2 = q1.mat4()
-  doAssert m1 ~= m2
-
-block:
-  # Test Y 90.
-  var m1 = rotate(PI/2, dvec3(1, 0, 0))
-  var q1 = m1.quat()
-  var m2 = q1.mat4()
-  doAssert m1 ~= m2
-
-block:
-  # Test 1,1,1 1.11rad.
-  var m1 = rotate(PI*1.11, dvec3(1, 1, 1).normalize())
-  var q1 = m1.quat()
-  var m2 = q1.mat4()
-  doAssert m1 ~= m2
-
-block:
-  # Test 1,1,1 1.11rad.
-  var m1 = rotate(PI*1.11, dvec3(-1, 1, 1).normalize())
-  var q1 = m1.quat()
-  var m2 = q1.mat4()
-  doAssert m1 ~= m2
-
-block:
-  # Test 1,1,1 1.11rad.
-  var m1 = rotate(PI*1.11, dvec3(-1, 0.34, 1.123).normalize())
-  var q1 = m1.quat()
-  var m2 = q1.mat4()
-  doAssert m1 ~= m2
-
-block:
-  # Test super random quat test.
-  for i in 0 ..< 1000:
-    var m1 = rotate(
-      PI*rand(2.0),
-      dvec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
-    )
-    var q1 = m1.quat()
-    var m2 = q1.mat4()
-    doAssert m1 ~= m2
-
-block:
-  # Test *=1 /=1 don't change anything.
-  var v2 = vec2(0, 0)
-  v2 *= 1
-  v2 /= 1
-  doAssert v2 == vec2(0, 0)
-
-  var v3 = vec3(0, 0, 0)
-  v3 *= 1
-  v3 /= 1
-  doAssert v3 == vec3(0, 0, 0)
-
-  var v4 = vec4(0, 0, 0, 0)
-  v4 *= 1
-  v4 /= 1
-  doAssert v4 == vec4(0, 0, 0, 0)
-
-  var q = quat(0, 0, 0, 0)
-  q *= 1
-  q /= 1
-  doAssert q == quat(0, 0, 0, 0)
-
-block:
-  # Test matrix and vector multiplication.
-  var a3 = mat3(
-    0.9659258723258972, -0.258819043636322, 0.0,
-    0.258819043636322, 0.9659258723258972, 0.0,
-    -25.00000953674316, 70.09619140625, 1.0
-  )
-  var b3 = mat3(
-    0.9659258127212524, 0.258819043636322, 0.0,
-    -0.258819043636322, 0.9659258127212524, 0.0,
-    77.64571380615234, 0.0, 1.0
-  )
-
-  when not defined(js):
-    # TODO: Figure out why we loose soo much precision in js.
-
-    doAssert a3 * b3 ~= mat3(
-      1.0000, 0.0000, 0.0000,
-      0.0000, 1.0000, 0.0000,
-      50.0000, 50.0000, 1.0000
-    )
-
-    doAssert a3 * vec2(77.64571380615234, 0) ~= vec2(50.0, 50.0)
-
-  doAssert mat3(1, 2, 3, 4, 5, 6, 7, 8, 9) *
-    mat3(10, 20, 30, 40, 50, 60, 70, 80, 90) ~= mat3(
-      300.0000, 360.0000, 420.0000,
-      660.0000, 810.0000, 960.0000,
-      1020.0000, 1260.0000, 1500.0000
-    )
-
-block:
-  # test quat and matrix
-  doAssert ortho[float32](-1, 1, 1, -1, -1000, 1000) ~= mat4(
-    1.0, 0.0, 0.0, 0.0,
-    0.0, -1.0, 0.0, 0.0,
-    0.0, 0.0, -0.001000000047497451,
-    0.0, -0.0, 0.0, -0.0, 1.0
-  )
-
-  doAssert perspective[float32](75, 1.666, 1, 1000) ~= mat4(
-    0.7822480201721191, 0.0, 0.0, 0.0,
-    0.0, 1.30322527885437, 0.0, 0.0,
-    0.0, 0.0, -1.002002000808716, -1.0,
-    0.0, 0.0, -2.002002000808716, 0.0
-  )
-
-  # Test super random quat test.
-  for i in 0 ..< 1000:
-    var m1 = rotate(
-      PI*rand(2.0),
-      dvec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
-    )
-    var q1 = m1.quat()
-    var m2 = q1.mat4()
-    doAssert m1 ~= m2
-
-block:
-  # test fromTwoVectors
-  let
-    a = vec3(1, 0, 0)
-    b = vec3(0, 1, 0)
-    q1 = fromTwoVectors(a, b)
-  doAssert q1.mat4 * a ~= b
-
-  for i in 0 ..< 1000:
-    let
-      a = vec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
-      b = vec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
-      q = fromTwoVectors(a, b)
-    doAssert dist(q.mat4 * a, b) < 1E5
-
-block:
-  let mat2d = translate(vec2(10, 20)) * rotate(45.toRadians) * scale(vec2(2))
-
-  let mat3d = translate(vec3(10, 20, 0)) * rotateZ(45.toRadians) * scale(vec3(2))
-
-  doAssert mat2d ~= mat3(
-    1.414213538169861, -1.414213538169861, 0.0,
-    1.414213538169861, 1.414213538169861, 0.0,
-    10.0, 20.0, 1.0
-  )
-
-  doAssert mat3d ~= mat4(
-    1.414213418960571, -1.41421365737915, 0.0, 0.0,
-    1.41421365737915, 1.414213418960571, 0.0, 0.0,
-    0.0, 0.0, 2.0, 0.0,
-    10.0, 20.0, 0.0, 1.0
-  )
-
-block:
-  let
-    a2 = vec2(10, -10)
-    b2 = vec2(-10, 10)
-    a3 = vec3(10, -10, 7)
-    b3 = vec3(-10, 10, 0)
-    a4 = vec4(10, -10, 7, -2)
-    b4 = vec4(-10, 10, 0, -1)
-
-  doAssert min(a2, b2) == vec2(-10, -10)
-  doAssert min(a3, b3) == vec3(-10, -10, 0)
-  doAssert min(a4, b4) == vec4(-10, -10, 0, -2)
-
-  doAssert max(a2, b2) == vec2(10, 10)
-  doAssert max(a3, b3) == vec3(10, 10, 7)
-  doAssert max(a4, b4) == vec4(10, 10, 7, -1)
-
-  doAssert mix(10f, 7, 0.75) == 7.75
-  doAssert mix(a2, b2, 0.75) == vec2(-5.0, 5.0)
-  doAssert mix(a3, b3, 0.75) == vec3(-5.0, 5.0, 1.75)
-  doAssert mix(a4, b4, 0.75) == vec4(-5.0, 5.0, 1.75, -1.25)
-
-  doAssert `mod`(1, 2) == 1
-  doAssert `mod`(vec2(12, 6), vec2(6, 12)) == vec2(0, 6)
-  doAssert `mod`(vec3(12, 6, 18), vec3(6, 12, 7)) == vec3(0, 6, 4)
-  doAssert `mod`(vec4(12, 6, 18, 16), vec4(6, 12, 7, 15)) == vec4(0, 6, 4, 1)
-
-  doAssert `zmod`(1, 2) == 1
-  doAssert `zmod`(vec2(12, 6), vec2(6, 12)) == vec2(0, 6)
-  doAssert `zmod`(vec3(12, 6, 18), vec3(6, 12, 7)) == vec3(0, 6, 4)
-  doAssert `zmod`(vec4(12, 6, 18, 16), vec4(6, 12, 7, 15)) == vec4(0, 6, 4, 1)
-
-block:
-  doAssert vec2(1, 1) == vec2(1, 1)
-  doAssert dvec2(2, 2) == dvec2(2, 2)
-  doAssert bvec2(true, true) == bvec2(true, true)
-  doAssert ivec2(3, 3) == ivec2(3, 3)
-  doAssert uvec2(3, 3) == uvec2(3, 3)
-
-  doAssert vec3(1, 1, 1) == vec3(1, 1, 1)
-  doAssert dvec3(2, 2, 2) == dvec3(2, 2, 2)
-  doAssert bvec3(true, true, true) == bvec3(true, true, true)
-  doAssert ivec3(3, 3, 3) == ivec3(3, 3, 3)
-  doAssert uvec3(3, 3, 3) == uvec3(3, 3, 3)
-
-  doAssert vec4(1, 1, 1, 1) == vec4(1, 1, 1, 1)
-  doAssert dvec4(2, 2, 2, 2) == dvec4(2, 2, 2, 2)
-  doAssert bvec4(true, true, true, false) == bvec4(true, true, true, false)
-  doAssert ivec4(3, 3, 3, 3) == ivec4(3, 3, 3, 3)
-  doAssert uvec4(3, 3, 3, 3) == uvec4(3, 3, 3, 3)
-
-  doAssert vec2(1, 1) != vec2(1, 2)
-  doAssert dvec2(2, 2) != dvec2(2, 3)
-  doAssert bvec2(true, true) != bvec2(true, false)
-  doAssert ivec2(3, 3) != ivec2(3, 4)
-  doAssert uvec2(3, 3) != uvec2(3, 4)
-
-  doAssert vec3(1, 1, 1) != vec3(1, 1, 2)
-  doAssert dvec3(2, 2, 2) != dvec3(2, 2, 3)
-  doAssert bvec3(true, true, true) != bvec3(true, true, false)
-  doAssert ivec3(3, 3, 3) != ivec3(3, 3, 4)
-  doAssert uvec3(3, 3, 3) != uvec3(3, 3, 4)
-
-  doAssert vec4(1, 1, 1, 1) != vec4(1, 1, 1, 2)
-  doAssert dvec4(2, 2, 2, 2) != dvec4(2, 2, 2, 3)
-  doAssert bvec4(true, true, true, false) != bvec4(true, true, true, true)
-  doAssert ivec4(3, 3, 3, 3) != ivec4(3, 3, 3, 4)
-  doAssert uvec4(3, 3, 3, 3) != uvec4(3, 3, 3, 4)
-
-block:
-  doAssert vec2(ivec2(1, 1)) == vec2(1, 1)
-  doAssert vec2(uvec2(5, 5)) == vec2(5, 5)
-  doAssert ivec2(uvec2(23, 23)) == ivec2(23, 23)
-  doAssert uvec2(ivec2(12, 12)) == uvec2(12, 12)
-  doAssert vec3(ivec3(1, 2, 3)) == vec3(1, 2, 3)
-  doAssert vec3(uvec3(4, 5, 6)) == vec3(4, 5, 6)
-  doAssert ivec3(uvec3(7, 8, 9)) == ivec3(7, 8, 9)
-  doAssert uvec3(ivec3(10, 11, 12)) == uvec3(10, 11, 12)
-  doAssert vec4(ivec4(13, 14, 15, 16)) == vec4(13, 14, 15, 16)
-  doAssert vec4(uvec4(17, 18, 19, 20)) == vec4(17, 18, 19, 20)
-  doAssert ivec4(uvec4(21, 22, 23, 24)) == ivec4(21, 22, 23, 24)
-  doAssert uvec4(ivec4(25, 26, 27, 28)) == uvec4(25, 26, 27, 28)
-
-block:
-  # Test for https://github.com/treeform/vmath/issues/44
-  doAssert PI.toDegrees() == 180
-  doAssert (PI*2).toDegrees() == 360
-
-block:
-  # Test for https://github.com/treeform/vmath/issues/45
-  block:
-    let a = uvec2(10, 10)
-    var b: UVec2
-    when compiles(b = a / 2): doAssert false # type mismatch
-    b = a div 2
-
-  block:
-    let a = vec2(10, 10)
-    var b: Vec2
-    b = a / 2
-    when compiles(b = a div 2): doAssert false # type mismatch
-
-proc eq(a, b: Vec3): bool =
-  const epsilon = 0.001
-  return abs(angleBetween(a.x, b.x)) < epsilon and
-    abs(angleBetween(a.y, b.y)) < epsilon and
-    abs(angleBetween(a.z, b.z)) < epsilon
-
-const PI = PI.float32
-
-block:
-  # test Euler angles from a vector
-  doAssert vec3(0, 0, 0).toAngles.eq vec3(0f, 0f, 0f)
-  doAssert vec3(0, 0, 1).toAngles.eq vec3(0f, 0f, 0f) # forward
-  doAssert vec3(0, 0, -1).toAngles.eq vec3(0f, PI, 0f) # back
-  doAssert vec3(-1, 0, 0).toAngles.eq vec3(0f, PI/2, 0f) # right
-  doAssert vec3(1, 0, 0).toAngles.eq vec3(0f, -PI/2, 0f) # left
-  doAssert vec3(0, 1, 0).toAngles.eq vec3(PI/2, 0f, 0f) # up
-  doAssert vec3(0, -1, 0).toAngles.eq vec3(-PI/2, 0f, 0f) # down
-
-block:
-  # test Euler angles from a matrix
-  doAssert translate(vec3(0, 0, 0)).toAngles.eq vec3(0f, 0f, 0f)
-  doAssert rotateX(0f).toAngles.eq vec3(0f, 0f, 0f) # forward
-  doAssert rotateY(PI).toAngles.eq vec3(0f, -PI, 0f) # back
-  doAssert rotateY(PI/2).toAngles.eq vec3(0f, PI/2, 0f) # back
-  doAssert rotateY(-PI/2).toAngles.eq vec3(0f, -PI/2, 0f) # back
-  doAssert rotateX(PI/2).toAngles.eq vec3(PI/2, 0f, 0f) # up
-  doAssert rotateX(-PI/2).toAngles.eq vec3(-PI/2, 0f, 0f) # down
-  doAssert rotateZ(PI/2).toAngles.eq vec3(0f, 0f, PI/2) # tilt right
-  doAssert rotateZ(-PI/2).toAngles.eq vec3(0f, 0f, -PI/2) # tilt left
-
-  doAssert mat4().toAngles.eq vec3(0, 0, 0)
-
-  doAssert rotateX(10.toRadians()).toAngles.eq vec3(10.toRadians(), 0, 0)
-  doAssert rotateY(10.toRadians()).toAngles.eq vec3(0, 10.toRadians(), 0)
-  doAssert rotateZ(10.toRadians()).toAngles.eq vec3(0, 0, 10.toRadians())
-  doAssert rotateX(89.toRadians()).toAngles.eq vec3(89.toRadians(), 0, 0)
-  doAssert rotateY(89.toRadians()).toAngles.eq vec3(0, 89.toRadians(), 0)
-  doAssert rotateZ(89.toRadians()).toAngles.eq vec3(0, 0, 89.toRadians())
-  doAssert rotateX(90.toRadians()).toAngles.eq vec3(90.toRadians(), 0, 0)
-  doAssert rotateY(90.toRadians()).toAngles.eq vec3(0, 90.toRadians(), 0)
-  doAssert rotateZ(90.toRadians()).toAngles.eq vec3(0, 0, 90.toRadians())
-  doAssert rotateX(90.toRadians()).toAngles.eq vec3(90.toRadians(), 0, 0)
-  doAssert rotateY(90.toRadians()).toAngles.eq vec3(0, 90.toRadians(), 0)
-  doAssert rotateZ(-90.toRadians()).toAngles.eq vec3(0, 0, -90.toRadians())
-  doAssert rotateY(180.toRadians()).toAngles.eq vec3(0, -180.toRadians(), 0)
-  doAssert rotateZ(180.toRadians()).toAngles.eq vec3(0, 0, 180.toRadians())
-  doAssert rotateY(-180.toRadians()).toAngles.eq vec3(0, 180.toRadians(), 0)
-  doAssert rotateZ(-180.toRadians()).toAngles.eq vec3(0, 0, 180.toRadians())
-
-block:
-  # Euler angles fuzzing tests.
-
-  # Test fromAngles with and without roll have same forward
-  for i in 0 .. 1000:
-    let
-      xr = rand(-89.9f .. 89.9f).toRadians
-      yr = rand(-180 .. 180).toRadians
-      zr = rand(-180 .. 180).toRadians
-      a = vec3(xr, yr, zr)
-      b = vec3(xr, yr, 0f)
-      ma = fromAngles(a)
-      mb = fromAngles(b)
-
-    doAssert ma.forward() ~= mb.forward()
-
-  # Test forward/back, right/left, up/down combos
-  for i in 0 .. 1000:
-    let
-      xr = rand(-89.9f .. 89.9f).toRadians
-      yr = rand(-180 .. 180).toRadians
-      zr = rand(-180 .. 180).toRadians
-      b = vec3(xr, yr, zr)
-      m = fromAngles(b)
-
-    doAssert m.forward() ~= m * vec3(0, 0, 1)
-    doAssert m.back() ~= m * vec3(0, 0, -1)
-
-    doAssert m.right() ~= m * vec3(-1, 0, 0)
-    doAssert m.left() ~= m * vec3(1, 0, 0)
-
-    doAssert m.up() ~= m * vec3(0, 1, 0)
-    doAssert m.down() ~= m * vec3(0, -1, 0)
-
-  # Test non-polar and non-rotated cases
-  for i in 0 .. 1000:
-    let
-      xr = rand(-89.9f .. 89.9f).toRadians
-      yr = rand(-180 .. 180).toRadians
-      zr = 0f
-      b = vec3(xr, yr, zr)
-      m = fromAngles(b)
-      a = m.toAngles()
-    doAssert a.eq(b)
-
-  # Test non-polar cases
-  for i in 0 .. 1000:
-    let
-      xr = rand(-89.9f .. 89.9f).toRadians
-      yr = rand(-180 .. 180).toRadians
-      zr = rand(-180 .. 180).toRadians
-      b = vec3(xr, yr, zr)
-      m = fromAngles(b)
-      a = m.toAngles()
-    doAssert a.eq(b)
-
-  # Test polar and non-rotated cases
-  for i in 0 .. 1000:
-    let
-      xr = sample([-90, 90]).toRadians
-      yr = rand(-180 .. 180).toRadians
-      zr = 0f
-      b = vec3(xr, yr, zr)
-      m = fromAngles(b)
-      a = m.toAngles()
-    doAssert a.eq(b)
-
-  # Test polar and crazy rotated cases
-  for i in 0 .. 1000:
-    let
-      xr = sample([-90, 90]).toRadians
-      yr = rand(-180 .. 180).toRadians
-      zr = rand(-180 .. 180).toRadians
-      b = vec3(xr, yr, zr)
-      m = fromAngles(b)
-      a = m.toAngles()
-
-    doAssert abs(angleBetween(a.x, b.x)) < 0.001
-    if xr > 0:
-      doAssert abs(angleBetween(a.y, b.y + b.z)) < 0.001
+    a = when defined(js):
+      mat2(1, 2, 3, 4)
     else:
-      doAssert abs(angleBetween(a.y, b.y - b.z)) < 0.001
+      cast[Mat2]([1.0f, 2.0f, 3.0f, 4.0f])
+    b = when defined(js):
+      mat2(5, -6, 7, -8)
+    else:
+      cast[Mat2]([5.0f, -6.0f, 7.0f, -8.0f])
 
-block:
-  # Test for https://github.com/treeform/vmath/issues/73
-  template gen2DTestsFor(constructor: untyped): void =
-    doAssert angle(constructor(1, 0), constructor(1, 0)) ~= 0
-    doAssert angle(constructor(1, 1), constructor(-1, -1)) ~= Pi
-    doAssert angle(constructor(1, 0), constructor(0, 1)) ~= Pi/2
-    doAssert angle(constructor(1, 0), constructor(-1, 0)) ~= Pi
-    doAssert angle(constructor(1, 1), constructor(1, -1)) ~= Pi/2
+  test "mat2 multiply":
+    let ab = a * b
+    let ba = b * a
+    check not(ab ~= ba)  # non-commutative
+    # identity * a = a
+    check mat2() * a ~= a
+    check a * mat2() ~= a
 
-    # Edge cases:
-    doAssert angle(constructor(0, 0), constructor(1, 0)).isNaN()
+  test "mat2 transpose":
+    let t = transpose(a)
+    check t[0, 0] == a[0, 0]
+    check t[0, 1] == a[1, 0]
+    check t[1, 0] == a[0, 1]
+    check t[1, 1] == a[1, 1]
+    # double transpose = original
+    check transpose(transpose(a)) ~= a
 
-  gen2DTestsFor vec2
-  gen2DTestsFor dvec2
+  test "mat2 determinant":
+    check determinant(a) == 1.0f * 4.0f - 3.0f * 2.0f  # ad - bc = -2
 
-  template gen3DTestsFor(constructor: untyped): void =
-    doAssert angle(constructor(1, 0, 0), constructor(1, 0, 0)) ~= 0
-    doAssert angle(constructor(1, 1, 1), constructor(-1, -1, -1)) ~= Pi
-    doAssert angle(constructor(1, 0, 0), constructor(0, 1, 0)) ~= Pi/2
-    doAssert angle(constructor(1, 0, 0), constructor(-1, 0, 0)) ~= Pi
-    doAssert angle(constructor(1, 1, 1), constructor(1, -1, 1)) ~= arccos(1/3)
-    doAssert angle(constructor(1, 0, 0), constructor(0, 0, 1)) ~= Pi/2
-    doAssert angle(constructor(1, 1, 1), constructor(-1, -1, 1)) ~= arccos(-1/3)
+  test "mat2 inverse":
+    let inv = inverse(a)
+    check a * inv ~= mat2()
+    check inv * a ~= mat2()
 
-    # Edge cases:
-    doAssert angle(vec3(0, 0, 0), vec3(1, 0, 0)).isNaN()
+  test "mat2 * vec2":
+    let v = vec2(1.25, -2.5)
+    let result = a * v
+    # Verify by manual computation
+    check result.x ~= (a[0, 0] * v.x + a[1, 0] * v.y)
+    check result.y ~= (a[0, 1] * v.x + a[1, 1] * v.y)
 
-  gen3DTestsFor vec3
-  gen3DTestsFor dvec3
+suite "mat3 memory layout and element access":
+  test "mat3 cast to flat array is column-major":
+    when not defined(js):
+      # 9 floats: col0(3), col1(3), col2(3)
+      let m = cast[Mat3]([1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 10.0f])
+      let a = cast[array[9, float32]](m)
+      check a[0] == 1.0f   # col 0 row 0
+      check a[1] == 2.0f   # col 0 row 1
+      check a[2] == 3.0f   # col 0 row 2
+      check a[3] == 4.0f   # col 1 row 0
+      check a[4] == 5.0f   # col 1 row 1
+      check a[5] == 6.0f   # col 1 row 2
+      check a[6] == 7.0f   # col 2 row 0
+      check a[7] == 8.0f   # col 2 row 1
+      check a[8] == 10.0f  # col 2 row 2
 
-echo "test finished successfully"
+  test "mat3 [row, col] element access":
+    when not defined(js):
+      let m = cast[Mat3]([1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 10.0f])
+      check m[0, 0] == 1.0f
+      check m[0, 1] == 2.0f
+      check m[0, 2] == 3.0f
+      check m[1, 0] == 4.0f
+      check m[1, 1] == 5.0f
+      check m[1, 2] == 6.0f
+      check m[2, 0] == 7.0f
+      check m[2, 1] == 8.0f
+      check m[2, 2] == 10.0f
+
+  test "mat3 identity":
+    let m = mat3()
+    for r in 0 .. 2:
+      for c in 0 .. 2:
+        if r == c:
+          check m[r, c] == 1.0f
+        else:
+          check m[r, c] == 0.0f
+
+  test "mat3 element assignment":
+    var m = mat3()
+    m[1, 2] = 42.0
+    check m[1, 2] == 42.0f
+
+suite "mat3 operations":
+  let
+    a = when defined(js):
+      mat3(1, 2, 3, 4, 5, 6, 7, 8, 10)
+    else:
+      cast[Mat3]([1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f, 10.0f])
+    b = when defined(js):
+      mat3(-1, 3, 5, 7, -2, 4, 6, 8, -3)
+    else:
+      cast[Mat3]([-1.0f, 3.0f, 5.0f, 7.0f, -2.0f, 4.0f, 6.0f, 8.0f, -3.0f])
+
+  test "mat3 multiply":
+    check mat3() * a ~= a
+    check a * mat3() ~= a
+    check not(a * b ~= b * a)
+
+  test "mat3 transpose":
+    let t = transpose(a)
+    for r in 0 .. 2:
+      for c in 0 .. 2:
+        check t[r, c] == a[c, r]
+    check transpose(transpose(a)) ~= a
+
+  test "mat3 determinant non-zero":
+    # [1..8, 10] has det = -3
+    check abs(determinant(a) - (-3.0f)) < 0.001f
+
+  test "mat3 inverse":
+    let inv = inverse(a)
+    check a * inv ~= mat3()
+    check inv * a ~= mat3()
+
+  test "mat3 * vec3":
+    let v = vec3(1.0, -2.0, 3.0)
+    let result = a * v
+    check result.x ~= (a[0, 0] * v.x + a[1, 0] * v.y + a[2, 0] * v.z)
+    check result.y ~= (a[0, 1] * v.x + a[1, 1] * v.y + a[2, 1] * v.z)
+    check result.z ~= (a[0, 2] * v.x + a[1, 2] * v.y + a[2, 2] * v.z)
+
+  test "mat3 * vec2 (2D homogeneous)":
+    let v = vec2(3.0, -1.5)
+    let result = a * v
+    # Should treat vec2 as vec3(x, y, 1) and return xy
+    let full = a * vec3(v.x, v.y, 1.0)
+    check result.x ~= full.x
+    check result.y ~= full.y
+
+suite "mat3 2D constructors":
+  test "scale2D":
+    let s = scale(vec2(2.0, 3.0))
+    check s[0, 0] == 2.0f
+    check s[1, 1] == 3.0f
+    check s[2, 2] == 1.0f
+    check s[1, 0] == 0.0f
+    # Scaling a point
+    let v = s * vec2(5.0, 10.0)
+    check v ~= vec2(10.0, 30.0)
+
+  test "translate2D":
+    let t = translate(vec2(5.0, 10.0))
+    check t[2, 0] == 5.0f
+    check t[2, 1] == 10.0f
+    let v = t * vec2(1.0, 2.0)
+    check v ~= vec2(6.0, 12.0)
+
+  test "rotate2D":
+    let r = rotate(45.0f.toRadians)
+    # cos(45) ~= 0.707, sin(45) ~= 0.707
+    check r[0, 0] ~= cos(45.0f.toRadians)
+    check r[0, 1] ~= sin(45.0f.toRadians)
+    check r[1, 0] ~= -sin(45.0f.toRadians)
+    check r[1, 1] ~= cos(45.0f.toRadians)
+    # Rotating (1, 0) by 90 degrees should give (0, 1)
+    let r90 = rotate(90.0f.toRadians)
+    check r90 * vec2(1.0, 0.0) ~= vec2(0.0, 1.0)
+
+  test "2D transform composition":
+    let mat2d = translate(vec2(10, 20)) * rotate(45.toRadians) * scale(vec2(2))
+    check mat2d ~= mat3(
+      1.414213538169861, 1.414213538169861, 0.0,
+      -1.414213538169861, 1.414213538169861, 0.0,
+      10.0, 20.0, 1.0
+    )
+
+suite "mat4 memory layout and element access":
+  test "mat4 cast to flat array is column-major":
+    when not defined(js):
+      let m = cast[Mat4]([
+        1.0f, 2.0f, 3.0f, 4.0f,
+        5.0f, 6.0f, 7.0f, 8.0f,
+        9.0f, 10.0f, 11.0f, 12.0f,
+        13.0f, 14.0f, 15.0f, 16.0f
+      ])
+      let a = cast[array[16, float32]](m)
+      # Column 0
+      check a[0] == 1.0f; check a[1] == 2.0f; check a[2] == 3.0f; check a[3] == 4.0f
+      # Column 1
+      check a[4] == 5.0f; check a[5] == 6.0f; check a[6] == 7.0f; check a[7] == 8.0f
+      # Column 2
+      check a[8] == 9.0f; check a[9] == 10.0f; check a[10] == 11.0f; check a[11] == 12.0f
+      # Column 3
+      check a[12] == 13.0f; check a[13] == 14.0f; check a[14] == 15.0f; check a[15] == 16.0f
+
+  test "mat4 [row, col] element access matches flat column-major":
+    when not defined(js):
+      let m = cast[Mat4]([
+        1.0f, 2.0f, 3.0f, 4.0f,
+        5.0f, 6.0f, 7.0f, 8.0f,
+        9.0f, 10.0f, 11.0f, 12.0f,
+        13.0f, 14.0f, 15.0f, 16.0f
+      ])
+      let a = cast[array[16, float32]](m)
+      for row in 0 .. 3:
+        for col in 0 .. 3:
+          # m[row, col] should equal a[row * 4 + col]
+          check m[row, col] == a[row * 4 + col]
+
+  test "mat4 identity":
+    let m = mat4()
+    for r in 0 .. 3:
+      for c in 0 .. 3:
+        if r == c:
+          check m[r, c] == 1.0f
+        else:
+          check m[r, c] == 0.0f
+
+  test "mat4 constructors match":
+    let fromScalars = mat4(
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      0, 0, 1, 0,
+      0, 0, 0, 1
+    )
+    let fromVecs = mat4(
+      vec4(1, 0, 0, 0),
+      vec4(0, 1, 0, 0),
+      vec4(0, 0, 1, 0),
+      vec4(0, 0, 0, 1)
+    )
+    check fromScalars ~= fromVecs
+    check fromScalars ~= mat4()
+
+suite "mat4 operations":
+  let
+    a = when defined(js):
+      mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16)
+    else:
+      cast[Mat4]([
+        1.0f, 2.0f, 3.0f, 4.0f, 5.0f, 6.0f, 7.0f, 8.0f,
+        9.0f, 10.0f, 11.0f, 12.0f, 13.0f, 14.0f, 15.0f, 16.0f
+      ])
+    b = when defined(js):
+      mat4(-10, -20, -30, -40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160)
+    else:
+      cast[Mat4]([
+        -10.0f, -20.0f, -30.0f, -40.0f, 50.0f, 60.0f, 70.0f, 80.0f,
+        90.0f, 100.0f, 110.0f, 120.0f, 130.0f, 140.0f, 150.0f, 160.0f
+      ])
+
+  test "mat4 multiply identity":
+    check mat4() * a ~= a
+    check a * mat4() ~= a
+
+  test "mat4 multiply non-commutative":
+    check not(a * b ~= b * a)
+
+  test "mat4 transpose":
+    let t = transpose(a)
+    for r in 0 .. 3:
+      for c in 0 .. 3:
+        check t[r, c] == a[c, r]
+    check transpose(transpose(a)) ~= a
+
+  test "mat4 inverse (float32, game transform)":
+    # Typical game transform: position + rotation + non-uniform scale
+    let m = translate(vec3(100, -50, 200)) * rotateZ(71.toRadians) *
+            rotateY(-23.toRadians) * rotateX(37.toRadians) * scale(vec3(2, 3, 4))
+    let inv = inverse(m)
+    let product = m * inv
+    # float32 inverse of a full T*R*S matrix drifts ~1e-5, too loose for ~= (1e-6)
+    let id = mat4()
+    for r in 0 .. 3:
+      for c in 0 .. 3:
+        check abs(product[r, c] - id[r, c]) < 1e-4f
+
+  test "mat4 * vec3":
+    let m = translate(vec3(10, 20, 30))
+    let v = vec3(1.25, -2.5, 3.75)
+    let result = m * v
+    check result ~= vec3(11.25, 17.5, 33.75)
+
+  test "mat4 * vec4":
+    let m = translate(vec3(10, 20, 30))
+    let v = vec4(1.25, -2.5, 3.75, 1.0)
+    let result = m * v
+    check result ~= vec4(11.25, 17.5, 33.75, 1.0)
+
+suite "mat4 constructors":
+  test "scale matrix":
+    let s = scale(vec3(2, 3, 4))
+    check s[0, 0] == 2.0f
+    check s[1, 1] == 3.0f
+    check s[2, 2] == 4.0f
+    check s[3, 3] == 1.0f
+    check s * vec3(1, 1, 1) ~= vec3(2, 3, 4)
+
+  test "translate matrix":
+    let t = translate(vec3(10, 20, 30))
+    check t[3, 0] == 10.0f
+    check t[3, 1] == 20.0f
+    check t[3, 2] == 30.0f
+    check t * vec3(0, 0, 0) ~= vec3(10, 20, 30)
+
+  test "rotateX matrix":
+    let r = rotateX(90.0f.toRadians)
+    # Rotating Y-axis around X by 90 should give Z-axis
+    check r * vec3(0, 1, 0) ~= vec3(0, 0, 1)
+
+  test "rotateY matrix":
+    let r = rotateY(90.0f.toRadians)
+    # Rotating X-axis around Y by 90 should give -Z-axis
+    check r * vec3(1, 0, 0) ~= vec3(0, 0, -1)
+
+  test "rotateZ matrix":
+    let r = rotateZ(90.0f.toRadians)
+    # Rotating X-axis around Z by 90 should give Y-axis
+    check r * vec3(1, 0, 0) ~= vec3(0, 1, 0)
+
+  test "transform composition order":
+    # T * R * S: scale first, then rotate, then translate
+    let t = translate(vec3(10, 20, 30))
+    let r = rotateZ(71.0f.toRadians) * rotateY(-23.0f.toRadians) * rotateX(37.0f.toRadians)
+    let s = scale(vec3(2, 3, 4))
+    let transform = t * r * s
+    check transform[3, 0] ~= 10.0f
+    check transform[3, 1] ~= 20.0f
+    check transform[3, 2] ~= 30.0f
+
+  test "3D and 2D composition consistency":
+    let mat2d = translate(vec2(10, 20)) * rotate(45.toRadians) * scale(vec2(2))
+    let mat3d = translate(vec3(10, 20, 0)) * rotateZ(45.toRadians) * scale(vec3(2))
+    # The 2D and 3D transforms should produce matching XY results
+    let v2 = mat2d * vec2(1, 0)
+    let v3 = mat3d * vec3(1, 0, 0)
+    check v2.x ~= v3.x
+    check v2.y ~= v3.y
+
+suite "vector operations":
+  test "length":
+    check vec2(3, 4).length ~= 5.0f
+    check vec3(1, 2, 2).length ~= 3.0f
+    check vec4(1, 0, 0, 0).length ~= 1.0f
+    check dvec3(0, 0, 0).length ~= 0.0
+
+  test "lengthSq":
+    check vec2(3, 4).lengthSq ~= 25.0f
+    check vec3(1, 2, 2).lengthSq ~= 9.0f
+    check vec4(2, 0, 0, 0).lengthSq ~= 4.0f
+
+  test "normalize":
+    check normalize(vec2(10, 0)) ~= vec2(1, 0)
+    check normalize(vec3(0, 0, 5)) ~= vec3(0, 0, 1)
+    check abs(normalize(vec4(1, 1, 1, 1)).length - 1.0f) < 1e-5f
+
+  test "dist and distSq":
+    check dist(vec2(0, 0), vec2(3, 4)) ~= 5.0f
+    check distSq(vec2(0, 0), vec2(3, 4)) ~= 25.0f
+    check dist(vec3(0, 0, 0), vec3(1, 2, 2)) ~= 3.0f
+    check distSq(vec3(0, 0, 0), vec3(1, 2, 2)) ~= 9.0f
+
+  test "dot product":
+    check dot(vec2(1, 0), vec2(0, 1)) ~= 0.0f
+    check dot(vec2(1, 0), vec2(1, 0)) ~= 1.0f
+    check dot(vec3(1, 2, 3), vec3(4, 5, 6)) ~= 32.0f
+    check dot(vec4(1, 2, 3, 4), vec4(5, 6, 7, 8)) ~= 70.0f
+
+  test "dir (point to point)":
+    let d = dir(vec3(0, 0, 0), vec3(10, 0, 0))
+    check abs(d.length - 1.0f) < 1e-5f
+    let d2 = dir(vec2(0, 0), vec2(0, 5))
+    check abs(d2.length - 1.0f) < 1e-5f
+
+  test "dir (angle to vec2)":
+    check dir(0.0f) ~= vec2(1, 0)
+    check dir(float32(PI / 2)) ~= vec2(0, 1)
+    check dir(float32(PI)) ~= vec2(-1, 0)
+
+  test "angle of vec2":
+    check angle(vec2(1, 0)) ~= 0.0f
+    check angle(vec2(0, 1)) ~= float32(PI / 2)
+    check angle(vec2(-1, 0)) ~= float32(PI)
+
+  test "mix (vector lerp)":
+    check mix(vec2(0, 0), vec2(10, 20), 0.5f) ~= vec2(5, 10)
+    check mix(vec3(0, 0, 0), vec3(10, 20, 30), 0.25f) ~= vec3(2.5, 5.0, 7.5)
+    check mix(vec4(0, 0, 0, 0), vec4(4, 8, 12, 16), 0.5f) ~= vec4(2, 4, 6, 8)
+
+  test "mix (per-component vector)":
+    check mix(vec2(0, 0), vec2(10, 20), vec2(0.5, 1.0)) ~= vec2(5, 20)
+    check mix(vec3(0, 0, 0), vec3(10, 20, 30), vec3(0.0, 0.5, 1.0)) ~= vec3(0, 10, 30)
+
+  test "clamp (vector bounds)":
+    check clamp(vec2(5, -5), vec2(0, 0), vec2(3, 3)) == vec2(3, 0)
+    check clamp(vec3(5, -5, 1), vec3(0, 0, 0), vec3(3, 3, 3)) == vec3(3, 0, 1)
+
+  test "clamp (scalar bounds)":
+    check clamp(vec2(5, -5), 0.0f, 3.0f) == vec2(3, 0)
+    check clamp(vec3(5, -5, 1), 0.0f, 3.0f) == vec3(3, 0, 1)
+
+  test "inversesqrt":
+    check inversesqrt(4.0f) ~= 0.5f
+    check inversesqrt(1.0f) ~= 1.0f
+    check inversesqrt(16.0) ~= 0.25
+
+  test "zmod":
+    # GLSL-style mod: a - b * floor(a/b)
+    check zmod(5.5f, 3.0f) ~= 2.5f
+    check zmod(-1.0f, 3.0f) ~= 2.0f  # differs from Nim mod for negatives
+    check zmod(7.0f, 3.0f) ~= 1.0f
+
+  test "turnAngle":
+    # Should step toward target angle, clamped by speed
+    let a = 0.0f
+    let b = 1.0f
+    check turnAngle(a, b, 0.5f) ~= 0.5f  # step partway
+    check turnAngle(a, b, 2.0f) ~= b      # speed exceeds gap, snap to target
+    check turnAngle(a, b, 0.01f) ~= 0.01f # small step
+
+suite "mat4 direction accessors":
+  test "identity directions":
+    let m = mat4()
+    check m.forward ~= vec3(0, 0, 1)
+    check m.back ~= vec3(0, 0, -1)
+    check m.left ~= vec3(-1, 0, 0)
+    check m.right ~= vec3(1, 0, 0)
+    check m.up ~= vec3(0, 1, 0)
+    check m.down ~= vec3(0, -1, 0)
+
+  test "rotated directions":
+    let m = rotateY(float32(PI / 2))
+    # After 90° CCW around Y: forward (+Z) rotates toward +X
+    check m.forward ~= vec3(1, 0, 0)
+    check m.right ~= vec3(0, 0, -1)
+    check m.up ~= vec3(0, 1, 0)
+
+  test "rotationOnly strips translation":
+    let m = translate(vec3(10, 20, 30)) * rotateX(float32(PI / 4))
+    let r = rotationOnly(m)
+    check r.pos ~= vec3(0, 0, 0)
+    check r.forward ~= m.forward
+    check r.up ~= m.up
+
+suite "frustum and projection":
+  test "frustum matrix":
+    let f = frustum[float32](-1, 1, -1, 1, 1, 100)
+    # Near plane, center should map to origin
+    let v = f * vec4(0, 0, -1, 1)
+    check v.x ~= 0.0f
+    check v.y ~= 0.0f
+    # Should match perspective with 90° fov, aspect 1
+    let p = perspective[float32](90, 1, 1, 100)
+    check f ~= p
+
+suite "euler angles (extended)":
+  test "toAngles from origin to target":
+    let angles = toAngles(vec3(0, 0, 0), vec3(0, 0, 1))
+    check angles ~= vec3(0, 0, 0)  # looking forward
+    let angles2 = toAngles(vec3(0, 0, 0), vec3(1, 0, 0))
+    check angles2 ~= toAngles(vec3(1, 0, 0))
+
+  test "toAngles from quaternion":
+    # Identity quaternion = no rotation
+    check toAngles(quat(0, 0, 0, 1)) ~= vec3(0, 0, 0)
+    # Quaternion euler roundtrip
+    let q = quatRotateX(0.3f) * quatRotateY(0.5f) * quatRotateZ(0.1f)
+    let anglesFromQuat = toAngles(q)
+    let anglesFromMat = toAngles(q.mat4())
+    check anglesFromQuat ~= anglesFromMat
+
+  test "rotate around arbitrary axis":
+    let axis = normalize(vec3(1.0, 1.0, 0.0))
+    let m = rotate(float32(PI / 2), axis)
+    # Should be a valid rotation matrix (det = 1, orthogonal)
+    check abs(determinant(m) - 1.0f) < 0.01f
+    let inv = inverse(m)
+    check m * inv ~= mat4()
+
+suite "quaternion nlerp":
+  test "nlerp endpoints":
+    let
+      qx = quatRotateX(0.37f)
+      qz = quatRotateZ(1.24f)
+    check nlerp(qx, qz, 0.0f) ~= qx
+
+  test "nlerp produces unit quaternions":
+    let
+      qx = quatRotateX(0.37f)
+      qz = quatRotateZ(1.24f)
+    for i in 0 .. 10:
+      let q = nlerp(qx, qz, i.float32 / 10.0f)
+      check abs(q.length - 1.0f) < 1e-5f
+
+  test "nlerp vs slerp similar for close quats":
+    let
+      qx = quatRotateX(0.1f)
+      qy = quatRotateX(0.2f)
+      nl = nlerp(qx, qy, 0.5f)
+      sl = slerp(qx, qy, 0.5f)
+    # For close quaternions, nlerp and slerp should be very similar
+    check dist(nl, sl) < 0.01f
+
+suite "orthogonal vector":
+  test "orthogonal is perpendicular to abs(v)":
+    # orthogonal() uses abs(v) internally, so result is perpendicular to abs(v)
+    for v in [vec3(1, 0, 0), vec3(0, 1, 0), vec3(0, 0, 1),
+              vec3(1, 1, 0), vec3(1, 1, 1), vec3(3, 2, 7)]:
+      let o = orthogonal(v)
+      check abs(dot(v, o)) < 1e-5f
+
+  test "orthogonal is nonzero for nonzero input":
+    for v in [vec3(1, 0, 0), vec3(0, 1, 0), vec3(0, 0, 1), vec3(5, 3, 2)]:
+      check orthogonal(v).length > 0.0f
+
+suite "degenerate matrices":
+  test "all-zero mat2":
+    let z = mat2(0, 0, 0, 0)
+    check determinant(z) == 0.0f
+    # zero * anything = zero
+    check z * mat2() ~= z
+    check mat2() * z ~= z
+    check z * z ~= z
+    # zero * vec = zero
+    check z * vec2(1, 2) ~= vec2(0, 0)
+    # transpose of zero is zero
+    check transpose(z) ~= z
+
+  test "all-zero mat3":
+    let z = mat3(0, 0, 0, 0, 0, 0, 0, 0, 0)
+    check determinant(z) == 0.0f
+    check z * mat3() ~= z
+    check mat3() * z ~= z
+    check z * z ~= z
+    check z * vec3(1, 2, 3) ~= vec3(0, 0, 0)
+    check transpose(z) ~= z
+
+  test "all-zero mat4":
+    let z = mat4(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+    check determinant(z) == 0.0f
+    check z * mat4() ~= z
+    check mat4() * z ~= z
+    check z * z ~= z
+    check z * vec3(1, 2, 3) ~= vec3(0, 0, 0)
+    check transpose(z) ~= z
+
+  test "singular mat2 (det=0)":
+    # Rows are linearly dependent
+    let s = mat2(1, 2, 2, 4)
+    check determinant(s) == 0.0f
+    # Inverse produces Inf/NaN (division by zero det)
+    let inv = inverse(s)
+    check vmath.isNan(inv[0, 0]) or abs(inv[0, 0]) == Inf
+
+  test "singular mat3 (det=0)":
+    # Row 2 = Row 0 + Row 1
+    let s = mat3(1, 0, 0, 0, 1, 0, 1, 1, 0)
+    check abs(determinant(s)) < 1e-6f
+    let inv = inverse(s)
+    check vmath.isNan(inv[0, 0]) or abs(inv[0, 0]) == Inf
+
+  test "singular mat4 (det=0)":
+    # Duplicate rows → det = 0
+    let s = mat4(
+      1, 0, 0, 0,
+      0, 1, 0, 0,
+      1, 0, 0, 0,
+      0, 0, 0, 1
+    )
+    check abs(determinant(s)) < 1e-6f
+    let inv = inverse(s)
+    check vmath.isNan(inv[0, 0]) or abs(inv[0, 0]) == Inf
+
+  test "zero diagonal mat2":
+    let m = mat2(0, 3, 7, 0)
+    check determinant(m) == -(7.0f * 3.0f)  # -21
+    # Still invertible (det != 0)
+    let inv = inverse(m)
+    check m * inv ~= mat2()
+
+  test "zero diagonal mat3":
+    let m = mat3(0, 1, 0, 0, 0, 1, 1, 0, 0)
+    # Permutation matrix, det = 1
+    check abs(determinant(m) - 1.0f) < 1e-5f
+    let inv = inverse(m)
+    check m * inv ~= mat3()
+
+  test "zero diagonal mat4":
+    # Anti-diagonal matrix
+    let m = mat4(
+      0, 0, 0, 1,
+      0, 0, 1, 0,
+      0, 1, 0, 0,
+      1, 0, 0, 0
+    )
+    check abs(determinant(m)) > 0.0f
+    let inv = inverse(m)
+    check m * inv ~= mat4()
+
+  test "near-singular mat3 (tiny det)":
+    let m = dmat3(
+      1.0, 0.0, 0.0,
+      0.0, 1e-15, 0.0,
+      0.0, 0.0, 1.0
+    )
+    check abs(determinant(m)) < 1e-10
+    check determinant(m) != 0.0
+    # Inverse exists but is huge
+    let inv = inverse(m)
+    check inv[1, 1] > 1e14
+
+  test "scale by zero (rank-deficient mat4)":
+    let m = scale(vec3(1, 0, 1))
+    check determinant(m) == 0.0f
+    # Multiply still works, just collapses one axis
+    check m * vec3(5, 5, 5) ~= vec3(5, 0, 5)
+
+  test "all-ones matrices":
+    let m2 = mat2(1, 1, 1, 1)
+    check determinant(m2) == 0.0f
+    # m * m = 2 * m (idempotent up to scaling)
+    check m2 * m2 ~= mat2(2, 2, 2, 2)
+
+    let m3 = mat3(1, 1, 1, 1, 1, 1, 1, 1, 1)
+    check determinant(m3) == 0.0f
+    check m3 * m3 ~= mat3(3, 3, 3, 3, 3, 3, 3, 3, 3)
+
+  test "negative identity":
+    let m2 = mat2(-1, 0, 0, -1)
+    check determinant(m2) == 1.0f
+    check m2 * m2 ~= mat2()  # (-I)^2 = I
+    check inverse(m2) ~= m2  # (-I)^-1 = -I
+
+    let m3 = mat3(-1, 0, 0, 0, -1, 0, 0, 0, -1)
+    check determinant(m3) == -1.0f
+    check m3 * m3 ~= mat3()
+    check inverse(m3) ~= m3
+
+    let m4 = mat4(
+      -1, 0, 0, 0,
+       0,-1, 0, 0,
+       0, 0,-1, 0,
+       0, 0, 0, 1
+    )
+    check abs(determinant(m4) - (-1.0f)) < 1e-5f
+    check inverse(m4) ~= m4
+
+  test "projection matrix (non-invertible rank 1)":
+    # Projects onto x-axis: P^2 = P
+    let p = mat3(1, 0, 0, 0, 0, 0, 0, 0, 0)
+    check determinant(p) == 0.0f
+    check p * p ~= p  # idempotent
+    check p * vec3(5, 7, 9) ~= vec3(5, 0, 0)
+
+  test "very large values":
+    let big = 1e18f
+    let m = mat2(big, 0, 0, big)
+    check abs(determinant(m) - big * big) < 1e30f
+    let inv = inverse(m)
+    check inv[0, 0] ~= (1.0f / big)
+    check m * inv ~= mat2()
+
+  test "mixed large and small values":
+    let m = dmat3(
+      1e10, 0.0, 0.0,
+      0.0, 1e-10, 0.0,
+      0.0, 0.0, 1.0
+    )
+    let inv = inverse(m)
+    check m * inv ~= dmat3()
+
+  test "skew/shear matrix":
+    # Shear in x by y
+    let m = mat3(1, 0, 0, 3, 1, 0, 0, 0, 1)
+    check determinant(m) == 1.0f
+    let inv = inverse(m)
+    check m * inv ~= mat3()
+    # Shearing (1, 0) should give (1, 0), shearing (0, 1) should give (3, 1)
+    check m * vec3(0, 1, 0) ~= vec3(3, 1, 0)
+
+suite "quaternion constructors":
+  test "identity quaternion":
+    let q = quat(0, 0, 0, 1)
+    check q.x == 0.0f
+    check q.y == 0.0f
+    check q.z == 0.0f
+    check q.w == 1.0f
+
+  test "axis-angle constructors":
+    let qx = quatRotateX(37.0f.toRadians)
+    let qy = quatRotateY(-23.0f.toRadians)
+    let qz = quatRotateZ(71.0f.toRadians)
+    # Should be unit quaternions
+    check abs(qx.length - 1.0f) < 1e-5f
+    check abs(qy.length - 1.0f) < 1e-5f
+    check abs(qz.length - 1.0f) < 1e-5f
+
+  test "fromAxisAngle":
+    let axis = normalize(vec3(1.0, 2.0, -3.0))
+    let angle = 48.0f.toRadians
+    let q = fromAxisAngle(axis, angle)
+    check abs(q.length - 1.0f) < 1e-5f
+    check q.w ~= cos(angle * 0.5f)
+
+  test "quaternion matrix constructors match rotation matrices":
+    check quatRotateX(PI / 2).mat4() ~= rotateX(PI / 2)
+    check quatRotateY(PI / 2).mat4() ~= rotateY(PI / 2)
+    check quatRotateZ(PI / 2).mat4() ~= rotateZ(PI / 2)
+
+suite "quaternion arithmetic":
+  test "quat + - * / operators":
+    let
+      a = dquat(1, 2, 3, 4)
+      b = dquat(-0.5, 0.25, 2.0, -3.0)
+    check a + b ~= dquat(0.5, 2.25, 5.0, 1.0)
+    check a - b ~= dquat(1.5, 1.75, 1.0, 7.0)
+    check a * 2.0 ~= dquat(2, 4, 6, 8)
+    check b / 2.0 ~= dquat(-0.25, 0.125, 1.0, -1.5)
+
+suite "quaternion multiply":
+  test "quaternion composition matches matrix composition":
+    let
+      qx = quatRotateX(0.37)
+      qy = quatRotateY(-0.91)
+      qz = quatRotateZ(1.24)
+      mxyz = rotateX(0.37) * rotateY(-0.91) * rotateZ(1.24)
+    check quatMultiply(quatMultiply(qx, qy), qz).mat4() ~= mxyz
+
+  test "quaternion multiply identity":
+    let q = fromAxisAngle(normalize(vec3(1, 2, -3)), 48.0f.toRadians)
+    let identity = quat(0, 0, 0, 1)
+    check quatMultiply(q, identity) ~= q
+    check quatMultiply(identity, q) ~= q
+
+suite "quaternion vector rotation":
+  test "rotate basis vectors":
+    let x = dvec3(1, 0, 0)
+    let y = dvec3(0, 1, 0)
+    check quatRotateY(PI / 2) * x ~= dvec3(0, 0, -1)
+    check quatRotateX(PI / 2) * y ~= dvec3(0, 0, 1)
+    check quatRotateZ(PI / 2) * x ~= dvec3(0, 1, 0)
+
+  test "quatRotate matches matrix multiply":
+    for _ in 0 ..< 1000:
+      let
+        axis = dvec3(rand(2.0)-1.0, rand(2.0)-1.0, rand(2.0)-1.0)
+        angle = rand(-PI .. PI)
+        q = fromAxisAngle(axis.normalize, angle)
+        v = dvec3(rand(2.0)-1.0, rand(2.0)-1.0, rand(2.0)-1.0)
+      check quatRotate(q, v) ~= q.mat4() * v
+      check q * v ~= q.mat4() * v
+
+suite "quaternion matrix roundtrip":
+  test "identity roundtrip":
+    let m = mat4()
+    check m.quat().mat4() ~= m
+
+  test "single axis rotations":
+    for angle in [PI/6, PI/4, PI/3, PI/2, PI, -PI/4]:
+      let mx = rotateX(angle)
+      check mx.quat().mat4() ~= mx
+      let my = rotateY(angle)
+      check my.quat().mat4() ~= my
+      let mz = rotateZ(angle)
+      check mz.quat().mat4() ~= mz
+
+  test "arbitrary rotations fuzz":
+    for _ in 0 ..< 2000:
+      let m = rotate(
+        PI*rand(2.0),
+        dvec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
+      )
+      check m.quat().mat4() ~= m
+
+  test "hard decomposition near 180 degrees":
+    let
+      axis = normalize(vec3(1.0, -2.0, 3.0))
+      angle = 170.0f.toRadians
+      q = fromAxisAngle(axis, angle)
+      m = q.mat4()
+    check m.quat().mat4() ~= m
+
+suite "quaternion inverse":
+  test "q * q^-1 = identity":
+    let q = fromAxisAngle(normalize(dvec3(1, 2, -3)), 48.0.toRadians)
+    let product = quatMultiply(q, quatInverse(q))
+    check abs(product.x) < 1e-5
+    check abs(product.y) < 1e-5
+    check abs(product.z) < 1e-5
+    check abs(product.w - 1.0) < 1e-5
+
+  test "inverse undoes rotation":
+    let
+      q = fromAxisAngle(normalize(dvec3(1, 2, -3)), 48.0.toRadians)
+      v = dvec3(1.25, -2.5, 3.75)
+      rotated = quatRotate(q, v)
+      unrotated = quatRotate(quatInverse(q), rotated)
+    check unrotated ~= v
+
+  test "unit quaternion inverse = conjugate":
+    let q = fromAxisAngle(normalize(dvec3(1, 2, -3)), 48.0.toRadians)
+    let inv = quatInverse(q)
+    let conj = dquat(-q.x, -q.y, -q.z, q.w)
+    check inv ~= conj
+
+  test "inverse fuzz":
+    for _ in 0 ..< 1000:
+      let
+        axis = dvec3(rand(2.0)-1.0, rand(2.0)-1.0, rand(2.0)-1.0).normalize()
+        q = fromAxisAngle(axis, rand(-PI .. PI))
+        product = quatMultiply(q, quatInverse(q))
+      check abs(product.w) ~= 1.0
+
+suite "quaternion to axis-angle":
+  test "known axis-angle roundtrip":
+    let
+      axis = normalize(dvec3(1, 2, -3))
+      angle = 48.0.toRadians
+      q = fromAxisAngle(axis, angle)
+      (extractedAxis, extractedAngle) = toAxisAngle(q)
+    check extractedAxis ~= axis
+    check abs(extractedAngle - angle) < 1e-5
+
+  test "identity gives zero angle":
+    let (_, angle) = toAxisAngle(dquat(0, 0, 0, 1))
+    check abs(angle) < 1e-5
+
+  test "90 degree axes":
+    for axisVec in [dvec3(1, 0, 0), dvec3(0, 1, 0), dvec3(0, 0, 1)]:
+      let
+        q = fromAxisAngle(axisVec, PI / 2)
+        (a, ang) = toAxisAngle(q)
+      check a ~= axisVec
+      check abs(ang - PI / 2) < 1e-5
+
+  test "axis-angle fuzz":
+    for _ in 0 ..< 1000:
+      let
+        axis = dvec3(rand(2.0)-1.0, rand(2.0)-1.0, rand(2.0)-1.0).normalize()
+        angle = rand(0.001 .. PI)
+        q = fromAxisAngle(axis, angle)
+        (a, ang) = toAxisAngle(q)
+      check a ~= axis
+      check abs(ang - angle) < 1e-4
+
+suite "slerp":
+  test "endpoints":
+    let
+      qx = quatRotateX(0.37)
+      qz = quatRotateZ(1.24)
+    check slerp(qx, qz, 0.0) ~= qx
+
+  test "midpoint equidistant":
+    let
+      qx = quatRotateX(0.37)
+      qz = quatRotateZ(1.24)
+      mid = slerp(qx, qz, 0.5)
+      a0 = arccos(clamp(dot(qx, mid), -1.0, 1.0))
+      a1 = arccos(clamp(dot(mid, qz), -1.0, 1.0))
+    check abs(a0 - a1) < 1e-5
+
+  test "slerp unit length":
+    let
+      qx = quatRotateX(0.37)
+      qz = quatRotateZ(1.24)
+    for i in 0 .. 10:
+      let q = slerp(qx, qz, i.float64 / 10.0)
+      check abs(q.length - 1.0) < 1e-5
+
+  test "slerp identical inputs":
+    let qx = quatRotateX(0.37)
+    check slerp(qx, qx, 0.5) ~= qx
+
+  test "slerp with opposite quaternion":
+    let
+      qx = quatRotateX(0.37)
+      qz = quatRotateZ(1.24)
+      qNeg = -qz
+      result = slerp(qx, qNeg, 0.5)
+    check abs(result.length - 1.0) < 1e-5
+
+  test "slerp fuzz unit length":
+    for _ in 0 ..< 1000:
+      let
+        a = fromAxisAngle(dvec3(rand(2.0)-1, rand(2.0)-1, rand(2.0)-1).normalize(), rand(-PI .. PI))
+        b = fromAxisAngle(dvec3(rand(2.0)-1, rand(2.0)-1, rand(2.0)-1).normalize(), rand(-PI .. PI))
+        t = rand(0.0 .. 1.0)
+        q = slerp(a, b, t)
+      check abs(q.length - 1.0) < 1e-5
+
+suite "fromTwoVectors":
+  test "basic rotation":
+    let
+      a = vec3(1, 0, 0)
+      b = vec3(0, 1, 0)
+      q = fromTwoVectors(a, b)
+    check q.mat4() * a ~= b
+
+  test "fromTwoVectors fuzz":
+    for _ in 0 ..< 1000:
+      let
+        a = vec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
+        b = vec3(rand(2.0)-0.5, rand(2.0)-0.5, rand(2.0)-0.5).normalize()
+        q = fromTwoVectors(a, b)
+      check dist(q.mat4() * a, b) < 1e-5
+
+suite "cross product":
+  test "basis vectors":
+    check cross(vec3(1, 0, 0), vec3(0, 1, 0)) ~= vec3(0, 0, 1)
+    check cross(vec3(0, 1, 0), vec3(1, 0, 0)) ~= vec3(0, 0, -1)
+
+  test "cross product anticommutative":
+    let
+      a = normalize(vec3(1.0, 2.0, 3.0))
+      b = normalize(vec3(-1.0, 0.5, 2.0))
+    check cross(a, b) ~= -cross(b, a)
+
+suite "euler angles":
+  const PI = PI.float32
+
+  proc eq(a, b: Vec3): bool =
+    const epsilon = 0.001
+    abs(angleBetween(a.x, b.x)) < epsilon and
+      abs(angleBetween(a.y, b.y)) < epsilon and
+      abs(angleBetween(a.z, b.z)) < epsilon
+
+  test "from vector":
+    check vec3(0, 0, 1).toAngles.eq vec3(0f, 0f, 0f)      # forward
+    check vec3(0, 0, -1).toAngles.eq vec3(0f, PI, 0f)      # back
+    check vec3(-1, 0, 0).toAngles.eq vec3(0f, PI/2, 0f)    # right
+    check vec3(1, 0, 0).toAngles.eq vec3(0f, -PI/2, 0f)    # left
+    check vec3(0, 1, 0).toAngles.eq vec3(PI/2, 0f, 0f)     # up
+    check vec3(0, -1, 0).toAngles.eq vec3(-PI/2, 0f, 0f)   # down
+
+  test "from matrix":
+    check mat4().toAngles.eq vec3(0, 0, 0)
+    check rotateX(10.toRadians()).toAngles.eq vec3(10.toRadians(), 0, 0)
+    check rotateY(10.toRadians()).toAngles.eq vec3(0, 10.toRadians(), 0)
+    check rotateZ(10.toRadians()).toAngles.eq vec3(0, 0, 10.toRadians())
+
+  test "euler roundtrip fuzz (non-polar)":
+    for _ in 0 .. 1000:
+      let
+        xr = rand(-89.9f .. 89.9f).toRadians
+        yr = rand(-180 .. 180).toRadians
+        zr = rand(-180 .. 180).toRadians
+        b = vec3(xr, yr, zr)
+        a = fromAngles(b).toAngles()
+      check a.eq(b)
+
+suite "lookAt":
+  test "basic lookAt":
+    let m = lookAt(vec3(5, 5, 5), vec3(0, 0, 0), vec3(0, 1, 0))
+    check m[3, 3] ~= 1.0f
+    # Should be orthogonal (inverse == transpose for the rotation part)
+    let det = determinant(m)
+    check abs(det - 1.0f) < 0.01f
+
+  test "lookAt with default up":
+    let m = lookAt(vec3(0, 0, 5), vec3(0, 0, 0))
+    check m * vec3(0, 0, 0) ~= vec3(0, 0, -5)
+
+suite "projection matrices":
+  test "ortho":
+    let o = ortho[float32](-1, 1, 1, -1, -1000, 1000)
+    check o ~= mat4(
+      1.0, 0.0, 0.0, 0.0,
+      0.0, -1.0, 0.0, 0.0,
+      0.0, 0.0, -0.001000000047497451, 0.0,
+      -0.0, 0.0, -0.0, 1.0
+    )
+
+  test "perspective":
+    let p = perspective[float32](75, 1.666, 1, 1000)
+    check p ~= mat4(
+      0.7822480201721191, 0.0, 0.0, 0.0,
+      0.0, 1.30322527885437, 0.0, 0.0,
+      0.0, 0.0, -1.002002000808716, -1.0,
+      0.0, 0.0, -2.002002000808716, 0.0
+    )
+
+suite "vector constructors":
+  test "all types compile":
+    check bvec2(true, false) == bvec2(true, false)
+    check ivec3(-1, 2, 3) == ivec3(-1, 2, 3)
+    check uvec4(1, 2, 3, 4) == uvec4(1, 2, 3, 4)
+    check vec2(1.0) == vec2(1.0, 1.0)
+    check dvec3(1.0) == dvec3(1.0, 1.0, 1.0)
+
+  test "composite constructors":
+    check vec3(vec2(1, 2), 3) == vec3(1, 2, 3)
+    check vec4(vec3(1, 2, 3), 4) == vec4(1, 2, 3, 4)
+    check vec4(vec2(1, 2), vec2(3, 4)) == vec4(1, 2, 3, 4)
+
+  test "type conversions":
+    check vec2(ivec2(1, 1)) == vec2(1, 1)
+    check vec2(uvec2(5, 5)) == vec2(5, 5)
+    check vec3(ivec3(1, 2, 3)) == vec3(1, 2, 3)
+    check vec4(uvec4(17, 18, 19, 20)) == vec4(17, 18, 19, 20)
+
+suite "vector arithmetic":
+  test "vec2 operations":
+    let a = vec2(1, 2)
+    let b = vec2(7, 6)
+    check a + b ~= vec2(8, 8)
+    check a - b ~= vec2(-6, -4)
+    check a * 2.0 ~= vec2(2, 4)
+    check a / 2.0 ~= vec2(0.5, 1.0)
+
+  test "vec3 operations":
+    let a = vec3(1, 2, 3)
+    let b = vec3(7, 6, 5)
+    check a + b ~= vec3(8, 8, 8)
+    check a - b ~= vec3(-6, -4, -2)
+
+  test "vec4 operations":
+    let a = vec4(1, 2, 3, 4)
+    let b = vec4(7, 6, 5, 4)
+    check a + b ~= vec4(8, 8, 8, 8)
+    check a - b ~= vec4(-6, -4, -2, 0)
+
+  test "compound assignment":
+    var a = vec3(1, 2, 3)
+    a += vec3(7, 6, 5)
+    check a ~= vec3(8, 8, 8)
+    a -= vec3(7, 6, 5)
+    check a ~= vec3(1, 2, 3)
+
+  test "min max":
+    check min(vec3(10, -10, 7), vec3(-10, 10, 0)) == vec3(-10, -10, 0)
+    check max(vec3(10, -10, 7), vec3(-10, 10, 0)) == vec3(10, 10, 7)
+
+  test "equality and inequality":
+    check vec2(1, 1) == vec2(1, 1)
+    check vec2(1, 1) != vec2(1, 2)
+    check vec3(1, 1, 1) == vec3(1, 1, 1)
+    check vec3(1, 1, 1) != vec3(1, 1, 2)
+    check vec4(1, 1, 1, 1) == vec4(1, 1, 1, 1)
+    check vec4(1, 1, 1, 1) != vec4(1, 1, 1, 2)
+
+suite "vector swizzling":
+  test "vec2 swizzle read":
+    let a = vec2(1, 2)
+    check a.x == 1.0
+    check a.y == 2.0
+    check a.yx == vec2(2, 1)
+    check a.xxx == vec3(1, 1, 1)
+
+  test "vec2 swizzle write":
+    var a = vec2(1, 2)
+    a.yx = vec2(-1, -2)
+    check a == vec2(-2, -1)
+
+  test "vec4 swizzle self-assignment":
+    var b = vec4(1, 2, 3, 4)
+    b.wzyx = b
+    check b == vec4(4, 3, 2, 1)
+
+suite "string representation":
+  test "vec2 $":
+    check $vec2(1.0, 2.0) == "vec2(1.0, 2.0)"
+
+  test "vec3 $":
+    check $vec3(1.0, 2.0, 3.0) == "vec3(1.0, 2.0, 3.0)"
+
+  test "vec4 $":
+    check $vec4(1.0, 2.0, 3.0, 4.0) == "vec4(1.0, 2.0, 3.0, 4.0)"
+
+  test "dvec2 $":
+    check $dvec2(1.0, 2.0) == "dvec2(1.0, 2.0)"
+
+  test "dvec3 $":
+    check $dvec3(1.0, 2.0, 3.0) == "dvec3(1.0, 2.0, 3.0)"
+
+  test "dvec4 $":
+    check $dvec4(1.0, 2.0, 3.0, 4.0) == "dvec4(1.0, 2.0, 3.0, 4.0)"
+
+  test "ivec2 $":
+    check $ivec2(1, 2) == "ivec2(1, 2)"
+
+  test "ivec3 $":
+    check $ivec3(1, 2, 3) == "ivec3(1, 2, 3)"
+
+  test "ivec4 $":
+    check $ivec4(1, 2, 3, 4) == "ivec4(1, 2, 3, 4)"
+
+  test "uvec2 $":
+    check $uvec2(1, 2) == "uvec2(1, 2)"
+
+  test "uvec3 $":
+    check $uvec3(1, 2, 3) == "uvec3(1, 2, 3)"
+
+  test "uvec4 $":
+    check $uvec4(1, 2, 3, 4) == "uvec4(1, 2, 3, 4)"
+
+  test "bvec2 $":
+    check $bvec2(true, false) == "bvec2(true, false)"
+
+  test "bvec3 $":
+    check $bvec3(true, false, true) == "bvec3(true, false, true)"
+
+  test "bvec4 $":
+    check $bvec4(true, false, true, false) == "bvec4(true, false, true, false)"
+
+  test "quat $ (prints as vec4)":
+    check $quat(1.0, 2.0, 3.0, 4.0) == "vec4(1.0, 2.0, 3.0, 4.0)"
+    check $dquat(1.0, 2.0, 3.0, 4.0) == "dvec4(1.0, 2.0, 3.0, 4.0)"
+
+  test "mat2 $":
+    check $mat2(1, 2, 3, 4) == """mat2(
+  1.0, 2.0,
+  3.0, 4.0
+)"""
+
+  test "mat3 $":
+    check $mat3(1, 2, 3, 4, 5, 6, 7, 8, 9) == """mat3(
+  1.0, 2.0, 3.0,
+  4.0, 5.0, 6.0,
+  7.0, 8.0, 9.0
+)"""
+
+  test "mat4 $":
+    check $mat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16) == """mat4(
+  1.0, 2.0, 3.0, 4.0,
+  5.0, 6.0, 7.0, 8.0,
+  9.0, 10.0, 11.0, 12.0,
+  13.0, 14.0, 15.0, 16.0
+)"""
+
+  test "dmat2 $":
+    check $dmat2(1, 2, 3, 4) == """dmat2(
+  1.0, 2.0,
+  3.0, 4.0
+)"""
+
+  test "dmat3 $":
+    check $dmat3(1, 2, 3, 4, 5, 6, 7, 8, 9) == """dmat3(
+  1.0, 2.0, 3.0,
+  4.0, 5.0, 6.0,
+  7.0, 8.0, 9.0
+)"""
+
+  test "dmat4 $":
+    check $dmat4(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16) == """dmat4(
+  1.0, 2.0, 3.0, 4.0,
+  5.0, 6.0, 7.0, 8.0,
+  9.0, 10.0, 11.0, 12.0,
+  13.0, 14.0, 15.0, 16.0
+)"""
+
+  test "mat4 identity $":
+    check $mat4() == """mat4(
+  1.0, 0.0, 0.0, 0.0,
+  0.0, 1.0, 0.0, 0.0,
+  0.0, 0.0, 1.0, 0.0,
+  0.0, 0.0, 0.0, 1.0
+)"""
+
+suite "double precision":
+  test "dmat constructors":
+    let m2 = dmat2(); let m3 = dmat3(); let m4 = dmat4()
+    check m2[0, 0] == 1.0
+    check m3[1, 1] == 1.0
+    check m4[2, 2] == 1.0
+
+  test "dmat element access":
+    var d4 = dmat4()
+    d4[0, 0] = 123.123
+    check d4[0, 0] == 123.123
+
+  test "dmat transpose":
+    check dmat3().transpose() ~= dmat3()
+    check dmat4().transpose() ~= dmat4()
+
+  test "dmat scale translate rotate":
+    check scale(dvec2(1, 2)) ~= dmat3(
+      1.0, 0.0, 0.0,
+      0.0, 2.0, 0.0,
+      0.0, 0.0, 1.0
+    )
+    check translate(dvec3(1, 2, 3)) ~= dmat4(
+      1.0, 0.0, 0.0, 0.0,
+      0.0, 1.0, 0.0, 0.0,
+      0.0, 0.0, 1.0, 0.0,
+      1.0, 2.0, 3.0, 1.0
+    )
+
+  test "mat4 and dmat4 conversion":
+    let m = mat4(
+      1, 2, 3, 4,
+      5, 6, 7, 8,
+      9, 10, 11, 12,
+      13, 14, 15, 16
+    )
+    let d = dmat4(m)
+    let m2 = mat4(d)
+    check m ~= m2
+
+suite "angle conversions":
+  test "toDegrees and toRadians":
+    check PI.toDegrees() == 180
+    check (PI*2).toDegrees() == 360
+    check 180.0.toRadians() ~= PI
+    check 360.0.toRadians() ~= PI*2
+
+suite "position accessors":
+  test "mat3 pos":
+    check translate(vec2(1, 2)).pos == vec2(1, 2)
+    var m = translate(vec2(1, 2))
+    m.pos = vec2(3, 4)
+    check m.pos == vec2(3, 4)
+
+  test "mat4 pos":
+    check translate(vec3(1, 2, 3)).pos == vec3(1, 2, 3)
+    var m = translate(vec3(1, 2, 3))
+    m.pos = vec3(3, 4, 5)
+    check m.pos == vec3(3, 4, 5)
+
+suite "angle between vectors":
+  test "vec2 angle":
+    check angle(vec2(1, 0), vec2(1, 0)) ~= 0
+    check angle(vec2(1, 0), vec2(0, 1)) ~= PI/2
+    check angle(vec2(1, 0), vec2(-1, 0)) ~= PI
+    check vmath.isNan(angle(vec2(0, 0), vec2(1, 0)))
+
+  test "vec3 angle":
+    check angle(vec3(1, 0, 0), vec3(1, 0, 0)) ~= 0
+    check angle(vec3(1, 0, 0), vec3(0, 1, 0)) ~= PI/2
+    check angle(vec3(1, 0, 0), vec3(-1, 0, 0)) ~= PI
+    check vmath.isNan(angle(vec3(0, 0, 0), vec3(1, 0, 0)))

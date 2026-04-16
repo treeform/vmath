@@ -1028,9 +1028,9 @@ proc back*[T](a: GMat4[T]): GVec3[T] {.inline.} =
 
 proc left*[T](a: GMat4[T]): GVec3[T] {.inline.} =
   ## Vector facing +X.
-  result.x = a[0, 0]
-  result.y = a[0, 1]
-  result.z = a[0, 2]
+  result.x = -a[0, 0]
+  result.y = -a[0, 1]
+  result.z = -a[0, 2]
 
 proc right*[T](a: GMat4[T]): GVec3[T] {.inline.} =
   ## Vector facing -X.
@@ -1055,6 +1055,13 @@ proc `pos=`*[T](a: var GMat4[T], pos: GVec3[T]) =
   a[3, 0] = pos.x
   a[3, 1] = pos.y
   a[3, 2] = pos.z
+
+proc `*`*[T](a, b: GMat2[T]): GMat2[T] =
+  result[0, 0] = b[0, 0] * a[0, 0] + b[0, 1] * a[1, 0]
+  result[0, 1] = b[0, 0] * a[0, 1] + b[0, 1] * a[1, 1]
+
+  result[1, 0] = b[1, 0] * a[0, 0] + b[1, 1] * a[1, 0]
+  result[1, 1] = b[1, 0] * a[0, 1] + b[1, 1] * a[1, 1]
 
 proc `*`*[T](a, b: GMat3[T]): GMat3[T] =
   result[0, 0] = b[0, 0] * a[0, 0] + b[0, 1] * a[1, 0] + b[0, 2] * a[2, 0]
@@ -1160,8 +1167,15 @@ proc `*`*[T](a: GMat4[T], b: GVec4[T]): GVec4[T] =
     a[0, 3] * b.x + a[1, 3] * b.y + a[2, 3] * b.z + a[3, 3] * b.w
   )
 
+proc transpose*[T](a: GMat2[T]): GMat2[T] =
+  ## Return a transpose of the matrix.
+  gmat2[T](
+    a[0, 0], a[1, 0],
+    a[0, 1], a[1, 1]
+  )
+
 proc transpose*[T](a: GMat3[T]): GMat3[T] =
-  ## Return an transpose of the matrix.
+  ## Return a transpose of the matrix.
   gmat3[T](
     a[0, 0], a[1, 0], a[2, 0],
     a[0, 1], a[1, 1], a[2, 1],
@@ -1176,6 +1190,10 @@ proc transpose*[T](a: GMat4[T]): GMat4[T] =
     a[0, 2], a[1, 2], a[2, 2], a[3, 2],
     a[0, 3], a[1, 3], a[2, 3], a[3, 3]
   )
+
+proc determinant*[T](a: GMat2[T]): T =
+  ## Compute a determinant of the matrix.
+  a[0, 0] * a[1, 1] - a[1, 0] * a[0, 1]
 
 proc determinant*[T](a: GMat3[T]): T =
   ## Compute a determinant of the matrix.
@@ -1212,6 +1230,14 @@ proc determinant*[T](a: GMat4[T]): T =
     a10*a01*a32*a23 - a00*a11*a32*a23 - a20*a11*a02*a33 + a10*a21*a02*a33 +
     a20*a01*a12*a33 - a00*a21*a12*a33 - a10*a01*a22*a33 + a00*a11*a22*a33
   )
+
+proc inverse*[T](a: GMat2[T]): GMat2[T] =
+  ## Return an inverse of the matrix.
+  let invDet = 1 / a.determinant
+  result[0, 0] = +a[1, 1] * invDet
+  result[0, 1] = -a[0, 1] * invDet
+  result[1, 0] = -a[1, 0] * invDet
+  result[1, 1] = +a[0, 0] * invDet
 
 proc inverse*[T](a: GMat3[T]): GMat3[T] =
   ## Return an inverse of the matrix.
@@ -1328,8 +1354,8 @@ proc rotate*[T](angle: T): GMat3[T] =
     sin = sin(angle)
     cos = cos(angle)
   gmat3[T](
-    cos, -sin, 0,
-    sin, cos, 0,
+    cos, sin, 0,
+    -sin, cos, 0,
     0, 0, 1
   )
 
@@ -1337,7 +1363,7 @@ proc rotationOnly*[T](a: GMat4[T]): GMat4[T] {.inline.} =
   ## Clears the positional component and returns rotation only.
   ## Assumes matrix has not been scaled.
   result = a
-  result.pos = gvec3(0, 0, 0)
+  result.pos = gvec3[T](0, 0, 0)
 
 proc rotateX*[T](angle: T): GMat4[T] =
   ## Return a rotation matrix around X with angle.
@@ -1349,11 +1375,11 @@ proc rotateX*[T](angle: T): GMat4[T] =
 
   result[1, 0] = 0
   result[1, 1] = cos(angle)
-  result[1, 2] = -sin(angle)
+  result[1, 2] = sin(angle)
   result[1, 3] = 0
 
   result[2, 0] = 0
-  result[2, 1] = sin(angle)
+  result[2, 1] = -sin(angle)
   result[2, 2] = cos(angle)
   result[2, 3] = 0
 
@@ -1367,7 +1393,7 @@ proc rotateY*[T](angle: T): GMat4[T] =
   ## All angles assume radians.
   result[0, 0] = cos(angle)
   result[0, 1] = 0
-  result[0, 2] = sin(angle)
+  result[0, 2] = -sin(angle)
   result[0, 3] = 0
 
   result[1, 0] = 0
@@ -1375,7 +1401,7 @@ proc rotateY*[T](angle: T): GMat4[T] =
   result[1, 2] = 0
   result[1, 3] = 0
 
-  result[2, 0] = -sin(angle)
+  result[2, 0] = sin(angle)
   result[2, 1] = 0
   result[2, 2] = cos(angle)
   result[2, 3] = 0
@@ -1389,11 +1415,11 @@ proc rotateZ*[T](angle: T): GMat4[T] =
   ## Return a rotation matrix around Z with angle.
   ## All angles assume radians.
   result[0, 0] = cos(angle)
-  result[0, 1] = -sin(angle)
+  result[0, 1] = sin(angle)
   result[0, 2] = 0
   result[0, 3] = 0
 
-  result[1, 0] = sin(angle)
+  result[1, 0] = -sin(angle)
   result[1, 1] = cos(angle)
   result[1, 2] = 0
   result[1, 3] = 0
@@ -1437,17 +1463,15 @@ proc toAngles*[T](m: GMat4[T]): GVec3[T] =
   ##   roll (z rotation)
   ## Assumes matrix has not been scaled.
   ## All angles assume radians.
-  result.x = arcsin(m[2,1])
-  if result.x > PI/2:
-    # Degenerate case over north pole.
-    result.y = arctan2(m[0, 2], m[0, 0])
-  elif result.x < -PI/2:
-    # Degenerate case over south pole.
-    result.y = arctan2(m[0, 2], m[0, 0])
+  let sy = clamp(-m[2, 1], T(-1), T(1))
+  result.x = arcsin(sy)
+  if abs(sy) > T(0.9999999):
+    # Degenerate case (gimbal lock).
+    result.y = arctan2(-m[0, 2], m[0, 0])
   else:
     # Normal case.
-    result.y = -arctan2(m[2, 0], m[2, 2])
-    result.z = -arctan2(m[0, 1], m[1, 1])
+    result.y = arctan2(m[2, 0], m[2, 2])
+    result.z = arctan2(m[0, 1], m[1, 1])
 
 proc fromAngles*[T](a: GVec3[T]): GMat4[T] =
   ## Takes a vector containing Euler angles and returns a matrix.
@@ -1515,10 +1539,7 @@ proc ortho*[T](left, right, bottom, top, near, far: T): GMat4[T] =
   result[3, 2] = T(-(far + near) / fn)
   result[3, 3] = 1
 
-proc lookAt*[T](eye, center, up: GVec3[T]): GMat4[T]
-  {.deprecated: "Wrong coordinate system. " &
-    "Use toAngles(eye, center).fromAngles() instead to get " &
-    "right-handed-z-forward coordinate system".} =
+proc lookAt*[T](eye, center, up: GVec3[T]): GMat4[T] =
   ## Create a matrix that would convert eye pos to looking at center.
   let
     eyex = eye[0]
@@ -1599,12 +1620,9 @@ proc lookAt*[T](eye, center, up: GVec3[T]): GMat4[T]
   result[3, 2] = -(z0 * eyex + z1 * eyey + z2 * eyez)
   result[3, 3] = 1
 
-proc lookAt*[T](eye, center: GVec3[T]): GMat4[T]
-  {.deprecated: "Wrong coordinate system. " &
-    "Use toAngles(eye, center).fromAngles() instead to get " &
-    "right-handed-z-forward coordinate system".} =
-  ## Look center from eye with default UP vector.
-  lookAt(eye, center, gvec3(T(0), 0, 1))
+proc lookAt*[T](eye, center: GVec3[T]): GMat4[T] =
+  ## Look at center from eye with default UP vector.
+  lookAt(eye, center, gvec3(T(0), 1, 0))
 
 proc angle*[T](a: GVec2[T]): T =
   ## Angle of a Vec2.
@@ -1649,21 +1667,18 @@ proc fromAxisAngle*[T](axis: GVec3[T], angle: T): GVec4[T] =
 
 proc toAxisAngle*[T](q: GVec4[T]): (GVec3[T], T) =
   ## Convert a quaternion to axis and angle.
-  let cosAngle = q.w
-  let angle = arccos(cosAngle) * 2.0
-  var
-    sinAngle = sqrt(1.0 - cosAngle * cosAngle)
-    axis: GVec4[T]
+  let w = clamp(q.w, T(-1), T(1))
+  let angle = arccos(w) * 2
+  let sinAngle = sqrt(1 - w * w)
+  if abs(sinAngle) < T(0.0005):
+    return (gvec3[T](1, 0, 0), angle)
+  return (gvec3[T](q.x / sinAngle, q.y / sinAngle, q.z / sinAngle), angle)
 
-  if abs(sinAngle) < 0.0005:
-    sinAngle = 1.0
-
-  axis.x = [
-    q.x / sinAngle,
-    q.y / sinAngle,
-    q.z / sinAngle
-  ]
-  return (axis, angle)
+proc quatInverse*[T](q: GVec4[T]): GVec4[T] =
+  ## Return the inverse of a quaternion.
+  ## For unit quaternions this is the conjugate.
+  let d = dot(q, q)
+  gvec4[T](-q.x / d, -q.y / d, -q.z / d, q.w / d)
 
 proc orthogonal*[T](v: GVec3[T]): GVec3[T] =
   ## Returns orthogonal vector to given vector.
@@ -1699,8 +1714,8 @@ proc fromTwoVectors*[T](a, b: GVec3[T]): GVec4[T] =
 
   let
     half = normalize(u + v)
-    q = cross(u, half)
-    w = dot(u, half)
+    q = cross(v, half)
+    w = dot(v, half)
   return gvec4(q.x, q.y, q.z, w)
 
 proc nlerp*(a: Quat, b: Quat, v: float32): Quat =
@@ -1708,6 +1723,28 @@ proc nlerp*(a: Quat, b: Quat, v: float32): Quat =
     (-a * (1.0 - v) + b * v).normalize()
   else:
     (a * (1.0 - v) + b * v).normalize()
+
+proc slerp*[T](a, b: GVec4[T], t: T): GVec4[T] =
+  ## Spherical linear interpolation between two quaternions.
+  var z = b
+  var cosTheta = dot(a, b)
+
+  # Take short path.
+  if cosTheta < 0:
+    z = -b
+    cosTheta = -cosTheta
+
+  # Linear interpolation when nearly parallel to avoid division by zero.
+  if cosTheta > 1 - T(1e-6):
+    return gvec4(
+      a.x + (z.x - a.x) * t,
+      a.y + (z.y - a.y) * t,
+      a.z + (z.z - a.z) * t,
+      a.w + (z.w - a.w) * t,
+    )
+  else:
+    let angle = arccos(cosTheta)
+    return (sin((1 - t) * angle) * a + sin(t * angle) * z) / sin(angle)
 
 proc quat*[T](m: GMat4[T]): GVec4[T] =
   ## Create a quaternion from matrix.
@@ -1724,30 +1761,51 @@ proc quat*[T](m: GMat4[T]): GVec4[T] =
     m21 = m[2, 1]
     m22 = m[2, 2]
 
+    fourXSquaredMinus1 = m00 - m11 - m22
+    fourYSquaredMinus1 = m11 - m00 - m22
+    fourZSquaredMinus1 = m22 - m00 - m11
+    fourWSquaredMinus1 = m00 + m11 + m22
+
   var
     q: GVec4[T]
-    t: T
+    biggestIndex = 0
+    fourBiggestSquaredMinus1 = fourWSquaredMinus1
+  if fourXSquaredMinus1 > fourBiggestSquaredMinus1:
+    fourBiggestSquaredMinus1 = fourXSquaredMinus1
+    biggestIndex = 1
+  if fourYSquaredMinus1 > fourBiggestSquaredMinus1:
+    fourBiggestSquaredMinus1 = fourYSquaredMinus1
+    biggestIndex = 2
+  if fourZSquaredMinus1 > fourBiggestSquaredMinus1:
+    fourBiggestSquaredMinus1 = fourZSquaredMinus1
+    biggestIndex = 3
 
-  if m22 < 0:
-    if m00 > m11:
-      t = 1 + m00 - m11 - m22
-      q = gvec4(t, m01 + m10, m20 + m02, m21 - m12)
-    else:
-      t = 1 - m00 + m11 - m22
-      q = gvec4(m01 + m10, t, m12 + m21, m02 - m20)
+  let biggestVal = sqrt(fourBiggestSquaredMinus1 + T(1)) * T(0.5)
+  let mult = T(0.25) / biggestVal
+
+  case biggestIndex
+  of 0:
+    q.w = biggestVal
+    q.x = (m12 - m21) * mult
+    q.y = (m20 - m02) * mult
+    q.z = (m01 - m10) * mult
+  of 1:
+    q.w = (m12 - m21) * mult
+    q.x = biggestVal
+    q.y = (m01 + m10) * mult
+    q.z = (m20 + m02) * mult
+  of 2:
+    q.w = (m20 - m02) * mult
+    q.x = (m01 + m10) * mult
+    q.y = biggestVal
+    q.z = (m12 + m21) * mult
   else:
-    if m00 < - m11:
-      t = 1 - m00 - m11 + m22
-      q = gvec4(m20 + m02, m12 + m21, t, m10 - m01)
-    else:
-      t = 1 + m00 + m11 + m22
-      q = gvec4(m21 - m12, m02 - m20, m10 - m01, t)
-  q = q * (0.5 / sqrt(t))
+    q.w = (m01 - m10) * mult
+    q.x = (m20 + m02) * mult
+    q.y = (m12 + m21) * mult
+    q.z = biggestVal
 
-  if abs(q.length - 1.0) > 0.001:
-    return gvec4(T(0), 0, 0, 1)
-
-  return q
+  result = q
 
 proc mat4*[T](q: GVec4[T]): GMat4[T] =
   let
@@ -1764,17 +1822,17 @@ proc mat4*[T](q: GVec4[T]): GMat4[T] =
     zw = q.z * q.w
 
   result[0, 0] = 1 - 2 * (yy + zz)
-  result[0, 1] = 0 + 2 * (xy - zw)
-  result[0, 2] = 0 + 2 * (xz + yw)
+  result[0, 1] = 0 + 2 * (xy + zw)
+  result[0, 2] = 0 + 2 * (xz - yw)
   result[0, 3] = 0
 
-  result[1, 0] = 0 + 2 * (xy + zw)
+  result[1, 0] = 0 + 2 * (xy - zw)
   result[1, 1] = 1 - 2 * (xx + zz)
-  result[1, 2] = 0 + 2 * (yz - xw)
+  result[1, 2] = 0 + 2 * (yz + xw)
   result[1, 3] = 0
 
-  result[2, 0] = 0 + 2 * (xz - yw)
-  result[2, 1] = 0 + 2 * (yz + xw)
+  result[2, 0] = 0 + 2 * (xz + yw)
+  result[2, 1] = 0 + 2 * (yz - xw)
   result[2, 2] = 1 - 2 * (xx + yy)
   result[2, 3] = 0
 
@@ -1859,8 +1917,9 @@ proc quatRotate*[T](q: GVec4[T], v: GVec3[T]): GVec3[T] =
   ## Rotate a vector directly by a quaternion without building a matrix.
   let
     qv = gvec3[T](q.x, q.y, q.z)
-    t = cross(v, qv) * 2
-  v + q.w * t + cross(t, qv)
+    uv = cross(qv, v)
+    uuv = cross(qv, uv)
+  v + (uv * q.w + uuv) * 2
 
 proc `*`*[T](a: GVec4[T], b: GVec3[T]): GVec3[T] {.inline.} =
   ## Rotate a vector directly by a quaternion.
