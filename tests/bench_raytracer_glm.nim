@@ -9,7 +9,7 @@ from pixie import Image, newImage, writeFile, dataIndex
 
 type Vec3 = glm.Vec3[float32]
 
-{.push inline, noinit, checks: off.}
+{.push inline, checks: off.}
 
 type
   SurfaceType = enum
@@ -87,6 +87,7 @@ proc getNormal(obj: Thing, pos: Vec3): Vec3 =
       return obj.normal
 
 proc objectIntersect(obj: Thing, ray: Ray): Intersection =
+  result.thing = nil
   case obj.objectType:
     of Sphere:
       let
