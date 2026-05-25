@@ -4,14 +4,13 @@
 
 import
   std/math,
-  benchy, chroma, glm
-from pixie import Image, newImage, writeFile, dataIndex
-
-type Vec3 = glm.Vec3[float32]
+  benchy, chroma, pixie
+import ../experiments/vmath_simd as vsimd
 
 {.push inline, checks: off.}
 
 type
+  Vec3 = vsimd.Vec3
   SurfaceType = enum
     ShinySurface, CheckerBoardSurface
 
@@ -67,7 +66,7 @@ proc `+`(a: Color, b: Color): Color = color(a.r + b.r, a.g + b.g, a.b + b.b)
 
 proc newCamera(pos: Vec3, lookAt: Vec3): Camera =
   var
-    down = vec3(0.0f, -1.0f, 0.0f)
+    down = vsimd.vec3(0.0, -1.0, 0.0)
     forward = lookAt - pos
   result.pos = pos
   result.forward = forward.normalize()
@@ -137,17 +136,17 @@ proc getSurfaceProperties(obj: Thing, pos: Vec3): SurfaceProperties =
 proc newScene(): Scene =
   result.maxDepth = 5
   result.things = @[
-    newPlane(vec3(0.0f, 1.0f, 0.0f), 0.0, CheckerBoardSurface),
-    newSphere(vec3(0.0f, 1.0f, -0.25f), 1.0, ShinySurface),
-    newSphere(vec3(-1.0f, 0.5f, 1.5f), 0.5, ShinySurface)
+    newPlane(vsimd.vec3(0.0, 1.0, 0.0), 0.0, CheckerBoardSurface),
+    newSphere(vsimd.vec3(0.0, 1.0, -0.25), 1.0, ShinySurface),
+    newSphere(vsimd.vec3(-1.0, 0.5, 1.5), 0.5, ShinySurface)
   ]
   result.lights = @[
-    Light(pos: vec3(-2.0f, 2.5f, 0.0f), color: color(0.49, 0.07, 0.07)),
-    Light(pos: vec3(1.5f, 2.5f, 1.5f), color: color(0.07, 0.07, 0.49)),
-    Light(pos: vec3(1.5f, 2.5f, -1.5f), color: color(0.07, 0.49, 0.071)),
-    Light(pos: vec3(0.0f, 3.5f, 0.0f), color: color(0.21, 0.21, 0.35))
+    Light(pos: vsimd.vec3(-2.0, 2.5, 0.0), color: color(0.49, 0.07, 0.07)),
+    Light(pos: vsimd.vec3(1.5, 2.5, 1.5), color: color(0.07, 0.07, 0.49)),
+    Light(pos: vsimd.vec3(1.5, 2.5, -1.5), color: color(0.07, 0.49, 0.071)),
+    Light(pos: vsimd.vec3(0.0, 3.5, 0.0), color: color(0.21, 0.21, 0.35))
   ]
-  result.camera = newCamera(vec3(3.0f, 2.0f, 4.0f), vec3(-1.0f, 0.5f, 0.0f))
+  result.camera = newCamera(vsimd.vec3(3.0, 2.0, 4.0), vsimd.vec3(-1.0, 0.5, 0.0))
 
 proc intersections(scene: Scene, ray: Ray): Intersection =
   var closest: float32 = farAway
@@ -258,7 +257,7 @@ proc renderScene(scene: Scene, sceneImage: Image) =
     var pos = y * w
     for x in 0 ..< w:
       ray.dir = getPoint(x, y, scene.camera, h, w)
-      sceneImage.data[sceneImage.dataIndex(x, y)] = scene.traceRay(ray, 0).asRgbx()
+      sceneImage.unsafe[x, y] = scene.traceRay(ray, 0).asRgbx()
       pos = pos + 1
 
 proc render(): Image =
@@ -267,7 +266,7 @@ proc render(): Image =
   result = newImage(500, 500)
   renderScene(scene, result)
 
-render().writeFile("tests/raytracer.png")
+render().writeFile("tests/raytracer_simd.png")
 
 timeIt "raytracer", 100:
   discard render()
