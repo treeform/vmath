@@ -1,4 +1,4 @@
-nimTitle	vmath	vmath.html	module src/vmath		0
+nimTitle	vmath	vmath.html	module vmath		0
 nim	GVec2	vmath.html#GVec2	object GVec2		250
 nim	GVec3	vmath.html#GVec3	object GVec3		252
 nim	GVec4	vmath.html#GVec4	object GVec4		254
