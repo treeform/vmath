@@ -128,6 +128,32 @@ suite "vector memory layout":
     v4[0] = 1.0; v4[1] = 2.0; v4[2] = 3.0; v4[3] = 4.0
     check v4 ~= vec4(1, 2, 3, 4)
 
+  test "vec indexed access across scalar types":
+    var bv = bvec4(false)
+    for i in 0 .. 3:
+      bv[i] = i mod 2 == 0
+    check bv == bvec4(true, false, true, false)
+
+    var iv = ivec4(0)
+    for i in 0 .. 3:
+      iv[i] = int32(-i - 1)
+    check iv == ivec4(-1, -2, -3, -4)
+
+    var uv = uvec4(0)
+    for i in 0 .. 3:
+      uv[i] = uint32(i + 10)
+    check uv == uvec4(10, 11, 12, 13)
+
+    var fv = vec4(0)
+    for i in 0 .. 3:
+      fv[i] = float32(i) + 0.5'f32
+    check fv == vec4(0.5, 1.5, 2.5, 3.5)
+
+    var dv = dvec4(0)
+    for i in 0 .. 3:
+      dv[i] = float64(i) + 0.25
+    check dv == dvec4(0.25, 1.25, 2.25, 3.25)
+
 suite "mat2 memory layout and element access":
   test "mat2 cast to flat array is column-major":
     when not defined(js):
@@ -405,6 +431,37 @@ suite "mat4 memory layout and element access":
     )
     check fromScalars ~= fromVecs
     check fromScalars ~= mat4()
+
+  test "mat indexed access across float types":
+    var m2 = mat2()
+    var m2Value = 1.0'f32
+    for i in 0 .. 1:
+      for j in 0 .. 1:
+        m2[i, j] = m2Value
+        m2Value += 1.0'f32
+    check m2[0, 0] == 1.0'f32
+    check m2[0, 1] == 2.0'f32
+    check m2[1] == vec2(3, 4)
+
+    var m3 = mat3()
+    var m3Value = 1.0'f32
+    for i in 0 .. 2:
+      for j in 0 .. 2:
+        m3[i, j] = m3Value
+        m3Value += 1.0'f32
+    check m3[0, 0] == 1.0'f32
+    check m3[2, 2] == 9.0'f32
+    check m3[2] == vec3(7, 8, 9)
+
+    var dm4 = dmat4()
+    var dm4Value = 0.5
+    for i in 0 .. 3:
+      for j in 0 .. 3:
+        dm4[i, j] = dm4Value
+        dm4Value += 0.5
+    check dm4[0, 0] == 0.5
+    check dm4[3, 3] == 8.0
+    check dm4[2] == dvec4(4.5, 5.0, 5.5, 6.0)
 
 suite "mat4 operations":
   let

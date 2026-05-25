@@ -123,14 +123,19 @@ when defined(vmathArrayBased):
 
   template `[]`*[T](a: GMat234[T], i, j: int): T = a[i][j]
 
-  template `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + (i * 2 + j) * sizeof(T))[] = v
+  when defined(js):
+    template `[]=`*[T](a: var GMat2[T], i, j: int, v: T) = a[i][j] = v
+    template `[]=`*[T](a: var GMat3[T], i, j: int, v: T) = a[i][j] = v
+    template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) = a[i][j] = v
+  else:
+    template `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
+      cast[ptr T](cast[ByteAddress](a.addr) + (i * 2 + j) * sizeof(T))[] = v
 
-  template `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + (i * 3 + j) * sizeof(T))[] = v
+    template `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
+      cast[ptr T](cast[ByteAddress](a.addr) + (i * 3 + j) * sizeof(T))[] = v
 
-  template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + (i * 4 + j) * sizeof(T))[] = v
+    template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
+      cast[ptr T](cast[ByteAddress](a.addr) + (i * 4 + j) * sizeof(T))[] = v
 
 elif defined(vmathObjBased):
   type
@@ -152,18 +157,61 @@ elif defined(vmathObjBased):
   template gvec4*[T](mx, my, mz, mw: T): GVec4[T] =
     GVec4[T](x: mx, y: my, z: mz, w: mw)
 
-  template `[]`*[T](a: GVec2[T], i: int): T = cast[array[2, T]](a)[i]
-  template `[]`*[T](a: GVec3[T], i: int): T = cast[array[3, T]](a)[i]
-  template `[]`*[T](a: GVec4[T], i: int): T = cast[array[4, T]](a)[i]
+  when defined(js):
+    proc `[]`*[T](a: GVec2[T], i: int): T =
+      case i
+      of 0: a.x
+      of 1: a.y
+      else: raise newException(IndexDefect, "index out of bounds")
 
-  template `[]=`*[T](a: var GVec2[T], i: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + i * sizeof(T))[] = v
+    proc `[]`*[T](a: GVec3[T], i: int): T =
+      case i
+      of 0: a.x
+      of 1: a.y
+      of 2: a.z
+      else: raise newException(IndexDefect, "index out of bounds")
 
-  template `[]=`*[T](a: var GVec3[T], i: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + i * sizeof(T))[] = v
+    proc `[]`*[T](a: GVec4[T], i: int): T =
+      case i
+      of 0: a.x
+      of 1: a.y
+      of 2: a.z
+      of 3: a.w
+      else: raise newException(IndexDefect, "index out of bounds")
 
-  template `[]=`*[T](a: var GVec4[T], i: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + i * sizeof(T))[] = v
+    proc `[]=`*[T](a: var GVec2[T], i: int, v: T) =
+      case i
+      of 0: a.x = v
+      of 1: a.y = v
+      else: raise newException(IndexDefect, "index out of bounds")
+
+    proc `[]=`*[T](a: var GVec3[T], i: int, v: T) =
+      case i
+      of 0: a.x = v
+      of 1: a.y = v
+      of 2: a.z = v
+      else: raise newException(IndexDefect, "index out of bounds")
+
+    proc `[]=`*[T](a: var GVec4[T], i: int, v: T) =
+      case i
+      of 0: a.x = v
+      of 1: a.y = v
+      of 2: a.z = v
+      of 3: a.w = v
+      else: raise newException(IndexDefect, "index out of bounds")
+  else:
+    template `[]`*[T](a: GVec2[T], i: int): T = cast[array[2, T]](a)[i]
+    template `[]`*[T](a: GVec3[T], i: int): T = cast[array[3, T]](a)[i]
+    template `[]`*[T](a: GVec4[T], i: int): T = cast[array[4, T]](a)[i]
+
+    template `[]=`*[T](a: var GVec2[T], i: int, v: T) =
+      cast[ptr T](cast[ByteAddress](a.addr) + i * sizeof(T))[] = v
+
+    template `[]=`*[T](a: var GVec3[T], i: int, v: T) =
+      cast[ptr T](cast[ByteAddress](a.addr) + i * sizeof(T))[] = v
+
+    template `[]=`*[T](a: var GVec4[T], i: int, v: T) =
+      cast[ptr T](cast[ByteAddress](a.addr) + i * sizeof(T))[] = v
 
   type
     GMat2*[T] {.bycopy.} = object
@@ -206,23 +254,106 @@ elif defined(vmathObjBased):
     result.m20 = m20; result.m21 = m21; result.m22 = m22; result.m23 = m23
     result.m30 = m30; result.m31 = m31; result.m32 = m32; result.m33 = m33
 
-  template `[]`*[T](a: GMat2[T], i, j: int): T =
-    cast[array[4, T]](a)[i * 2 + j]
+  when defined(js):
+    proc `[]`*[T](a: GMat2[T], i, j: int): T =
+      case i * 2 + j
+      of 0: a.m00
+      of 1: a.m01
+      of 2: a.m10
+      of 3: a.m11
+      else: raise newException(IndexDefect, "index out of bounds")
 
-  template `[]`*[T](a: GMat3[T], i, j: int): T =
-    cast[array[9, T]](a)[i * 3 + j]
+    proc `[]`*[T](a: GMat3[T], i, j: int): T =
+      case i * 3 + j
+      of 0: a.m00
+      of 1: a.m01
+      of 2: a.m02
+      of 3: a.m10
+      of 4: a.m11
+      of 5: a.m12
+      of 6: a.m20
+      of 7: a.m21
+      of 8: a.m22
+      else: raise newException(IndexDefect, "index out of bounds")
 
-  template `[]`*[T](a: GMat4[T], i, j: int): T =
-    cast[array[16, T]](a)[i * 4 + j]
+    proc `[]`*[T](a: GMat4[T], i, j: int): T =
+      case i * 4 + j
+      of 0: a.m00
+      of 1: a.m01
+      of 2: a.m02
+      of 3: a.m03
+      of 4: a.m10
+      of 5: a.m11
+      of 6: a.m12
+      of 7: a.m13
+      of 8: a.m20
+      of 9: a.m21
+      of 10: a.m22
+      of 11: a.m23
+      of 12: a.m30
+      of 13: a.m31
+      of 14: a.m32
+      of 15: a.m33
+      else: raise newException(IndexDefect, "index out of bounds")
 
-  template `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + (i * 2 + j) * sizeof(T))[] = v
+    proc `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
+      case i * 2 + j
+      of 0: a.m00 = v
+      of 1: a.m01 = v
+      of 2: a.m10 = v
+      of 3: a.m11 = v
+      else: raise newException(IndexDefect, "index out of bounds")
 
-  template `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + (i * 3 + j) * sizeof(T))[] = v
+    proc `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
+      case i * 3 + j
+      of 0: a.m00 = v
+      of 1: a.m01 = v
+      of 2: a.m02 = v
+      of 3: a.m10 = v
+      of 4: a.m11 = v
+      of 5: a.m12 = v
+      of 6: a.m20 = v
+      of 7: a.m21 = v
+      of 8: a.m22 = v
+      else: raise newException(IndexDefect, "index out of bounds")
 
-  template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
-    cast[ptr T](cast[ByteAddress](a.addr) + (i * 4 + j) * sizeof(T))[] = v
+    proc `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
+      case i * 4 + j
+      of 0: a.m00 = v
+      of 1: a.m01 = v
+      of 2: a.m02 = v
+      of 3: a.m03 = v
+      of 4: a.m10 = v
+      of 5: a.m11 = v
+      of 6: a.m12 = v
+      of 7: a.m13 = v
+      of 8: a.m20 = v
+      of 9: a.m21 = v
+      of 10: a.m22 = v
+      of 11: a.m23 = v
+      of 12: a.m30 = v
+      of 13: a.m31 = v
+      of 14: a.m32 = v
+      of 15: a.m33 = v
+      else: raise newException(IndexDefect, "index out of bounds")
+  else:
+    template `[]`*[T](a: GMat2[T], i, j: int): T =
+      cast[array[4, T]](a)[i * 2 + j]
+
+    template `[]`*[T](a: GMat3[T], i, j: int): T =
+      cast[array[9, T]](a)[i * 3 + j]
+
+    template `[]`*[T](a: GMat4[T], i, j: int): T =
+      cast[array[16, T]](a)[i * 4 + j]
+
+    template `[]=`*[T](a: var GMat2[T], i, j: int, v: T) =
+      cast[ptr T](cast[ByteAddress](a.addr) + (i * 2 + j) * sizeof(T))[] = v
+
+    template `[]=`*[T](a: var GMat3[T], i, j: int, v: T) =
+      cast[ptr T](cast[ByteAddress](a.addr) + (i * 3 + j) * sizeof(T))[] = v
+
+    template `[]=`*[T](a: var GMat4[T], i, j: int, v: T) =
+      cast[ptr T](cast[ByteAddress](a.addr) + (i * 4 + j) * sizeof(T))[] = v
 
   template `[]`*[T](a: GMat2[T], i: int): GVec2[T] =
     gvec2[T](

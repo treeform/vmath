@@ -28,3 +28,7 @@ jobs:
         run: nim r -d:vmathArrayBased tests/tests.nim
       - name: Test JavaScript
         run: nim js -r tests/tests.nim
+      - name: Test JavaScript object based
+        run: nim js -r -d:vmathObjBased tests/tests.nim
+      - name: Test JavaScript array based
+        run: nim js -r -d:vmathArrayBased tests/tests.nim
