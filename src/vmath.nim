@@ -519,6 +519,31 @@ type
   DVec3* = GVec3[float64]
   DVec4* = GVec4[float64]
 
+when not defined(vmathArrayBased):
+  proc len*[T](a: GVec2[T]): int =
+    ## Returns the number of vector components, mirroring GLSL's .length() method.
+    2
+
+  proc len*[T](a: GVec3[T]): int =
+    ## Returns the number of vector components, mirroring GLSL's .length() method.
+    3
+
+  proc len*[T](a: GVec4[T]): int =
+    ## Returns the number of vector components, mirroring GLSL's .length() method.
+    4
+
+  proc len*[T](a: GMat2[T]): int =
+    ## Returns the number of matrix columns, mirroring GLSL's .length() method.
+    2
+
+  proc len*[T](a: GMat3[T]): int =
+    ## Returns the number of matrix columns, mirroring GLSL's .length() method.
+    3
+
+  proc len*[T](a: GMat4[T]): int =
+    ## Returns the number of matrix columns, mirroring GLSL's .length() method.
+    4
+
 proc `~=`*[T: SomeFloat](a, b: T): bool =
   ## Almost equal.
   const Epsilon = 0.000001

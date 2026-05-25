@@ -28,6 +28,24 @@ suite "approximate equality":
   test "int ~= should not compile":
     check not compiles(1 ~= 1)
 
+suite "len":
+  test "vector component count":
+    check vec2(10.0, 2.0).len == 2
+    check len(vec3(1, 2, 3)) == 3
+    check vec4(0).len == 4
+    check dvec4(0).len == 4
+    check ivec3(0).len == 3
+    check uvec2(0).len == 2
+    check bvec4(false).len == 4
+
+  test "matrix column count":
+    check mat2().len == 2
+    check mat3().len == 3
+    check mat4().len == 4
+    check dmat2().len == 2
+    check dmat3().len == 3
+    check dmat4().len == 4
+
 suite "scalar utilities":
   test "between":
     check between(0.5, 0, 1)

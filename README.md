@@ -65,6 +65,7 @@ quat(1.0, 2.0, 3.0, 4.0) ~= quat(1.0, 2.0, 3.0, 4.0)
 * `sign` - Returns the sign of a number, -1 or 1.
 * `quantize` - Makes v be a multiple of n. Rounding to integer quantizes by 1.0.
 * `lerp` - Interpolates value between a and b.
+* `len` - Returns the vector component count or matrix column count.
 * `step` - Returns 0.0 if x is less than edge, otherwise 1.0.
 * `smoothstep` - Performs smooth Hermite interpolation between 0.0 and 1.0.
 
