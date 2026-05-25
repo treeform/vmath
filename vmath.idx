@@ -59,565 +59,572 @@ nim	Vec4	vmath.html#Vec4	type Vec4		516
 nim	DVec2	vmath.html#DVec2	type DVec2		518
 nim	DVec3	vmath.html#DVec3	type DVec3		519
 nim	DVec4	vmath.html#DVec4	type DVec4		520
-nim	`~=`	vmath.html#~=,T,T	proc `~=`[T: SomeFloat](a, b: T): bool		522
-nim	between	vmath.html#between,T,T,T	proc between[T](value, min, max: T): bool		527
-nim	sign	vmath.html#sign,T	proc sign[T](v: T): T		531
-nim	quantize	vmath.html#quantize,T,T	proc quantize[T: SomeFloat](v, n: T): T		535
-nim	fract	vmath.html#fract,T	proc fract[T: SomeFloat](v: T): T		539
-nim	fractional	vmath.html#fractional,T	proc fractional[T: SomeFloat](v: T): T		546
-nim	inversesqrt	vmath.html#inversesqrt,T	proc inversesqrt[T: float32 | float64](v: T): T		550
-nim	mix	vmath.html#mix,T,T,T	proc mix[T: SomeFloat](a, b, v: T): T		554
-nim	step	vmath.html#step,T,T	proc step[T: SomeFloat](edge, x: T): T		561
-nim	smoothstep	vmath.html#smoothstep,T,T,T	proc smoothstep[T: SomeFloat](edge0, edge1, x: T): T		565
-nim	fixAngle	vmath.html#fixAngle,T	proc fixAngle[T: SomeFloat](angle: T): T		570
-nim	angleBetween	vmath.html#angleBetween,T,T	proc angleBetween[T: SomeFloat](a, b: T): T		578
-nim	turnAngle	vmath.html#turnAngle,T,T,T	proc turnAngle[T: SomeFloat](a, b, speed: T): T		583
-nim	toRadians	vmath.html#toRadians,T	proc toRadians[T: SomeFloat](deg: T): T		596
-nim	toDegrees	vmath.html#toDegrees,T	proc toDegrees[T: SomeFloat](rad: T): T		600
-nim	toRadians	vmath.html#toRadians,SomeInteger	proc toRadians(deg: SomeInteger): float32		604
-nim	toDegrees	vmath.html#toDegrees,SomeInteger	proc toDegrees(deg: SomeInteger): float32		608
-nim	isNan	vmath.html#isNan,SomeFloat	proc isNan(x: SomeFloat): bool		612
-nim	zmod	vmath.html#zmod,float32,float32	proc zmod(a, b: float32): float32		616
-nim	genVecConstructor	vmath.html#genVecConstructor.t,untyped,untyped,untyped	template genVecConstructor(lower, upper, typ: untyped)		623
-nim	bvec2	vmath.html#bvec2_2	proc bvec2(): BVec2		626
-nim	bvec3	vmath.html#bvec3_2	proc bvec3(): BVec3		627
-nim	bvec4	vmath.html#bvec4_2	proc bvec4(): BVec4		628
-nim	bvec2	vmath.html#bvec2,bool,bool	proc bvec2(x`gensym6, y`gensym6: bool): BVec2		630
-nim	bvec3	vmath.html#bvec3,bool,bool,bool	proc bvec3(x`gensym6, y`gensym6, z`gensym6: bool): BVec3		631
-nim	bvec4	vmath.html#bvec4,bool,bool,bool,bool	proc bvec4(x`gensym6, y`gensym6, z`gensym6, w`gensym6: bool): BVec4		632
-nim	bvec2	vmath.html#bvec2,bool	proc bvec2(x`gensym6: bool): BVec2		634
-nim	bvec3	vmath.html#bvec3,bool	proc bvec3(x`gensym6: bool): BVec3		635
-nim	bvec4	vmath.html#bvec4,bool	proc bvec4(x`gensym6: bool): BVec4		636
-nim	bvec2	vmath.html#bvec2_3	proc bvec2[T](x`gensym6: GVec2[T]): BVec2		638
-nim	bvec3	vmath.html#bvec3_3	proc bvec3[T](x`gensym6: GVec3[T]): BVec3		640
-nim	bvec4	vmath.html#bvec4_3	proc bvec4[T](x`gensym6: GVec4[T]): BVec4		642
-nim	bvec3	vmath.html#bvec3,,T	proc bvec3[T](x`gensym6: GVec2[T]; z`gensym6: T = 0): BVec3		645
-nim	bvec4	vmath.html#bvec4,,T	proc bvec4[T](x`gensym6: GVec3[T]; w`gensym6: T = 0): BVec4		647
-nim	bvec4	vmath.html#bvec4,,	proc bvec4[T](a`gensym6, b`gensym6: GVec2[T]): BVec4		650
-nim	`$`	vmath.html#$,BVec2	proc `$`(a`gensym6: BVec2): string		653
-nim	`$`	vmath.html#$,BVec3	proc `$`(a`gensym6: BVec3): string		655
-nim	`$`	vmath.html#$,BVec4	proc `$`(a`gensym6: BVec4): string		660
-nim	ivec2	vmath.html#ivec2_2	proc ivec2(): IVec2		626
-nim	ivec3	vmath.html#ivec3_2	proc ivec3(): IVec3		627
-nim	ivec4	vmath.html#ivec4_2	proc ivec4(): IVec4		628
-nim	ivec2	vmath.html#ivec2,int32,int32	proc ivec2(x`gensym28, y`gensym28: int32): IVec2		630
-nim	ivec3	vmath.html#ivec3,int32,int32,int32	proc ivec3(x`gensym28, y`gensym28, z`gensym28: int32): IVec3		631
-nim	ivec4	vmath.html#ivec4,int32,int32,int32,int32	proc ivec4(x`gensym28, y`gensym28, z`gensym28, w`gensym28: int32): IVec4		632
-nim	ivec2	vmath.html#ivec2,int32	proc ivec2(x`gensym28: int32): IVec2		634
-nim	ivec3	vmath.html#ivec3,int32	proc ivec3(x`gensym28: int32): IVec3		635
-nim	ivec4	vmath.html#ivec4,int32	proc ivec4(x`gensym28: int32): IVec4		636
-nim	ivec2	vmath.html#ivec2_3	proc ivec2[T](x`gensym28: GVec2[T]): IVec2		638
-nim	ivec3	vmath.html#ivec3_3	proc ivec3[T](x`gensym28: GVec3[T]): IVec3		640
-nim	ivec4	vmath.html#ivec4_3	proc ivec4[T](x`gensym28: GVec4[T]): IVec4		642
-nim	ivec3	vmath.html#ivec3,,T	proc ivec3[T](x`gensym28: GVec2[T]; z`gensym28: T = 0): IVec3		645
-nim	ivec4	vmath.html#ivec4,,T	proc ivec4[T](x`gensym28: GVec3[T]; w`gensym28: T = 0): IVec4		647
-nim	ivec4	vmath.html#ivec4,,	proc ivec4[T](a`gensym28, b`gensym28: GVec2[T]): IVec4		650
-nim	`$`	vmath.html#$,IVec2	proc `$`(a`gensym28: IVec2): string		653
-nim	`$`	vmath.html#$,IVec3	proc `$`(a`gensym28: IVec3): string		655
-nim	`$`	vmath.html#$,IVec4	proc `$`(a`gensym28: IVec4): string		661
-nim	uvec2	vmath.html#uvec2_2	proc uvec2(): UVec2		626
-nim	uvec3	vmath.html#uvec3_2	proc uvec3(): UVec3		627
-nim	uvec4	vmath.html#uvec4_2	proc uvec4(): UVec4		628
-nim	uvec2	vmath.html#uvec2,uint32,uint32	proc uvec2(x`gensym50, y`gensym50: uint32): UVec2		630
-nim	uvec3	vmath.html#uvec3,uint32,uint32,uint32	proc uvec3(x`gensym50, y`gensym50, z`gensym50: uint32): UVec3		631
-nim	uvec4	vmath.html#uvec4,uint32,uint32,uint32,uint32	proc uvec4(x`gensym50, y`gensym50, z`gensym50, w`gensym50: uint32): UVec4		632
-nim	uvec2	vmath.html#uvec2,uint32	proc uvec2(x`gensym50: uint32): UVec2		634
-nim	uvec3	vmath.html#uvec3,uint32	proc uvec3(x`gensym50: uint32): UVec3		635
-nim	uvec4	vmath.html#uvec4,uint32	proc uvec4(x`gensym50: uint32): UVec4		636
-nim	uvec2	vmath.html#uvec2_3	proc uvec2[T](x`gensym50: GVec2[T]): UVec2		638
-nim	uvec3	vmath.html#uvec3_3	proc uvec3[T](x`gensym50: GVec3[T]): UVec3		640
-nim	uvec4	vmath.html#uvec4_3	proc uvec4[T](x`gensym50: GVec4[T]): UVec4		642
-nim	uvec3	vmath.html#uvec3,,T	proc uvec3[T](x`gensym50: GVec2[T]; z`gensym50: T = 0): UVec3		645
-nim	uvec4	vmath.html#uvec4,,T	proc uvec4[T](x`gensym50: GVec3[T]; w`gensym50: T = 0): UVec4		647
-nim	uvec4	vmath.html#uvec4,,	proc uvec4[T](a`gensym50, b`gensym50: GVec2[T]): UVec4		650
-nim	`$`	vmath.html#$,UVec2	proc `$`(a`gensym50: UVec2): string		653
-nim	`$`	vmath.html#$,UVec3	proc `$`(a`gensym50: UVec3): string		655
-nim	`$`	vmath.html#$,UVec4	proc `$`(a`gensym50: UVec4): string		662
-nim	vec2	vmath.html#vec2_2	proc vec2(): Vec2		626
-nim	vec3	vmath.html#vec3_2	proc vec3(): Vec3		627
-nim	vec4	vmath.html#vec4_2	proc vec4(): Vec4		628
-nim	vec2	vmath.html#vec2,float32,float32	proc vec2(x`gensym72, y`gensym72: float32): Vec2		630
-nim	vec3	vmath.html#vec3,float32,float32,float32	proc vec3(x`gensym72, y`gensym72, z`gensym72: float32): Vec3		631
-nim	vec4	vmath.html#vec4,float32,float32,float32,float32	proc vec4(x`gensym72, y`gensym72, z`gensym72, w`gensym72: float32): Vec4		632
-nim	vec2	vmath.html#vec2,float32	proc vec2(x`gensym72: float32): Vec2		634
-nim	vec3	vmath.html#vec3,float32	proc vec3(x`gensym72: float32): Vec3		635
-nim	vec4	vmath.html#vec4,float32	proc vec4(x`gensym72: float32): Vec4		636
-nim	vec2	vmath.html#vec2_3	proc vec2[T](x`gensym72: GVec2[T]): Vec2		638
-nim	vec3	vmath.html#vec3_3	proc vec3[T](x`gensym72: GVec3[T]): Vec3		640
-nim	vec4	vmath.html#vec4_3	proc vec4[T](x`gensym72: GVec4[T]): Vec4		642
-nim	vec3	vmath.html#vec3,,T	proc vec3[T](x`gensym72: GVec2[T]; z`gensym72: T = 0): Vec3		645
-nim	vec4	vmath.html#vec4,,T	proc vec4[T](x`gensym72: GVec3[T]; w`gensym72: T = 0): Vec4		647
-nim	vec4	vmath.html#vec4,,	proc vec4[T](a`gensym72, b`gensym72: GVec2[T]): Vec4		650
-nim	`$`	vmath.html#$,Vec2	proc `$`(a`gensym72: Vec2): string		653
-nim	`$`	vmath.html#$,Vec3	proc `$`(a`gensym72: Vec3): string		655
-nim	`$`	vmath.html#$,Vec4	proc `$`(a`gensym72: Vec4): string		663
-nim	dvec2	vmath.html#dvec2_2	proc dvec2(): DVec2		626
-nim	dvec3	vmath.html#dvec3_2	proc dvec3(): DVec3		627
-nim	dvec4	vmath.html#dvec4_2	proc dvec4(): DVec4		628
-nim	dvec2	vmath.html#dvec2,float64,float64	proc dvec2(x`gensym94, y`gensym94: float64): DVec2		630
-nim	dvec3	vmath.html#dvec3,float64,float64,float64	proc dvec3(x`gensym94, y`gensym94, z`gensym94: float64): DVec3		631
-nim	dvec4	vmath.html#dvec4,float64,float64,float64,float64	proc dvec4(x`gensym94, y`gensym94, z`gensym94, w`gensym94: float64): DVec4		632
-nim	dvec2	vmath.html#dvec2,float64	proc dvec2(x`gensym94: float64): DVec2		634
-nim	dvec3	vmath.html#dvec3,float64	proc dvec3(x`gensym94: float64): DVec3		635
-nim	dvec4	vmath.html#dvec4,float64	proc dvec4(x`gensym94: float64): DVec4		636
-nim	dvec2	vmath.html#dvec2_3	proc dvec2[T](x`gensym94: GVec2[T]): DVec2		638
-nim	dvec3	vmath.html#dvec3_3	proc dvec3[T](x`gensym94: GVec3[T]): DVec3		640
-nim	dvec4	vmath.html#dvec4_3	proc dvec4[T](x`gensym94: GVec4[T]): DVec4		642
-nim	dvec3	vmath.html#dvec3,,T	proc dvec3[T](x`gensym94: GVec2[T]; z`gensym94: T = 0): DVec3		645
-nim	dvec4	vmath.html#dvec4,,T	proc dvec4[T](x`gensym94: GVec3[T]; w`gensym94: T = 0): DVec4		647
-nim	dvec4	vmath.html#dvec4,,	proc dvec4[T](a`gensym94, b`gensym94: GVec2[T]): DVec4		650
-nim	`$`	vmath.html#$,DVec2	proc `$`(a`gensym94: DVec2): string		653
-nim	`$`	vmath.html#$,DVec3	proc `$`(a`gensym94: DVec3): string		655
-nim	`$`	vmath.html#$,DVec4	proc `$`(a`gensym94: DVec4): string		664
-nim	vec2	vmath.html#vec2,IVec2	proc vec2(ivec2: IVec2): Vec2		666
-nim	vec2	vmath.html#vec2,UVec2	proc vec2(uvec2: UVec2): Vec2		669
-nim	ivec2	vmath.html#ivec2,UVec2	proc ivec2(uvec2: UVec2): IVec2		672
-nim	uvec2	vmath.html#uvec2,IVec2	proc uvec2(ivec2: IVec2): UVec2		675
-nim	vec3	vmath.html#vec3,IVec3	proc vec3(ivec3: IVec3): Vec3		678
-nim	vec3	vmath.html#vec3,UVec3	proc vec3(uvec3: UVec3): Vec3		681
-nim	ivec3	vmath.html#ivec3,UVec3	proc ivec3(uvec3: UVec3): IVec3		684
-nim	uvec3	vmath.html#uvec3,IVec3	proc uvec3(ivec3: IVec3): UVec3		687
-nim	vec4	vmath.html#vec4,IVec4	proc vec4(ivec4: IVec4): Vec4		690
-nim	vec4	vmath.html#vec4,UVec4	proc vec4(uvec4: UVec4): Vec4		693
-nim	ivec4	vmath.html#ivec4,UVec4	proc ivec4(uvec4: UVec4): IVec4		696
-nim	uvec4	vmath.html#uvec4,IVec4	proc uvec4(ivec4: IVec4): UVec4		699
-nim	`==`	vmath.html#==,GVec2[T],GVec2[T]	proc `==`[T](a, b: GVec2[T]): bool		706
-nim	`==`	vmath.html#==,GVec3[T],GVec3[T]	proc `==`[T](a, b: GVec3[T]): bool		709
-nim	`==`	vmath.html#==,GVec4[T],GVec4[T]	proc `==`[T](a, b: GVec4[T]): bool		712
-nim	`!=`	vmath.html#!=,GVec2[T],GVec2[T]	proc `!=`[T](a, b: GVec2[T]): bool		715
-nim	`!=`	vmath.html#!=,GVec3[T],GVec3[T]	proc `!=`[T](a, b: GVec3[T]): bool		718
-nim	`!=`	vmath.html#!=,GVec4[T],GVec4[T]	proc `!=`[T](a, b: GVec4[T]): bool		721
-nim	`+`	vmath.html#+,,	proc `+`[T](a`gensym152, b`gensym152: GVec2[T]): GVec2[T]		725
-nim	`+`	vmath.html#+,,_2	proc `+`[T](a`gensym152, b`gensym152: GVec3[T]): GVec3[T]		731
-nim	`+`	vmath.html#+,,_3	proc `+`[T](a`gensym152, b`gensym152: GVec4[T]): GVec4[T]		738
-nim	`+`	vmath.html#+,,T	proc `+`[T](a`gensym152: GVec2[T]; b`gensym152: T): GVec2[T]		746
-nim	`+`	vmath.html#+,,T_2	proc `+`[T](a`gensym152: GVec3[T]; b`gensym152: T): GVec3[T]		752
-nim	`+`	vmath.html#+,,T_3	proc `+`[T](a`gensym152: GVec4[T]; b`gensym152: T): GVec4[T]		759
-nim	`+`	vmath.html#+,T,	proc `+`[T](a`gensym152: T; b`gensym152: GVec2[T]): GVec2[T]		767
-nim	`+`	vmath.html#+,T,_2	proc `+`[T](a`gensym152: T; b`gensym152: GVec3[T]): GVec3[T]		773
-nim	`+`	vmath.html#+,T,_3	proc `+`[T](a`gensym152: T; b`gensym152: GVec4[T]): GVec4[T]		788
-nim	`-`	vmath.html#-,,	proc `-`[T](a`gensym153, b`gensym153: GVec2[T]): GVec2[T]		725
-nim	`-`	vmath.html#-,,_2	proc `-`[T](a`gensym153, b`gensym153: GVec3[T]): GVec3[T]		731
-nim	`-`	vmath.html#-,,_3	proc `-`[T](a`gensym153, b`gensym153: GVec4[T]): GVec4[T]		738
-nim	`-`	vmath.html#-,,T	proc `-`[T](a`gensym153: GVec2[T]; b`gensym153: T): GVec2[T]		746
-nim	`-`	vmath.html#-,,T_2	proc `-`[T](a`gensym153: GVec3[T]; b`gensym153: T): GVec3[T]		752
-nim	`-`	vmath.html#-,,T_3	proc `-`[T](a`gensym153: GVec4[T]; b`gensym153: T): GVec4[T]		759
-nim	`-`	vmath.html#-,T,	proc `-`[T](a`gensym153: T; b`gensym153: GVec2[T]): GVec2[T]		767
-nim	`-`	vmath.html#-,T,_2	proc `-`[T](a`gensym153: T; b`gensym153: GVec3[T]): GVec3[T]		773
-nim	`-`	vmath.html#-,T,_3	proc `-`[T](a`gensym153: T; b`gensym153: GVec4[T]): GVec4[T]		789
-nim	`*`	vmath.html#*,,	proc `*`[T](a`gensym154, b`gensym154: GVec2[T]): GVec2[T]		725
-nim	`*`	vmath.html#*,,_2	proc `*`[T](a`gensym154, b`gensym154: GVec3[T]): GVec3[T]		731
-nim	`*`	vmath.html#*,,_3	proc `*`[T](a`gensym154, b`gensym154: GVec4[T]): GVec4[T]		738
-nim	`*`	vmath.html#*,,T	proc `*`[T](a`gensym154: GVec2[T]; b`gensym154: T): GVec2[T]		746
-nim	`*`	vmath.html#*,,T_2	proc `*`[T](a`gensym154: GVec3[T]; b`gensym154: T): GVec3[T]		752
-nim	`*`	vmath.html#*,,T_3	proc `*`[T](a`gensym154: GVec4[T]; b`gensym154: T): GVec4[T]		759
-nim	`*`	vmath.html#*,T,	proc `*`[T](a`gensym154: T; b`gensym154: GVec2[T]): GVec2[T]		767
-nim	`*`	vmath.html#*,T,_2	proc `*`[T](a`gensym154: T; b`gensym154: GVec3[T]): GVec3[T]		773
-nim	`*`	vmath.html#*,T,_3	proc `*`[T](a`gensym154: T; b`gensym154: GVec4[T]): GVec4[T]		790
-nim	`/`	vmath.html#/,,	proc `/`[T](a`gensym155, b`gensym155: GVec2[T]): GVec2[T]		725
-nim	`/`	vmath.html#/,,_2	proc `/`[T](a`gensym155, b`gensym155: GVec3[T]): GVec3[T]		731
-nim	`/`	vmath.html#/,,_3	proc `/`[T](a`gensym155, b`gensym155: GVec4[T]): GVec4[T]		738
-nim	`/`	vmath.html#/,,T	proc `/`[T](a`gensym155: GVec2[T]; b`gensym155: T): GVec2[T]		746
-nim	`/`	vmath.html#/,,T_2	proc `/`[T](a`gensym155: GVec3[T]; b`gensym155: T): GVec3[T]		752
-nim	`/`	vmath.html#/,,T_3	proc `/`[T](a`gensym155: GVec4[T]; b`gensym155: T): GVec4[T]		759
-nim	`/`	vmath.html#/,T,	proc `/`[T](a`gensym155: T; b`gensym155: GVec2[T]): GVec2[T]		767
-nim	`/`	vmath.html#/,T,_2	proc `/`[T](a`gensym155: T; b`gensym155: GVec3[T]): GVec3[T]		773
-nim	`/`	vmath.html#/,T,_3	proc `/`[T](a`gensym155: T; b`gensym155: GVec4[T]): GVec4[T]		791
-nim	`mod`	vmath.html#mod,,	proc `mod`[T](a`gensym156, b`gensym156: GVec2[T]): GVec2[T]		725
-nim	`mod`	vmath.html#mod,,_2	proc `mod`[T](a`gensym156, b`gensym156: GVec3[T]): GVec3[T]		731
-nim	`mod`	vmath.html#mod,,_3	proc `mod`[T](a`gensym156, b`gensym156: GVec4[T]): GVec4[T]		738
-nim	`mod`	vmath.html#mod,,T	proc `mod`[T](a`gensym156: GVec2[T]; b`gensym156: T): GVec2[T]		746
-nim	`mod`	vmath.html#mod,,T_2	proc `mod`[T](a`gensym156: GVec3[T]; b`gensym156: T): GVec3[T]		752
-nim	`mod`	vmath.html#mod,,T_3	proc `mod`[T](a`gensym156: GVec4[T]; b`gensym156: T): GVec4[T]		759
-nim	`mod`	vmath.html#mod,T,	proc `mod`[T](a`gensym156: T; b`gensym156: GVec2[T]): GVec2[T]		767
-nim	`mod`	vmath.html#mod,T,_2	proc `mod`[T](a`gensym156: T; b`gensym156: GVec3[T]): GVec3[T]		773
-nim	`mod`	vmath.html#mod,T,_3	proc `mod`[T](a`gensym156: T; b`gensym156: GVec4[T]): GVec4[T]		792
-nim	`div`	vmath.html#div,,	proc `div`[T](a`gensym157, b`gensym157: GVec2[T]): GVec2[T]		725
-nim	`div`	vmath.html#div,,_2	proc `div`[T](a`gensym157, b`gensym157: GVec3[T]): GVec3[T]		731
-nim	`div`	vmath.html#div,,_3	proc `div`[T](a`gensym157, b`gensym157: GVec4[T]): GVec4[T]		738
-nim	`div`	vmath.html#div,,T	proc `div`[T](a`gensym157: GVec2[T]; b`gensym157: T): GVec2[T]		746
-nim	`div`	vmath.html#div,,T_2	proc `div`[T](a`gensym157: GVec3[T]; b`gensym157: T): GVec3[T]		752
-nim	`div`	vmath.html#div,,T_3	proc `div`[T](a`gensym157: GVec4[T]; b`gensym157: T): GVec4[T]		759
-nim	`div`	vmath.html#div,T,	proc `div`[T](a`gensym157: T; b`gensym157: GVec2[T]): GVec2[T]		767
-nim	`div`	vmath.html#div,T,_2	proc `div`[T](a`gensym157: T; b`gensym157: GVec3[T]): GVec3[T]		773
-nim	`div`	vmath.html#div,T,_3	proc `div`[T](a`gensym157: T; b`gensym157: GVec4[T]): GVec4[T]		793
-nim	zmod	vmath.html#zmod,,	proc zmod[T](a`gensym158, b`gensym158: GVec2[T]): GVec2[T]		725
-nim	zmod	vmath.html#zmod,,_2	proc zmod[T](a`gensym158, b`gensym158: GVec3[T]): GVec3[T]		731
-nim	zmod	vmath.html#zmod,,_3	proc zmod[T](a`gensym158, b`gensym158: GVec4[T]): GVec4[T]		738
-nim	zmod	vmath.html#zmod,,T	proc zmod[T](a`gensym158: GVec2[T]; b`gensym158: T): GVec2[T]		746
-nim	zmod	vmath.html#zmod,,T_2	proc zmod[T](a`gensym158: GVec3[T]; b`gensym158: T): GVec3[T]		752
-nim	zmod	vmath.html#zmod,,T_3	proc zmod[T](a`gensym158: GVec4[T]; b`gensym158: T): GVec4[T]		759
-nim	zmod	vmath.html#zmod,T,	proc zmod[T](a`gensym158: T; b`gensym158: GVec2[T]): GVec2[T]		767
-nim	zmod	vmath.html#zmod,T,_2	proc zmod[T](a`gensym158: T; b`gensym158: GVec3[T]): GVec3[T]		773
-nim	zmod	vmath.html#zmod,T,_3	proc zmod[T](a`gensym158: T; b`gensym158: GVec4[T]): GVec4[T]		794
-nim	`+=`	vmath.html#+=,,	proc `+=`[T](a`gensym159: var GVec2[T]; b`gensym159: GVec2[T])		797
-nim	`+=`	vmath.html#+=,,_2	proc `+=`[T](a`gensym159: var GVec3[T]; b`gensym159: GVec3[T])		801
-nim	`+=`	vmath.html#+=,,_3	proc `+=`[T](a`gensym159: var GVec4[T]; b`gensym159: GVec4[T])		806
-nim	`+=`	vmath.html#+=,,T	proc `+=`[T](a`gensym159: var GVec2[T]; b`gensym159: T)		812
-nim	`+=`	vmath.html#+=,,T_2	proc `+=`[T](a`gensym159: var GVec3[T]; b`gensym159: T)		816
-nim	`+=`	vmath.html#+=,,T_3	proc `+=`[T](a`gensym159: var GVec4[T]; b`gensym159: T)		827
-nim	`-=`	vmath.html#-=,,	proc `-=`[T](a`gensym160: var GVec2[T]; b`gensym160: GVec2[T])		797
-nim	`-=`	vmath.html#-=,,_2	proc `-=`[T](a`gensym160: var GVec3[T]; b`gensym160: GVec3[T])		801
-nim	`-=`	vmath.html#-=,,_3	proc `-=`[T](a`gensym160: var GVec4[T]; b`gensym160: GVec4[T])		806
-nim	`-=`	vmath.html#-=,,T	proc `-=`[T](a`gensym160: var GVec2[T]; b`gensym160: T)		812
-nim	`-=`	vmath.html#-=,,T_2	proc `-=`[T](a`gensym160: var GVec3[T]; b`gensym160: T)		816
-nim	`-=`	vmath.html#-=,,T_3	proc `-=`[T](a`gensym160: var GVec4[T]; b`gensym160: T)		828
-nim	`*=`	vmath.html#*=,,	proc `*=`[T](a`gensym161: var GVec2[T]; b`gensym161: GVec2[T])		797
-nim	`*=`	vmath.html#*=,,_2	proc `*=`[T](a`gensym161: var GVec3[T]; b`gensym161: GVec3[T])		801
-nim	`*=`	vmath.html#*=,,_3	proc `*=`[T](a`gensym161: var GVec4[T]; b`gensym161: GVec4[T])		806
-nim	`*=`	vmath.html#*=,,T	proc `*=`[T](a`gensym161: var GVec2[T]; b`gensym161: T)		812
-nim	`*=`	vmath.html#*=,,T_2	proc `*=`[T](a`gensym161: var GVec3[T]; b`gensym161: T)		816
-nim	`*=`	vmath.html#*=,,T_3	proc `*=`[T](a`gensym161: var GVec4[T]; b`gensym161: T)		829
-nim	`/=`	vmath.html#/=,,	proc `/=`[T](a`gensym162: var GVec2[T]; b`gensym162: GVec2[T])		797
-nim	`/=`	vmath.html#/=,,_2	proc `/=`[T](a`gensym162: var GVec3[T]; b`gensym162: GVec3[T])		801
-nim	`/=`	vmath.html#/=,,_3	proc `/=`[T](a`gensym162: var GVec4[T]; b`gensym162: GVec4[T])		806
-nim	`/=`	vmath.html#/=,,T	proc `/=`[T](a`gensym162: var GVec2[T]; b`gensym162: T)		812
-nim	`/=`	vmath.html#/=,,T_2	proc `/=`[T](a`gensym162: var GVec3[T]; b`gensym162: T)		816
-nim	`/=`	vmath.html#/=,,T_3	proc `/=`[T](a`gensym162: var GVec4[T]; b`gensym162: T)		830
-nim	`-`	vmath.html#-	proc `-`[T](v`gensym163: GVec2[T]): GVec2[T]		833
-nim	`-`	vmath.html#-_2	proc `-`[T](v`gensym163: GVec3[T]): GVec3[T]		839
-nim	`-`	vmath.html#-_3	proc `-`[T](v`gensym163: GVec4[T]): GVec4[T]		854
-nim	sin	vmath.html#sin	proc sin[T](v`gensym164: GVec2[T]): GVec2[T]		833
-nim	sin	vmath.html#sin_2	proc sin[T](v`gensym164: GVec3[T]): GVec3[T]		839
-nim	sin	vmath.html#sin_3	proc sin[T](v`gensym164: GVec4[T]): GVec4[T]		855
-nim	cos	vmath.html#cos	proc cos[T](v`gensym165: GVec2[T]): GVec2[T]		833
-nim	cos	vmath.html#cos_2	proc cos[T](v`gensym165: GVec3[T]): GVec3[T]		839
-nim	cos	vmath.html#cos_3	proc cos[T](v`gensym165: GVec4[T]): GVec4[T]		856
-nim	tan	vmath.html#tan	proc tan[T](v`gensym166: GVec2[T]): GVec2[T]		833
-nim	tan	vmath.html#tan_2	proc tan[T](v`gensym166: GVec3[T]): GVec3[T]		839
-nim	tan	vmath.html#tan_3	proc tan[T](v`gensym166: GVec4[T]): GVec4[T]		857
-nim	arcsin	vmath.html#arcsin	proc arcsin[T](v`gensym167: GVec2[T]): GVec2[T]		833
-nim	arcsin	vmath.html#arcsin_2	proc arcsin[T](v`gensym167: GVec3[T]): GVec3[T]		839
-nim	arcsin	vmath.html#arcsin_3	proc arcsin[T](v`gensym167: GVec4[T]): GVec4[T]		858
-nim	arccos	vmath.html#arccos	proc arccos[T](v`gensym168: GVec2[T]): GVec2[T]		833
-nim	arccos	vmath.html#arccos_2	proc arccos[T](v`gensym168: GVec3[T]): GVec3[T]		839
-nim	arccos	vmath.html#arccos_3	proc arccos[T](v`gensym168: GVec4[T]): GVec4[T]		859
-nim	arctan	vmath.html#arctan	proc arctan[T](v`gensym169: GVec2[T]): GVec2[T]		833
-nim	arctan	vmath.html#arctan_2	proc arctan[T](v`gensym169: GVec3[T]): GVec3[T]		839
-nim	arctan	vmath.html#arctan_3	proc arctan[T](v`gensym169: GVec4[T]): GVec4[T]		860
-nim	sinh	vmath.html#sinh	proc sinh[T](v`gensym170: GVec2[T]): GVec2[T]		833
-nim	sinh	vmath.html#sinh_2	proc sinh[T](v`gensym170: GVec3[T]): GVec3[T]		839
-nim	sinh	vmath.html#sinh_3	proc sinh[T](v`gensym170: GVec4[T]): GVec4[T]		861
-nim	cosh	vmath.html#cosh	proc cosh[T](v`gensym171: GVec2[T]): GVec2[T]		833
-nim	cosh	vmath.html#cosh_2	proc cosh[T](v`gensym171: GVec3[T]): GVec3[T]		839
-nim	cosh	vmath.html#cosh_3	proc cosh[T](v`gensym171: GVec4[T]): GVec4[T]		862
-nim	tanh	vmath.html#tanh	proc tanh[T](v`gensym172: GVec2[T]): GVec2[T]		833
-nim	tanh	vmath.html#tanh_2	proc tanh[T](v`gensym172: GVec3[T]): GVec3[T]		839
-nim	tanh	vmath.html#tanh_3	proc tanh[T](v`gensym172: GVec4[T]): GVec4[T]		863
-nim	exp2	vmath.html#exp2	proc exp2[T](v`gensym173: GVec2[T]): GVec2[T]		833
-nim	exp2	vmath.html#exp2_2	proc exp2[T](v`gensym173: GVec3[T]): GVec3[T]		839
-nim	exp2	vmath.html#exp2_3	proc exp2[T](v`gensym173: GVec4[T]): GVec4[T]		864
-nim	inversesqrt	vmath.html#inversesqrt	proc inversesqrt[T](v`gensym174: GVec2[T]): GVec2[T]		833
-nim	inversesqrt	vmath.html#inversesqrt_2	proc inversesqrt[T](v`gensym174: GVec3[T]): GVec3[T]		839
-nim	inversesqrt	vmath.html#inversesqrt_3	proc inversesqrt[T](v`gensym174: GVec4[T]): GVec4[T]		865
-nim	exp	vmath.html#exp	proc exp[T](v`gensym175: GVec2[T]): GVec2[T]		833
-nim	exp	vmath.html#exp_2	proc exp[T](v`gensym175: GVec3[T]): GVec3[T]		839
-nim	exp	vmath.html#exp_3	proc exp[T](v`gensym175: GVec4[T]): GVec4[T]		866
-nim	ln	vmath.html#ln	proc ln[T](v`gensym176: GVec2[T]): GVec2[T]		833
-nim	ln	vmath.html#ln_2	proc ln[T](v`gensym176: GVec3[T]): GVec3[T]		839
-nim	ln	vmath.html#ln_3	proc ln[T](v`gensym176: GVec4[T]): GVec4[T]		867
-nim	log2	vmath.html#log2	proc log2[T](v`gensym177: GVec2[T]): GVec2[T]		833
-nim	log2	vmath.html#log2_2	proc log2[T](v`gensym177: GVec3[T]): GVec3[T]		839
-nim	log2	vmath.html#log2_3	proc log2[T](v`gensym177: GVec4[T]): GVec4[T]		868
-nim	sqrt	vmath.html#sqrt	proc sqrt[T](v`gensym178: GVec2[T]): GVec2[T]		833
-nim	sqrt	vmath.html#sqrt_2	proc sqrt[T](v`gensym178: GVec3[T]): GVec3[T]		839
-nim	sqrt	vmath.html#sqrt_3	proc sqrt[T](v`gensym178: GVec4[T]): GVec4[T]		869
-nim	floor	vmath.html#floor	proc floor[T](v`gensym179: GVec2[T]): GVec2[T]		833
-nim	floor	vmath.html#floor_2	proc floor[T](v`gensym179: GVec3[T]): GVec3[T]		839
-nim	floor	vmath.html#floor_3	proc floor[T](v`gensym179: GVec4[T]): GVec4[T]		870
-nim	ceil	vmath.html#ceil	proc ceil[T](v`gensym180: GVec2[T]): GVec2[T]		833
-nim	ceil	vmath.html#ceil_2	proc ceil[T](v`gensym180: GVec3[T]): GVec3[T]		839
-nim	ceil	vmath.html#ceil_3	proc ceil[T](v`gensym180: GVec4[T]): GVec4[T]		871
-nim	abs	vmath.html#abs	proc abs[T](v`gensym181: GVec2[T]): GVec2[T]		833
-nim	abs	vmath.html#abs_2	proc abs[T](v`gensym181: GVec3[T]): GVec3[T]		839
-nim	abs	vmath.html#abs_3	proc abs[T](v`gensym181: GVec4[T]): GVec4[T]		872
-nim	trunc	vmath.html#trunc	proc trunc[T](v`gensym182: GVec2[T]): GVec2[T]		833
-nim	trunc	vmath.html#trunc_2	proc trunc[T](v`gensym182: GVec3[T]): GVec3[T]		839
-nim	trunc	vmath.html#trunc_3	proc trunc[T](v`gensym182: GVec4[T]): GVec4[T]		873
-nim	fract	vmath.html#fract	proc fract[T](v`gensym183: GVec2[T]): GVec2[T]		833
-nim	fract	vmath.html#fract_2	proc fract[T](v`gensym183: GVec3[T]): GVec3[T]		839
-nim	fract	vmath.html#fract_3	proc fract[T](v`gensym183: GVec4[T]): GVec4[T]		874
-nim	quantize	vmath.html#quantize	proc quantize[T](v`gensym184: GVec2[T]): GVec2[T]		833
-nim	quantize	vmath.html#quantize_2	proc quantize[T](v`gensym184: GVec3[T]): GVec3[T]		839
-nim	quantize	vmath.html#quantize_3	proc quantize[T](v`gensym184: GVec4[T]): GVec4[T]		875
-nim	toRadians	vmath.html#toRadians	proc toRadians[T](v`gensym185: GVec2[T]): GVec2[T]		833
-nim	toRadians	vmath.html#toRadians_2	proc toRadians[T](v`gensym185: GVec3[T]): GVec3[T]		839
-nim	toRadians	vmath.html#toRadians_3	proc toRadians[T](v`gensym185: GVec4[T]): GVec4[T]		876
-nim	toDegrees	vmath.html#toDegrees	proc toDegrees[T](v`gensym186: GVec2[T]): GVec2[T]		833
-nim	toDegrees	vmath.html#toDegrees_2	proc toDegrees[T](v`gensym186: GVec3[T]): GVec3[T]		839
-nim	toDegrees	vmath.html#toDegrees_3	proc toDegrees[T](v`gensym186: GVec4[T]): GVec4[T]		877
-nim	lessThan	vmath.html#lessThan,,	proc lessThan[T](a`gensym187, b`gensym187: GVec2[T]): BVec2		880
-nim	lessThan	vmath.html#lessThan,,_2	proc lessThan[T](a`gensym187, b`gensym187: GVec3[T]): BVec3		884
-nim	lessThan	vmath.html#lessThan,,_3	proc lessThan[T](a`gensym187, b`gensym187: GVec4[T]): BVec4		895
-nim	lessThanEqual	vmath.html#lessThanEqual,,	proc lessThanEqual[T](a`gensym188, b`gensym188: GVec2[T]): BVec2		880
-nim	lessThanEqual	vmath.html#lessThanEqual,,_2	proc lessThanEqual[T](a`gensym188, b`gensym188: GVec3[T]): BVec3		884
-nim	lessThanEqual	vmath.html#lessThanEqual,,_3	proc lessThanEqual[T](a`gensym188, b`gensym188: GVec4[T]): BVec4		896
-nim	greaterThan	vmath.html#greaterThan,,	proc greaterThan[T](a`gensym189, b`gensym189: GVec2[T]): BVec2		880
-nim	greaterThan	vmath.html#greaterThan,,_2	proc greaterThan[T](a`gensym189, b`gensym189: GVec3[T]): BVec3		884
-nim	greaterThan	vmath.html#greaterThan,,_3	proc greaterThan[T](a`gensym189, b`gensym189: GVec4[T]): BVec4		897
-nim	greaterThanEqual	vmath.html#greaterThanEqual,,	proc greaterThanEqual[T](a`gensym199, b`gensym199: GVec2[T]): BVec2		880
-nim	greaterThanEqual	vmath.html#greaterThanEqual,,_2	proc greaterThanEqual[T](a`gensym199, b`gensym199: GVec3[T]): BVec3		884
-nim	greaterThanEqual	vmath.html#greaterThanEqual,,_3	proc greaterThanEqual[T](a`gensym199, b`gensym199: GVec4[T]): BVec4		898
-nim	equal	vmath.html#equal,,	proc equal[T](a`gensym209, b`gensym209: GVec2[T]): BVec2		880
-nim	equal	vmath.html#equal,,_2	proc equal[T](a`gensym209, b`gensym209: GVec3[T]): BVec3		884
-nim	equal	vmath.html#equal,,_3	proc equal[T](a`gensym209, b`gensym209: GVec4[T]): BVec4		899
-nim	notEqual	vmath.html#notEqual,,	proc notEqual[T](a`gensym210, b`gensym210: GVec2[T]): BVec2		880
-nim	notEqual	vmath.html#notEqual,,_2	proc notEqual[T](a`gensym210, b`gensym210: GVec3[T]): BVec3		884
-nim	notEqual	vmath.html#notEqual,,_3	proc notEqual[T](a`gensym210, b`gensym210: GVec4[T]): BVec4		900
-nim	`~=`	vmath.html#~=,GVec2[T],GVec2[T]	proc `~=`[T](a, b: GVec2[T]): bool		902
-nim	`~=`	vmath.html#~=,GVec3[T],GVec3[T]	proc `~=`[T](a, b: GVec3[T]): bool		906
-nim	`~=`	vmath.html#~=,GVec4[T],GVec4[T]	proc `~=`[T](a, b: GVec4[T]): bool		910
-nim	length	vmath.html#length,GVec2[T]	proc length[T](a: GVec2[T]): T		914
-nim	length	vmath.html#length,GVec3[T]	proc length[T](a: GVec3[T]): T		917
-nim	length	vmath.html#length,GVec4[T]	proc length[T](a: GVec4[T]): T		920
-nim	lengthSq	vmath.html#lengthSq,GVec2[T]	proc lengthSq[T](a: GVec2[T]): T		923
-nim	lengthSq	vmath.html#lengthSq,GVec3[T]	proc lengthSq[T](a: GVec3[T]): T		926
-nim	lengthSq	vmath.html#lengthSq,GVec4[T]	proc lengthSq[T](a: GVec4[T]): T		929
-nim	normalize	vmath.html#normalize,GVec234[T]	proc normalize[T](a: GVec234[T]): type(a)		932
-nim	mix	vmath.html#mix,GVec234[T: SomeFloat],GVec234[T: SomeFloat],T	proc mix[T: SomeFloat](a, b: GVec234[T]; v: T): type(a)		935
-nim	lerp	vmath.html#lerp,V,V,T	proc lerp[V, T](a, b: V; v: T): type(a)		938
-nim	dot	vmath.html#dot,GVec2[T],GVec2[T]	proc dot[T](a, b: GVec2[T]): T		941
-nim	dot	vmath.html#dot,GVec3[T],GVec3[T]	proc dot[T](a, b: GVec3[T]): T		944
-nim	dot	vmath.html#dot,GVec4[T],GVec4[T]	proc dot[T](a, b: GVec4[T]): T		947
-nim	mix	vmath.html#mix,GVec2[T: SomeFloat],GVec2[T: SomeFloat],GVec2[T: SomeFloat]	proc mix[T: SomeFloat](a, b, v: GVec2[T]): type(a)		950
-nim	mix	vmath.html#mix,GVec3[T: SomeFloat],GVec3[T: SomeFloat],GVec3[T: SomeFloat]	proc mix[T: SomeFloat](a, b, v: GVec3[T]): type(a)		954
-nim	mix	vmath.html#mix,GVec4[T: SomeFloat],GVec4[T: SomeFloat],GVec4[T: SomeFloat]	proc mix[T: SomeFloat](a, b, v: GVec4[T]): type(a)		959
-nim	step	vmath.html#step,GVec2[T: SomeFloat],GVec2[T: SomeFloat]	proc step[T: SomeFloat](edge, x: GVec2[T]): type(x)		965
-nim	step	vmath.html#step,GVec3[T: SomeFloat],GVec3[T: SomeFloat]	proc step[T: SomeFloat](edge, x: GVec3[T]): type(x)		969
-nim	step	vmath.html#step,GVec4[T: SomeFloat],GVec4[T: SomeFloat]	proc step[T: SomeFloat](edge, x: GVec4[T]): type(x)		974
-nim	step	vmath.html#step,T,GVec2[T: SomeFloat]	proc step[T: SomeFloat](edge: T; x: GVec2[T]): type(x)		980
-nim	step	vmath.html#step,T,GVec3[T: SomeFloat]	proc step[T: SomeFloat](edge: T; x: GVec3[T]): type(x)		984
-nim	step	vmath.html#step,T,GVec4[T: SomeFloat]	proc step[T: SomeFloat](edge: T; x: GVec4[T]): type(x)		989
-nim	smoothstep	vmath.html#smoothstep,GVec2[T: SomeFloat],GVec2[T: SomeFloat],GVec2[T: SomeFloat]	proc smoothstep[T: SomeFloat](edge0, edge1, x: GVec2[T]): type(x)		995
-nim	smoothstep	vmath.html#smoothstep,GVec3[T: SomeFloat],GVec3[T: SomeFloat],GVec3[T: SomeFloat]	proc smoothstep[T: SomeFloat](edge0, edge1, x: GVec3[T]): type(x)		999
-nim	smoothstep	vmath.html#smoothstep,GVec4[T: SomeFloat],GVec4[T: SomeFloat],GVec4[T: SomeFloat]	proc smoothstep[T: SomeFloat](edge0, edge1, x: GVec4[T]): type(x)		1004
-nim	smoothstep	vmath.html#smoothstep,T,T,GVec2[T: SomeFloat]	proc smoothstep[T: SomeFloat](edge0, edge1: T; x: GVec2[T]): type(x)		1010
-nim	smoothstep	vmath.html#smoothstep,T,T,GVec3[T: SomeFloat]	proc smoothstep[T: SomeFloat](edge0, edge1: T; x: GVec3[T]): type(x)		1014
-nim	smoothstep	vmath.html#smoothstep,T,T,GVec4[T: SomeFloat]	proc smoothstep[T: SomeFloat](edge0, edge1: T; x: GVec4[T]): type(x)		1019
-nim	cross	vmath.html#cross,GVec3[T],GVec3[T]	proc cross[T](a, b: GVec3[T]): GVec3[T]		1025
-nim	dist	vmath.html#dist,GVec234[T],GVec234[T]	proc dist[T](at, to: GVec234[T]): T		1032
-nim	distSq	vmath.html#distSq,GVec234[T],GVec234[T]	proc distSq[T](at, to: GVec234[T]): T		1035
-nim	dir	vmath.html#dir,GVec234[T],GVec234[T]	proc dir[T](at, to: GVec234[T]): type(to)		1038
-nim	dir	vmath.html#dir,T	proc dir[T](angle: T): GVec2[T]		1041
-nim	min	vmath.html#min,Vec2,Vec2	proc min(a, b: Vec2): Vec2		1047
-nim	min	vmath.html#min,Vec3,Vec3	proc min(a, b: Vec3): Vec3		1050
-nim	min	vmath.html#min,Vec4,Vec4	proc min(a, b: Vec4): Vec4		1053
-nim	min	vmath.html#min,Vec2,float32	proc min(a: Vec2; b: float32): Vec2		1056
-nim	min	vmath.html#min,Vec3,float32	proc min(a: Vec3; b: float32): Vec3		1059
-nim	min	vmath.html#min,Vec4,float32	proc min(a: Vec4; b: float32): Vec4		1062
-nim	max	vmath.html#max,Vec2,Vec2	proc max(a, b: Vec2): Vec2		1065
-nim	max	vmath.html#max,Vec3,Vec3	proc max(a, b: Vec3): Vec3		1068
-nim	max	vmath.html#max,Vec4,Vec4	proc max(a, b: Vec4): Vec4		1071
-nim	max	vmath.html#max,Vec2,float32	proc max(a: Vec2; b: float32): Vec2		1074
-nim	max	vmath.html#max,Vec3,float32	proc max(a: Vec3; b: float32): Vec3		1077
-nim	max	vmath.html#max,Vec4,float32	proc max(a: Vec4; b: float32): Vec4		1080
-nim	clamp	vmath.html#clamp,Vec2,Vec2,Vec2	proc clamp(v, min, max: Vec2): Vec2		1083
-nim	clamp	vmath.html#clamp,Vec3,Vec3,Vec3	proc clamp(v, min, max: Vec3): Vec3		1086
-nim	clamp	vmath.html#clamp,Vec4,Vec4,Vec4	proc clamp(v, min, max: Vec4): Vec4		1089
-nim	clamp	vmath.html#clamp,Vec2,float32,float32	proc clamp(v: Vec2; min, max: float32): Vec2		1092
-nim	clamp	vmath.html#clamp,Vec3,float32,float32	proc clamp(v: Vec3; min, max: float32): Vec3		1095
-nim	clamp	vmath.html#clamp,Vec4,float32,float32	proc clamp(v: Vec4; min, max: float32): Vec4		1098
-nim	Mat2	vmath.html#Mat2	type Mat2		1102
-nim	Mat3	vmath.html#Mat3	type Mat3		1103
-nim	Mat4	vmath.html#Mat4	type Mat4		1104
-nim	DMat2	vmath.html#DMat2	type DMat2		1106
-nim	DMat3	vmath.html#DMat3	type DMat3		1107
-nim	DMat4	vmath.html#DMat4	type DMat4		1108
-nim	genMatConstructor	vmath.html#genMatConstructor.t,untyped,untyped,untyped	template genMatConstructor(lower, upper, T: untyped)		1122
-nim	mat2	vmath.html#mat2,float32,float32,float32,float32	proc mat2(m00`gensym301, m01`gensym301, m10`gensym301, m11`gensym301: float32): Mat2		1124
-nim	mat3	vmath.html#mat3,float32,float32,float32,float32,float32,float32,float32,float32,float32	proc mat3(m00`gensym301, m01`gensym301, m02`gensym301, m10`gensym301, m11`gensym301,\n     m12`gensym301, m20`gensym301, m21`gensym301, m22`gensym301: float32): Mat3		1131
-nim	mat4	vmath.html#mat4,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32	proc mat4(m00`gensym301, m01`gensym301, m02`gensym301, m03`gensym301, m10`gensym301,\n     m11`gensym301, m12`gensym301, m13`gensym301, m20`gensym301, m21`gensym301,\n     m22`gensym301, m23`gensym301, m30`gensym301, m31`gensym301, m32`gensym301,\n     m33`gensym301: float32): Mat4		1140
-nim	mat2	vmath.html#mat2,,	proc mat2(a`gensym301, b`gensym301: GVec2[float32]): Mat2		1158
-nim	mat3	vmath.html#mat3,,,	proc mat3(a`gensym301, b`gensym301, c`gensym301: GVec3[float32]): Mat3		1163
-nim	mat4	vmath.html#mat4,,,,	proc mat4(a`gensym301, b`gensym301, c`gensym301, d`gensym301: GVec4[float32]): Mat4		1169
-nim	mat2	vmath.html#mat2_2	proc mat2(): Mat2		1177
-nim	mat3	vmath.html#mat3_2	proc mat3(): Mat3		1182
-nim	mat4	vmath.html#mat4_2	proc mat4(): Mat4		1188
-nim	`$`	vmath.html#$,Mat2	proc `$`(a`gensym301: Mat2): string		1196
-nim	`$`	vmath.html#$,Mat3	proc `$`(a`gensym301: Mat3): string		1197
-nim	`$`	vmath.html#$,Mat4	proc `$`(a`gensym301: Mat4): string		1200
-nim	dmat2	vmath.html#dmat2,float64,float64,float64,float64	proc dmat2(m00`gensym363, m01`gensym363, m10`gensym363, m11`gensym363: float64): DMat2		1124
-nim	dmat3	vmath.html#dmat3,float64,float64,float64,float64,float64,float64,float64,float64,float64	proc dmat3(m00`gensym363, m01`gensym363, m02`gensym363, m10`gensym363, m11`gensym363,\n      m12`gensym363, m20`gensym363, m21`gensym363, m22`gensym363: float64): DMat3		1131
-nim	dmat4	vmath.html#dmat4,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64	proc dmat4(m00`gensym363, m01`gensym363, m02`gensym363, m03`gensym363, m10`gensym363,\n      m11`gensym363, m12`gensym363, m13`gensym363, m20`gensym363, m21`gensym363,\n      m22`gensym363, m23`gensym363, m30`gensym363, m31`gensym363, m32`gensym363,\n      m33`gensym363: float64): DMat4		1140
-nim	dmat2	vmath.html#dmat2,,	proc dmat2(a`gensym363, b`gensym363: GVec2[float64]): DMat2		1158
-nim	dmat3	vmath.html#dmat3,,,	proc dmat3(a`gensym363, b`gensym363, c`gensym363: GVec3[float64]): DMat3		1163
-nim	dmat4	vmath.html#dmat4,,,,	proc dmat4(a`gensym363, b`gensym363, c`gensym363, d`gensym363: GVec4[float64]): DMat4		1169
-nim	dmat2	vmath.html#dmat2_2	proc dmat2(): DMat2		1177
-nim	dmat3	vmath.html#dmat3_2	proc dmat3(): DMat3		1182
-nim	dmat4	vmath.html#dmat4_2	proc dmat4(): DMat4		1188
-nim	`$`	vmath.html#$,DMat2	proc `$`(a`gensym363: DMat2): string		1196
-nim	`$`	vmath.html#$,DMat3	proc `$`(a`gensym363: DMat3): string		1197
-nim	`$`	vmath.html#$,DMat4	proc `$`(a`gensym363: DMat4): string		1201
-nim	`~=`	vmath.html#~=,GMat2[T],GMat2[T]	proc `~=`[T](a, b: GMat2[T]): bool		1203
-nim	`~=`	vmath.html#~=,GMat3[T],GMat3[T]	proc `~=`[T](a, b: GMat3[T]): bool		1206
-nim	`~=`	vmath.html#~=,GMat4[T],GMat4[T]	proc `~=`[T](a, b: GMat4[T]): bool		1209
-nim	pos	vmath.html#pos,GMat3[T]	proc pos[T](a: GMat3[T]): GVec2[T]		1212
-nim	pos=	vmath.html#pos=,GMat3[T],GVec2[T]	proc pos=[T](a: var GMat3[T]; pos: GVec2[T])		1215
-nim	forward	vmath.html#forward,GMat4[T]	proc forward[T](a: GMat4[T]): GVec3[T]		1219
-nim	back	vmath.html#back,GMat4[T]	proc back[T](a: GMat4[T]): GVec3[T]		1225
-nim	left	vmath.html#left,GMat4[T]	proc left[T](a: GMat4[T]): GVec3[T]		1229
-nim	right	vmath.html#right,GMat4[T]	proc right[T](a: GMat4[T]): GVec3[T]		1235
-nim	up	vmath.html#up,GMat4[T]	proc up[T](a: GMat4[T]): GVec3[T]		1239
-nim	down	vmath.html#down,GMat4[T]	proc down[T](a: GMat4[T]): GVec3[T]		1245
-nim	pos	vmath.html#pos,GMat4[T]	proc pos[T](a: GMat4[T]): GVec3[T]		1249
-nim	pos=	vmath.html#pos=,GMat4[T],GVec3[T]	proc pos=[T](a: var GMat4[T]; pos: GVec3[T])		1253
-nim	`*`	vmath.html#*,GMat2[T],GMat2[T]	proc `*`[T](a, b: GMat2[T]): GMat2[T]		1259
-nim	`*`	vmath.html#*,GMat3[T],GMat3[T]	proc `*`[T](a, b: GMat3[T]): GMat3[T]		1266
-nim	`*`	vmath.html#*,GMat2[T],GVec2[T]	proc `*`[T](a: GMat2[T]; b: GVec2[T]): GVec2[T]		1279
-nim	`*`	vmath.html#*,GMat3[T],GVec2[T]	proc `*`[T](a: GMat3[T]; b: GVec2[T]): GVec2[T]		1285
-nim	`*`	vmath.html#*,GMat3[T],GVec3[T]	proc `*`[T](a: GMat3[T]; b: GVec3[T]): GVec3[T]		1291
-nim	`*`	vmath.html#*,GMat4[T],GMat4[T]	proc `*`[T](a, b: GMat4[T]): GMat4[T]		1298
-nim	`*`	vmath.html#*,GMat4[T],GVec3[T]	proc `*`[T](a: GMat4[T]; b: GVec3[T]): GVec3[T]		1355
-nim	`*`	vmath.html#*,GMat4[T],GVec4[T]	proc `*`[T](a: GMat4[T]; b: GVec4[T]): GVec4[T]		1362
-nim	transpose	vmath.html#transpose,GMat2[T]	proc transpose[T](a: GMat2[T]): GMat2[T]		1370
-nim	transpose	vmath.html#transpose,GMat3[T]	proc transpose[T](a: GMat3[T]): GMat3[T]		1377
-nim	transpose	vmath.html#transpose,GMat4[T]	proc transpose[T](a: GMat4[T]): GMat4[T]		1385
-nim	determinant	vmath.html#determinant,GMat2[T]	proc determinant[T](a: GMat2[T]): T		1394
-nim	determinant	vmath.html#determinant,GMat3[T]	proc determinant[T](a: GMat3[T]): T		1398
-nim	determinant	vmath.html#determinant,GMat4[T]	proc determinant[T](a: GMat4[T]): T		1406
-nim	inverse	vmath.html#inverse,GMat2[T]	proc inverse[T](a: GMat2[T]): GMat2[T]		1434
-nim	inverse	vmath.html#inverse,GMat3[T]	proc inverse[T](a: GMat3[T]): GMat3[T]		1442
-nim	inverse	vmath.html#inverse,GMat4[T]	proc inverse[T](a: GMat4[T]): GMat4[T]		1459
-nim	scale	vmath.html#scale,GVec2[T]	proc scale[T](v: GVec2[T]): GMat3[T]		1516
-nim	scale	vmath.html#scale,GVec3[T]	proc scale[T](v: GVec3[T]): GMat4[T]		1524
-nim	translate	vmath.html#translate,GVec2[T]	proc translate[T](v: GVec2[T]): GMat3[T]		1533
-nim	translate	vmath.html#translate,GVec3[T]	proc translate[T](v: GVec3[T]): GMat4[T]		1541
-nim	rotate	vmath.html#rotate,T	proc rotate[T](angle: T): GMat3[T]		1550
-nim	rotationOnly	vmath.html#rotationOnly,GMat4[T]	proc rotationOnly[T](a: GMat4[T]): GMat4[T]		1562
-nim	rotateX	vmath.html#rotateX,T	proc rotateX[T](angle: T): GMat4[T]		1568
-nim	rotateY	vmath.html#rotateY,T	proc rotateY[T](angle: T): GMat4[T]		1591
-nim	rotateZ	vmath.html#rotateZ,T	proc rotateZ[T](angle: T): GMat4[T]		1614
-nim	toAngles	vmath.html#toAngles,GVec3[T]	proc toAngles[T](a: GVec3[T]): GVec3[T]		1637
-nim	toAngles	vmath.html#toAngles,GVec3[T],GVec3[T]	proc toAngles[T](origin, target: GVec3[T]): GVec3[T]		1651
-nim	toAngles	vmath.html#toAngles,GMat4[T]	proc toAngles[T](m: GMat4[T]): GVec3[T]		1659
-nim	fromAngles	vmath.html#fromAngles,GVec3[T]	proc fromAngles[T](a: GVec3[T]): GMat4[T]		1676
-nim	frustum	vmath.html#frustum,T,T,T,T,T,T	proc frustum[T](left, right, bottom, top, near, far: T): GMat4[T]		1681
-nim	perspective	vmath.html#perspective,T,T,T,T	proc perspective[T](fovy, aspect, near, far: T): GMat4[T]		1708
-nim	ortho	vmath.html#ortho,T,T,T,T,T,T	proc ortho[T](left, right, bottom, top, near, far: T): GMat4[T]		1715
-nim	lookAt	vmath.html#lookAt,GVec3[T],GVec3[T],GVec3[T]	proc lookAt[T](eye, center, up: GVec3[T]): GMat4[T]		1742
-nim	lookAt	vmath.html#lookAt,GVec3[T],GVec3[T]	proc lookAt[T](eye, center: GVec3[T]): GMat4[T]		1823
-nim	angle	vmath.html#angle,GVec2[T]	proc angle[T](a: GVec2[T]): T		1827
-nim	angle	vmath.html#angle,S,S	proc angle[T; S: GVec2[T] | GVec3[T]](a, b: S): T		1831
-nim	Quat	vmath.html#Quat	type Quat		1842
-nim	DQuat	vmath.html#DQuat	type DQuat		1843
-nim	genQuatConstructor	vmath.html#genQuatConstructor.t,untyped,untyped,untyped	template genQuatConstructor(lower, upper, typ: untyped)		1845
-nim	quat	vmath.html#quat_2	proc quat(): Quat		1847
-nim	quat	vmath.html#quat,float32,float32,float32,float32	proc quat(x`gensym426, y`gensym426, z`gensym426, w`gensym426: float32): Quat		1848
-nim	quat	vmath.html#quat,float32	proc quat(x`gensym426: float32): Quat		1849
-nim	quat	vmath.html#quat_3	proc quat[T](x`gensym426: GVec4[T]): Quat		1853
-nim	dquat	vmath.html#dquat_2	proc dquat(): DQuat		1847
-nim	dquat	vmath.html#dquat,float64,float64,float64,float64	proc dquat(x`gensym430, y`gensym430, z`gensym430, w`gensym430: float64): DQuat		1848
-nim	dquat	vmath.html#dquat,float64	proc dquat(x`gensym430: float64): DQuat		1849
-nim	dquat	vmath.html#dquat_3	proc dquat[T](x`gensym430: GVec4[T]): DQuat		1854
-nim	fromAxisAngle	vmath.html#fromAxisAngle,GVec3[T],T	proc fromAxisAngle[T](axis: GVec3[T]; angle: T): GVec4[T]		1856
-nim	toAxisAngle	vmath.html#toAxisAngle,GVec4[T]	proc toAxisAngle[T](q: GVec4[T]): (GVec3[T], T)		1868
-nim	quatInverse	vmath.html#quatInverse,GVec4[T]	proc quatInverse[T](q: GVec4[T]): GVec4[T]		1877
-nim	orthogonal	vmath.html#orthogonal,GVec3[T]	proc orthogonal[T](v: GVec3[T]): GVec3[T]		1883
-nim	fromTwoVectors	vmath.html#fromTwoVectors,GVec3[T],GVec3[T]	proc fromTwoVectors[T](a, b: GVec3[T]): GVec4[T]		1899
-nim	nlerp	vmath.html#nlerp,Quat,Quat,float32	proc nlerp(a: Quat; b: Quat; v: float32): Quat		1921
-nim	slerp	vmath.html#slerp,GVec4[T],GVec4[T],T	proc slerp[T](a, b: GVec4[T]; t: T): GVec4[T]		1927
-nim	quat	vmath.html#quat,GMat4[T]	proc quat[T](m: GMat4[T]): GVec4[T]		1949
-nim	mat4	vmath.html#mat4,GVec4[T]	proc mat4[T](q: GVec4[T]): GMat4[T]		2010
-nim	mat4	vmath.html#mat4,DMat4	proc mat4(m: DMat4): Mat4		2045
-nim	mat4	vmath.html#mat4,Mat4	proc mat4(m: Mat4): Mat4		2064
-nim	dmat4	vmath.html#dmat4,Mat4	proc dmat4(m: Mat4): DMat4		2068
-nim	dmat4	vmath.html#dmat4,DMat4	proc dmat4(m: DMat4): DMat4		2087
-nim	rotate	vmath.html#rotate,T,GVec3[T]	proc rotate[T](angle: T; axis: GVec3[T]): GMat4[T]		2091
-nim	quatRotateX	vmath.html#quatRotateX,T	proc quatRotateX[T](angle: T): GVec4[T]		2095
-nim	quatRotateY	vmath.html#quatRotateY,T	proc quatRotateY[T](angle: T): GVec4[T]		2099
-nim	quatRotateZ	vmath.html#quatRotateZ,T	proc quatRotateZ[T](angle: T): GVec4[T]		2103
-nim	quatMultiply	vmath.html#quatMultiply,GVec4[T],GVec4[T]	proc quatMultiply[T](a: GVec4[T]; b: GVec4[T]): GVec4[T]		2107
-nim	quatRotate	vmath.html#quatRotate,GVec4[T],GVec3[T]	proc quatRotate[T](q: GVec4[T]; v: GVec3[T]): GVec3[T]		2116
-nim	`*`	vmath.html#*,GVec4[T],GVec3[T]	proc `*`[T](a: GVec4[T]; b: GVec3[T]): GVec3[T]		2124
-nim	toAngles	vmath.html#toAngles,GVec4[T]	proc toAngles[T](m: GVec4[T]): GVec3[T]		2128
-nimgrp	ivec2	vmath.html#ivec2-procs-all	proc		626
-nimgrp	log2	vmath.html#log2-procs-all	proc		868
-nimgrp	dot	vmath.html#dot-procs-all	proc		941
-nimgrp	equal	vmath.html#equal-procs-all	proc		899
-nimgrp	-	vmath.html#--procs-all	proc		789
-nimgrp	ceil	vmath.html#ceil-procs-all	proc		871
-nimgrp	floor	vmath.html#floor-procs-all	proc		870
-nimgrp	sinh	vmath.html#sinh-procs-all	proc		861
-nimgrp	notequal	vmath.html#notEqual-procs-all	proc		900
-nimgrp	!=	vmath.html#!=-procs-all	proc		715
-nimgrp	ivec3	vmath.html#ivec3-procs-all	proc		627
-nimgrp	lessthanequal	vmath.html#lessThanEqual-procs-all	proc		896
-nimgrp	lengthsq	vmath.html#lengthSq-procs-all	proc		923
-nimgrp	greaterthanequal	vmath.html#greaterThanEqual-procs-all	proc		898
-nimgrp	uvec2	vmath.html#uvec2-procs-all	proc		626
-nimgrp	dmat3	vmath.html#dmat3-procs-all	proc		1131
-nimgrp	dir	vmath.html#dir-procs-all	proc		1038
-nimgrp	mod	vmath.html#mod-procs-all	proc		792
-nimgrp	uvec3	vmath.html#uvec3-procs-all	proc		627
-nimgrp	inversesqrt	vmath.html#inversesqrt-procs-all	proc		550
-nimgrp	min	vmath.html#min-procs-all	proc		1047
-nimgrp	bvec4	vmath.html#bvec4-procs-all	proc		628
-nimgrp	pos=	vmath.html#pos=-procs-all	proc		1215
-nimgrp	dvec3	vmath.html#dvec3-procs-all	proc		627
-nimgrp	toangles	vmath.html#toAngles-procs-all	proc		1637
-nimgrp	==	vmath.html#==-procs-all	proc		706
-nimgrp	/	vmath.html#/-procs-all	proc		791
-nimgrp	exp	vmath.html#exp-procs-all	proc		866
-nimgrp	dquat	vmath.html#dquat-procs-all	proc		1847
-nimgrp	dmat4	vmath.html#dmat4-procs-all	proc		1140
-nimgrp	mix	vmath.html#mix-procs-all	proc		554
-nimgrp	*	vmath.html#*-procs-all	proc		790
-nimgrp	arctan	vmath.html#arctan-procs-all	proc		860
-nimgrp	*=	vmath.html#*=-procs-all	proc		829
-nimgrp	determinant	vmath.html#determinant-procs-all	proc		1394
-nimgrp	transpose	vmath.html#transpose-procs-all	proc		1370
-nimgrp	zmod	vmath.html#zmod-procs-all	proc		616
-nimgrp	uvec4	vmath.html#uvec4-procs-all	proc		628
-nimgrp	arccos	vmath.html#arccos-procs-all	proc		859
-nimgrp	bvec3	vmath.html#bvec3-procs-all	proc		627
-nimgrp	quantize	vmath.html#quantize-procs-all	proc		535
-nimgrp	ivec4	vmath.html#ivec4-procs-all	proc		628
-nimgrp	mat2	vmath.html#mat2-procs-all	proc		1124
-nimgrp	+=	vmath.html#+=-procs-all	proc		827
-nimgrp	tanh	vmath.html#tanh-procs-all	proc		863
-nimgrp	length	vmath.html#length-procs-all	proc		914
-nimgrp	inverse	vmath.html#inverse-procs-all	proc		1434
-nimgrp	dvec2	vmath.html#dvec2-procs-all	proc		626
-nimgrp	max	vmath.html#max-procs-all	proc		1065
-nimgrp	abs	vmath.html#abs-procs-all	proc		872
-nimgrp	mat3	vmath.html#mat3-procs-all	proc		1131
-nimgrp	step	vmath.html#step-procs-all	proc		561
-nimgrp	bvec2	vmath.html#bvec2-procs-all	proc		626
-nimgrp	smoothstep	vmath.html#smoothstep-procs-all	proc		565
-nimgrp	-=	vmath.html#-=-procs-all	proc		828
-nimgrp	dvec4	vmath.html#dvec4-procs-all	proc		628
-nimgrp	greaterthan	vmath.html#greaterThan-procs-all	proc		897
-nimgrp	angle	vmath.html#angle-procs-all	proc		1827
-nimgrp	vec4	vmath.html#vec4-procs-all	proc		628
-nimgrp	vec3	vmath.html#vec3-procs-all	proc		627
-nimgrp	todegrees	vmath.html#toDegrees-procs-all	proc		600
-nimgrp	lookat	vmath.html#lookAt-procs-all	proc		1742
-nimgrp	tan	vmath.html#tan-procs-all	proc		857
-nimgrp	sin	vmath.html#sin-procs-all	proc		855
-nimgrp	clamp	vmath.html#clamp-procs-all	proc		1083
-nimgrp	translate	vmath.html#translate-procs-all	proc		1533
-nimgrp	exp2	vmath.html#exp2-procs-all	proc		864
-nimgrp	pos	vmath.html#pos-procs-all	proc		1212
-nimgrp	fract	vmath.html#fract-procs-all	proc		539
-nimgrp	scale	vmath.html#scale-procs-all	proc		1516
-nimgrp	ln	vmath.html#ln-procs-all	proc		867
-nimgrp	+	vmath.html#+-procs-all	proc		788
-nimgrp	sqrt	vmath.html#sqrt-procs-all	proc		869
-nimgrp	~=	vmath.html#~=-procs-all	proc		522
-nimgrp	$	vmath.html#$-procs-all	proc		653
-nimgrp	trunc	vmath.html#trunc-procs-all	proc		873
-nimgrp	arcsin	vmath.html#arcsin-procs-all	proc		858
-nimgrp	mat4	vmath.html#mat4-procs-all	proc		1140
-nimgrp	div	vmath.html#div-procs-all	proc		793
-nimgrp	quat	vmath.html#quat-procs-all	proc		1847
-nimgrp	lessthan	vmath.html#lessThan-procs-all	proc		895
-nimgrp	/=	vmath.html#/=-procs-all	proc		830
-nimgrp	toradians	vmath.html#toRadians-procs-all	proc		596
-nimgrp	cos	vmath.html#cos-procs-all	proc		856
-nimgrp	vec2	vmath.html#vec2-procs-all	proc		626
-nimgrp	rotate	vmath.html#rotate-procs-all	proc		1550
-nimgrp	cosh	vmath.html#cosh-procs-all	proc		862
-nimgrp	dmat2	vmath.html#dmat2-procs-all	proc		1124
+nim	len	vmath.html#len,GVec2[T]	proc len[T](a: GVec2[T]): int		523
+nim	len	vmath.html#len,GVec3[T]	proc len[T](a: GVec3[T]): int		527
+nim	len	vmath.html#len,GVec4[T]	proc len[T](a: GVec4[T]): int		531
+nim	len	vmath.html#len,GMat2[T]	proc len[T](a: GMat2[T]): int		535
+nim	len	vmath.html#len,GMat3[T]	proc len[T](a: GMat3[T]): int		539
+nim	len	vmath.html#len,GMat4[T]	proc len[T](a: GMat4[T]): int		543
+nim	`~=`	vmath.html#~=,T,T	proc `~=`[T: SomeFloat](a, b: T): bool		547
+nim	between	vmath.html#between,T,T,T	proc between[T](value, min, max: T): bool		552
+nim	sign	vmath.html#sign,T	proc sign[T](v: T): T		556
+nim	quantize	vmath.html#quantize,T,T	proc quantize[T: SomeFloat](v, n: T): T		560
+nim	fract	vmath.html#fract,T	proc fract[T: SomeFloat](v: T): T		564
+nim	fractional	vmath.html#fractional,T	proc fractional[T: SomeFloat](v: T): T		571
+nim	inversesqrt	vmath.html#inversesqrt,T	proc inversesqrt[T: float32 | float64](v: T): T		575
+nim	mix	vmath.html#mix,T,T,T	proc mix[T: SomeFloat](a, b, v: T): T		579
+nim	step	vmath.html#step,T,T	proc step[T: SomeFloat](edge, x: T): T		586
+nim	smoothstep	vmath.html#smoothstep,T,T,T	proc smoothstep[T: SomeFloat](edge0, edge1, x: T): T		590
+nim	fixAngle	vmath.html#fixAngle,T	proc fixAngle[T: SomeFloat](angle: T): T		595
+nim	angleBetween	vmath.html#angleBetween,T,T	proc angleBetween[T: SomeFloat](a, b: T): T		603
+nim	turnAngle	vmath.html#turnAngle,T,T,T	proc turnAngle[T: SomeFloat](a, b, speed: T): T		608
+nim	toRadians	vmath.html#toRadians,T	proc toRadians[T: SomeFloat](deg: T): T		621
+nim	toDegrees	vmath.html#toDegrees,T	proc toDegrees[T: SomeFloat](rad: T): T		625
+nim	toRadians	vmath.html#toRadians,SomeInteger	proc toRadians(deg: SomeInteger): float32		629
+nim	toDegrees	vmath.html#toDegrees,SomeInteger	proc toDegrees(deg: SomeInteger): float32		633
+nim	isNan	vmath.html#isNan,SomeFloat	proc isNan(x: SomeFloat): bool		637
+nim	zmod	vmath.html#zmod,float32,float32	proc zmod(a, b: float32): float32		641
+nim	genVecConstructor	vmath.html#genVecConstructor.t,untyped,untyped,untyped	template genVecConstructor(lower, upper, typ: untyped)		648
+nim	bvec2	vmath.html#bvec2_2	proc bvec2(): BVec2		651
+nim	bvec3	vmath.html#bvec3_2	proc bvec3(): BVec3		652
+nim	bvec4	vmath.html#bvec4_2	proc bvec4(): BVec4		653
+nim	bvec2	vmath.html#bvec2,bool,bool	proc bvec2(x`gensym6, y`gensym6: bool): BVec2		655
+nim	bvec3	vmath.html#bvec3,bool,bool,bool	proc bvec3(x`gensym6, y`gensym6, z`gensym6: bool): BVec3		656
+nim	bvec4	vmath.html#bvec4,bool,bool,bool,bool	proc bvec4(x`gensym6, y`gensym6, z`gensym6, w`gensym6: bool): BVec4		657
+nim	bvec2	vmath.html#bvec2,bool	proc bvec2(x`gensym6: bool): BVec2		659
+nim	bvec3	vmath.html#bvec3,bool	proc bvec3(x`gensym6: bool): BVec3		660
+nim	bvec4	vmath.html#bvec4,bool	proc bvec4(x`gensym6: bool): BVec4		661
+nim	bvec2	vmath.html#bvec2_3	proc bvec2[T](x`gensym6: GVec2[T]): BVec2		663
+nim	bvec3	vmath.html#bvec3_3	proc bvec3[T](x`gensym6: GVec3[T]): BVec3		665
+nim	bvec4	vmath.html#bvec4_3	proc bvec4[T](x`gensym6: GVec4[T]): BVec4		667
+nim	bvec3	vmath.html#bvec3,,T	proc bvec3[T](x`gensym6: GVec2[T]; z`gensym6: T = 0): BVec3		670
+nim	bvec4	vmath.html#bvec4,,T	proc bvec4[T](x`gensym6: GVec3[T]; w`gensym6: T = 0): BVec4		672
+nim	bvec4	vmath.html#bvec4,,	proc bvec4[T](a`gensym6, b`gensym6: GVec2[T]): BVec4		675
+nim	`$`	vmath.html#$,BVec2	proc `$`(a`gensym6: BVec2): string		678
+nim	`$`	vmath.html#$,BVec3	proc `$`(a`gensym6: BVec3): string		680
+nim	`$`	vmath.html#$,BVec4	proc `$`(a`gensym6: BVec4): string		685
+nim	ivec2	vmath.html#ivec2_2	proc ivec2(): IVec2		651
+nim	ivec3	vmath.html#ivec3_2	proc ivec3(): IVec3		652
+nim	ivec4	vmath.html#ivec4_2	proc ivec4(): IVec4		653
+nim	ivec2	vmath.html#ivec2,int32,int32	proc ivec2(x`gensym28, y`gensym28: int32): IVec2		655
+nim	ivec3	vmath.html#ivec3,int32,int32,int32	proc ivec3(x`gensym28, y`gensym28, z`gensym28: int32): IVec3		656
+nim	ivec4	vmath.html#ivec4,int32,int32,int32,int32	proc ivec4(x`gensym28, y`gensym28, z`gensym28, w`gensym28: int32): IVec4		657
+nim	ivec2	vmath.html#ivec2,int32	proc ivec2(x`gensym28: int32): IVec2		659
+nim	ivec3	vmath.html#ivec3,int32	proc ivec3(x`gensym28: int32): IVec3		660
+nim	ivec4	vmath.html#ivec4,int32	proc ivec4(x`gensym28: int32): IVec4		661
+nim	ivec2	vmath.html#ivec2_3	proc ivec2[T](x`gensym28: GVec2[T]): IVec2		663
+nim	ivec3	vmath.html#ivec3_3	proc ivec3[T](x`gensym28: GVec3[T]): IVec3		665
+nim	ivec4	vmath.html#ivec4_3	proc ivec4[T](x`gensym28: GVec4[T]): IVec4		667
+nim	ivec3	vmath.html#ivec3,,T	proc ivec3[T](x`gensym28: GVec2[T]; z`gensym28: T = 0): IVec3		670
+nim	ivec4	vmath.html#ivec4,,T	proc ivec4[T](x`gensym28: GVec3[T]; w`gensym28: T = 0): IVec4		672
+nim	ivec4	vmath.html#ivec4,,	proc ivec4[T](a`gensym28, b`gensym28: GVec2[T]): IVec4		675
+nim	`$`	vmath.html#$,IVec2	proc `$`(a`gensym28: IVec2): string		678
+nim	`$`	vmath.html#$,IVec3	proc `$`(a`gensym28: IVec3): string		680
+nim	`$`	vmath.html#$,IVec4	proc `$`(a`gensym28: IVec4): string		686
+nim	uvec2	vmath.html#uvec2_2	proc uvec2(): UVec2		651
+nim	uvec3	vmath.html#uvec3_2	proc uvec3(): UVec3		652
+nim	uvec4	vmath.html#uvec4_2	proc uvec4(): UVec4		653
+nim	uvec2	vmath.html#uvec2,uint32,uint32	proc uvec2(x`gensym50, y`gensym50: uint32): UVec2		655
+nim	uvec3	vmath.html#uvec3,uint32,uint32,uint32	proc uvec3(x`gensym50, y`gensym50, z`gensym50: uint32): UVec3		656
+nim	uvec4	vmath.html#uvec4,uint32,uint32,uint32,uint32	proc uvec4(x`gensym50, y`gensym50, z`gensym50, w`gensym50: uint32): UVec4		657
+nim	uvec2	vmath.html#uvec2,uint32	proc uvec2(x`gensym50: uint32): UVec2		659
+nim	uvec3	vmath.html#uvec3,uint32	proc uvec3(x`gensym50: uint32): UVec3		660
+nim	uvec4	vmath.html#uvec4,uint32	proc uvec4(x`gensym50: uint32): UVec4		661
+nim	uvec2	vmath.html#uvec2_3	proc uvec2[T](x`gensym50: GVec2[T]): UVec2		663
+nim	uvec3	vmath.html#uvec3_3	proc uvec3[T](x`gensym50: GVec3[T]): UVec3		665
+nim	uvec4	vmath.html#uvec4_3	proc uvec4[T](x`gensym50: GVec4[T]): UVec4		667
+nim	uvec3	vmath.html#uvec3,,T	proc uvec3[T](x`gensym50: GVec2[T]; z`gensym50: T = 0): UVec3		670
+nim	uvec4	vmath.html#uvec4,,T	proc uvec4[T](x`gensym50: GVec3[T]; w`gensym50: T = 0): UVec4		672
+nim	uvec4	vmath.html#uvec4,,	proc uvec4[T](a`gensym50, b`gensym50: GVec2[T]): UVec4		675
+nim	`$`	vmath.html#$,UVec2	proc `$`(a`gensym50: UVec2): string		678
+nim	`$`	vmath.html#$,UVec3	proc `$`(a`gensym50: UVec3): string		680
+nim	`$`	vmath.html#$,UVec4	proc `$`(a`gensym50: UVec4): string		687
+nim	vec2	vmath.html#vec2_2	proc vec2(): Vec2		651
+nim	vec3	vmath.html#vec3_2	proc vec3(): Vec3		652
+nim	vec4	vmath.html#vec4_2	proc vec4(): Vec4		653
+nim	vec2	vmath.html#vec2,float32,float32	proc vec2(x`gensym72, y`gensym72: float32): Vec2		655
+nim	vec3	vmath.html#vec3,float32,float32,float32	proc vec3(x`gensym72, y`gensym72, z`gensym72: float32): Vec3		656
+nim	vec4	vmath.html#vec4,float32,float32,float32,float32	proc vec4(x`gensym72, y`gensym72, z`gensym72, w`gensym72: float32): Vec4		657
+nim	vec2	vmath.html#vec2,float32	proc vec2(x`gensym72: float32): Vec2		659
+nim	vec3	vmath.html#vec3,float32	proc vec3(x`gensym72: float32): Vec3		660
+nim	vec4	vmath.html#vec4,float32	proc vec4(x`gensym72: float32): Vec4		661
+nim	vec2	vmath.html#vec2_3	proc vec2[T](x`gensym72: GVec2[T]): Vec2		663
+nim	vec3	vmath.html#vec3_3	proc vec3[T](x`gensym72: GVec3[T]): Vec3		665
+nim	vec4	vmath.html#vec4_3	proc vec4[T](x`gensym72: GVec4[T]): Vec4		667
+nim	vec3	vmath.html#vec3,,T	proc vec3[T](x`gensym72: GVec2[T]; z`gensym72: T = 0): Vec3		670
+nim	vec4	vmath.html#vec4,,T	proc vec4[T](x`gensym72: GVec3[T]; w`gensym72: T = 0): Vec4		672
+nim	vec4	vmath.html#vec4,,	proc vec4[T](a`gensym72, b`gensym72: GVec2[T]): Vec4		675
+nim	`$`	vmath.html#$,Vec2	proc `$`(a`gensym72: Vec2): string		678
+nim	`$`	vmath.html#$,Vec3	proc `$`(a`gensym72: Vec3): string		680
+nim	`$`	vmath.html#$,Vec4	proc `$`(a`gensym72: Vec4): string		688
+nim	dvec2	vmath.html#dvec2_2	proc dvec2(): DVec2		651
+nim	dvec3	vmath.html#dvec3_2	proc dvec3(): DVec3		652
+nim	dvec4	vmath.html#dvec4_2	proc dvec4(): DVec4		653
+nim	dvec2	vmath.html#dvec2,float64,float64	proc dvec2(x`gensym94, y`gensym94: float64): DVec2		655
+nim	dvec3	vmath.html#dvec3,float64,float64,float64	proc dvec3(x`gensym94, y`gensym94, z`gensym94: float64): DVec3		656
+nim	dvec4	vmath.html#dvec4,float64,float64,float64,float64	proc dvec4(x`gensym94, y`gensym94, z`gensym94, w`gensym94: float64): DVec4		657
+nim	dvec2	vmath.html#dvec2,float64	proc dvec2(x`gensym94: float64): DVec2		659
+nim	dvec3	vmath.html#dvec3,float64	proc dvec3(x`gensym94: float64): DVec3		660
+nim	dvec4	vmath.html#dvec4,float64	proc dvec4(x`gensym94: float64): DVec4		661
+nim	dvec2	vmath.html#dvec2_3	proc dvec2[T](x`gensym94: GVec2[T]): DVec2		663
+nim	dvec3	vmath.html#dvec3_3	proc dvec3[T](x`gensym94: GVec3[T]): DVec3		665
+nim	dvec4	vmath.html#dvec4_3	proc dvec4[T](x`gensym94: GVec4[T]): DVec4		667
+nim	dvec3	vmath.html#dvec3,,T	proc dvec3[T](x`gensym94: GVec2[T]; z`gensym94: T = 0): DVec3		670
+nim	dvec4	vmath.html#dvec4,,T	proc dvec4[T](x`gensym94: GVec3[T]; w`gensym94: T = 0): DVec4		672
+nim	dvec4	vmath.html#dvec4,,	proc dvec4[T](a`gensym94, b`gensym94: GVec2[T]): DVec4		675
+nim	`$`	vmath.html#$,DVec2	proc `$`(a`gensym94: DVec2): string		678
+nim	`$`	vmath.html#$,DVec3	proc `$`(a`gensym94: DVec3): string		680
+nim	`$`	vmath.html#$,DVec4	proc `$`(a`gensym94: DVec4): string		689
+nim	vec2	vmath.html#vec2,IVec2	proc vec2(ivec2: IVec2): Vec2		691
+nim	vec2	vmath.html#vec2,UVec2	proc vec2(uvec2: UVec2): Vec2		694
+nim	ivec2	vmath.html#ivec2,UVec2	proc ivec2(uvec2: UVec2): IVec2		697
+nim	uvec2	vmath.html#uvec2,IVec2	proc uvec2(ivec2: IVec2): UVec2		700
+nim	vec3	vmath.html#vec3,IVec3	proc vec3(ivec3: IVec3): Vec3		703
+nim	vec3	vmath.html#vec3,UVec3	proc vec3(uvec3: UVec3): Vec3		706
+nim	ivec3	vmath.html#ivec3,UVec3	proc ivec3(uvec3: UVec3): IVec3		709
+nim	uvec3	vmath.html#uvec3,IVec3	proc uvec3(ivec3: IVec3): UVec3		712
+nim	vec4	vmath.html#vec4,IVec4	proc vec4(ivec4: IVec4): Vec4		715
+nim	vec4	vmath.html#vec4,UVec4	proc vec4(uvec4: UVec4): Vec4		718
+nim	ivec4	vmath.html#ivec4,UVec4	proc ivec4(uvec4: UVec4): IVec4		721
+nim	uvec4	vmath.html#uvec4,IVec4	proc uvec4(ivec4: IVec4): UVec4		724
+nim	`==`	vmath.html#==,GVec2[T],GVec2[T]	proc `==`[T](a, b: GVec2[T]): bool		731
+nim	`==`	vmath.html#==,GVec3[T],GVec3[T]	proc `==`[T](a, b: GVec3[T]): bool		734
+nim	`==`	vmath.html#==,GVec4[T],GVec4[T]	proc `==`[T](a, b: GVec4[T]): bool		737
+nim	`!=`	vmath.html#!=,GVec2[T],GVec2[T]	proc `!=`[T](a, b: GVec2[T]): bool		740
+nim	`!=`	vmath.html#!=,GVec3[T],GVec3[T]	proc `!=`[T](a, b: GVec3[T]): bool		743
+nim	`!=`	vmath.html#!=,GVec4[T],GVec4[T]	proc `!=`[T](a, b: GVec4[T]): bool		746
+nim	`+`	vmath.html#+,,	proc `+`[T](a`gensym152, b`gensym152: GVec2[T]): GVec2[T]		750
+nim	`+`	vmath.html#+,,_2	proc `+`[T](a`gensym152, b`gensym152: GVec3[T]): GVec3[T]		756
+nim	`+`	vmath.html#+,,_3	proc `+`[T](a`gensym152, b`gensym152: GVec4[T]): GVec4[T]		763
+nim	`+`	vmath.html#+,,T	proc `+`[T](a`gensym152: GVec2[T]; b`gensym152: T): GVec2[T]		771
+nim	`+`	vmath.html#+,,T_2	proc `+`[T](a`gensym152: GVec3[T]; b`gensym152: T): GVec3[T]		777
+nim	`+`	vmath.html#+,,T_3	proc `+`[T](a`gensym152: GVec4[T]; b`gensym152: T): GVec4[T]		784
+nim	`+`	vmath.html#+,T,	proc `+`[T](a`gensym152: T; b`gensym152: GVec2[T]): GVec2[T]		792
+nim	`+`	vmath.html#+,T,_2	proc `+`[T](a`gensym152: T; b`gensym152: GVec3[T]): GVec3[T]		798
+nim	`+`	vmath.html#+,T,_3	proc `+`[T](a`gensym152: T; b`gensym152: GVec4[T]): GVec4[T]		813
+nim	`-`	vmath.html#-,,	proc `-`[T](a`gensym153, b`gensym153: GVec2[T]): GVec2[T]		750
+nim	`-`	vmath.html#-,,_2	proc `-`[T](a`gensym153, b`gensym153: GVec3[T]): GVec3[T]		756
+nim	`-`	vmath.html#-,,_3	proc `-`[T](a`gensym153, b`gensym153: GVec4[T]): GVec4[T]		763
+nim	`-`	vmath.html#-,,T	proc `-`[T](a`gensym153: GVec2[T]; b`gensym153: T): GVec2[T]		771
+nim	`-`	vmath.html#-,,T_2	proc `-`[T](a`gensym153: GVec3[T]; b`gensym153: T): GVec3[T]		777
+nim	`-`	vmath.html#-,,T_3	proc `-`[T](a`gensym153: GVec4[T]; b`gensym153: T): GVec4[T]		784
+nim	`-`	vmath.html#-,T,	proc `-`[T](a`gensym153: T; b`gensym153: GVec2[T]): GVec2[T]		792
+nim	`-`	vmath.html#-,T,_2	proc `-`[T](a`gensym153: T; b`gensym153: GVec3[T]): GVec3[T]		798
+nim	`-`	vmath.html#-,T,_3	proc `-`[T](a`gensym153: T; b`gensym153: GVec4[T]): GVec4[T]		814
+nim	`*`	vmath.html#*,,	proc `*`[T](a`gensym154, b`gensym154: GVec2[T]): GVec2[T]		750
+nim	`*`	vmath.html#*,,_2	proc `*`[T](a`gensym154, b`gensym154: GVec3[T]): GVec3[T]		756
+nim	`*`	vmath.html#*,,_3	proc `*`[T](a`gensym154, b`gensym154: GVec4[T]): GVec4[T]		763
+nim	`*`	vmath.html#*,,T	proc `*`[T](a`gensym154: GVec2[T]; b`gensym154: T): GVec2[T]		771
+nim	`*`	vmath.html#*,,T_2	proc `*`[T](a`gensym154: GVec3[T]; b`gensym154: T): GVec3[T]		777
+nim	`*`	vmath.html#*,,T_3	proc `*`[T](a`gensym154: GVec4[T]; b`gensym154: T): GVec4[T]		784
+nim	`*`	vmath.html#*,T,	proc `*`[T](a`gensym154: T; b`gensym154: GVec2[T]): GVec2[T]		792
+nim	`*`	vmath.html#*,T,_2	proc `*`[T](a`gensym154: T; b`gensym154: GVec3[T]): GVec3[T]		798
+nim	`*`	vmath.html#*,T,_3	proc `*`[T](a`gensym154: T; b`gensym154: GVec4[T]): GVec4[T]		815
+nim	`/`	vmath.html#/,,	proc `/`[T](a`gensym155, b`gensym155: GVec2[T]): GVec2[T]		750
+nim	`/`	vmath.html#/,,_2	proc `/`[T](a`gensym155, b`gensym155: GVec3[T]): GVec3[T]		756
+nim	`/`	vmath.html#/,,_3	proc `/`[T](a`gensym155, b`gensym155: GVec4[T]): GVec4[T]		763
+nim	`/`	vmath.html#/,,T	proc `/`[T](a`gensym155: GVec2[T]; b`gensym155: T): GVec2[T]		771
+nim	`/`	vmath.html#/,,T_2	proc `/`[T](a`gensym155: GVec3[T]; b`gensym155: T): GVec3[T]		777
+nim	`/`	vmath.html#/,,T_3	proc `/`[T](a`gensym155: GVec4[T]; b`gensym155: T): GVec4[T]		784
+nim	`/`	vmath.html#/,T,	proc `/`[T](a`gensym155: T; b`gensym155: GVec2[T]): GVec2[T]		792
+nim	`/`	vmath.html#/,T,_2	proc `/`[T](a`gensym155: T; b`gensym155: GVec3[T]): GVec3[T]		798
+nim	`/`	vmath.html#/,T,_3	proc `/`[T](a`gensym155: T; b`gensym155: GVec4[T]): GVec4[T]		816
+nim	`mod`	vmath.html#mod,,	proc `mod`[T](a`gensym156, b`gensym156: GVec2[T]): GVec2[T]		750
+nim	`mod`	vmath.html#mod,,_2	proc `mod`[T](a`gensym156, b`gensym156: GVec3[T]): GVec3[T]		756
+nim	`mod`	vmath.html#mod,,_3	proc `mod`[T](a`gensym156, b`gensym156: GVec4[T]): GVec4[T]		763
+nim	`mod`	vmath.html#mod,,T	proc `mod`[T](a`gensym156: GVec2[T]; b`gensym156: T): GVec2[T]		771
+nim	`mod`	vmath.html#mod,,T_2	proc `mod`[T](a`gensym156: GVec3[T]; b`gensym156: T): GVec3[T]		777
+nim	`mod`	vmath.html#mod,,T_3	proc `mod`[T](a`gensym156: GVec4[T]; b`gensym156: T): GVec4[T]		784
+nim	`mod`	vmath.html#mod,T,	proc `mod`[T](a`gensym156: T; b`gensym156: GVec2[T]): GVec2[T]		792
+nim	`mod`	vmath.html#mod,T,_2	proc `mod`[T](a`gensym156: T; b`gensym156: GVec3[T]): GVec3[T]		798
+nim	`mod`	vmath.html#mod,T,_3	proc `mod`[T](a`gensym156: T; b`gensym156: GVec4[T]): GVec4[T]		817
+nim	`div`	vmath.html#div,,	proc `div`[T](a`gensym157, b`gensym157: GVec2[T]): GVec2[T]		750
+nim	`div`	vmath.html#div,,_2	proc `div`[T](a`gensym157, b`gensym157: GVec3[T]): GVec3[T]		756
+nim	`div`	vmath.html#div,,_3	proc `div`[T](a`gensym157, b`gensym157: GVec4[T]): GVec4[T]		763
+nim	`div`	vmath.html#div,,T	proc `div`[T](a`gensym157: GVec2[T]; b`gensym157: T): GVec2[T]		771
+nim	`div`	vmath.html#div,,T_2	proc `div`[T](a`gensym157: GVec3[T]; b`gensym157: T): GVec3[T]		777
+nim	`div`	vmath.html#div,,T_3	proc `div`[T](a`gensym157: GVec4[T]; b`gensym157: T): GVec4[T]		784
+nim	`div`	vmath.html#div,T,	proc `div`[T](a`gensym157: T; b`gensym157: GVec2[T]): GVec2[T]		792
+nim	`div`	vmath.html#div,T,_2	proc `div`[T](a`gensym157: T; b`gensym157: GVec3[T]): GVec3[T]		798
+nim	`div`	vmath.html#div,T,_3	proc `div`[T](a`gensym157: T; b`gensym157: GVec4[T]): GVec4[T]		818
+nim	zmod	vmath.html#zmod,,	proc zmod[T](a`gensym158, b`gensym158: GVec2[T]): GVec2[T]		750
+nim	zmod	vmath.html#zmod,,_2	proc zmod[T](a`gensym158, b`gensym158: GVec3[T]): GVec3[T]		756
+nim	zmod	vmath.html#zmod,,_3	proc zmod[T](a`gensym158, b`gensym158: GVec4[T]): GVec4[T]		763
+nim	zmod	vmath.html#zmod,,T	proc zmod[T](a`gensym158: GVec2[T]; b`gensym158: T): GVec2[T]		771
+nim	zmod	vmath.html#zmod,,T_2	proc zmod[T](a`gensym158: GVec3[T]; b`gensym158: T): GVec3[T]		777
+nim	zmod	vmath.html#zmod,,T_3	proc zmod[T](a`gensym158: GVec4[T]; b`gensym158: T): GVec4[T]		784
+nim	zmod	vmath.html#zmod,T,	proc zmod[T](a`gensym158: T; b`gensym158: GVec2[T]): GVec2[T]		792
+nim	zmod	vmath.html#zmod,T,_2	proc zmod[T](a`gensym158: T; b`gensym158: GVec3[T]): GVec3[T]		798
+nim	zmod	vmath.html#zmod,T,_3	proc zmod[T](a`gensym158: T; b`gensym158: GVec4[T]): GVec4[T]		819
+nim	`+=`	vmath.html#+=,,	proc `+=`[T](a`gensym159: var GVec2[T]; b`gensym159: GVec2[T])		822
+nim	`+=`	vmath.html#+=,,_2	proc `+=`[T](a`gensym159: var GVec3[T]; b`gensym159: GVec3[T])		826
+nim	`+=`	vmath.html#+=,,_3	proc `+=`[T](a`gensym159: var GVec4[T]; b`gensym159: GVec4[T])		831
+nim	`+=`	vmath.html#+=,,T	proc `+=`[T](a`gensym159: var GVec2[T]; b`gensym159: T)		837
+nim	`+=`	vmath.html#+=,,T_2	proc `+=`[T](a`gensym159: var GVec3[T]; b`gensym159: T)		841
+nim	`+=`	vmath.html#+=,,T_3	proc `+=`[T](a`gensym159: var GVec4[T]; b`gensym159: T)		852
+nim	`-=`	vmath.html#-=,,	proc `-=`[T](a`gensym160: var GVec2[T]; b`gensym160: GVec2[T])		822
+nim	`-=`	vmath.html#-=,,_2	proc `-=`[T](a`gensym160: var GVec3[T]; b`gensym160: GVec3[T])		826
+nim	`-=`	vmath.html#-=,,_3	proc `-=`[T](a`gensym160: var GVec4[T]; b`gensym160: GVec4[T])		831
+nim	`-=`	vmath.html#-=,,T	proc `-=`[T](a`gensym160: var GVec2[T]; b`gensym160: T)		837
+nim	`-=`	vmath.html#-=,,T_2	proc `-=`[T](a`gensym160: var GVec3[T]; b`gensym160: T)		841
+nim	`-=`	vmath.html#-=,,T_3	proc `-=`[T](a`gensym160: var GVec4[T]; b`gensym160: T)		853
+nim	`*=`	vmath.html#*=,,	proc `*=`[T](a`gensym161: var GVec2[T]; b`gensym161: GVec2[T])		822
+nim	`*=`	vmath.html#*=,,_2	proc `*=`[T](a`gensym161: var GVec3[T]; b`gensym161: GVec3[T])		826
+nim	`*=`	vmath.html#*=,,_3	proc `*=`[T](a`gensym161: var GVec4[T]; b`gensym161: GVec4[T])		831
+nim	`*=`	vmath.html#*=,,T	proc `*=`[T](a`gensym161: var GVec2[T]; b`gensym161: T)		837
+nim	`*=`	vmath.html#*=,,T_2	proc `*=`[T](a`gensym161: var GVec3[T]; b`gensym161: T)		841
+nim	`*=`	vmath.html#*=,,T_3	proc `*=`[T](a`gensym161: var GVec4[T]; b`gensym161: T)		854
+nim	`/=`	vmath.html#/=,,	proc `/=`[T](a`gensym162: var GVec2[T]; b`gensym162: GVec2[T])		822
+nim	`/=`	vmath.html#/=,,_2	proc `/=`[T](a`gensym162: var GVec3[T]; b`gensym162: GVec3[T])		826
+nim	`/=`	vmath.html#/=,,_3	proc `/=`[T](a`gensym162: var GVec4[T]; b`gensym162: GVec4[T])		831
+nim	`/=`	vmath.html#/=,,T	proc `/=`[T](a`gensym162: var GVec2[T]; b`gensym162: T)		837
+nim	`/=`	vmath.html#/=,,T_2	proc `/=`[T](a`gensym162: var GVec3[T]; b`gensym162: T)		841
+nim	`/=`	vmath.html#/=,,T_3	proc `/=`[T](a`gensym162: var GVec4[T]; b`gensym162: T)		855
+nim	`-`	vmath.html#-	proc `-`[T](v`gensym163: GVec2[T]): GVec2[T]		858
+nim	`-`	vmath.html#-_2	proc `-`[T](v`gensym163: GVec3[T]): GVec3[T]		864
+nim	`-`	vmath.html#-_3	proc `-`[T](v`gensym163: GVec4[T]): GVec4[T]		879
+nim	sin	vmath.html#sin	proc sin[T](v`gensym164: GVec2[T]): GVec2[T]		858
+nim	sin	vmath.html#sin_2	proc sin[T](v`gensym164: GVec3[T]): GVec3[T]		864
+nim	sin	vmath.html#sin_3	proc sin[T](v`gensym164: GVec4[T]): GVec4[T]		880
+nim	cos	vmath.html#cos	proc cos[T](v`gensym165: GVec2[T]): GVec2[T]		858
+nim	cos	vmath.html#cos_2	proc cos[T](v`gensym165: GVec3[T]): GVec3[T]		864
+nim	cos	vmath.html#cos_3	proc cos[T](v`gensym165: GVec4[T]): GVec4[T]		881
+nim	tan	vmath.html#tan	proc tan[T](v`gensym166: GVec2[T]): GVec2[T]		858
+nim	tan	vmath.html#tan_2	proc tan[T](v`gensym166: GVec3[T]): GVec3[T]		864
+nim	tan	vmath.html#tan_3	proc tan[T](v`gensym166: GVec4[T]): GVec4[T]		882
+nim	arcsin	vmath.html#arcsin	proc arcsin[T](v`gensym167: GVec2[T]): GVec2[T]		858
+nim	arcsin	vmath.html#arcsin_2	proc arcsin[T](v`gensym167: GVec3[T]): GVec3[T]		864
+nim	arcsin	vmath.html#arcsin_3	proc arcsin[T](v`gensym167: GVec4[T]): GVec4[T]		883
+nim	arccos	vmath.html#arccos	proc arccos[T](v`gensym168: GVec2[T]): GVec2[T]		858
+nim	arccos	vmath.html#arccos_2	proc arccos[T](v`gensym168: GVec3[T]): GVec3[T]		864
+nim	arccos	vmath.html#arccos_3	proc arccos[T](v`gensym168: GVec4[T]): GVec4[T]		884
+nim	arctan	vmath.html#arctan	proc arctan[T](v`gensym169: GVec2[T]): GVec2[T]		858
+nim	arctan	vmath.html#arctan_2	proc arctan[T](v`gensym169: GVec3[T]): GVec3[T]		864
+nim	arctan	vmath.html#arctan_3	proc arctan[T](v`gensym169: GVec4[T]): GVec4[T]		885
+nim	sinh	vmath.html#sinh	proc sinh[T](v`gensym170: GVec2[T]): GVec2[T]		858
+nim	sinh	vmath.html#sinh_2	proc sinh[T](v`gensym170: GVec3[T]): GVec3[T]		864
+nim	sinh	vmath.html#sinh_3	proc sinh[T](v`gensym170: GVec4[T]): GVec4[T]		886
+nim	cosh	vmath.html#cosh	proc cosh[T](v`gensym171: GVec2[T]): GVec2[T]		858
+nim	cosh	vmath.html#cosh_2	proc cosh[T](v`gensym171: GVec3[T]): GVec3[T]		864
+nim	cosh	vmath.html#cosh_3	proc cosh[T](v`gensym171: GVec4[T]): GVec4[T]		887
+nim	tanh	vmath.html#tanh	proc tanh[T](v`gensym172: GVec2[T]): GVec2[T]		858
+nim	tanh	vmath.html#tanh_2	proc tanh[T](v`gensym172: GVec3[T]): GVec3[T]		864
+nim	tanh	vmath.html#tanh_3	proc tanh[T](v`gensym172: GVec4[T]): GVec4[T]		888
+nim	exp2	vmath.html#exp2	proc exp2[T](v`gensym173: GVec2[T]): GVec2[T]		858
+nim	exp2	vmath.html#exp2_2	proc exp2[T](v`gensym173: GVec3[T]): GVec3[T]		864
+nim	exp2	vmath.html#exp2_3	proc exp2[T](v`gensym173: GVec4[T]): GVec4[T]		889
+nim	inversesqrt	vmath.html#inversesqrt	proc inversesqrt[T](v`gensym174: GVec2[T]): GVec2[T]		858
+nim	inversesqrt	vmath.html#inversesqrt_2	proc inversesqrt[T](v`gensym174: GVec3[T]): GVec3[T]		864
+nim	inversesqrt	vmath.html#inversesqrt_3	proc inversesqrt[T](v`gensym174: GVec4[T]): GVec4[T]		890
+nim	exp	vmath.html#exp	proc exp[T](v`gensym175: GVec2[T]): GVec2[T]		858
+nim	exp	vmath.html#exp_2	proc exp[T](v`gensym175: GVec3[T]): GVec3[T]		864
+nim	exp	vmath.html#exp_3	proc exp[T](v`gensym175: GVec4[T]): GVec4[T]		891
+nim	ln	vmath.html#ln	proc ln[T](v`gensym176: GVec2[T]): GVec2[T]		858
+nim	ln	vmath.html#ln_2	proc ln[T](v`gensym176: GVec3[T]): GVec3[T]		864
+nim	ln	vmath.html#ln_3	proc ln[T](v`gensym176: GVec4[T]): GVec4[T]		892
+nim	log2	vmath.html#log2	proc log2[T](v`gensym177: GVec2[T]): GVec2[T]		858
+nim	log2	vmath.html#log2_2	proc log2[T](v`gensym177: GVec3[T]): GVec3[T]		864
+nim	log2	vmath.html#log2_3	proc log2[T](v`gensym177: GVec4[T]): GVec4[T]		893
+nim	sqrt	vmath.html#sqrt	proc sqrt[T](v`gensym178: GVec2[T]): GVec2[T]		858
+nim	sqrt	vmath.html#sqrt_2	proc sqrt[T](v`gensym178: GVec3[T]): GVec3[T]		864
+nim	sqrt	vmath.html#sqrt_3	proc sqrt[T](v`gensym178: GVec4[T]): GVec4[T]		894
+nim	floor	vmath.html#floor	proc floor[T](v`gensym179: GVec2[T]): GVec2[T]		858
+nim	floor	vmath.html#floor_2	proc floor[T](v`gensym179: GVec3[T]): GVec3[T]		864
+nim	floor	vmath.html#floor_3	proc floor[T](v`gensym179: GVec4[T]): GVec4[T]		895
+nim	ceil	vmath.html#ceil	proc ceil[T](v`gensym180: GVec2[T]): GVec2[T]		858
+nim	ceil	vmath.html#ceil_2	proc ceil[T](v`gensym180: GVec3[T]): GVec3[T]		864
+nim	ceil	vmath.html#ceil_3	proc ceil[T](v`gensym180: GVec4[T]): GVec4[T]		896
+nim	abs	vmath.html#abs	proc abs[T](v`gensym181: GVec2[T]): GVec2[T]		858
+nim	abs	vmath.html#abs_2	proc abs[T](v`gensym181: GVec3[T]): GVec3[T]		864
+nim	abs	vmath.html#abs_3	proc abs[T](v`gensym181: GVec4[T]): GVec4[T]		897
+nim	trunc	vmath.html#trunc	proc trunc[T](v`gensym182: GVec2[T]): GVec2[T]		858
+nim	trunc	vmath.html#trunc_2	proc trunc[T](v`gensym182: GVec3[T]): GVec3[T]		864
+nim	trunc	vmath.html#trunc_3	proc trunc[T](v`gensym182: GVec4[T]): GVec4[T]		898
+nim	fract	vmath.html#fract	proc fract[T](v`gensym183: GVec2[T]): GVec2[T]		858
+nim	fract	vmath.html#fract_2	proc fract[T](v`gensym183: GVec3[T]): GVec3[T]		864
+nim	fract	vmath.html#fract_3	proc fract[T](v`gensym183: GVec4[T]): GVec4[T]		899
+nim	quantize	vmath.html#quantize	proc quantize[T](v`gensym184: GVec2[T]): GVec2[T]		858
+nim	quantize	vmath.html#quantize_2	proc quantize[T](v`gensym184: GVec3[T]): GVec3[T]		864
+nim	quantize	vmath.html#quantize_3	proc quantize[T](v`gensym184: GVec4[T]): GVec4[T]		900
+nim	toRadians	vmath.html#toRadians	proc toRadians[T](v`gensym185: GVec2[T]): GVec2[T]		858
+nim	toRadians	vmath.html#toRadians_2	proc toRadians[T](v`gensym185: GVec3[T]): GVec3[T]		864
+nim	toRadians	vmath.html#toRadians_3	proc toRadians[T](v`gensym185: GVec4[T]): GVec4[T]		901
+nim	toDegrees	vmath.html#toDegrees	proc toDegrees[T](v`gensym186: GVec2[T]): GVec2[T]		858
+nim	toDegrees	vmath.html#toDegrees_2	proc toDegrees[T](v`gensym186: GVec3[T]): GVec3[T]		864
+nim	toDegrees	vmath.html#toDegrees_3	proc toDegrees[T](v`gensym186: GVec4[T]): GVec4[T]		902
+nim	lessThan	vmath.html#lessThan,,	proc lessThan[T](a`gensym187, b`gensym187: GVec2[T]): BVec2		905
+nim	lessThan	vmath.html#lessThan,,_2	proc lessThan[T](a`gensym187, b`gensym187: GVec3[T]): BVec3		909
+nim	lessThan	vmath.html#lessThan,,_3	proc lessThan[T](a`gensym187, b`gensym187: GVec4[T]): BVec4		920
+nim	lessThanEqual	vmath.html#lessThanEqual,,	proc lessThanEqual[T](a`gensym188, b`gensym188: GVec2[T]): BVec2		905
+nim	lessThanEqual	vmath.html#lessThanEqual,,_2	proc lessThanEqual[T](a`gensym188, b`gensym188: GVec3[T]): BVec3		909
+nim	lessThanEqual	vmath.html#lessThanEqual,,_3	proc lessThanEqual[T](a`gensym188, b`gensym188: GVec4[T]): BVec4		921
+nim	greaterThan	vmath.html#greaterThan,,	proc greaterThan[T](a`gensym189, b`gensym189: GVec2[T]): BVec2		905
+nim	greaterThan	vmath.html#greaterThan,,_2	proc greaterThan[T](a`gensym189, b`gensym189: GVec3[T]): BVec3		909
+nim	greaterThan	vmath.html#greaterThan,,_3	proc greaterThan[T](a`gensym189, b`gensym189: GVec4[T]): BVec4		922
+nim	greaterThanEqual	vmath.html#greaterThanEqual,,	proc greaterThanEqual[T](a`gensym199, b`gensym199: GVec2[T]): BVec2		905
+nim	greaterThanEqual	vmath.html#greaterThanEqual,,_2	proc greaterThanEqual[T](a`gensym199, b`gensym199: GVec3[T]): BVec3		909
+nim	greaterThanEqual	vmath.html#greaterThanEqual,,_3	proc greaterThanEqual[T](a`gensym199, b`gensym199: GVec4[T]): BVec4		923
+nim	equal	vmath.html#equal,,	proc equal[T](a`gensym209, b`gensym209: GVec2[T]): BVec2		905
+nim	equal	vmath.html#equal,,_2	proc equal[T](a`gensym209, b`gensym209: GVec3[T]): BVec3		909
+nim	equal	vmath.html#equal,,_3	proc equal[T](a`gensym209, b`gensym209: GVec4[T]): BVec4		924
+nim	notEqual	vmath.html#notEqual,,	proc notEqual[T](a`gensym210, b`gensym210: GVec2[T]): BVec2		905
+nim	notEqual	vmath.html#notEqual,,_2	proc notEqual[T](a`gensym210, b`gensym210: GVec3[T]): BVec3		909
+nim	notEqual	vmath.html#notEqual,,_3	proc notEqual[T](a`gensym210, b`gensym210: GVec4[T]): BVec4		925
+nim	`~=`	vmath.html#~=,GVec2[T],GVec2[T]	proc `~=`[T](a, b: GVec2[T]): bool		927
+nim	`~=`	vmath.html#~=,GVec3[T],GVec3[T]	proc `~=`[T](a, b: GVec3[T]): bool		931
+nim	`~=`	vmath.html#~=,GVec4[T],GVec4[T]	proc `~=`[T](a, b: GVec4[T]): bool		935
+nim	length	vmath.html#length,GVec2[T]	proc length[T](a: GVec2[T]): T		939
+nim	length	vmath.html#length,GVec3[T]	proc length[T](a: GVec3[T]): T		942
+nim	length	vmath.html#length,GVec4[T]	proc length[T](a: GVec4[T]): T		945
+nim	lengthSq	vmath.html#lengthSq,GVec2[T]	proc lengthSq[T](a: GVec2[T]): T		948
+nim	lengthSq	vmath.html#lengthSq,GVec3[T]	proc lengthSq[T](a: GVec3[T]): T		951
+nim	lengthSq	vmath.html#lengthSq,GVec4[T]	proc lengthSq[T](a: GVec4[T]): T		954
+nim	normalize	vmath.html#normalize,GVec234[T]	proc normalize[T](a: GVec234[T]): type(a)		957
+nim	mix	vmath.html#mix,GVec234[T: SomeFloat],GVec234[T: SomeFloat],T	proc mix[T: SomeFloat](a, b: GVec234[T]; v: T): type(a)		960
+nim	lerp	vmath.html#lerp,V,V,T	proc lerp[V, T](a, b: V; v: T): type(a)		963
+nim	dot	vmath.html#dot,GVec2[T],GVec2[T]	proc dot[T](a, b: GVec2[T]): T		966
+nim	dot	vmath.html#dot,GVec3[T],GVec3[T]	proc dot[T](a, b: GVec3[T]): T		969
+nim	dot	vmath.html#dot,GVec4[T],GVec4[T]	proc dot[T](a, b: GVec4[T]): T		972
+nim	mix	vmath.html#mix,GVec2[T: SomeFloat],GVec2[T: SomeFloat],GVec2[T: SomeFloat]	proc mix[T: SomeFloat](a, b, v: GVec2[T]): type(a)		975
+nim	mix	vmath.html#mix,GVec3[T: SomeFloat],GVec3[T: SomeFloat],GVec3[T: SomeFloat]	proc mix[T: SomeFloat](a, b, v: GVec3[T]): type(a)		979
+nim	mix	vmath.html#mix,GVec4[T: SomeFloat],GVec4[T: SomeFloat],GVec4[T: SomeFloat]	proc mix[T: SomeFloat](a, b, v: GVec4[T]): type(a)		984
+nim	step	vmath.html#step,GVec2[T: SomeFloat],GVec2[T: SomeFloat]	proc step[T: SomeFloat](edge, x: GVec2[T]): type(x)		990
+nim	step	vmath.html#step,GVec3[T: SomeFloat],GVec3[T: SomeFloat]	proc step[T: SomeFloat](edge, x: GVec3[T]): type(x)		994
+nim	step	vmath.html#step,GVec4[T: SomeFloat],GVec4[T: SomeFloat]	proc step[T: SomeFloat](edge, x: GVec4[T]): type(x)		999
+nim	step	vmath.html#step,T,GVec2[T: SomeFloat]	proc step[T: SomeFloat](edge: T; x: GVec2[T]): type(x)		1005
+nim	step	vmath.html#step,T,GVec3[T: SomeFloat]	proc step[T: SomeFloat](edge: T; x: GVec3[T]): type(x)		1009
+nim	step	vmath.html#step,T,GVec4[T: SomeFloat]	proc step[T: SomeFloat](edge: T; x: GVec4[T]): type(x)		1014
+nim	smoothstep	vmath.html#smoothstep,GVec2[T: SomeFloat],GVec2[T: SomeFloat],GVec2[T: SomeFloat]	proc smoothstep[T: SomeFloat](edge0, edge1, x: GVec2[T]): type(x)		1020
+nim	smoothstep	vmath.html#smoothstep,GVec3[T: SomeFloat],GVec3[T: SomeFloat],GVec3[T: SomeFloat]	proc smoothstep[T: SomeFloat](edge0, edge1, x: GVec3[T]): type(x)		1024
+nim	smoothstep	vmath.html#smoothstep,GVec4[T: SomeFloat],GVec4[T: SomeFloat],GVec4[T: SomeFloat]	proc smoothstep[T: SomeFloat](edge0, edge1, x: GVec4[T]): type(x)		1029
+nim	smoothstep	vmath.html#smoothstep,T,T,GVec2[T: SomeFloat]	proc smoothstep[T: SomeFloat](edge0, edge1: T; x: GVec2[T]): type(x)		1035
+nim	smoothstep	vmath.html#smoothstep,T,T,GVec3[T: SomeFloat]	proc smoothstep[T: SomeFloat](edge0, edge1: T; x: GVec3[T]): type(x)		1039
+nim	smoothstep	vmath.html#smoothstep,T,T,GVec4[T: SomeFloat]	proc smoothstep[T: SomeFloat](edge0, edge1: T; x: GVec4[T]): type(x)		1044
+nim	cross	vmath.html#cross,GVec3[T],GVec3[T]	proc cross[T](a, b: GVec3[T]): GVec3[T]		1050
+nim	dist	vmath.html#dist,GVec234[T],GVec234[T]	proc dist[T](at, to: GVec234[T]): T		1057
+nim	distSq	vmath.html#distSq,GVec234[T],GVec234[T]	proc distSq[T](at, to: GVec234[T]): T		1060
+nim	dir	vmath.html#dir,GVec234[T],GVec234[T]	proc dir[T](at, to: GVec234[T]): type(to)		1063
+nim	dir	vmath.html#dir,T	proc dir[T](angle: T): GVec2[T]		1066
+nim	min	vmath.html#min,Vec2,Vec2	proc min(a, b: Vec2): Vec2		1072
+nim	min	vmath.html#min,Vec3,Vec3	proc min(a, b: Vec3): Vec3		1075
+nim	min	vmath.html#min,Vec4,Vec4	proc min(a, b: Vec4): Vec4		1078
+nim	min	vmath.html#min,Vec2,float32	proc min(a: Vec2; b: float32): Vec2		1081
+nim	min	vmath.html#min,Vec3,float32	proc min(a: Vec3; b: float32): Vec3		1084
+nim	min	vmath.html#min,Vec4,float32	proc min(a: Vec4; b: float32): Vec4		1087
+nim	max	vmath.html#max,Vec2,Vec2	proc max(a, b: Vec2): Vec2		1090
+nim	max	vmath.html#max,Vec3,Vec3	proc max(a, b: Vec3): Vec3		1093
+nim	max	vmath.html#max,Vec4,Vec4	proc max(a, b: Vec4): Vec4		1096
+nim	max	vmath.html#max,Vec2,float32	proc max(a: Vec2; b: float32): Vec2		1099
+nim	max	vmath.html#max,Vec3,float32	proc max(a: Vec3; b: float32): Vec3		1102
+nim	max	vmath.html#max,Vec4,float32	proc max(a: Vec4; b: float32): Vec4		1105
+nim	clamp	vmath.html#clamp,Vec2,Vec2,Vec2	proc clamp(v, min, max: Vec2): Vec2		1108
+nim	clamp	vmath.html#clamp,Vec3,Vec3,Vec3	proc clamp(v, min, max: Vec3): Vec3		1111
+nim	clamp	vmath.html#clamp,Vec4,Vec4,Vec4	proc clamp(v, min, max: Vec4): Vec4		1114
+nim	clamp	vmath.html#clamp,Vec2,float32,float32	proc clamp(v: Vec2; min, max: float32): Vec2		1117
+nim	clamp	vmath.html#clamp,Vec3,float32,float32	proc clamp(v: Vec3; min, max: float32): Vec3		1120
+nim	clamp	vmath.html#clamp,Vec4,float32,float32	proc clamp(v: Vec4; min, max: float32): Vec4		1123
+nim	Mat2	vmath.html#Mat2	type Mat2		1127
+nim	Mat3	vmath.html#Mat3	type Mat3		1128
+nim	Mat4	vmath.html#Mat4	type Mat4		1129
+nim	DMat2	vmath.html#DMat2	type DMat2		1131
+nim	DMat3	vmath.html#DMat3	type DMat3		1132
+nim	DMat4	vmath.html#DMat4	type DMat4		1133
+nim	genMatConstructor	vmath.html#genMatConstructor.t,untyped,untyped,untyped	template genMatConstructor(lower, upper, T: untyped)		1147
+nim	mat2	vmath.html#mat2,float32,float32,float32,float32	proc mat2(m00`gensym301, m01`gensym301, m10`gensym301, m11`gensym301: float32): Mat2		1149
+nim	mat3	vmath.html#mat3,float32,float32,float32,float32,float32,float32,float32,float32,float32	proc mat3(m00`gensym301, m01`gensym301, m02`gensym301, m10`gensym301, m11`gensym301,\n     m12`gensym301, m20`gensym301, m21`gensym301, m22`gensym301: float32): Mat3		1156
+nim	mat4	vmath.html#mat4,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32,float32	proc mat4(m00`gensym301, m01`gensym301, m02`gensym301, m03`gensym301, m10`gensym301,\n     m11`gensym301, m12`gensym301, m13`gensym301, m20`gensym301, m21`gensym301,\n     m22`gensym301, m23`gensym301, m30`gensym301, m31`gensym301, m32`gensym301,\n     m33`gensym301: float32): Mat4		1165
+nim	mat2	vmath.html#mat2,,	proc mat2(a`gensym301, b`gensym301: GVec2[float32]): Mat2		1183
+nim	mat3	vmath.html#mat3,,,	proc mat3(a`gensym301, b`gensym301, c`gensym301: GVec3[float32]): Mat3		1188
+nim	mat4	vmath.html#mat4,,,,	proc mat4(a`gensym301, b`gensym301, c`gensym301, d`gensym301: GVec4[float32]): Mat4		1194
+nim	mat2	vmath.html#mat2_2	proc mat2(): Mat2		1202
+nim	mat3	vmath.html#mat3_2	proc mat3(): Mat3		1207
+nim	mat4	vmath.html#mat4_2	proc mat4(): Mat4		1213
+nim	`$`	vmath.html#$,Mat2	proc `$`(a`gensym301: Mat2): string		1221
+nim	`$`	vmath.html#$,Mat3	proc `$`(a`gensym301: Mat3): string		1222
+nim	`$`	vmath.html#$,Mat4	proc `$`(a`gensym301: Mat4): string		1225
+nim	dmat2	vmath.html#dmat2,float64,float64,float64,float64	proc dmat2(m00`gensym363, m01`gensym363, m10`gensym363, m11`gensym363: float64): DMat2		1149
+nim	dmat3	vmath.html#dmat3,float64,float64,float64,float64,float64,float64,float64,float64,float64	proc dmat3(m00`gensym363, m01`gensym363, m02`gensym363, m10`gensym363, m11`gensym363,\n      m12`gensym363, m20`gensym363, m21`gensym363, m22`gensym363: float64): DMat3		1156
+nim	dmat4	vmath.html#dmat4,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64,float64	proc dmat4(m00`gensym363, m01`gensym363, m02`gensym363, m03`gensym363, m10`gensym363,\n      m11`gensym363, m12`gensym363, m13`gensym363, m20`gensym363, m21`gensym363,\n      m22`gensym363, m23`gensym363, m30`gensym363, m31`gensym363, m32`gensym363,\n      m33`gensym363: float64): DMat4		1165
+nim	dmat2	vmath.html#dmat2,,	proc dmat2(a`gensym363, b`gensym363: GVec2[float64]): DMat2		1183
+nim	dmat3	vmath.html#dmat3,,,	proc dmat3(a`gensym363, b`gensym363, c`gensym363: GVec3[float64]): DMat3		1188
+nim	dmat4	vmath.html#dmat4,,,,	proc dmat4(a`gensym363, b`gensym363, c`gensym363, d`gensym363: GVec4[float64]): DMat4		1194
+nim	dmat2	vmath.html#dmat2_2	proc dmat2(): DMat2		1202
+nim	dmat3	vmath.html#dmat3_2	proc dmat3(): DMat3		1207
+nim	dmat4	vmath.html#dmat4_2	proc dmat4(): DMat4		1213
+nim	`$`	vmath.html#$,DMat2	proc `$`(a`gensym363: DMat2): string		1221
+nim	`$`	vmath.html#$,DMat3	proc `$`(a`gensym363: DMat3): string		1222
+nim	`$`	vmath.html#$,DMat4	proc `$`(a`gensym363: DMat4): string		1226
+nim	`~=`	vmath.html#~=,GMat2[T],GMat2[T]	proc `~=`[T](a, b: GMat2[T]): bool		1228
+nim	`~=`	vmath.html#~=,GMat3[T],GMat3[T]	proc `~=`[T](a, b: GMat3[T]): bool		1231
+nim	`~=`	vmath.html#~=,GMat4[T],GMat4[T]	proc `~=`[T](a, b: GMat4[T]): bool		1234
+nim	pos	vmath.html#pos,GMat3[T]	proc pos[T](a: GMat3[T]): GVec2[T]		1237
+nim	pos=	vmath.html#pos=,GMat3[T],GVec2[T]	proc pos=[T](a: var GMat3[T]; pos: GVec2[T])		1240
+nim	forward	vmath.html#forward,GMat4[T]	proc forward[T](a: GMat4[T]): GVec3[T]		1244
+nim	back	vmath.html#back,GMat4[T]	proc back[T](a: GMat4[T]): GVec3[T]		1250
+nim	left	vmath.html#left,GMat4[T]	proc left[T](a: GMat4[T]): GVec3[T]		1254
+nim	right	vmath.html#right,GMat4[T]	proc right[T](a: GMat4[T]): GVec3[T]		1260
+nim	up	vmath.html#up,GMat4[T]	proc up[T](a: GMat4[T]): GVec3[T]		1264
+nim	down	vmath.html#down,GMat4[T]	proc down[T](a: GMat4[T]): GVec3[T]		1270
+nim	pos	vmath.html#pos,GMat4[T]	proc pos[T](a: GMat4[T]): GVec3[T]		1274
+nim	pos=	vmath.html#pos=,GMat4[T],GVec3[T]	proc pos=[T](a: var GMat4[T]; pos: GVec3[T])		1278
+nim	`*`	vmath.html#*,GMat2[T],GMat2[T]	proc `*`[T](a, b: GMat2[T]): GMat2[T]		1284
+nim	`*`	vmath.html#*,GMat3[T],GMat3[T]	proc `*`[T](a, b: GMat3[T]): GMat3[T]		1291
+nim	`*`	vmath.html#*,GMat2[T],GVec2[T]	proc `*`[T](a: GMat2[T]; b: GVec2[T]): GVec2[T]		1304
+nim	`*`	vmath.html#*,GMat3[T],GVec2[T]	proc `*`[T](a: GMat3[T]; b: GVec2[T]): GVec2[T]		1310
+nim	`*`	vmath.html#*,GMat3[T],GVec3[T]	proc `*`[T](a: GMat3[T]; b: GVec3[T]): GVec3[T]		1316
+nim	`*`	vmath.html#*,GMat4[T],GMat4[T]	proc `*`[T](a, b: GMat4[T]): GMat4[T]		1323
+nim	`*`	vmath.html#*,GMat4[T],GVec3[T]	proc `*`[T](a: GMat4[T]; b: GVec3[T]): GVec3[T]		1380
+nim	`*`	vmath.html#*,GMat4[T],GVec4[T]	proc `*`[T](a: GMat4[T]; b: GVec4[T]): GVec4[T]		1387
+nim	transpose	vmath.html#transpose,GMat2[T]	proc transpose[T](a: GMat2[T]): GMat2[T]		1395
+nim	transpose	vmath.html#transpose,GMat3[T]	proc transpose[T](a: GMat3[T]): GMat3[T]		1402
+nim	transpose	vmath.html#transpose,GMat4[T]	proc transpose[T](a: GMat4[T]): GMat4[T]		1410
+nim	determinant	vmath.html#determinant,GMat2[T]	proc determinant[T](a: GMat2[T]): T		1419
+nim	determinant	vmath.html#determinant,GMat3[T]	proc determinant[T](a: GMat3[T]): T		1423
+nim	determinant	vmath.html#determinant,GMat4[T]	proc determinant[T](a: GMat4[T]): T		1431
+nim	inverse	vmath.html#inverse,GMat2[T]	proc inverse[T](a: GMat2[T]): GMat2[T]		1459
+nim	inverse	vmath.html#inverse,GMat3[T]	proc inverse[T](a: GMat3[T]): GMat3[T]		1467
+nim	inverse	vmath.html#inverse,GMat4[T]	proc inverse[T](a: GMat4[T]): GMat4[T]		1484
+nim	scale	vmath.html#scale,GVec2[T]	proc scale[T](v: GVec2[T]): GMat3[T]		1541
+nim	scale	vmath.html#scale,GVec3[T]	proc scale[T](v: GVec3[T]): GMat4[T]		1549
+nim	translate	vmath.html#translate,GVec2[T]	proc translate[T](v: GVec2[T]): GMat3[T]		1558
+nim	translate	vmath.html#translate,GVec3[T]	proc translate[T](v: GVec3[T]): GMat4[T]		1566
+nim	rotate	vmath.html#rotate,T	proc rotate[T](angle: T): GMat3[T]		1575
+nim	rotationOnly	vmath.html#rotationOnly,GMat4[T]	proc rotationOnly[T](a: GMat4[T]): GMat4[T]		1587
+nim	rotateX	vmath.html#rotateX,T	proc rotateX[T](angle: T): GMat4[T]		1593
+nim	rotateY	vmath.html#rotateY,T	proc rotateY[T](angle: T): GMat4[T]		1616
+nim	rotateZ	vmath.html#rotateZ,T	proc rotateZ[T](angle: T): GMat4[T]		1639
+nim	toAngles	vmath.html#toAngles,GVec3[T]	proc toAngles[T](a: GVec3[T]): GVec3[T]		1662
+nim	toAngles	vmath.html#toAngles,GVec3[T],GVec3[T]	proc toAngles[T](origin, target: GVec3[T]): GVec3[T]		1676
+nim	toAngles	vmath.html#toAngles,GMat4[T]	proc toAngles[T](m: GMat4[T]): GVec3[T]		1684
+nim	fromAngles	vmath.html#fromAngles,GVec3[T]	proc fromAngles[T](a: GVec3[T]): GMat4[T]		1701
+nim	frustum	vmath.html#frustum,T,T,T,T,T,T	proc frustum[T](left, right, bottom, top, near, far: T): GMat4[T]		1706
+nim	perspective	vmath.html#perspective,T,T,T,T	proc perspective[T](fovy, aspect, near, far: T): GMat4[T]		1733
+nim	ortho	vmath.html#ortho,T,T,T,T,T,T	proc ortho[T](left, right, bottom, top, near, far: T): GMat4[T]		1740
+nim	lookAt	vmath.html#lookAt,GVec3[T],GVec3[T],GVec3[T]	proc lookAt[T](eye, center, up: GVec3[T]): GMat4[T]		1767
+nim	lookAt	vmath.html#lookAt,GVec3[T],GVec3[T]	proc lookAt[T](eye, center: GVec3[T]): GMat4[T]		1848
+nim	angle	vmath.html#angle,GVec2[T]	proc angle[T](a: GVec2[T]): T		1852
+nim	angle	vmath.html#angle,S,S	proc angle[T; S: GVec2[T] | GVec3[T]](a, b: S): T		1856
+nim	Quat	vmath.html#Quat	type Quat		1867
+nim	DQuat	vmath.html#DQuat	type DQuat		1868
+nim	genQuatConstructor	vmath.html#genQuatConstructor.t,untyped,untyped,untyped	template genQuatConstructor(lower, upper, typ: untyped)		1870
+nim	quat	vmath.html#quat_2	proc quat(): Quat		1872
+nim	quat	vmath.html#quat,float32,float32,float32,float32	proc quat(x`gensym426, y`gensym426, z`gensym426, w`gensym426: float32): Quat		1873
+nim	quat	vmath.html#quat,float32	proc quat(x`gensym426: float32): Quat		1874
+nim	quat	vmath.html#quat_3	proc quat[T](x`gensym426: GVec4[T]): Quat		1878
+nim	dquat	vmath.html#dquat_2	proc dquat(): DQuat		1872
+nim	dquat	vmath.html#dquat,float64,float64,float64,float64	proc dquat(x`gensym430, y`gensym430, z`gensym430, w`gensym430: float64): DQuat		1873
+nim	dquat	vmath.html#dquat,float64	proc dquat(x`gensym430: float64): DQuat		1874
+nim	dquat	vmath.html#dquat_3	proc dquat[T](x`gensym430: GVec4[T]): DQuat		1879
+nim	fromAxisAngle	vmath.html#fromAxisAngle,GVec3[T],T	proc fromAxisAngle[T](axis: GVec3[T]; angle: T): GVec4[T]		1881
+nim	toAxisAngle	vmath.html#toAxisAngle,GVec4[T]	proc toAxisAngle[T](q: GVec4[T]): (GVec3[T], T)		1893
+nim	quatInverse	vmath.html#quatInverse,GVec4[T]	proc quatInverse[T](q: GVec4[T]): GVec4[T]		1902
+nim	orthogonal	vmath.html#orthogonal,GVec3[T]	proc orthogonal[T](v: GVec3[T]): GVec3[T]		1908
+nim	fromTwoVectors	vmath.html#fromTwoVectors,GVec3[T],GVec3[T]	proc fromTwoVectors[T](a, b: GVec3[T]): GVec4[T]		1924
+nim	nlerp	vmath.html#nlerp,Quat,Quat,float32	proc nlerp(a: Quat; b: Quat; v: float32): Quat		1946
+nim	slerp	vmath.html#slerp,GVec4[T],GVec4[T],T	proc slerp[T](a, b: GVec4[T]; t: T): GVec4[T]		1952
+nim	quat	vmath.html#quat,GMat4[T]	proc quat[T](m: GMat4[T]): GVec4[T]		1974
+nim	mat4	vmath.html#mat4,GVec4[T]	proc mat4[T](q: GVec4[T]): GMat4[T]		2035
+nim	mat4	vmath.html#mat4,DMat4	proc mat4(m: DMat4): Mat4		2070
+nim	mat4	vmath.html#mat4,Mat4	proc mat4(m: Mat4): Mat4		2089
+nim	dmat4	vmath.html#dmat4,Mat4	proc dmat4(m: Mat4): DMat4		2093
+nim	dmat4	vmath.html#dmat4,DMat4	proc dmat4(m: DMat4): DMat4		2112
+nim	rotate	vmath.html#rotate,T,GVec3[T]	proc rotate[T](angle: T; axis: GVec3[T]): GMat4[T]		2116
+nim	quatRotateX	vmath.html#quatRotateX,T	proc quatRotateX[T](angle: T): GVec4[T]		2120
+nim	quatRotateY	vmath.html#quatRotateY,T	proc quatRotateY[T](angle: T): GVec4[T]		2124
+nim	quatRotateZ	vmath.html#quatRotateZ,T	proc quatRotateZ[T](angle: T): GVec4[T]		2128
+nim	quatMultiply	vmath.html#quatMultiply,GVec4[T],GVec4[T]	proc quatMultiply[T](a: GVec4[T]; b: GVec4[T]): GVec4[T]		2132
+nim	quatRotate	vmath.html#quatRotate,GVec4[T],GVec3[T]	proc quatRotate[T](q: GVec4[T]; v: GVec3[T]): GVec3[T]		2141
+nim	`*`	vmath.html#*,GVec4[T],GVec3[T]	proc `*`[T](a: GVec4[T]; b: GVec3[T]): GVec3[T]		2149
+nim	toAngles	vmath.html#toAngles,GVec4[T]	proc toAngles[T](m: GVec4[T]): GVec3[T]		2153
+nimgrp	ivec2	vmath.html#ivec2-procs-all	proc		651
+nimgrp	log2	vmath.html#log2-procs-all	proc		893
+nimgrp	dot	vmath.html#dot-procs-all	proc		966
+nimgrp	equal	vmath.html#equal-procs-all	proc		924
+nimgrp	-	vmath.html#--procs-all	proc		814
+nimgrp	ceil	vmath.html#ceil-procs-all	proc		896
+nimgrp	floor	vmath.html#floor-procs-all	proc		895
+nimgrp	sinh	vmath.html#sinh-procs-all	proc		886
+nimgrp	notequal	vmath.html#notEqual-procs-all	proc		925
+nimgrp	!=	vmath.html#!=-procs-all	proc		740
+nimgrp	ivec3	vmath.html#ivec3-procs-all	proc		652
+nimgrp	lessthanequal	vmath.html#lessThanEqual-procs-all	proc		921
+nimgrp	lengthsq	vmath.html#lengthSq-procs-all	proc		948
+nimgrp	greaterthanequal	vmath.html#greaterThanEqual-procs-all	proc		923
+nimgrp	uvec2	vmath.html#uvec2-procs-all	proc		651
+nimgrp	dmat3	vmath.html#dmat3-procs-all	proc		1156
+nimgrp	dir	vmath.html#dir-procs-all	proc		1063
+nimgrp	mod	vmath.html#mod-procs-all	proc		817
+nimgrp	uvec3	vmath.html#uvec3-procs-all	proc		652
+nimgrp	inversesqrt	vmath.html#inversesqrt-procs-all	proc		575
+nimgrp	min	vmath.html#min-procs-all	proc		1072
+nimgrp	bvec4	vmath.html#bvec4-procs-all	proc		653
+nimgrp	pos=	vmath.html#pos=-procs-all	proc		1240
+nimgrp	dvec3	vmath.html#dvec3-procs-all	proc		652
+nimgrp	toangles	vmath.html#toAngles-procs-all	proc		1662
+nimgrp	==	vmath.html#==-procs-all	proc		731
+nimgrp	/	vmath.html#/-procs-all	proc		816
+nimgrp	exp	vmath.html#exp-procs-all	proc		891
+nimgrp	dquat	vmath.html#dquat-procs-all	proc		1872
+nimgrp	dmat4	vmath.html#dmat4-procs-all	proc		1165
+nimgrp	mix	vmath.html#mix-procs-all	proc		579
+nimgrp	*	vmath.html#*-procs-all	proc		815
+nimgrp	arctan	vmath.html#arctan-procs-all	proc		885
+nimgrp	*=	vmath.html#*=-procs-all	proc		854
+nimgrp	determinant	vmath.html#determinant-procs-all	proc		1419
+nimgrp	transpose	vmath.html#transpose-procs-all	proc		1395
+nimgrp	zmod	vmath.html#zmod-procs-all	proc		641
+nimgrp	uvec4	vmath.html#uvec4-procs-all	proc		653
+nimgrp	arccos	vmath.html#arccos-procs-all	proc		884
+nimgrp	bvec3	vmath.html#bvec3-procs-all	proc		652
+nimgrp	quantize	vmath.html#quantize-procs-all	proc		560
+nimgrp	ivec4	vmath.html#ivec4-procs-all	proc		653
+nimgrp	len	vmath.html#len-procs-all	proc		523
+nimgrp	mat2	vmath.html#mat2-procs-all	proc		1149
+nimgrp	+=	vmath.html#+=-procs-all	proc		852
+nimgrp	tanh	vmath.html#tanh-procs-all	proc		888
+nimgrp	length	vmath.html#length-procs-all	proc		939
+nimgrp	inverse	vmath.html#inverse-procs-all	proc		1459
+nimgrp	dvec2	vmath.html#dvec2-procs-all	proc		651
+nimgrp	max	vmath.html#max-procs-all	proc		1090
+nimgrp	abs	vmath.html#abs-procs-all	proc		897
+nimgrp	mat3	vmath.html#mat3-procs-all	proc		1156
+nimgrp	step	vmath.html#step-procs-all	proc		586
+nimgrp	bvec2	vmath.html#bvec2-procs-all	proc		651
+nimgrp	smoothstep	vmath.html#smoothstep-procs-all	proc		590
+nimgrp	-=	vmath.html#-=-procs-all	proc		853
+nimgrp	dvec4	vmath.html#dvec4-procs-all	proc		653
+nimgrp	greaterthan	vmath.html#greaterThan-procs-all	proc		922
+nimgrp	angle	vmath.html#angle-procs-all	proc		1852
+nimgrp	vec4	vmath.html#vec4-procs-all	proc		653
+nimgrp	vec3	vmath.html#vec3-procs-all	proc		652
+nimgrp	todegrees	vmath.html#toDegrees-procs-all	proc		625
+nimgrp	lookat	vmath.html#lookAt-procs-all	proc		1767
+nimgrp	tan	vmath.html#tan-procs-all	proc		882
+nimgrp	sin	vmath.html#sin-procs-all	proc		880
+nimgrp	clamp	vmath.html#clamp-procs-all	proc		1108
+nimgrp	translate	vmath.html#translate-procs-all	proc		1558
+nimgrp	exp2	vmath.html#exp2-procs-all	proc		889
+nimgrp	pos	vmath.html#pos-procs-all	proc		1237
+nimgrp	fract	vmath.html#fract-procs-all	proc		564
+nimgrp	scale	vmath.html#scale-procs-all	proc		1541
+nimgrp	ln	vmath.html#ln-procs-all	proc		892
+nimgrp	+	vmath.html#+-procs-all	proc		813
+nimgrp	sqrt	vmath.html#sqrt-procs-all	proc		894
+nimgrp	~=	vmath.html#~=-procs-all	proc		547
+nimgrp	$	vmath.html#$-procs-all	proc		678
+nimgrp	trunc	vmath.html#trunc-procs-all	proc		898
+nimgrp	arcsin	vmath.html#arcsin-procs-all	proc		883
+nimgrp	mat4	vmath.html#mat4-procs-all	proc		1165
+nimgrp	div	vmath.html#div-procs-all	proc		818
+nimgrp	quat	vmath.html#quat-procs-all	proc		1872
+nimgrp	lessthan	vmath.html#lessThan-procs-all	proc		920
+nimgrp	/=	vmath.html#/=-procs-all	proc		855
+nimgrp	toradians	vmath.html#toRadians-procs-all	proc		621
+nimgrp	cos	vmath.html#cos-procs-all	proc		881
+nimgrp	vec2	vmath.html#vec2-procs-all	proc		651
+nimgrp	rotate	vmath.html#rotate-procs-all	proc		1575
+nimgrp	cosh	vmath.html#cosh-procs-all	proc		887
+nimgrp	dmat2	vmath.html#dmat2-procs-all	proc		1149
 nimgrp	x	vmath.html#x-templates-all	template		399
 nimgrp	w	vmath.html#w-templates-all	template		409
 nimgrp	y	vmath.html#y-templates-all	template		400
