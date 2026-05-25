@@ -7,3 +7,4 @@
 *.exe
 nimcache
 tests/test.js
+tests/tests.js
