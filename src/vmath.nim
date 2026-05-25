@@ -558,6 +558,15 @@ proc mix*[T: SomeFloat](a, b, v: T): T =
   ## * 0.5 -> between a and b
   v * (b - a) + a
 
+proc step*[T: SomeFloat](edge, x: T): T =
+  ## Returns 0.0 if x is less than edge, otherwise 1.0.
+  if x < edge: T(0) else: T(1)
+
+proc smoothstep*[T: SomeFloat](edge0, edge1, x: T): T =
+  ## Performs smooth Hermite interpolation between 0.0 and 1.0.
+  let t = clamp((x - edge0) / (edge1 - edge0), T(0), T(1))
+  t * t * (T(3) - T(2) * t)
+
 proc fixAngle*[T: SomeFloat](angle: T): T =
   ## Normalize the angle to be from -PI to PI radians.
   result = angle
@@ -952,6 +961,66 @@ proc mix*[T: SomeFloat](a, b, v: GVec4[T]): type(a) =
   result.y = a.y * (1.0 - v.y) + b.y * v.y
   result.z = a.z * (1.0 - v.z) + b.z * v.z
   result.w = a.w * (1.0 - v.w) + b.w * v.w
+
+proc step*[T: SomeFloat](edge, x: GVec2[T]): type(x) =
+  result.x = step(edge.x, x.x)
+  result.y = step(edge.y, x.y)
+
+proc step*[T: SomeFloat](edge, x: GVec3[T]): type(x) =
+  result.x = step(edge.x, x.x)
+  result.y = step(edge.y, x.y)
+  result.z = step(edge.z, x.z)
+
+proc step*[T: SomeFloat](edge, x: GVec4[T]): type(x) =
+  result.x = step(edge.x, x.x)
+  result.y = step(edge.y, x.y)
+  result.z = step(edge.z, x.z)
+  result.w = step(edge.w, x.w)
+
+proc step*[T: SomeFloat](edge: T, x: GVec2[T]): type(x) =
+  result.x = step(edge, x.x)
+  result.y = step(edge, x.y)
+
+proc step*[T: SomeFloat](edge: T, x: GVec3[T]): type(x) =
+  result.x = step(edge, x.x)
+  result.y = step(edge, x.y)
+  result.z = step(edge, x.z)
+
+proc step*[T: SomeFloat](edge: T, x: GVec4[T]): type(x) =
+  result.x = step(edge, x.x)
+  result.y = step(edge, x.y)
+  result.z = step(edge, x.z)
+  result.w = step(edge, x.w)
+
+proc smoothstep*[T: SomeFloat](edge0, edge1, x: GVec2[T]): type(x) =
+  result.x = smoothstep(edge0.x, edge1.x, x.x)
+  result.y = smoothstep(edge0.y, edge1.y, x.y)
+
+proc smoothstep*[T: SomeFloat](edge0, edge1, x: GVec3[T]): type(x) =
+  result.x = smoothstep(edge0.x, edge1.x, x.x)
+  result.y = smoothstep(edge0.y, edge1.y, x.y)
+  result.z = smoothstep(edge0.z, edge1.z, x.z)
+
+proc smoothstep*[T: SomeFloat](edge0, edge1, x: GVec4[T]): type(x) =
+  result.x = smoothstep(edge0.x, edge1.x, x.x)
+  result.y = smoothstep(edge0.y, edge1.y, x.y)
+  result.z = smoothstep(edge0.z, edge1.z, x.z)
+  result.w = smoothstep(edge0.w, edge1.w, x.w)
+
+proc smoothstep*[T: SomeFloat](edge0, edge1: T, x: GVec2[T]): type(x) =
+  result.x = smoothstep(edge0, edge1, x.x)
+  result.y = smoothstep(edge0, edge1, x.y)
+
+proc smoothstep*[T: SomeFloat](edge0, edge1: T, x: GVec3[T]): type(x) =
+  result.x = smoothstep(edge0, edge1, x.x)
+  result.y = smoothstep(edge0, edge1, x.y)
+  result.z = smoothstep(edge0, edge1, x.z)
+
+proc smoothstep*[T: SomeFloat](edge0, edge1: T, x: GVec4[T]): type(x) =
+  result.x = smoothstep(edge0, edge1, x.x)
+  result.y = smoothstep(edge0, edge1, x.y)
+  result.z = smoothstep(edge0, edge1, x.z)
+  result.w = smoothstep(edge0, edge1, x.w)
 
 proc cross*[T](a, b: GVec3[T]): GVec3[T] =
   gvec3(

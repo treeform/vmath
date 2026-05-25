@@ -55,6 +55,17 @@ suite "scalar utilities":
     check mix(0.0, 10.0, 0.5) ~= 5.0
     check mix(-1.0, 1.0, 0.25) ~= -0.5
 
+  test "step":
+    check step(0.5, 0.25) ~= 0.0
+    check step(0.5, 0.5) ~= 1.0
+    check step(0.5'f32, 1.0'f32) ~= 1.0'f32
+
+  test "smoothstep":
+    check smoothstep(0.0, 1.0, -1.0) ~= 0.0
+    check smoothstep(0.0, 1.0, 0.5) ~= 0.5
+    check smoothstep(0.0, 1.0, 2.0) ~= 1.0
+    check smoothstep(0.0'f32, 1.0'f32, 0.25'f32) ~= 0.15625'f32
+
   test "fixAngle":
     check fixAngle(0.1) ~= 0.1
     check fixAngle(3.1) ~= 3.1
@@ -621,6 +632,16 @@ suite "vector operations":
   test "mix (per-component vector)":
     check mix(vec2(0, 0), vec2(10, 20), vec2(0.5, 1.0)) ~= vec2(5, 20)
     check mix(vec3(0, 0, 0), vec3(10, 20, 30), vec3(0.0, 0.5, 1.0)) ~= vec3(0, 10, 30)
+
+  test "step (vector)":
+    check step(vec2(0.5, 0.5), vec2(0.25, 0.5)) == vec2(0, 1)
+    check step(0.5'f32, vec3(0.25, 0.5, 0.75)) == vec3(0, 1, 1)
+    check step(dvec2(-1, 2), dvec2(-2, 3)) == dvec2(0, 1)
+
+  test "smoothstep (vector)":
+    check smoothstep(0.0'f32, 1.0'f32, vec3(-1, 0.5, 2)) ~= vec3(0, 0.5, 1)
+    check smoothstep(vec3(0, 0, 0), vec3(1, 2, 4), vec3(0.5, 1, 2)) ~= vec3(0.5, 0.5, 0.5)
+    check smoothstep(dvec2(0, 0), dvec2(1, 1), dvec2(0.25, 0.75)) ~= dvec2(0.15625, 0.84375)
 
   test "clamp (vector bounds)":
     check clamp(vec2(5, -5), vec2(0, 0), vec2(3, 3)) == vec2(3, 0)
