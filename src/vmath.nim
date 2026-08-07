@@ -1908,14 +1908,14 @@ proc quatInverse*[T](q: GVec4[T]): GVec4[T] =
 proc orthogonal*[T](v: GVec3[T]): GVec3[T] =
   ## Returns orthogonal vector to given vector.
   let
-    v = abs(v)
+    vAbs = abs(v)
     other: type(v) =
-      if v.x < v.y:
-        if v.x < v.z:
+      if vAbs.x < vAbs.y:
+        if vAbs.x < vAbs.z:
           gvec3(T(1), 0, 0) # X_AXIS
         else:
           gvec3(T(0), 0, 1) # Z_AXIS
-      elif v.y < v.z:
+      elif vAbs.y < vAbs.z:
         gvec3(T(0), 1, 0)   # Y_AXIS
       else:
         gvec3(T(0), 0, 1)   # Z_AXIS

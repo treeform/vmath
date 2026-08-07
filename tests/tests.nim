@@ -772,10 +772,10 @@ suite "quaternion nlerp":
     check dist(nl, sl) < 0.01f
 
 suite "orthogonal vector":
-  test "orthogonal is perpendicular to abs(v)":
-    # orthogonal() uses abs(v) internally, so result is perpendicular to abs(v)
+  test "orthogonal is perpendicular to v":
     for v in [vec3(1, 0, 0), vec3(0, 1, 0), vec3(0, 0, 1),
-              vec3(1, 1, 0), vec3(1, 1, 1), vec3(3, 2, 7)]:
+              vec3(1, 1, 0), vec3(1, 1, 1), vec3(3, 2, 7),
+              vec3(0, -1, 1), vec3(-3, 2, -7)]:
       let o = orthogonal(v)
       check abs(dot(v, o)) < 1e-5f
 
@@ -1163,6 +1163,13 @@ suite "fromTwoVectors":
     let
       a = vec3(1, 0, 0)
       b = vec3(0, 1, 0)
+      q = fromTwoVectors(a, b)
+    check q.mat4() * a ~= b
+
+  test "antiparallel mixed-sign vectors":
+    let
+      a = normalize(vec3(0, -1, 1))
+      b = -a
       q = fromTwoVectors(a, b)
     check q.mat4() * a ~= b
 
