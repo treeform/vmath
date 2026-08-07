@@ -32,7 +32,7 @@ float64 double DVec2 DVec3 DVec4 DMat3 DMat4 DQuat
 
 import
   std/[macros, math, strutils]
-export math
+export math except isNan
 
 {.push inline.}
 when defined(release):
@@ -633,6 +633,10 @@ proc toRadians*(deg: SomeInteger): float32 =
 proc toDegrees*(deg: SomeInteger): float32 =
   ## Convert degrees to radians.
   deg.float32.toDegrees
+
+proc isNan*(x: SomeFloat): bool =
+  ## Returns true if x is NaN.
+  x != x
 
 proc isInf*(x: SomeFloat): bool =
   ## Returns true if x is positive or negative infinity.

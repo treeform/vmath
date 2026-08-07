@@ -157,7 +157,7 @@ We run identical math operations across vmath, GLSL, [nim-glm](https://github.co
 
 Version `3.1.0` adds explicit floating-point classification functions: `isNan`, `isInf`, and `isFinite`.
 
-* **Breaking change:** `isNan(x)` now uses the standard `std/math.isNaN` behavior and returns true only for NaN. It previously also returned true for positive and negative infinity. Replace old checks with `not isFinite(x)` when both NaN and infinity should be rejected.
+* **Breaking change:** `isNan(x)` now returns true only for NaN, matching standard `std/math.isNaN` behavior. It previously also returned true for positive and negative infinity. Replace old checks with `not isFinite(x)` when both NaN and infinity should be rejected.
 * **`isInf(x)` added:** Returns true for positive or negative infinity.
 * **`isFinite(x)` added:** Returns true for usable finite values, including zero and subnormal values.
 
