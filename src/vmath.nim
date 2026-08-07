@@ -635,8 +635,16 @@ proc toDegrees*(deg: SomeInteger): float32 =
   deg.float32.toDegrees
 
 proc isNan*(x: SomeFloat): bool =
-  ## Returns true if number is a NaN.
-  x != 0.0 and (x != x or x * 0.5 == x)
+  ## Returns true if x is NaN.
+  x != x
+
+proc isInf*(x: SomeFloat): bool =
+  ## Returns true if x is positive or negative infinity.
+  x == Inf or x == -Inf
+
+proc isFinite*(x: SomeFloat): bool =
+  ## Returns true if x is finite, including zero and subnormal values.
+  x == x and x != Inf and x != -Inf
 
 proc `zmod`*(a, b: float32): float32 =
   ## Float point mod.
