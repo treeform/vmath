@@ -1166,6 +1166,13 @@ suite "fromTwoVectors":
       q = fromTwoVectors(a, b)
     check q.mat4() * a ~= b
 
+  test "antiparallel mixed-sign vectors":
+    let
+      a = normalize(vec3(0, -1, 1))
+      b = -a
+      q = fromTwoVectors(a, b)
+    check q.mat4() * a ~= b
+
   test "fromTwoVectors fuzz":
     for _ in 0 ..< 1000:
       let
