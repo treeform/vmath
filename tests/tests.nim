@@ -98,10 +98,27 @@ suite "scalar utilities":
     check angleBetween(0.2, 0.1) ~= -0.1
 
   test "isNan":
-    check vmath.isNan(float32(0.3)) == false
-    check vmath.isNan(float32(0.0)) == false
-    check vmath.isNan(float32(0.3/0.0)) == true
-    check vmath.isNan(float64(0.3/0.0)) == true
+    check not vmath.isNan(0.3'f32)
+    check not vmath.isNan(0.0'f32)
+    check vmath.isNan(NaN.float32)
+    check vmath.isNan(NaN.float64)
+    check not vmath.isNan(Inf.float32)
+    check not vmath.isNan(NegInf.float64)
+
+  test "isInf":
+    check vmath.isInf(Inf.float32)
+    check vmath.isInf(NegInf.float64)
+    check not vmath.isInf(NaN.float32)
+    check not vmath.isInf(0.0'f64)
+
+  test "isFinite":
+    check vmath.isFinite(0.0'f32)
+    check vmath.isFinite(0.3'f64)
+    check vmath.isFinite(1.0e-45'f32) # Subnormal float32.
+    check vmath.isFinite(5.0e-324'f64) # Subnormal float64.
+    check not vmath.isFinite(NaN.float32)
+    check not vmath.isFinite(Inf.float64)
+    check not vmath.isFinite(NegInf.float32)
 
 suite "vector memory layout":
   test "vec2 cast to array":

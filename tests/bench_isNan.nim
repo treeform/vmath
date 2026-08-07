@@ -29,14 +29,16 @@ assert isNaNRyan(5.0e-324) == false
 
 assert isNan(float32(0.3)) == false
 assert isNan(float32(0.0)) == false
-assert isNan(float32(0.3/0.0)) == true
-assert isNan(float32(-0.3/0.0)) == true
+assert isNan(float32(0.3/0.0)) == false
+assert isNan(float32(-0.3/0.0)) == false
+assert isNan(float32(0.0/0.0)) == true
 assert isNan(float32(5.0e-324)) == false
 
 assert isNan(float64(0.3)) == false
 assert isNan(float64(0.0)) == false
-assert isNan(float64(0.3/0.0)) == true
-assert isNan(float64(-0.3/0.0)) == true
+assert isNan(float64(0.3/0.0)) == false
+assert isNan(float64(-0.3/0.0)) == false
+assert isNan(float64(0.0/0.0)) == true
 assert isNan(float64(5.0e-324)) == false
 
 assert isNan3(float32(0.3)) == false
