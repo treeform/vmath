@@ -153,6 +153,8 @@ We run identical math operations across vmath, GLSL, [nim-glm](https://github.co
 
 ❌ **Orthogonal vector note**: Jolt Physics provides `GetNormalizedPerpendicular()`. vmath's `orthogonal()` returns a perpendicular vector without normalizing it. GLSL and nim-GLM have no direct equivalent, while gl-matrix only computes one internally as part of `quat.rotationTo()`.
 
+ℹ️ **fromTwoVectors note**: vmath's `fromTwoVectors(a, b)` normalizes its inputs and handles antiparallel vectors with an orthogonal fallback. gl-matrix exposes the equivalent `quat.rotationTo(out, a, b)`, assumes unit inputs, and handles nearly antiparallel vectors. Jolt Physics exposes `Quat::sFromTo(from, to)`, supports arbitrary vector lengths, and handles antiparallel and zero-length inputs. nim-GLM exposes `quat(u, v)`, but assumes unit inputs and does not special-case antiparallel vectors. GLSL has no built-in quaternion or `fromTwoVectors`; the conformance suite supplies its own implementation for comparison.
+
 # 2.x.x to 3.0.0 vmath breaking changes:
 
 Version `3.0.0` changed rotation to be CCW (counter-clockwise) and updated the quaternion conventions to match GLSL, GLM, gl-matrix. Added a multi-library conformance suite.
