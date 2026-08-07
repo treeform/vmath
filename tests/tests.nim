@@ -120,6 +120,23 @@ suite "scalar utilities":
     check not vmath.isFinite(Inf.float64)
     check not vmath.isFinite(NegInf.float32)
 
+  test "float classification matches std/math":
+    for x in [NaN.float32, Inf.float32, NegInf.float32, -0.0'f32,
+              0.0'f32, 1.0e-45'f32, -1.0e-45'f32, 1.0'f32, -1.0'f32]:
+      let standardClass = math.classify(x.float64)
+      check vmath.isNan(x) == math.isNaN(x)
+      check vmath.isInf(x) == (standardClass in {fcInf, fcNegInf})
+      check vmath.isFinite(x) ==
+        (standardClass notin {fcNan, fcInf, fcNegInf})
+
+    for x in [NaN.float64, Inf.float64, NegInf.float64, -0.0'f64,
+              0.0'f64, 5.0e-324'f64, -5.0e-324'f64, 1.0'f64, -1.0'f64]:
+      let standardClass = math.classify(x)
+      check vmath.isNan(x) == math.isNaN(x)
+      check vmath.isInf(x) == (standardClass in {fcInf, fcNegInf})
+      check vmath.isFinite(x) ==
+        (standardClass notin {fcNan, fcInf, fcNegInf})
+
 suite "vector memory layout":
   test "vec2 cast to array":
     when not defined(js):
