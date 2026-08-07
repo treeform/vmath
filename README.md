@@ -136,6 +136,7 @@ We run identical math operations across vmath, GLSL, [nim-glm](https://github.co
 | Quaternion to axis-angle   | ✅ | ✅ | ✅ | ✅ | ✅ |
 | Matrix inverse             | ✅ | ✅ | ✅ | ✅ | ✅ |
 | Cross product              | ✅ | ✅ | ✅ | ✅ | ✅ |
+| Orthogonal vector          | ✅ | ❌ | ❌ | ❌ | ✅ |
 | Slerp                      | ✅ | ✅ | ✅ | ✅ | ✅ |
 | fromTwoVectors             | ✅ | ✅ | ✅ | ✅ | ✅ |
 | Quat decomposition (sign)  | ✅ | ✅ | ✅ | ✅ | ✅ |
@@ -149,6 +150,8 @@ We run identical math operations across vmath, GLSL, [nim-glm](https://github.co
 ❌ **Perspective matrix**: Jolt Physics uses Z range `[0, 1]` (Vulkan/DirectX convention) while vmath uses Z range `[-1, 1]` (OpenGL convention). The X and Y scaling match, but Z-related elements differ.
 
 ❌ **Element access note**: Jolt does convention differs from vmath's math-style `[row, col]` interpretation it follows the DirectX/HLSL convention.
+
+❌ **Orthogonal vector note**: Jolt Physics provides `GetNormalizedPerpendicular()`. vmath's `orthogonal()` returns a perpendicular vector without normalizing it. GLSL and nim-GLM have no direct equivalent, while gl-matrix only computes one internally as part of `quat.rotationTo()`.
 
 # 2.x.x to 3.0.0 vmath breaking changes:
 
