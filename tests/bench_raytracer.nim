@@ -6,7 +6,7 @@ import
   std/math,
   benchy, chroma, pixie, vmath
 
-{.push inline, noinit, checks: off.}
+{.push inline, checks: off.}
 
 type
   SurfaceType = enum
@@ -21,7 +21,7 @@ type
   Ray = object
     start, dir: Vec3
 
-  Thing = ref object
+  Thing = object
     surfaceType: SurfaceType
     case objectType: ObjectType
     of Sphere:
@@ -32,7 +32,7 @@ type
       offset: float32
 
   Intersection = object
-    thing: Thing
+    thingIdx: int
     ray: Ray
     dist: float32
 
@@ -40,7 +40,7 @@ type
     pos: Vec3
     color: Color
 
-  Scene = ref object
+  Scene = object
     maxDepth: int
     things: seq[Thing]
     lights: seq[Light]
@@ -84,6 +84,8 @@ proc getNormal(obj: Thing, pos: Vec3): Vec3 =
       return obj.normal
 
 proc objectIntersect(obj: Thing, ray: Ray): Intersection =
+  result.thingIdx = -1
+  result.dist = 0.0
   case obj.objectType:
     of Sphere:
       let
@@ -95,14 +97,12 @@ proc objectIntersect(obj: Thing, ray: Ray): Intersection =
         if disc >= 0:
           dist = v - sqrt(disc)
         if dist != 0.0:
-          result.thing = obj
           result.ray = ray
           result.dist = dist
     of Plane:
       let denom = obj.normal.dot(ray.dir)
       if denom <= 0:
         result.dist = (obj.normal.dot(ray.start) + obj.offset) / (-denom)
-        result.thing = obj
         result.ray = ray
 
 proc newSphere(center: Vec3, radius: float32, surfaceType: SurfaceType): Thing =
@@ -132,7 +132,6 @@ proc getSurfaceProperties(obj: Thing, pos: Vec3): SurfaceProperties =
       result.roughness = 150.0
 
 proc newScene(): Scene =
-  result = Scene()
   result.maxDepth = 5
   result.things = @[
     newPlane(vec3(0.0, 1.0, 0.0), 0.0, CheckerBoardSurface),
@@ -149,16 +148,18 @@ proc newScene(): Scene =
 
 proc intersections(scene: Scene, ray: Ray): Intersection =
   var closest: float32 = farAway
-  result.thing = nil
-  for thing in scene.things:
+  result.thingIdx = -1
+  result.dist = 0.0
+  for i, thing in scene.things:
     let intersect = objectIntersect(thing, ray)
-    if (not isNil(intersect.thing)) and (intersect.dist < closest):
+    if intersect.dist != 0.0 and intersect.dist < closest:
       result = intersect
+      result.thingIdx = i
       closest = intersect.dist
 
 proc testRay(scene: Scene, ray: Ray): float32 =
   let intersection = scene.intersections(ray)
-  if not isNil(intersection.thing):
+  if intersection.thingIdx >= 0:
     return intersection.dist
   return NaN
 
@@ -166,7 +167,7 @@ proc shade(scene: Scene, intersection: Intersection, depth: int): Color
 
 proc traceRay(scene: Scene, ray: Ray, depth: int): Color =
   let intersection = intersections(scene, ray)
-  if not isNil(intersection.thing):
+  if intersection.thingIdx >= 0:
     return scene.shade(intersection, depth)
   return background
 
@@ -213,19 +214,20 @@ proc getNaturalColor(scene: Scene, thing: Thing, pos, norm,
       result = result + lightColor + specularColor
 
 proc shade(scene: Scene, intersection: Intersection, depth: int): Color =
+  let thing = scene.things[intersection.thingIdx]
   var
     dir = intersection.ray.dir
     scaled = dir * intersection.dist
     pos = scaled + intersection.ray.start
-    normal = intersection.thing.getNormal(pos)
+    normal = thing.getNormal(pos)
     reflectDir = dir - (normal * normal.dot(dir) * 2)
-    naturalColor = background + getNaturalColor(scene, intersection.thing,
+    naturalColor = background + getNaturalColor(scene, thing,
       pos, normal, reflectDir)
     reflectedColor: Color
   if depth >= scene.maxDepth:
     reflectedColor = grey
   else:
-    reflectedColor = getReflectionColor(scene, intersection.thing, pos, normal,
+    reflectedColor = getReflectionColor(scene, thing, pos, normal,
       reflectDir, depth)
   return naturalColor + reflectedColor
 
