@@ -1666,12 +1666,14 @@ proc toAngles*[T](a: GVec3[T]): GVec3[T] =
   ##   roll (z rotation) - always 0 in vector case
   ## All angles assume radians.
   if a == gvec3[T](T(0), T(0), T(0)):
-    return
+    return gvec3[T](T(0), T(0), T(0))
   let
     yaw = -arctan2(a.x, a.z)
     pitch = -arctan2(sqrt(a.x*a.x + a.z*a.z), a.y) + T(PI/2)
+  # Every field is assigned because release builds use noinit.
   result.x = pitch.fixAngle
   result.y = yaw.fixAngle
+  result.z = T(0)
 
 proc toAngles*[T](origin, target: GVec3[T]): GVec3[T] =
   ## Gives Euler angles from origin to target
@@ -1691,8 +1693,10 @@ proc toAngles*[T](m: GMat4[T]): GVec3[T] =
   let sy = clamp(-m[2, 1], T(-1), T(1))
   result.x = arcsin(sy)
   if abs(sy) > T(0.9999999):
-    # Degenerate case (gimbal lock).
+    # Degenerate case (gimbal lock). Roll is folded into yaw and set to
+    # zero explicitly because release builds use noinit.
     result.y = arctan2(-m[0, 2], m[0, 0])
+    result.z = T(0)
   else:
     # Normal case.
     result.y = arctan2(m[2, 0], m[2, 2])
