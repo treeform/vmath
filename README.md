@@ -153,6 +153,14 @@ We run identical math operations across vmath, GLSL, [nim-glm](https://github.co
 
 ❌ **Orthogonal vector note**: Jolt Physics provides `GetNormalizedPerpendicular()`. vmath's `orthogonal()` returns a perpendicular vector without normalizing it. GLSL and nim-GLM have no direct equivalent, while gl-matrix only computes one internally as part of `quat.rotationTo()`.
 
+# 3.0.0 to 3.1.0 vmath changes:
+
+Version `3.1.0` adds explicit floating-point classification functions: `isNan`, `isInf`, and `isFinite`.
+
+* **Breaking change:** `isNan(x)` now returns true only for NaN, matching standard `std/math.isNaN` behavior. It previously also returned true for positive and negative infinity. Replace old checks with `not isFinite(x)` when both NaN and infinity should be rejected.
+* **`isInf(x)` added:** Returns true for positive or negative infinity.
+* **`isFinite(x)` added:** Returns true for usable finite values, including zero and subnormal values.
+
 # 2.x.x to 3.0.0 vmath breaking changes:
 
 Version `3.0.0` changed rotation to be CCW (counter-clockwise) and updated the quaternion conventions to match GLSL, GLM, gl-matrix. Added a multi-library conformance suite.
