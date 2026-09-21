@@ -21,7 +21,7 @@ for swizzle in swizzles:
       code.add &"proc {s1}{s2}*[T](a: GVec234[T]): GVec2[T] = gvec2(a[{i1}], a[{i2}])\n"
   for i1, s1 in swizzle:
     for i2, s2 in swizzle:
-      code.add &"proc `{s1}{s2}=`*[T](a: var GVec234[T], b: GVec2[T]) = (let b = b; a[{i1}] = b.x; a[{i2}] = b.y)\n"
+      code.add &"proc `{s1}{s2}=`*[T](a: var GVec234[T], b: GVec2[T]) = (let x = b.x; let y = b.y; a[{i1}] = x; a[{i2}] = y)\n"
 
 for swizzle in swizzles:
   code.add "\n# 3 x " & swizzle & "\n"
@@ -32,7 +32,7 @@ for swizzle in swizzles:
   for i1, s1 in swizzle:
     for i2, s2 in swizzle:
       for i3, s3 in swizzle:
-        code.add &"proc `{s1}{s2}{s3}=`*[T](a: var GVec234[T], b: GVec3[T]) = (let b = b; a[{i1}] = b.x; a[{i2}] = b.y; a[{i3}] = b.z)\n"
+        code.add &"proc `{s1}{s2}{s3}=`*[T](a: var GVec234[T], b: GVec3[T]) = (let x = b.x; let y = b.y; let z = b.z; a[{i1}] = x; a[{i2}] = y; a[{i3}] = z)\n"
 
 for swizzle in swizzles:
   code.add "\n# 4 x " & swizzle & "\n"
@@ -45,6 +45,6 @@ for swizzle in swizzles:
     for i2, s2 in swizzle:
       for i3, s3 in swizzle:
         for i4, s4 in swizzle:
-          code.add &"proc `{s1}{s2}{s3}{s4}=`*[T](a: var GVec234[T], b: GVec4[T]) = (let b = b; a[{i1}] = b.x; a[{i2}] = b.y; a[{i3}] = b.z; a[{i4}] = b.w)\n"
+          code.add &"proc `{s1}{s2}{s3}{s4}=`*[T](a: var GVec234[T], b: GVec4[T]) = (let x = b.x; let y = b.y; let z = b.z; let w = b.w; a[{i1}] = x; a[{i2}] = y; a[{i3}] = z; a[{i4}] = w)\n"
 
 writeFile("src/vmath/swizzle.nim", code)
